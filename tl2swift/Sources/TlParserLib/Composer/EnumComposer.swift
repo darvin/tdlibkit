@@ -54,7 +54,10 @@ final class EnumComposer: Composer {
     private func makeCase(for item: EnumItem, typeName: String) -> String {
         let index = item.name.index(
             item.name.startIndex,
-            offsetBy: typeName.replacingOccurrences(of: "Content", with: "").count)
+            offsetBy: typeName
+                .replacingOccurrences(of: "Content", with: "")
+                .replacingOccurrences(of: "Action", with: "")
+                .count)
         var caseName = item.name.suffix(from: index)
         // Make the string camelCase again
         caseName = caseName.prefix(1).lowercased() + caseName.dropFirst()
