@@ -181,7 +181,7 @@ final class MethodsComposer: Composer {
             return ""
                 .addLine(Constants.asyncAvailableString)
                 .addLine("private func execute<Q, R>(query: Q) async throws -> R where Q: Codable, R: Codable {")
-                .addLine("    let dto = DTO(query, encoder: self.encoder)")
+                .addLine("    let dto = DTO(query, encoder: TdApi.encoder)")
                 .addLine("    return try await withCheckedThrowingContinuation { continuation in")
                 .addLine("        try! client.send(query: dto) { result in")
                 .addLine("            if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {")
@@ -200,7 +200,7 @@ final class MethodsComposer: Composer {
                 .addLine("    completion: @escaping (Result<R, Swift.Error>) -> Void)")
                 .addLine("    where Q: Codable, R: Codable {")
                 .addBlankLine()
-                .addLine("    let dto = DTO(query, encoder: self.encoder)")
+                .addLine("    let dto = DTO(query, encoder: TdApi.encoder)")
                 .addLine("    try! client.send(query: dto) { result in")
                 .addLine("        if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {")
                 .addLine("            completion(.failure(error.payload))")
