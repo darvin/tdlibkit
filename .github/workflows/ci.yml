@@ -37,7 +37,7 @@ jobs:
           latest: true
           throwing: true
         env:
-          GITHUB_TOKEN:  ${{ secrets.GH_RELEASES_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set TDLibFramework version
         run: python3 scripts/swift_package_generator.py "${{ steps.framework_releases.outputs.tag_name }}"
@@ -61,9 +61,6 @@ jobs:
 
       - name: Download td_api.tl
         run: wget https://raw.githubusercontent.com/tdlib/td/$TDLIB_COMMIT/td/generate/scheme/td_api.tl
-
-      - name: Download Generator
-        run: git clone https://github.com/Swiftgram/tl2swift
 
       - name: Run Generator
         working-directory: tl2swift
