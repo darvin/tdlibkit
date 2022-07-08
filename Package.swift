@@ -6,10 +6,8 @@ import PackageDescription
 let package = Package(
     name: "TDLibKit",
     platforms: [
-        .iOS(.v9),
-        .macOS(.v10_12),
-        .watchOS(.v2), // Based on iOS 9 version
-        .tvOS(.v9) // Based on iOS 9 version
+        .iOS(.v15),
+        .macOS(.v12)
     ],
     products: [
         .library(
