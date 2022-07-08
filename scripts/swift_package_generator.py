@@ -1,7 +1,7 @@
 import argparse
 
 def get_file_content(tdlibframework_version):
-    return f"""// swift-tools-version:5.3
+    return f"""// swift-tools-version:5.6
 // DO NOT EDIT! Generated automatically. See scripts/swift_package_generator.py
 
 import PackageDescription
@@ -18,7 +18,7 @@ let package = Package(
             targets: ["TDLibKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Swiftgram/TDLibFramework", .exact("{tdlibframework_version}")),
+        .package(url: "https://github.com/Swiftgram/TDLibFramework", exact: "{tdlibframework_version}"),
     ],
     targets: [
         .target(
