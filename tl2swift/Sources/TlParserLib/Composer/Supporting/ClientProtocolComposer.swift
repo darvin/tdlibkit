@@ -14,6 +14,8 @@ final class ClientProtocolComposer: Composer {
         return ""
             .addLine("/// Basic protocol for communicate with TdLib.")
             .addLine("public protocol TdClient {")
+            .addLine("    /// An AsyncStream that deliveres TDLib updates.")
+            .addLine("    var updateStream: AsyncStream<Update> { get }")
             .addBlankLine()
             .addLine("    /// Receives incoming updates and request responses from the TDLib client")
             .addLine("    func run(updateHandler: @escaping (Data) -> Void)")
@@ -33,7 +35,6 @@ final class ClientProtocolComposer: Composer {
             .addLine("public protocol TdQuery {")
             .addBlankLine()
             .addLine("    func make(with extra: String?) throws -> Data")
-            .addBlankLine()
             .addLine("}")
     }
 }

@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Anton Glezman on 16/09/2019.
 //
@@ -43,11 +43,21 @@ struct TypesHelper {
     /// Masking keywords for using as struct properties or parameters
     /// - Returns: \`keyword\`
     static func maskSwiftKeyword(_ keyword: String) -> String {
-        let keywords = ["protocol", "class", "struct", "enum", "func"]
+        let keywords = [
+            "protocol",
+            "class",
+            "struct",
+            "enum",
+            "func",
+            "private",
+            "public",
+            "subscript",
+            "static",
+            "default"
+        ]
         if keywords.contains(keyword) {
             return "`\(keyword)`"
         }
         return keyword
     }
-    
 }

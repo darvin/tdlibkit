@@ -58,7 +58,8 @@ final class EnumComposer: Composer {
         var caseName = item.name.suffix(from: index)
         // Make the string camelCase again
         caseName = caseName.prefix(1).lowercased() + caseName.dropFirst()
-        return String(caseName)
+        
+        return TypesHelper.maskSwiftKeyword(String(caseName))
     }
     
     private func composeCaseItems(_ info: EnumInfo) -> String {
