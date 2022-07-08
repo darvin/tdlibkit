@@ -27,7 +27,6 @@ public protocol TdClient {
 
     /// Close connection with TDLib.
     func close()
-
 }
 
 
