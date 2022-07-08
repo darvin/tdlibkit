@@ -31,4 +31,4 @@ xcodebuild \
   -scheme ${SCHEME} \
   -sdk ${SDK} \
   -destination "${DESTINATION}" \
-  clean test
+test
