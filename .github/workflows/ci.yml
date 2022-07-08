@@ -50,7 +50,7 @@ jobs:
           TDLIB_COMMIT=$(python3 scripts/parse_tdlib_version.py commit)
           TDLIB_VERSION=$(python3 scripts/parse_tdlib_version.py version)
           PACKAGE_VERSION=$(cat version | python3 -c "print(input().strip())")
-          RELEASE_TAG=${PACKAGE_VERSION}-tdlib-${TDLIB_VERSION}-${TDLIB_COMMIT}
+          RELEASE_TAG=${PACKAGE_VERSION}-${TDLIB_VERSION}-${TDLIB_COMMIT}
           TDLIB_COMMIT_URL=${{ env.TDLIB_REPO }}/tree/${TDLIB_COMMIT}
 
           echo "TDLIB_COMMIT=$TDLIB_COMMIT" >> $GITHUB_ENV
