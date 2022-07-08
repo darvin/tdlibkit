@@ -3,7 +3,7 @@ name: CI
 # Controls when the workflow will run
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "version" # on version updates
       - "Package.swift"
