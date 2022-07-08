@@ -82,7 +82,7 @@ class TDLibKitTests: XCTestCase {
             let _ = try! await api.setTdlibParameters(parameters: params)
             let authState = try! await api.getAuthorizationState()
             switch (authState) {
-            case .authorizationStateWaitEncryptionKey:
+            case .waitEncryptionKey:
                 break
             default:
                 XCTFail("Auth state is not ready. It's \(authState)")
@@ -113,20 +113,41 @@ class TDLibKitTests: XCTestCase {
     }
     
     func testEquatableStructs() {
-        let struct1 = AddContact(contact: Contact(firstName: "John", lastName: "Appleseed", phoneNumber: "+10000000000", userId: 123456789, vcard: "empty"), sharePhoneNumber: true)
-        let struct2 = AddContact(contact: Contact(firstName: "Pavel", lastName: "Droider", phoneNumber: "+90000000000", userId: 777777777, vcard: "empty"), sharePhoneNumber: false)
-        XCTAssertNotEqual(struct1, struct2)
+        let struct1 = AddContact(
+            contact: Contact(
+                firstName: "John",
+                lastName: "Appleseed",
+                phoneNumber: "+10000000000",
+                userId: 123456789,
+                vcard: "empty"),
+            sharePhoneNumber: true)
+        let struct2 = AddContact(
+            contact: Contact(
+                firstName: "Pavel",
+                lastName: "Droider",
+                phoneNumber: "+90000000000",
+                userId: 777777777,
+                vcard: "empty"),
+            sharePhoneNumber: false)
         
+        XCTAssertNotEqual(struct1, struct2)
         XCTAssertEqual(struct1, struct1)
     }
     
     func testEquatableStructsWithEnums() {
         let struct1 = EditMessageLiveLocation(
-            chatId: 1234567, heading: 10, location: Location(horizontalAccuracy: 10.0, latitude: 358.0, longitude: 259.1), messageId: 12345, proximityAlertRadius: 30, replyMarkup: .replyMarkupInlineKeyboard(
+            chatId: 1234567,
+            heading: 10,
+            location: Location(
+                horizontalAccuracy: 10.0,
+                latitude: 358.0,
+                longitude: 259.1),
+            messageId: 12345,
+            proximityAlertRadius: 30,
+            replyMarkup: .inlineKeyboard(
                 ReplyMarkupInlineKeyboard(
                     rows: [
-                        [
-                            InlineKeyboardButton(text: "Buy me!", type: .inlineKeyboardButtonTypeBuy)
+                        [InlineKeyboardButton(text: "Buy me!", type: .buy)
                         ]
                     ]
                 )
@@ -134,18 +155,21 @@ class TDLibKitTests: XCTestCase {
         )
         
         let struct2 = EditMessageLiveLocation(
-            chatId: 1234567, heading: 10, location: Location(horizontalAccuracy: 10.0, latitude: 358.0, longitude: 259.1), messageId: 12345, proximityAlertRadius: 30, replyMarkup: .replyMarkupInlineKeyboard(
+            chatId: 1234567,
+            heading: 10,
+            location: Location(
+                horizontalAccuracy: 10.0,
+                latitude: 358.0,
+                longitude: 259.1),
+            messageId: 12345,
+            proximityAlertRadius: 30,
+            replyMarkup: .inlineKeyboard(
                 ReplyMarkupInlineKeyboard(
-                    rows: [
-                        [
-                            InlineKeyboardButton(
+                    rows: [[InlineKeyboardButton(
                                 text: "Ate me!",
-                                type: .inlineKeyboardButtonTypeUrl(
+                                type: .url(
                                     InlineKeyboardButtonTypeUrl(url: "https://telegram.org")
-                                )
-                            )
-                        ]
-                    ]
+                                ))]]
                 )
             )
         )
