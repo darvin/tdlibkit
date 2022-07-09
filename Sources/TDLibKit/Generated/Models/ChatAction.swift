@@ -14,49 +14,49 @@ import Foundation
 public enum ChatAction: Codable, Equatable, Hashable {
 
     /// The user is typing a message
-    case actionTyping
+    case typing
 
     /// The user is recording a video
-    case actionRecordingVideo
+    case recordingVideo
 
     /// The user is uploading a video
-    case actionUploadingVideo(ChatActionUploadingVideo)
+    case uploadingVideo(ChatActionUploadingVideo)
 
     /// The user is recording a voice note
-    case actionRecordingVoiceNote
+    case recordingVoiceNote
 
     /// The user is uploading a voice note
-    case actionUploadingVoiceNote(ChatActionUploadingVoiceNote)
+    case uploadingVoiceNote(ChatActionUploadingVoiceNote)
 
     /// The user is uploading a photo
-    case actionUploadingPhoto(ChatActionUploadingPhoto)
+    case uploadingPhoto(ChatActionUploadingPhoto)
 
     /// The user is uploading a document
-    case actionUploadingDocument(ChatActionUploadingDocument)
+    case uploadingDocument(ChatActionUploadingDocument)
 
     /// The user is picking a sticker to send
-    case actionChoosingSticker
+    case choosingSticker
 
     /// The user is picking a location or venue to send
-    case actionChoosingLocation
+    case choosingLocation
 
     /// The user is picking a contact to send
-    case actionChoosingContact
+    case choosingContact
 
     /// The user has started to play a game
-    case actionStartPlayingGame
+    case startPlayingGame
 
     /// The user is recording a video note
-    case actionRecordingVideoNote
+    case recordingVideoNote
 
     /// The user is uploading a video note
-    case actionUploadingVideoNote(ChatActionUploadingVideoNote)
+    case uploadingVideoNote(ChatActionUploadingVideoNote)
 
     /// The user is watching animations sent by the other party by clicking on an animated emoji
-    case actionWatchingAnimations(ChatActionWatchingAnimations)
+    case watchingAnimations(ChatActionWatchingAnimations)
 
     /// The user has canceled the previous action
-    case actionCancel
+    case cancel
 
 
     private enum Kind: String, Codable {
@@ -82,82 +82,82 @@ public enum ChatAction: Codable, Equatable, Hashable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .chatActionTyping:
-            self = .actionTyping
+            self = .typing
         case .chatActionRecordingVideo:
-            self = .actionRecordingVideo
+            self = .recordingVideo
         case .chatActionUploadingVideo:
             let value = try ChatActionUploadingVideo(from: decoder)
-            self = .actionUploadingVideo(value)
+            self = .uploadingVideo(value)
         case .chatActionRecordingVoiceNote:
-            self = .actionRecordingVoiceNote
+            self = .recordingVoiceNote
         case .chatActionUploadingVoiceNote:
             let value = try ChatActionUploadingVoiceNote(from: decoder)
-            self = .actionUploadingVoiceNote(value)
+            self = .uploadingVoiceNote(value)
         case .chatActionUploadingPhoto:
             let value = try ChatActionUploadingPhoto(from: decoder)
-            self = .actionUploadingPhoto(value)
+            self = .uploadingPhoto(value)
         case .chatActionUploadingDocument:
             let value = try ChatActionUploadingDocument(from: decoder)
-            self = .actionUploadingDocument(value)
+            self = .uploadingDocument(value)
         case .chatActionChoosingSticker:
-            self = .actionChoosingSticker
+            self = .choosingSticker
         case .chatActionChoosingLocation:
-            self = .actionChoosingLocation
+            self = .choosingLocation
         case .chatActionChoosingContact:
-            self = .actionChoosingContact
+            self = .choosingContact
         case .chatActionStartPlayingGame:
-            self = .actionStartPlayingGame
+            self = .startPlayingGame
         case .chatActionRecordingVideoNote:
-            self = .actionRecordingVideoNote
+            self = .recordingVideoNote
         case .chatActionUploadingVideoNote:
             let value = try ChatActionUploadingVideoNote(from: decoder)
-            self = .actionUploadingVideoNote(value)
+            self = .uploadingVideoNote(value)
         case .chatActionWatchingAnimations:
             let value = try ChatActionWatchingAnimations(from: decoder)
-            self = .actionWatchingAnimations(value)
+            self = .watchingAnimations(value)
         case .chatActionCancel:
-            self = .actionCancel
+            self = .cancel
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .actionTyping:
+        case .typing:
             try container.encode(Kind.chatActionTyping, forKey: .type)
-        case .actionRecordingVideo:
+        case .recordingVideo:
             try container.encode(Kind.chatActionRecordingVideo, forKey: .type)
-        case .actionUploadingVideo(let value):
+        case .uploadingVideo(let value):
             try container.encode(Kind.chatActionUploadingVideo, forKey: .type)
             try value.encode(to: encoder)
-        case .actionRecordingVoiceNote:
+        case .recordingVoiceNote:
             try container.encode(Kind.chatActionRecordingVoiceNote, forKey: .type)
-        case .actionUploadingVoiceNote(let value):
+        case .uploadingVoiceNote(let value):
             try container.encode(Kind.chatActionUploadingVoiceNote, forKey: .type)
             try value.encode(to: encoder)
-        case .actionUploadingPhoto(let value):
+        case .uploadingPhoto(let value):
             try container.encode(Kind.chatActionUploadingPhoto, forKey: .type)
             try value.encode(to: encoder)
-        case .actionUploadingDocument(let value):
+        case .uploadingDocument(let value):
             try container.encode(Kind.chatActionUploadingDocument, forKey: .type)
             try value.encode(to: encoder)
-        case .actionChoosingSticker:
+        case .choosingSticker:
             try container.encode(Kind.chatActionChoosingSticker, forKey: .type)
-        case .actionChoosingLocation:
+        case .choosingLocation:
             try container.encode(Kind.chatActionChoosingLocation, forKey: .type)
-        case .actionChoosingContact:
+        case .choosingContact:
             try container.encode(Kind.chatActionChoosingContact, forKey: .type)
-        case .actionStartPlayingGame:
+        case .startPlayingGame:
             try container.encode(Kind.chatActionStartPlayingGame, forKey: .type)
-        case .actionRecordingVideoNote:
+        case .recordingVideoNote:
             try container.encode(Kind.chatActionRecordingVideoNote, forKey: .type)
-        case .actionUploadingVideoNote(let value):
+        case .uploadingVideoNote(let value):
             try container.encode(Kind.chatActionUploadingVideoNote, forKey: .type)
             try value.encode(to: encoder)
-        case .actionWatchingAnimations(let value):
+        case .watchingAnimations(let value):
             try container.encode(Kind.chatActionWatchingAnimations, forKey: .type)
             try value.encode(to: encoder)
-        case .actionCancel:
+        case .cancel:
             try container.encode(Kind.chatActionCancel, forKey: .type)
         }
     }

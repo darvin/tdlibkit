@@ -14,25 +14,25 @@ import Foundation
 public enum ChatActionBar: Codable, Equatable, Hashable {
 
     /// The chat can be reported as spam using the method reportChat with the reason chatReportReasonSpam
-    case ionBarReportSpam(ChatActionBarReportSpam)
+    case reportSpam(ChatActionBarReportSpam)
 
     /// The chat is a location-based supergroup, which can be reported as having unrelated location using the method reportChat with the reason chatReportReasonUnrelatedLocation
-    case ionBarReportUnrelatedLocation
+    case reportUnrelatedLocation
 
     /// The chat is a recently created group chat to which new members can be invited
-    case ionBarInviteMembers
+    case inviteMembers
 
     /// The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method toggleMessageSenderIsBlocked, or the other user can be added to the contact list using the method addContact
-    case ionBarReportAddBlock(ChatActionBarReportAddBlock)
+    case reportAddBlock(ChatActionBarReportAddBlock)
 
     /// The chat is a private or secret chat and the other user can be added to the contact list using the method addContact
-    case ionBarAddContact
+    case addContact
 
     /// The chat is a private or secret chat with a mutual contact and the user's phone number can be shared with the other user using the method sharePhoneNumber
-    case ionBarSharePhoneNumber
+    case sharePhoneNumber
 
     /// The chat is a private chat with an administrator of a chat to which the user sent join request
-    case ionBarJoinRequest(ChatActionBarJoinRequest)
+    case joinRequest(ChatActionBarJoinRequest)
 
 
     private enum Kind: String, Codable {
@@ -51,42 +51,42 @@ public enum ChatActionBar: Codable, Equatable, Hashable {
         switch type {
         case .chatActionBarReportSpam:
             let value = try ChatActionBarReportSpam(from: decoder)
-            self = .ionBarReportSpam(value)
+            self = .reportSpam(value)
         case .chatActionBarReportUnrelatedLocation:
-            self = .ionBarReportUnrelatedLocation
+            self = .reportUnrelatedLocation
         case .chatActionBarInviteMembers:
-            self = .ionBarInviteMembers
+            self = .inviteMembers
         case .chatActionBarReportAddBlock:
             let value = try ChatActionBarReportAddBlock(from: decoder)
-            self = .ionBarReportAddBlock(value)
+            self = .reportAddBlock(value)
         case .chatActionBarAddContact:
-            self = .ionBarAddContact
+            self = .addContact
         case .chatActionBarSharePhoneNumber:
-            self = .ionBarSharePhoneNumber
+            self = .sharePhoneNumber
         case .chatActionBarJoinRequest:
             let value = try ChatActionBarJoinRequest(from: decoder)
-            self = .ionBarJoinRequest(value)
+            self = .joinRequest(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .ionBarReportSpam(let value):
+        case .reportSpam(let value):
             try container.encode(Kind.chatActionBarReportSpam, forKey: .type)
             try value.encode(to: encoder)
-        case .ionBarReportUnrelatedLocation:
+        case .reportUnrelatedLocation:
             try container.encode(Kind.chatActionBarReportUnrelatedLocation, forKey: .type)
-        case .ionBarInviteMembers:
+        case .inviteMembers:
             try container.encode(Kind.chatActionBarInviteMembers, forKey: .type)
-        case .ionBarReportAddBlock(let value):
+        case .reportAddBlock(let value):
             try container.encode(Kind.chatActionBarReportAddBlock, forKey: .type)
             try value.encode(to: encoder)
-        case .ionBarAddContact:
+        case .addContact:
             try container.encode(Kind.chatActionBarAddContact, forKey: .type)
-        case .ionBarSharePhoneNumber:
+        case .sharePhoneNumber:
             try container.encode(Kind.chatActionBarSharePhoneNumber, forKey: .type)
-        case .ionBarJoinRequest(let value):
+        case .joinRequest(let value):
             try container.encode(Kind.chatActionBarJoinRequest, forKey: .type)
             try value.encode(to: encoder)
         }

@@ -14,22 +14,22 @@ import Foundation
 public enum SuggestedAction: Codable, Equatable, Hashable {
 
     /// Suggests the user to enable "archive_and_mute_new_chats_from_unknown_users" option
-    case actionEnableArchiveAndMuteNewChats
+    case enableArchiveAndMuteNewChats
 
     /// Suggests the user to check whether they still remember their 2-step verification password
-    case actionCheckPassword
+    case checkPassword
 
     /// Suggests the user to check whether authorization phone number is correct and change the phone number if it is inaccessible
-    case actionCheckPhoneNumber
+    case checkPhoneNumber
 
     /// Suggests the user to view a hint about the meaning of one and two check marks on sent messages
-    case actionViewChecksHint
+    case viewChecksHint
 
     /// Suggests the user to convert specified supergroup to a broadcast group
-    case actionConvertToBroadcastGroup(SuggestedActionConvertToBroadcastGroup)
+    case convertToBroadcastGroup(SuggestedActionConvertToBroadcastGroup)
 
     /// Suggests the user to set a 2-step verification password to be able to log in again
-    case actionSetPassword(SuggestedActionSetPassword)
+    case setPassword(SuggestedActionSetPassword)
 
 
     private enum Kind: String, Codable {
@@ -46,37 +46,37 @@ public enum SuggestedAction: Codable, Equatable, Hashable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .suggestedActionEnableArchiveAndMuteNewChats:
-            self = .actionEnableArchiveAndMuteNewChats
+            self = .enableArchiveAndMuteNewChats
         case .suggestedActionCheckPassword:
-            self = .actionCheckPassword
+            self = .checkPassword
         case .suggestedActionCheckPhoneNumber:
-            self = .actionCheckPhoneNumber
+            self = .checkPhoneNumber
         case .suggestedActionViewChecksHint:
-            self = .actionViewChecksHint
+            self = .viewChecksHint
         case .suggestedActionConvertToBroadcastGroup:
             let value = try SuggestedActionConvertToBroadcastGroup(from: decoder)
-            self = .actionConvertToBroadcastGroup(value)
+            self = .convertToBroadcastGroup(value)
         case .suggestedActionSetPassword:
             let value = try SuggestedActionSetPassword(from: decoder)
-            self = .actionSetPassword(value)
+            self = .setPassword(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .actionEnableArchiveAndMuteNewChats:
+        case .enableArchiveAndMuteNewChats:
             try container.encode(Kind.suggestedActionEnableArchiveAndMuteNewChats, forKey: .type)
-        case .actionCheckPassword:
+        case .checkPassword:
             try container.encode(Kind.suggestedActionCheckPassword, forKey: .type)
-        case .actionCheckPhoneNumber:
+        case .checkPhoneNumber:
             try container.encode(Kind.suggestedActionCheckPhoneNumber, forKey: .type)
-        case .actionViewChecksHint:
+        case .viewChecksHint:
             try container.encode(Kind.suggestedActionViewChecksHint, forKey: .type)
-        case .actionConvertToBroadcastGroup(let value):
+        case .convertToBroadcastGroup(let value):
             try container.encode(Kind.suggestedActionConvertToBroadcastGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .actionSetPassword(let value):
+        case .setPassword(let value):
             try container.encode(Kind.suggestedActionSetPassword, forKey: .type)
             try value.encode(to: encoder)
         }
