@@ -77,6 +77,10 @@ final class MethodsComposer: Composer {
         }
         
         var result = composeComment(info)
+        if info.rootName == "Ok" {
+            result = result
+                .addLine("@discardableResult")
+        }
         if paramsList.count > 1 {
             let params = paramsList.reduce("", { $0.addLine("\($1)".indent()) })
             result = result
@@ -84,11 +88,7 @@ final class MethodsComposer: Composer {
                 .append(params)
             result = result.addLine(") async throws -> \(info.rootName) {")
         } else {
-            if info.rootName == "Ok" {
-                result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws {")
-            } else {
-                result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws -> \(info.rootName) {")
-            }
+            result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws -> \(info.rootName) {")
         }
         
         let impl = composeMethodImpl(info)
@@ -146,24 +146,19 @@ final class MethodsComposer: Composer {
             result = String(result.dropLast().dropLast())
             result = result.addBlankLine().addLine(")")
         }
-        
-        if info.rootName == "Ok" {
-            return result.addLine("try await execute(query: query)")
-        } else {
-            return result.addLine("return try await execute(query: query)")
-        }
+        return result.addLine("return try await execute(query: query)")
     }
     
     private func composeExecuteFunc() -> String {
         return ""
-            .addLine("private func execute<Q, R>(query: Q) async throws -> R where Q: Codable, R: Codable {")
+            .addLine("private func execute<Query: Codable, Return: Codable>(query: Query) async throws -> Return {")
             .addLine("    let dto = DTO(query, encoder: TdApi.encoder)")
             .addLine("    return try await withCheckedThrowingContinuation { continuation in")
             .addLine("        try! client.send(query: dto) { result in")
             .addLine("            if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {")
             .addLine("                continuation.resume(with: .failure(error.payload))")
             .addLine("            } else {")
-            .addLine("                let response = TdApi.decoder.tryDecode(DTO<R>.self, from: result)")
+            .addLine("                let response = TdApi.decoder.tryDecode(DTO<Return>.self, from: result)")
             .addLine("                continuation.resume(with: response.map { $0.payload })")
             .addLine("            }")
             .addLine("        }")
