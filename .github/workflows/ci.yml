@@ -85,7 +85,7 @@ jobs:
       #   run: ./scripts/test.sh watchOS-simulator
 
       - name: Push update
-        run: git push origin main || true
+        run: git push origin master || true
 
       - name: Remove previous release
         uses: dev-drprasad/delete-tag-and-release@85fa8bcea0379a6ada9bbfdcb0a9d24d58e1a0d7
@@ -98,7 +98,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@9729932bfb75c05ad1f6e3a729294e05abaa7001
         with:
-          target_commitish: main
+          target_commitish: master
           tag_name: ${{ env.RELEASE_TAG }}
           files: ${{ env.ARTIFACT_PATH }}
           body: "TDLibKit based on TDLib-${{ env.TDLIB_VERSION }} commit [${{ env.TDLIB_COMMIT }}](${{ env.TDLIB_COMMIT_URL }})"
