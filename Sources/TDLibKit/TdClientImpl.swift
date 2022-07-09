@@ -18,6 +18,7 @@ open class TdClientImpl: TdClient {
     private var completionQueue: DispatchQueue = .main
     private var awaitingCompletions = [String: CompletionHandler]()
     private var updateHandler: ((Data) -> Void)?
+    private var updateStreamHandler: ((Update) -> Void)?
     private let logger: Logger?
     private var isClientDestroyed = true
     private var stopFlag = false
@@ -25,18 +26,12 @@ open class TdClientImpl: TdClient {
     @available(macOS 10.15, iOS 9, watchOS 2, tvOS 9, *)
     public var updateStream: AsyncStream<Update> {
         AsyncStream { continuation in
-            func handler(data: Data) {
-                do {
-                    let update = try TdApi.decoder.decode(Update.self, from: data)
-                    continuation.yield(update)
-                } catch {
-                    print(error.localizedDescription)
-                }
+            updateStreamHandler = { update in
+                continuation.yield(update)
             }
             continuation.onTermination = { @Sendable _ in
                 self.updateHandler = nil
             }
-            run(updateHandler: handler(data:))
         }
     }
     
@@ -165,7 +160,10 @@ open class TdClientImpl: TdClient {
                     self.stopFlag = true
                 }
                 self.completionQueue.async {
+                    let update = try! TdApi.decoder.decode(Update.self, from: result)
+
                     self.updateHandler?(result)
+                    self.updateStreamHandler?(update)
                 }
             }
         }
