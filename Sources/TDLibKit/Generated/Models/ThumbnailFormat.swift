@@ -11,28 +11,28 @@ import Foundation
 
 
 /// Describes format of a thumbnail
-public enum ThumbnailFormat: Codable, Equatable {
+public enum ThumbnailFormat: Codable, Equatable, Hashable {
 
     /// The thumbnail is in JPEG format
-    case thumbnailFormatJpeg
+    case jpeg
 
     /// The thumbnail is in static GIF format. It will be used only for some bot inline results
-    case thumbnailFormatGif
+    case gif
 
     /// The thumbnail is in MPEG4 format. It will be used only for some animations and videos
-    case thumbnailFormatMpeg4
+    case mpeg4
 
     /// The thumbnail is in PNG format. It will be used only for background patterns
-    case thumbnailFormatPng
+    case png
 
     /// The thumbnail is in TGS format. It will be used only for TGS sticker sets
-    case thumbnailFormatTgs
+    case tgs
 
     /// The thumbnail is in WEBM format. It will be used only for WEBM sticker sets
-    case thumbnailFormatWebm
+    case webm
 
     /// The thumbnail is in WEBP format. It will be used only for some stickers
-    case thumbnailFormatWebp
+    case webp
 
 
     private enum Kind: String, Codable {
@@ -50,38 +50,38 @@ public enum ThumbnailFormat: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .thumbnailFormatJpeg:
-            self = .thumbnailFormatJpeg
+            self = .jpeg
         case .thumbnailFormatGif:
-            self = .thumbnailFormatGif
+            self = .gif
         case .thumbnailFormatMpeg4:
-            self = .thumbnailFormatMpeg4
+            self = .mpeg4
         case .thumbnailFormatPng:
-            self = .thumbnailFormatPng
+            self = .png
         case .thumbnailFormatTgs:
-            self = .thumbnailFormatTgs
+            self = .tgs
         case .thumbnailFormatWebm:
-            self = .thumbnailFormatWebm
+            self = .webm
         case .thumbnailFormatWebp:
-            self = .thumbnailFormatWebp
+            self = .webp
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .thumbnailFormatJpeg:
+        case .jpeg:
             try container.encode(Kind.thumbnailFormatJpeg, forKey: .type)
-        case .thumbnailFormatGif:
+        case .gif:
             try container.encode(Kind.thumbnailFormatGif, forKey: .type)
-        case .thumbnailFormatMpeg4:
+        case .mpeg4:
             try container.encode(Kind.thumbnailFormatMpeg4, forKey: .type)
-        case .thumbnailFormatPng:
+        case .png:
             try container.encode(Kind.thumbnailFormatPng, forKey: .type)
-        case .thumbnailFormatTgs:
+        case .tgs:
             try container.encode(Kind.thumbnailFormatTgs, forKey: .type)
-        case .thumbnailFormatWebm:
+        case .webm:
             try container.encode(Kind.thumbnailFormatWebm, forKey: .type)
-        case .thumbnailFormatWebp:
+        case .webp:
             try container.encode(Kind.thumbnailFormatWebp, forKey: .type)
         }
     }

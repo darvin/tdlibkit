@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Describes the type of a chat
-public enum ChatType: Codable, Equatable {
+public enum ChatType: Codable, Equatable, Hashable {
 
     /// An ordinary chat with a user
-    case chatTypePrivate(ChatTypePrivate)
+    case `private`(ChatTypePrivate)
 
     /// A basic group (a chat with 0-200 other users)
-    case chatTypeBasicGroup(ChatTypeBasicGroup)
+    case basicGroup(ChatTypeBasicGroup)
 
     /// A supergroup or channel (with unlimited members)
-    case chatTypeSupergroup(ChatTypeSupergroup)
+    case supergroup(ChatTypeSupergroup)
 
     /// A secret chat with a user
-    case chatTypeSecret(ChatTypeSecret)
+    case secret(ChatTypeSecret)
 
 
     private enum Kind: String, Codable {
@@ -39,32 +39,32 @@ public enum ChatType: Codable, Equatable {
         switch type {
         case .chatTypePrivate:
             let value = try ChatTypePrivate(from: decoder)
-            self = .chatTypePrivate(value)
+            self = .`private`(value)
         case .chatTypeBasicGroup:
             let value = try ChatTypeBasicGroup(from: decoder)
-            self = .chatTypeBasicGroup(value)
+            self = .basicGroup(value)
         case .chatTypeSupergroup:
             let value = try ChatTypeSupergroup(from: decoder)
-            self = .chatTypeSupergroup(value)
+            self = .supergroup(value)
         case .chatTypeSecret:
             let value = try ChatTypeSecret(from: decoder)
-            self = .chatTypeSecret(value)
+            self = .secret(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatTypePrivate(let value):
+        case .`private`(let value):
             try container.encode(Kind.chatTypePrivate, forKey: .type)
             try value.encode(to: encoder)
-        case .chatTypeBasicGroup(let value):
+        case .basicGroup(let value):
             try container.encode(Kind.chatTypeBasicGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .chatTypeSupergroup(let value):
+        case .supergroup(let value):
             try container.encode(Kind.chatTypeSupergroup, forKey: .type)
             try value.encode(to: encoder)
-        case .chatTypeSecret(let value):
+        case .secret(let value):
             try container.encode(Kind.chatTypeSecret, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -72,7 +72,7 @@ public enum ChatType: Codable, Equatable {
 }
 
 /// An ordinary chat with a user
-public struct ChatTypePrivate: Codable, Equatable {
+public struct ChatTypePrivate: Codable, Equatable, Hashable {
 
     /// User identifier
     public let userId: Int64
@@ -84,7 +84,7 @@ public struct ChatTypePrivate: Codable, Equatable {
 }
 
 /// A basic group (a chat with 0-200 other users)
-public struct ChatTypeBasicGroup: Codable, Equatable {
+public struct ChatTypeBasicGroup: Codable, Equatable, Hashable {
 
     /// Basic group identifier
     public let basicGroupId: Int64
@@ -96,7 +96,7 @@ public struct ChatTypeBasicGroup: Codable, Equatable {
 }
 
 /// A supergroup or channel (with unlimited members)
-public struct ChatTypeSupergroup: Codable, Equatable {
+public struct ChatTypeSupergroup: Codable, Equatable, Hashable {
 
     /// True, if the supergroup is a channel
     public let isChannel: Bool
@@ -115,7 +115,7 @@ public struct ChatTypeSupergroup: Codable, Equatable {
 }
 
 /// A secret chat with a user
-public struct ChatTypeSecret: Codable, Equatable {
+public struct ChatTypeSecret: Codable, Equatable, Hashable {
 
     /// Secret chat identifier
     public let secretChatId: Int

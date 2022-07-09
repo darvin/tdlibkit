@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Contains information about a file with messages exported from another app
-public enum MessageFileType: Codable, Equatable {
+public enum MessageFileType: Codable, Equatable, Hashable {
 
     /// The messages was exported from a private chat
-    case messageFileTypePrivate(MessageFileTypePrivate)
+    case `private`(MessageFileTypePrivate)
 
     /// The messages was exported from a group chat
-    case messageFileTypeGroup(MessageFileTypeGroup)
+    case group(MessageFileTypeGroup)
 
     /// The messages was exported from a chat of unknown type
-    case messageFileTypeUnknown
+    case unknown
 
 
     private enum Kind: String, Codable {
@@ -35,32 +35,32 @@ public enum MessageFileType: Codable, Equatable {
         switch type {
         case .messageFileTypePrivate:
             let value = try MessageFileTypePrivate(from: decoder)
-            self = .messageFileTypePrivate(value)
+            self = .`private`(value)
         case .messageFileTypeGroup:
             let value = try MessageFileTypeGroup(from: decoder)
-            self = .messageFileTypeGroup(value)
+            self = .group(value)
         case .messageFileTypeUnknown:
-            self = .messageFileTypeUnknown
+            self = .unknown
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .messageFileTypePrivate(let value):
+        case .`private`(let value):
             try container.encode(Kind.messageFileTypePrivate, forKey: .type)
             try value.encode(to: encoder)
-        case .messageFileTypeGroup(let value):
+        case .group(let value):
             try container.encode(Kind.messageFileTypeGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .messageFileTypeUnknown:
+        case .unknown:
             try container.encode(Kind.messageFileTypeUnknown, forKey: .type)
         }
     }
 }
 
 /// The messages was exported from a private chat
-public struct MessageFileTypePrivate: Codable, Equatable {
+public struct MessageFileTypePrivate: Codable, Equatable, Hashable {
 
     /// Name of the other party; may be empty if unrecognized
     public let name: String
@@ -72,7 +72,7 @@ public struct MessageFileTypePrivate: Codable, Equatable {
 }
 
 /// The messages was exported from a group chat
-public struct MessageFileTypeGroup: Codable, Equatable {
+public struct MessageFileTypeGroup: Codable, Equatable, Hashable {
 
     /// Title of the group chat; may be empty if unrecognized
     public let title: String

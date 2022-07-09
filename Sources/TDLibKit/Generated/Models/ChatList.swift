@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes a list of chats
-public enum ChatList: Codable, Equatable {
+public enum ChatList: Codable, Equatable, Hashable {
 
     /// A main list of chats
-    case chatListMain
+    case main
 
     /// A list of chats usually located at the top of the main chat list. Unmuted chats are automatically moved from the Archive to the Main chat list when a new message arrives
-    case chatListArchive
+    case archive
 
     /// A list of chats belonging to a chat filter
-    case chatListFilter(ChatListFilter)
+    case filter(ChatListFilter)
 
 
     private enum Kind: String, Codable {
@@ -34,23 +34,23 @@ public enum ChatList: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .chatListMain:
-            self = .chatListMain
+            self = .main
         case .chatListArchive:
-            self = .chatListArchive
+            self = .archive
         case .chatListFilter:
             let value = try ChatListFilter(from: decoder)
-            self = .chatListFilter(value)
+            self = .filter(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatListMain:
+        case .main:
             try container.encode(Kind.chatListMain, forKey: .type)
-        case .chatListArchive:
+        case .archive:
             try container.encode(Kind.chatListArchive, forKey: .type)
-        case .chatListFilter(let value):
+        case .filter(let value):
             try container.encode(Kind.chatListFilter, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -58,7 +58,7 @@ public enum ChatList: Codable, Equatable {
 }
 
 /// A list of chats belonging to a chat filter
-public struct ChatListFilter: Codable, Equatable {
+public struct ChatListFilter: Codable, Equatable, Hashable {
 
     /// Chat filter identifier
     public let chatFilterId: Int

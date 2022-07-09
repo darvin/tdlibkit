@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Represents the value of a string in a language pack
-public enum LanguagePackStringValue: Codable, Equatable {
+public enum LanguagePackStringValue: Codable, Equatable, Hashable {
 
     /// An ordinary language pack string
-    case languagePackStringValueOrdinary(LanguagePackStringValueOrdinary)
+    case ordinary(LanguagePackStringValueOrdinary)
 
     /// A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more information
-    case languagePackStringValuePluralized(LanguagePackStringValuePluralized)
+    case pluralized(LanguagePackStringValuePluralized)
 
     /// A deleted language pack string, the value must be taken from the built-in English language pack
-    case languagePackStringValueDeleted
+    case deleted
 
 
     private enum Kind: String, Codable {
@@ -35,32 +35,32 @@ public enum LanguagePackStringValue: Codable, Equatable {
         switch type {
         case .languagePackStringValueOrdinary:
             let value = try LanguagePackStringValueOrdinary(from: decoder)
-            self = .languagePackStringValueOrdinary(value)
+            self = .ordinary(value)
         case .languagePackStringValuePluralized:
             let value = try LanguagePackStringValuePluralized(from: decoder)
-            self = .languagePackStringValuePluralized(value)
+            self = .pluralized(value)
         case .languagePackStringValueDeleted:
-            self = .languagePackStringValueDeleted
+            self = .deleted
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .languagePackStringValueOrdinary(let value):
+        case .ordinary(let value):
             try container.encode(Kind.languagePackStringValueOrdinary, forKey: .type)
             try value.encode(to: encoder)
-        case .languagePackStringValuePluralized(let value):
+        case .pluralized(let value):
             try container.encode(Kind.languagePackStringValuePluralized, forKey: .type)
             try value.encode(to: encoder)
-        case .languagePackStringValueDeleted:
+        case .deleted:
             try container.encode(Kind.languagePackStringValueDeleted, forKey: .type)
         }
     }
 }
 
 /// An ordinary language pack string
-public struct LanguagePackStringValueOrdinary: Codable, Equatable {
+public struct LanguagePackStringValueOrdinary: Codable, Equatable, Hashable {
 
     /// String value
     public let value: String
@@ -72,7 +72,7 @@ public struct LanguagePackStringValueOrdinary: Codable, Equatable {
 }
 
 /// A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more information
-public struct LanguagePackStringValuePluralized: Codable, Equatable {
+public struct LanguagePackStringValuePluralized: Codable, Equatable, Hashable {
 
     /// Value for few objects
     public let fewValue: String

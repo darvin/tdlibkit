@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the types of chats to which notification settings are relevant
-public enum NotificationSettingsScope: Codable, Equatable {
+public enum NotificationSettingsScope: Codable, Equatable, Hashable {
 
     /// Notification settings applied to all private and secret chats when the corresponding chat setting has a default value
-    case notificationSettingsScopePrivateChats
+    case privateChats
 
     /// Notification settings applied to all basic group and supergroup chats when the corresponding chat setting has a default value
-    case notificationSettingsScopeGroupChats
+    case groupChats
 
     /// Notification settings applied to all channel chats when the corresponding chat setting has a default value
-    case notificationSettingsScopeChannelChats
+    case channelChats
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum NotificationSettingsScope: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .notificationSettingsScopePrivateChats:
-            self = .notificationSettingsScopePrivateChats
+            self = .privateChats
         case .notificationSettingsScopeGroupChats:
-            self = .notificationSettingsScopeGroupChats
+            self = .groupChats
         case .notificationSettingsScopeChannelChats:
-            self = .notificationSettingsScopeChannelChats
+            self = .channelChats
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .notificationSettingsScopePrivateChats:
+        case .privateChats:
             try container.encode(Kind.notificationSettingsScopePrivateChats, forKey: .type)
-        case .notificationSettingsScopeGroupChats:
+        case .groupChats:
             try container.encode(Kind.notificationSettingsScopeGroupChats, forKey: .type)
-        case .notificationSettingsScopeChannelChats:
+        case .channelChats:
             try container.encode(Kind.notificationSettingsScopeChannelChats, forKey: .type)
         }
     }

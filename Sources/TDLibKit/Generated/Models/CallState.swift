@@ -11,25 +11,25 @@ import Foundation
 
 
 /// Describes the current call state
-public enum CallState: Codable, Equatable {
+public enum CallState: Codable, Equatable, Hashable {
 
     /// The call is pending, waiting to be accepted by a user
-    case callStatePending(CallStatePending)
+    case pending(CallStatePending)
 
     /// The call has been answered and encryption keys are being exchanged
-    case callStateExchangingKeys
+    case exchangingKeys
 
     /// The call is ready to use
-    case callStateReady(CallStateReady)
+    case ready(CallStateReady)
 
     /// The call is hanging up after discardCall has been called
-    case callStateHangingUp
+    case hangingUp
 
     /// The call has ended successfully
-    case callStateDiscarded(CallStateDiscarded)
+    case discarded(CallStateDiscarded)
 
     /// The call has ended with an error
-    case callStateError(CallStateError)
+    case error(CallStateError)
 
 
     private enum Kind: String, Codable {
@@ -47,40 +47,40 @@ public enum CallState: Codable, Equatable {
         switch type {
         case .callStatePending:
             let value = try CallStatePending(from: decoder)
-            self = .callStatePending(value)
+            self = .pending(value)
         case .callStateExchangingKeys:
-            self = .callStateExchangingKeys
+            self = .exchangingKeys
         case .callStateReady:
             let value = try CallStateReady(from: decoder)
-            self = .callStateReady(value)
+            self = .ready(value)
         case .callStateHangingUp:
-            self = .callStateHangingUp
+            self = .hangingUp
         case .callStateDiscarded:
             let value = try CallStateDiscarded(from: decoder)
-            self = .callStateDiscarded(value)
+            self = .discarded(value)
         case .callStateError:
             let value = try CallStateError(from: decoder)
-            self = .callStateError(value)
+            self = .error(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .callStatePending(let value):
+        case .pending(let value):
             try container.encode(Kind.callStatePending, forKey: .type)
             try value.encode(to: encoder)
-        case .callStateExchangingKeys:
+        case .exchangingKeys:
             try container.encode(Kind.callStateExchangingKeys, forKey: .type)
-        case .callStateReady(let value):
+        case .ready(let value):
             try container.encode(Kind.callStateReady, forKey: .type)
             try value.encode(to: encoder)
-        case .callStateHangingUp:
+        case .hangingUp:
             try container.encode(Kind.callStateHangingUp, forKey: .type)
-        case .callStateDiscarded(let value):
+        case .discarded(let value):
             try container.encode(Kind.callStateDiscarded, forKey: .type)
             try value.encode(to: encoder)
-        case .callStateError(let value):
+        case .error(let value):
             try container.encode(Kind.callStateError, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -88,7 +88,7 @@ public enum CallState: Codable, Equatable {
 }
 
 /// The call is pending, waiting to be accepted by a user
-public struct CallStatePending: Codable, Equatable {
+public struct CallStatePending: Codable, Equatable, Hashable {
 
     /// True, if the call has already been created by the server
     public let isCreated: Bool
@@ -107,7 +107,7 @@ public struct CallStatePending: Codable, Equatable {
 }
 
 /// The call is ready to use
-public struct CallStateReady: Codable, Equatable {
+public struct CallStateReady: Codable, Equatable, Hashable {
 
     /// True, if peer-to-peer connection is allowed by users privacy settings
     public let allowP2p: Bool
@@ -146,7 +146,7 @@ public struct CallStateReady: Codable, Equatable {
 }
 
 /// The call has ended successfully
-public struct CallStateDiscarded: Codable, Equatable {
+public struct CallStateDiscarded: Codable, Equatable, Hashable {
 
     /// True, if the call debug information must be sent to the server
     public let needDebugInformation: Bool
@@ -175,7 +175,7 @@ public struct CallStateDiscarded: Codable, Equatable {
 }
 
 /// The call has ended with an error
-public struct CallStateError: Codable, Equatable {
+public struct CallStateError: Codable, Equatable, Hashable {
 
     /// Error. An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout
     public let error: Error

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Changes the username of the current user
-public struct SetUsername: Codable, Equatable {
+public struct SetUsername: Codable, Equatable, Hashable {
 
     /// The new value of the username. Use an empty string to remove the username
     public let username: String?

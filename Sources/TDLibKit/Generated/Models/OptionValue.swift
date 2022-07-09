@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Represents the value of an option
-public enum OptionValue: Codable, Equatable {
+public enum OptionValue: Codable, Equatable, Hashable {
 
     /// Represents a boolean option
-    case optionValueBoolean(OptionValueBoolean)
+    case boolean(OptionValueBoolean)
 
     /// Represents an unknown option or an option which has a default value
-    case optionValueEmpty
+    case empty
 
     /// Represents an integer option
-    case optionValueInteger(OptionValueInteger)
+    case integer(OptionValueInteger)
 
     /// Represents a string option
-    case optionValueString(OptionValueString)
+    case string(OptionValueString)
 
 
     private enum Kind: String, Codable {
@@ -39,30 +39,30 @@ public enum OptionValue: Codable, Equatable {
         switch type {
         case .optionValueBoolean:
             let value = try OptionValueBoolean(from: decoder)
-            self = .optionValueBoolean(value)
+            self = .boolean(value)
         case .optionValueEmpty:
-            self = .optionValueEmpty
+            self = .empty
         case .optionValueInteger:
             let value = try OptionValueInteger(from: decoder)
-            self = .optionValueInteger(value)
+            self = .integer(value)
         case .optionValueString:
             let value = try OptionValueString(from: decoder)
-            self = .optionValueString(value)
+            self = .string(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .optionValueBoolean(let value):
+        case .boolean(let value):
             try container.encode(Kind.optionValueBoolean, forKey: .type)
             try value.encode(to: encoder)
-        case .optionValueEmpty:
+        case .empty:
             try container.encode(Kind.optionValueEmpty, forKey: .type)
-        case .optionValueInteger(let value):
+        case .integer(let value):
             try container.encode(Kind.optionValueInteger, forKey: .type)
             try value.encode(to: encoder)
-        case .optionValueString(let value):
+        case .string(let value):
             try container.encode(Kind.optionValueString, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -70,7 +70,7 @@ public enum OptionValue: Codable, Equatable {
 }
 
 /// Represents a boolean option
-public struct OptionValueBoolean: Codable, Equatable {
+public struct OptionValueBoolean: Codable, Equatable, Hashable {
 
     /// The value of the option
     public let value: Bool
@@ -82,7 +82,7 @@ public struct OptionValueBoolean: Codable, Equatable {
 }
 
 /// Represents an integer option
-public struct OptionValueInteger: Codable, Equatable {
+public struct OptionValueInteger: Codable, Equatable, Hashable {
 
     /// The value of the option
     public let value: TdInt64
@@ -94,7 +94,7 @@ public struct OptionValueInteger: Codable, Equatable {
 }
 
 /// Represents a string option
-public struct OptionValueString: Codable, Equatable {
+public struct OptionValueString: Codable, Equatable, Hashable {
 
     /// The value of the option
     public let value: String

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns sponsored message to be shown in a chat; for channel chats only. Returns a 404 error if there is no sponsored message in the chat
-public struct GetChatSponsoredMessage: Codable, Equatable {
+public struct GetChatSponsoredMessage: Codable, Equatable, Hashable {
 
     /// Identifier of the chat
     public let chatId: Int64?

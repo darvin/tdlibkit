@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Represents result of checking whether a username can be set for a chat
-public enum CheckChatUsernameResult: Codable, Equatable {
+public enum CheckChatUsernameResult: Codable, Equatable, Hashable {
 
     /// The username can be set
-    case checkChatUsernameResultOk
+    case ok
 
     /// The username is invalid
-    case checkChatUsernameResultUsernameInvalid
+    case usernameInvalid
 
     /// The username is occupied
-    case checkChatUsernameResultUsernameOccupied
+    case usernameOccupied
 
     /// The user has too many chats with username, one of them must be made private first
-    case checkChatUsernameResultPublicChatsTooMuch
+    case publicChatsTooMuch
 
     /// The user can't be a member of a public supergroup
-    case checkChatUsernameResultPublicGroupsUnavailable
+    case publicGroupsUnavailable
 
 
     private enum Kind: String, Codable {
@@ -42,30 +42,30 @@ public enum CheckChatUsernameResult: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .checkChatUsernameResultOk:
-            self = .checkChatUsernameResultOk
+            self = .ok
         case .checkChatUsernameResultUsernameInvalid:
-            self = .checkChatUsernameResultUsernameInvalid
+            self = .usernameInvalid
         case .checkChatUsernameResultUsernameOccupied:
-            self = .checkChatUsernameResultUsernameOccupied
+            self = .usernameOccupied
         case .checkChatUsernameResultPublicChatsTooMuch:
-            self = .checkChatUsernameResultPublicChatsTooMuch
+            self = .publicChatsTooMuch
         case .checkChatUsernameResultPublicGroupsUnavailable:
-            self = .checkChatUsernameResultPublicGroupsUnavailable
+            self = .publicGroupsUnavailable
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .checkChatUsernameResultOk:
+        case .ok:
             try container.encode(Kind.checkChatUsernameResultOk, forKey: .type)
-        case .checkChatUsernameResultUsernameInvalid:
+        case .usernameInvalid:
             try container.encode(Kind.checkChatUsernameResultUsernameInvalid, forKey: .type)
-        case .checkChatUsernameResultUsernameOccupied:
+        case .usernameOccupied:
             try container.encode(Kind.checkChatUsernameResultUsernameOccupied, forKey: .type)
-        case .checkChatUsernameResultPublicChatsTooMuch:
+        case .publicChatsTooMuch:
             try container.encode(Kind.checkChatUsernameResultPublicChatsTooMuch, forKey: .type)
-        case .checkChatUsernameResultPublicGroupsUnavailable:
+        case .publicGroupsUnavailable:
             try container.encode(Kind.checkChatUsernameResultPublicGroupsUnavailable, forKey: .type)
         }
     }

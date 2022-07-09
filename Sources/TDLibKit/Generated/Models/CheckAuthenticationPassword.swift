@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Checks the authentication password for correctness. Works only when the current authorization state is authorizationStateWaitPassword
-public struct CheckAuthenticationPassword: Codable, Equatable {
+public struct CheckAuthenticationPassword: Codable, Equatable, Hashable {
 
     /// The password to check
     public let password: String?

@@ -11,64 +11,64 @@ import Foundation
 
 
 /// Represents a part of the text which must be formatted differently
-public enum TextEntityType: Codable, Equatable {
+public enum TextEntityType: Codable, Equatable, Hashable {
 
     /// A mention of a user by their username
-    case textEntityTypeMention
+    case mention
 
     /// A hashtag text, beginning with "#"
-    case textEntityTypeHashtag
+    case hashtag
 
     /// A cashtag text, beginning with "$" and consisting of capital English letters (e.g., "$USD")
-    case textEntityTypeCashtag
+    case cashtag
 
     /// A bot command, beginning with "/"
-    case textEntityTypeBotCommand
+    case botCommand
 
     /// An HTTP URL
-    case textEntityTypeUrl
+    case url
 
     /// An email address
-    case textEntityTypeEmailAddress
+    case emailAddress
 
     /// A phone number
-    case textEntityTypePhoneNumber
+    case phoneNumber
 
     /// A bank card number. The getBankCardInfo method can be used to get information about the bank card
-    case textEntityTypeBankCardNumber
+    case bankCardNumber
 
     /// A bold text
-    case textEntityTypeBold
+    case bold
 
     /// An italic text
-    case textEntityTypeItalic
+    case italic
 
     /// An underlined text
-    case textEntityTypeUnderline
+    case underline
 
     /// A strikethrough text
-    case textEntityTypeStrikethrough
+    case strikethrough
 
     /// A spoiler text. Not supported in secret chats
-    case textEntityTypeSpoiler
+    case spoiler
 
     /// Text that must be formatted as if inside a code HTML tag
-    case textEntityTypeCode
+    case code
 
     /// Text that must be formatted as if inside a pre HTML tag
-    case textEntityTypePre
+    case pre
 
     /// Text that must be formatted as if inside pre, and code HTML tags
-    case textEntityTypePreCode(TextEntityTypePreCode)
+    case preCode(TextEntityTypePreCode)
 
     /// A text description shown instead of a raw URL
-    case textEntityTypeTextUrl(TextEntityTypeTextUrl)
+    case textUrl(TextEntityTypeTextUrl)
 
     /// A text shows instead of a raw mention of the user (e.g., when the user has no username)
-    case textEntityTypeMentionName(TextEntityTypeMentionName)
+    case mentionName(TextEntityTypeMentionName)
 
     /// A media timestamp
-    case textEntityTypeMediaTimestamp(TextEntityTypeMediaTimestamp)
+    case mediaTimestamp(TextEntityTypeMediaTimestamp)
 
 
     private enum Kind: String, Codable {
@@ -98,93 +98,93 @@ public enum TextEntityType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .textEntityTypeMention:
-            self = .textEntityTypeMention
+            self = .mention
         case .textEntityTypeHashtag:
-            self = .textEntityTypeHashtag
+            self = .hashtag
         case .textEntityTypeCashtag:
-            self = .textEntityTypeCashtag
+            self = .cashtag
         case .textEntityTypeBotCommand:
-            self = .textEntityTypeBotCommand
+            self = .botCommand
         case .textEntityTypeUrl:
-            self = .textEntityTypeUrl
+            self = .url
         case .textEntityTypeEmailAddress:
-            self = .textEntityTypeEmailAddress
+            self = .emailAddress
         case .textEntityTypePhoneNumber:
-            self = .textEntityTypePhoneNumber
+            self = .phoneNumber
         case .textEntityTypeBankCardNumber:
-            self = .textEntityTypeBankCardNumber
+            self = .bankCardNumber
         case .textEntityTypeBold:
-            self = .textEntityTypeBold
+            self = .bold
         case .textEntityTypeItalic:
-            self = .textEntityTypeItalic
+            self = .italic
         case .textEntityTypeUnderline:
-            self = .textEntityTypeUnderline
+            self = .underline
         case .textEntityTypeStrikethrough:
-            self = .textEntityTypeStrikethrough
+            self = .strikethrough
         case .textEntityTypeSpoiler:
-            self = .textEntityTypeSpoiler
+            self = .spoiler
         case .textEntityTypeCode:
-            self = .textEntityTypeCode
+            self = .code
         case .textEntityTypePre:
-            self = .textEntityTypePre
+            self = .pre
         case .textEntityTypePreCode:
             let value = try TextEntityTypePreCode(from: decoder)
-            self = .textEntityTypePreCode(value)
+            self = .preCode(value)
         case .textEntityTypeTextUrl:
             let value = try TextEntityTypeTextUrl(from: decoder)
-            self = .textEntityTypeTextUrl(value)
+            self = .textUrl(value)
         case .textEntityTypeMentionName:
             let value = try TextEntityTypeMentionName(from: decoder)
-            self = .textEntityTypeMentionName(value)
+            self = .mentionName(value)
         case .textEntityTypeMediaTimestamp:
             let value = try TextEntityTypeMediaTimestamp(from: decoder)
-            self = .textEntityTypeMediaTimestamp(value)
+            self = .mediaTimestamp(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .textEntityTypeMention:
+        case .mention:
             try container.encode(Kind.textEntityTypeMention, forKey: .type)
-        case .textEntityTypeHashtag:
+        case .hashtag:
             try container.encode(Kind.textEntityTypeHashtag, forKey: .type)
-        case .textEntityTypeCashtag:
+        case .cashtag:
             try container.encode(Kind.textEntityTypeCashtag, forKey: .type)
-        case .textEntityTypeBotCommand:
+        case .botCommand:
             try container.encode(Kind.textEntityTypeBotCommand, forKey: .type)
-        case .textEntityTypeUrl:
+        case .url:
             try container.encode(Kind.textEntityTypeUrl, forKey: .type)
-        case .textEntityTypeEmailAddress:
+        case .emailAddress:
             try container.encode(Kind.textEntityTypeEmailAddress, forKey: .type)
-        case .textEntityTypePhoneNumber:
+        case .phoneNumber:
             try container.encode(Kind.textEntityTypePhoneNumber, forKey: .type)
-        case .textEntityTypeBankCardNumber:
+        case .bankCardNumber:
             try container.encode(Kind.textEntityTypeBankCardNumber, forKey: .type)
-        case .textEntityTypeBold:
+        case .bold:
             try container.encode(Kind.textEntityTypeBold, forKey: .type)
-        case .textEntityTypeItalic:
+        case .italic:
             try container.encode(Kind.textEntityTypeItalic, forKey: .type)
-        case .textEntityTypeUnderline:
+        case .underline:
             try container.encode(Kind.textEntityTypeUnderline, forKey: .type)
-        case .textEntityTypeStrikethrough:
+        case .strikethrough:
             try container.encode(Kind.textEntityTypeStrikethrough, forKey: .type)
-        case .textEntityTypeSpoiler:
+        case .spoiler:
             try container.encode(Kind.textEntityTypeSpoiler, forKey: .type)
-        case .textEntityTypeCode:
+        case .code:
             try container.encode(Kind.textEntityTypeCode, forKey: .type)
-        case .textEntityTypePre:
+        case .pre:
             try container.encode(Kind.textEntityTypePre, forKey: .type)
-        case .textEntityTypePreCode(let value):
+        case .preCode(let value):
             try container.encode(Kind.textEntityTypePreCode, forKey: .type)
             try value.encode(to: encoder)
-        case .textEntityTypeTextUrl(let value):
+        case .textUrl(let value):
             try container.encode(Kind.textEntityTypeTextUrl, forKey: .type)
             try value.encode(to: encoder)
-        case .textEntityTypeMentionName(let value):
+        case .mentionName(let value):
             try container.encode(Kind.textEntityTypeMentionName, forKey: .type)
             try value.encode(to: encoder)
-        case .textEntityTypeMediaTimestamp(let value):
+        case .mediaTimestamp(let value):
             try container.encode(Kind.textEntityTypeMediaTimestamp, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -192,7 +192,7 @@ public enum TextEntityType: Codable, Equatable {
 }
 
 /// Text that must be formatted as if inside pre, and code HTML tags
-public struct TextEntityTypePreCode: Codable, Equatable {
+public struct TextEntityTypePreCode: Codable, Equatable, Hashable {
 
     /// Programming language of the code; as defined by the sender
     public let language: String
@@ -204,7 +204,7 @@ public struct TextEntityTypePreCode: Codable, Equatable {
 }
 
 /// A text description shown instead of a raw URL
-public struct TextEntityTypeTextUrl: Codable, Equatable {
+public struct TextEntityTypeTextUrl: Codable, Equatable, Hashable {
 
     /// HTTP or tg:// URL to be opened when the link is clicked
     public let url: String
@@ -216,7 +216,7 @@ public struct TextEntityTypeTextUrl: Codable, Equatable {
 }
 
 /// A text shows instead of a raw mention of the user (e.g., when the user has no username)
-public struct TextEntityTypeMentionName: Codable, Equatable {
+public struct TextEntityTypeMentionName: Codable, Equatable, Hashable {
 
     /// Identifier of the mentioned user
     public let userId: Int64
@@ -228,7 +228,7 @@ public struct TextEntityTypeMentionName: Codable, Equatable {
 }
 
 /// A media timestamp
-public struct TextEntityTypeMediaTimestamp: Codable, Equatable {
+public struct TextEntityTypeMediaTimestamp: Codable, Equatable, Hashable {
 
     /// Timestamp from which a video/audio/video note/voice note playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message
     public let mediaTimestamp: Int

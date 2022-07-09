@@ -11,28 +11,28 @@ import Foundation
 
 
 /// Represents the scope to which bot commands are relevant
-public enum BotCommandScope: Codable, Equatable {
+public enum BotCommandScope: Codable, Equatable, Hashable {
 
     /// A scope covering all users
-    case botCommandScopeDefault
+    case `default`
 
     /// A scope covering all private chats
-    case botCommandScopeAllPrivateChats
+    case allPrivateChats
 
     /// A scope covering all group and supergroup chats
-    case botCommandScopeAllGroupChats
+    case allGroupChats
 
     /// A scope covering all group and supergroup chat administrators
-    case botCommandScopeAllChatAdministrators
+    case allChatAdministrators
 
     /// A scope covering all members of a chat
-    case botCommandScopeChat(BotCommandScopeChat)
+    case chat(BotCommandScopeChat)
 
     /// A scope covering all administrators of a chat
-    case botCommandScopeChatAdministrators(BotCommandScopeChatAdministrators)
+    case chatAdministrators(BotCommandScopeChatAdministrators)
 
     /// A scope covering a member of a chat
-    case botCommandScopeChatMember(BotCommandScopeChatMember)
+    case chatMember(BotCommandScopeChatMember)
 
 
     private enum Kind: String, Codable {
@@ -50,43 +50,43 @@ public enum BotCommandScope: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .botCommandScopeDefault:
-            self = .botCommandScopeDefault
+            self = .`default`
         case .botCommandScopeAllPrivateChats:
-            self = .botCommandScopeAllPrivateChats
+            self = .allPrivateChats
         case .botCommandScopeAllGroupChats:
-            self = .botCommandScopeAllGroupChats
+            self = .allGroupChats
         case .botCommandScopeAllChatAdministrators:
-            self = .botCommandScopeAllChatAdministrators
+            self = .allChatAdministrators
         case .botCommandScopeChat:
             let value = try BotCommandScopeChat(from: decoder)
-            self = .botCommandScopeChat(value)
+            self = .chat(value)
         case .botCommandScopeChatAdministrators:
             let value = try BotCommandScopeChatAdministrators(from: decoder)
-            self = .botCommandScopeChatAdministrators(value)
+            self = .chatAdministrators(value)
         case .botCommandScopeChatMember:
             let value = try BotCommandScopeChatMember(from: decoder)
-            self = .botCommandScopeChatMember(value)
+            self = .chatMember(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .botCommandScopeDefault:
+        case .`default`:
             try container.encode(Kind.botCommandScopeDefault, forKey: .type)
-        case .botCommandScopeAllPrivateChats:
+        case .allPrivateChats:
             try container.encode(Kind.botCommandScopeAllPrivateChats, forKey: .type)
-        case .botCommandScopeAllGroupChats:
+        case .allGroupChats:
             try container.encode(Kind.botCommandScopeAllGroupChats, forKey: .type)
-        case .botCommandScopeAllChatAdministrators:
+        case .allChatAdministrators:
             try container.encode(Kind.botCommandScopeAllChatAdministrators, forKey: .type)
-        case .botCommandScopeChat(let value):
+        case .chat(let value):
             try container.encode(Kind.botCommandScopeChat, forKey: .type)
             try value.encode(to: encoder)
-        case .botCommandScopeChatAdministrators(let value):
+        case .chatAdministrators(let value):
             try container.encode(Kind.botCommandScopeChatAdministrators, forKey: .type)
             try value.encode(to: encoder)
-        case .botCommandScopeChatMember(let value):
+        case .chatMember(let value):
             try container.encode(Kind.botCommandScopeChatMember, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -94,7 +94,7 @@ public enum BotCommandScope: Codable, Equatable {
 }
 
 /// A scope covering all members of a chat
-public struct BotCommandScopeChat: Codable, Equatable {
+public struct BotCommandScopeChat: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -106,7 +106,7 @@ public struct BotCommandScopeChat: Codable, Equatable {
 }
 
 /// A scope covering all administrators of a chat
-public struct BotCommandScopeChatAdministrators: Codable, Equatable {
+public struct BotCommandScopeChatAdministrators: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -118,7 +118,7 @@ public struct BotCommandScopeChatAdministrators: Codable, Equatable {
 }
 
 /// A scope covering a member of a chat
-public struct BotCommandScopeChatMember: Codable, Equatable {
+public struct BotCommandScopeChatMember: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64

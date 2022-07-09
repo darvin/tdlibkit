@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Describes a game
-public struct Game: Codable, Equatable {
+public struct Game: Codable, Equatable, Hashable {
 
     /// Game animation; may be null
     public let animation: Animation?

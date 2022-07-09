@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Contains information about the origin of a forwarded message
-public enum MessageForwardOrigin: Codable, Equatable {
+public enum MessageForwardOrigin: Codable, Equatable, Hashable {
 
     /// The message was originally sent by a known user
-    case messageForwardOriginUser(MessageForwardOriginUser)
+    case user(MessageForwardOriginUser)
 
     /// The message was originally sent on behalf of a chat
-    case messageForwardOriginChat(MessageForwardOriginChat)
+    case chat(MessageForwardOriginChat)
 
     /// The message was originally sent by a user, which is hidden by their privacy settings
-    case messageForwardOriginHiddenUser(MessageForwardOriginHiddenUser)
+    case hiddenUser(MessageForwardOriginHiddenUser)
 
     /// The message was originally a post in a channel
-    case messageForwardOriginChannel(MessageForwardOriginChannel)
+    case channel(MessageForwardOriginChannel)
 
     /// The message was imported from an exported message history
-    case messageForwardOriginMessageImport(MessageForwardOriginMessageImport)
+    case messageImport(MessageForwardOriginMessageImport)
 
 
     private enum Kind: String, Codable {
@@ -43,38 +43,38 @@ public enum MessageForwardOrigin: Codable, Equatable {
         switch type {
         case .messageForwardOriginUser:
             let value = try MessageForwardOriginUser(from: decoder)
-            self = .messageForwardOriginUser(value)
+            self = .user(value)
         case .messageForwardOriginChat:
             let value = try MessageForwardOriginChat(from: decoder)
-            self = .messageForwardOriginChat(value)
+            self = .chat(value)
         case .messageForwardOriginHiddenUser:
             let value = try MessageForwardOriginHiddenUser(from: decoder)
-            self = .messageForwardOriginHiddenUser(value)
+            self = .hiddenUser(value)
         case .messageForwardOriginChannel:
             let value = try MessageForwardOriginChannel(from: decoder)
-            self = .messageForwardOriginChannel(value)
+            self = .channel(value)
         case .messageForwardOriginMessageImport:
             let value = try MessageForwardOriginMessageImport(from: decoder)
-            self = .messageForwardOriginMessageImport(value)
+            self = .messageImport(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .messageForwardOriginUser(let value):
+        case .user(let value):
             try container.encode(Kind.messageForwardOriginUser, forKey: .type)
             try value.encode(to: encoder)
-        case .messageForwardOriginChat(let value):
+        case .chat(let value):
             try container.encode(Kind.messageForwardOriginChat, forKey: .type)
             try value.encode(to: encoder)
-        case .messageForwardOriginHiddenUser(let value):
+        case .hiddenUser(let value):
             try container.encode(Kind.messageForwardOriginHiddenUser, forKey: .type)
             try value.encode(to: encoder)
-        case .messageForwardOriginChannel(let value):
+        case .channel(let value):
             try container.encode(Kind.messageForwardOriginChannel, forKey: .type)
             try value.encode(to: encoder)
-        case .messageForwardOriginMessageImport(let value):
+        case .messageImport(let value):
             try container.encode(Kind.messageForwardOriginMessageImport, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -82,7 +82,7 @@ public enum MessageForwardOrigin: Codable, Equatable {
 }
 
 /// The message was originally sent by a known user
-public struct MessageForwardOriginUser: Codable, Equatable {
+public struct MessageForwardOriginUser: Codable, Equatable, Hashable {
 
     /// Identifier of the user that originally sent the message
     public let senderUserId: Int64
@@ -94,7 +94,7 @@ public struct MessageForwardOriginUser: Codable, Equatable {
 }
 
 /// The message was originally sent on behalf of a chat
-public struct MessageForwardOriginChat: Codable, Equatable {
+public struct MessageForwardOriginChat: Codable, Equatable, Hashable {
 
     /// For messages originally sent by an anonymous chat administrator, original message author signature
     public let authorSignature: String
@@ -113,7 +113,7 @@ public struct MessageForwardOriginChat: Codable, Equatable {
 }
 
 /// The message was originally sent by a user, which is hidden by their privacy settings
-public struct MessageForwardOriginHiddenUser: Codable, Equatable {
+public struct MessageForwardOriginHiddenUser: Codable, Equatable, Hashable {
 
     /// Name of the sender
     public let senderName: String
@@ -125,7 +125,7 @@ public struct MessageForwardOriginHiddenUser: Codable, Equatable {
 }
 
 /// The message was originally a post in a channel
-public struct MessageForwardOriginChannel: Codable, Equatable {
+public struct MessageForwardOriginChannel: Codable, Equatable, Hashable {
 
     /// Original post author signature
     public let authorSignature: String
@@ -149,7 +149,7 @@ public struct MessageForwardOriginChannel: Codable, Equatable {
 }
 
 /// The message was imported from an exported message history
-public struct MessageForwardOriginMessageImport: Codable, Equatable {
+public struct MessageForwardOriginMessageImport: Codable, Equatable, Hashable {
 
     /// Name of the sender
     public let senderName: String

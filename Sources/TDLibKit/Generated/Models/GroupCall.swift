@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Describes a group call
-public struct GroupCall: Codable, Equatable {
+public struct GroupCall: Codable, Equatable, Hashable {
 
     /// True, if the current user can manage the group call
     public let canBeManaged: Bool

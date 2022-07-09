@@ -11,28 +11,28 @@ import Foundation
 
 
 /// Specifies the kind of chat members to return in searchChatMembers
-public enum ChatMembersFilter: Codable, Equatable {
+public enum ChatMembersFilter: Codable, Equatable, Hashable {
 
     /// Returns contacts of the user
-    case chatMembersFilterContacts
+    case contacts
 
     /// Returns the owner and administrators
-    case chatMembersFilterAdministrators
+    case administrators
 
     /// Returns all chat members, including restricted chat members
-    case chatMembersFilterMembers
+    case members
 
     /// Returns users which can be mentioned in the chat
-    case chatMembersFilterMention(ChatMembersFilterMention)
+    case mention(ChatMembersFilterMention)
 
     /// Returns users under certain restrictions in the chat; can be used only by administrators in a supergroup
-    case chatMembersFilterRestricted
+    case restricted
 
     /// Returns users banned from the chat; can be used only by administrators in a supergroup or in a channel
-    case chatMembersFilterBanned
+    case banned
 
     /// Returns bot members of the chat
-    case chatMembersFilterBots
+    case bots
 
 
     private enum Kind: String, Codable {
@@ -50,47 +50,47 @@ public enum ChatMembersFilter: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .chatMembersFilterContacts:
-            self = .chatMembersFilterContacts
+            self = .contacts
         case .chatMembersFilterAdministrators:
-            self = .chatMembersFilterAdministrators
+            self = .administrators
         case .chatMembersFilterMembers:
-            self = .chatMembersFilterMembers
+            self = .members
         case .chatMembersFilterMention:
             let value = try ChatMembersFilterMention(from: decoder)
-            self = .chatMembersFilterMention(value)
+            self = .mention(value)
         case .chatMembersFilterRestricted:
-            self = .chatMembersFilterRestricted
+            self = .restricted
         case .chatMembersFilterBanned:
-            self = .chatMembersFilterBanned
+            self = .banned
         case .chatMembersFilterBots:
-            self = .chatMembersFilterBots
+            self = .bots
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatMembersFilterContacts:
+        case .contacts:
             try container.encode(Kind.chatMembersFilterContacts, forKey: .type)
-        case .chatMembersFilterAdministrators:
+        case .administrators:
             try container.encode(Kind.chatMembersFilterAdministrators, forKey: .type)
-        case .chatMembersFilterMembers:
+        case .members:
             try container.encode(Kind.chatMembersFilterMembers, forKey: .type)
-        case .chatMembersFilterMention(let value):
+        case .mention(let value):
             try container.encode(Kind.chatMembersFilterMention, forKey: .type)
             try value.encode(to: encoder)
-        case .chatMembersFilterRestricted:
+        case .restricted:
             try container.encode(Kind.chatMembersFilterRestricted, forKey: .type)
-        case .chatMembersFilterBanned:
+        case .banned:
             try container.encode(Kind.chatMembersFilterBanned, forKey: .type)
-        case .chatMembersFilterBots:
+        case .bots:
             try container.encode(Kind.chatMembersFilterBots, forKey: .type)
         }
     }
 }
 
 /// Returns users which can be mentioned in the chat
-public struct ChatMembersFilterMention: Codable, Equatable {
+public struct ChatMembersFilterMention: Codable, Equatable, Hashable {
 
     /// If non-zero, the identifier of the current message thread
     public let messageThreadId: Int64

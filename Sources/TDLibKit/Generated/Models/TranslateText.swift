@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Translates a text to the given language. Returns a 404 error if the translation can't be performed
-public struct TranslateText: Codable, Equatable {
+public struct TranslateText: Codable, Equatable, Hashable {
 
     /// A two-letter ISO 639-1 language code of the language from which the message is translated. If empty, the language will be detected automatically
     public let fromLanguageCode: String?

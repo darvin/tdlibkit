@@ -11,25 +11,25 @@ import Foundation
 
 
 /// Provides information about the status of a member in a chat
-public enum ChatMemberStatus: Codable, Equatable {
+public enum ChatMemberStatus: Codable, Equatable, Hashable {
 
     /// The user is the owner of the chat and has all the administrator privileges
-    case chatMemberStatusCreator(ChatMemberStatusCreator)
+    case creator(ChatMemberStatusCreator)
 
     /// The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges
-    case chatMemberStatusAdministrator(ChatMemberStatusAdministrator)
+    case administrator(ChatMemberStatusAdministrator)
 
     /// The user is a member of the chat, without any additional privileges or restrictions
-    case chatMemberStatusMember
+    case member
 
     /// The user is under certain restrictions in the chat. Not supported in basic groups and channels
-    case chatMemberStatusRestricted(ChatMemberStatusRestricted)
+    case restricted(ChatMemberStatusRestricted)
 
     /// The user or the chat is not a chat member
-    case chatMemberStatusLeft
+    case left
 
     /// The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a video chat of the chat
-    case chatMemberStatusBanned(ChatMemberStatusBanned)
+    case banned(ChatMemberStatusBanned)
 
 
     private enum Kind: String, Codable {
@@ -47,40 +47,40 @@ public enum ChatMemberStatus: Codable, Equatable {
         switch type {
         case .chatMemberStatusCreator:
             let value = try ChatMemberStatusCreator(from: decoder)
-            self = .chatMemberStatusCreator(value)
+            self = .creator(value)
         case .chatMemberStatusAdministrator:
             let value = try ChatMemberStatusAdministrator(from: decoder)
-            self = .chatMemberStatusAdministrator(value)
+            self = .administrator(value)
         case .chatMemberStatusMember:
-            self = .chatMemberStatusMember
+            self = .member
         case .chatMemberStatusRestricted:
             let value = try ChatMemberStatusRestricted(from: decoder)
-            self = .chatMemberStatusRestricted(value)
+            self = .restricted(value)
         case .chatMemberStatusLeft:
-            self = .chatMemberStatusLeft
+            self = .left
         case .chatMemberStatusBanned:
             let value = try ChatMemberStatusBanned(from: decoder)
-            self = .chatMemberStatusBanned(value)
+            self = .banned(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatMemberStatusCreator(let value):
+        case .creator(let value):
             try container.encode(Kind.chatMemberStatusCreator, forKey: .type)
             try value.encode(to: encoder)
-        case .chatMemberStatusAdministrator(let value):
+        case .administrator(let value):
             try container.encode(Kind.chatMemberStatusAdministrator, forKey: .type)
             try value.encode(to: encoder)
-        case .chatMemberStatusMember:
+        case .member:
             try container.encode(Kind.chatMemberStatusMember, forKey: .type)
-        case .chatMemberStatusRestricted(let value):
+        case .restricted(let value):
             try container.encode(Kind.chatMemberStatusRestricted, forKey: .type)
             try value.encode(to: encoder)
-        case .chatMemberStatusLeft:
+        case .left:
             try container.encode(Kind.chatMemberStatusLeft, forKey: .type)
-        case .chatMemberStatusBanned(let value):
+        case .banned(let value):
             try container.encode(Kind.chatMemberStatusBanned, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -88,7 +88,7 @@ public enum ChatMemberStatus: Codable, Equatable {
 }
 
 /// The user is the owner of the chat and has all the administrator privileges
-public struct ChatMemberStatusCreator: Codable, Equatable {
+public struct ChatMemberStatusCreator: Codable, Equatable, Hashable {
 
     /// A custom title of the owner; 0-16 characters without emojis; applicable to supergroups only
     public let customTitle: String
@@ -112,7 +112,7 @@ public struct ChatMemberStatusCreator: Codable, Equatable {
 }
 
 /// The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges
-public struct ChatMemberStatusAdministrator: Codable, Equatable {
+public struct ChatMemberStatusAdministrator: Codable, Equatable, Hashable {
 
     /// True, if the current user can edit the administrator privileges for the called user
     public let canBeEdited: Bool
@@ -136,7 +136,7 @@ public struct ChatMemberStatusAdministrator: Codable, Equatable {
 }
 
 /// The user is under certain restrictions in the chat. Not supported in basic groups and channels
-public struct ChatMemberStatusRestricted: Codable, Equatable {
+public struct ChatMemberStatusRestricted: Codable, Equatable, Hashable {
 
     /// True, if the user is a member of the chat
     public let isMember: Bool
@@ -160,7 +160,7 @@ public struct ChatMemberStatusRestricted: Codable, Equatable {
 }
 
 /// The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a video chat of the chat
-public struct ChatMemberStatusBanned: Codable, Equatable {
+public struct ChatMemberStatusBanned: Codable, Equatable, Hashable {
 
     /// Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups
     public let bannedUntilDate: Int

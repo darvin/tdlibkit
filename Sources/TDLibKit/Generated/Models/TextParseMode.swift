@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describes the way the text needs to be parsed for TextEntities
-public enum TextParseMode: Codable, Equatable {
+public enum TextParseMode: Codable, Equatable, Hashable {
 
     /// The text uses Markdown-style formatting
-    case textParseModeMarkdown(TextParseModeMarkdown)
+    case markdown(TextParseModeMarkdown)
 
     /// The text uses HTML-style formatting. The same as Telegram Bot API "HTML" parse mode
-    case textParseModeHTML
+    case hTML
 
 
     private enum Kind: String, Codable {
@@ -31,26 +31,26 @@ public enum TextParseMode: Codable, Equatable {
         switch type {
         case .textParseModeMarkdown:
             let value = try TextParseModeMarkdown(from: decoder)
-            self = .textParseModeMarkdown(value)
+            self = .markdown(value)
         case .textParseModeHTML:
-            self = .textParseModeHTML
+            self = .hTML
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .textParseModeMarkdown(let value):
+        case .markdown(let value):
             try container.encode(Kind.textParseModeMarkdown, forKey: .type)
             try value.encode(to: encoder)
-        case .textParseModeHTML:
+        case .hTML:
             try container.encode(Kind.textParseModeHTML, forKey: .type)
         }
     }
 }
 
 /// The text uses Markdown-style formatting
-public struct TextParseModeMarkdown: Codable, Equatable {
+public struct TextParseModeMarkdown: Codable, Equatable, Hashable {
 
     /// Version of the parser: 0 or 1 - Telegram Bot API "Markdown" parse mode, 2 - Telegram Bot API "MarkdownV2" parse mode
     public let version: Int

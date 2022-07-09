@@ -11,316 +11,316 @@ import Foundation
 
 
 /// Contains notifications about data changes
-public enum Update: Codable, Equatable {
+public enum Update: Codable, Equatable, Hashable {
 
     /// The user authorization state has changed
-    case updateAuthorizationState(UpdateAuthorizationState)
+    case authorizationState(UpdateAuthorizationState)
 
     /// A new message was received; can also be an outgoing message
-    case updateNewMessage(UpdateNewMessage)
+    case newMessage(UpdateNewMessage)
 
     /// A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option "use_quick_ack" is set to true. This update may be sent multiple times for the same message
-    case updateMessageSendAcknowledged(UpdateMessageSendAcknowledged)
+    case messageSendAcknowledged(UpdateMessageSendAcknowledged)
 
     /// A message has been successfully sent
-    case updateMessageSendSucceeded(UpdateMessageSendSucceeded)
+    case messageSendSucceeded(UpdateMessageSendSucceeded)
 
     /// A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update
-    case updateMessageSendFailed(UpdateMessageSendFailed)
+    case messageSendFailed(UpdateMessageSendFailed)
 
     /// The message content has changed
-    case updateMessageContent(UpdateMessageContent)
+    case messageContent(UpdateMessageContent)
 
     /// A message was edited. Changes in the message content will come in a separate updateMessageContent
-    case updateMessageEdited(UpdateMessageEdited)
+    case messageEdited(UpdateMessageEdited)
 
     /// The message pinned state was changed
-    case updateMessageIsPinned(UpdateMessageIsPinned)
+    case messageIsPinned(UpdateMessageIsPinned)
 
     /// The information about interactions with a message has changed
-    case updateMessageInteractionInfo(UpdateMessageInteractionInfo)
+    case messageInteractionInfo(UpdateMessageInteractionInfo)
 
     /// The message content was opened. Updates voice note messages to "listened", video note messages to "viewed" and starts the TTL timer for self-destructing messages
-    case updateMessageContentOpened(UpdateMessageContentOpened)
+    case messageContentOpened(UpdateMessageContentOpened)
 
     /// A message with an unread mention was read
-    case updateMessageMentionRead(UpdateMessageMentionRead)
+    case messageMentionRead(UpdateMessageMentionRead)
 
     /// The list of unread reactions added to a message was changed
-    case updateMessageUnreadReactions(UpdateMessageUnreadReactions)
+    case messageUnreadReactions(UpdateMessageUnreadReactions)
 
     /// A message with a live location was viewed. When the update is received, the application is supposed to update the live location
-    case updateMessageLiveLocationViewed(UpdateMessageLiveLocationViewed)
+    case messageLiveLocationViewed(UpdateMessageLiveLocationViewed)
 
     /// A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the application. The chat field changes will be reported through separate updates
-    case updateNewChat(UpdateNewChat)
+    case newChat(UpdateNewChat)
 
     /// The title of a chat was changed
-    case updateChatTitle(UpdateChatTitle)
+    case chatTitle(UpdateChatTitle)
 
     /// A chat photo was changed
-    case updateChatPhoto(UpdateChatPhoto)
+    case chatPhoto(UpdateChatPhoto)
 
     /// Chat permissions was changed
-    case updateChatPermissions(UpdateChatPermissions)
+    case chatPermissions(UpdateChatPermissions)
 
     /// The last message of a chat was changed. If last_message is null, then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
-    case updateChatLastMessage(UpdateChatLastMessage)
+    case chatLastMessage(UpdateChatLastMessage)
 
     /// The position of a chat in a chat list has changed. Instead of this update updateChatLastMessage or updateChatDraftMessage might be sent
-    case updateChatPosition(UpdateChatPosition)
+    case chatPosition(UpdateChatPosition)
 
     /// Incoming messages were read or the number of unread messages has been changed
-    case updateChatReadInbox(UpdateChatReadInbox)
+    case chatReadInbox(UpdateChatReadInbox)
 
     /// Outgoing messages were read
-    case updateChatReadOutbox(UpdateChatReadOutbox)
+    case chatReadOutbox(UpdateChatReadOutbox)
 
     /// The chat action bar was changed
-    case updateChatActionBar(UpdateChatActionBar)
+    case chatActionBar(UpdateChatActionBar)
 
     /// The chat available reactions were changed
-    case updateChatAvailableReactions(UpdateChatAvailableReactions)
+    case chatAvailableReactions(UpdateChatAvailableReactions)
 
     /// A chat draft has changed. Be aware that the update may come in the currently opened chat but with old content of the draft. If the user has changed the content of the draft, this update mustn't be applied
-    case updateChatDraftMessage(UpdateChatDraftMessage)
+    case chatDraftMessage(UpdateChatDraftMessage)
 
     /// The message sender that is selected to send messages in a chat has changed
-    case updateChatMessageSender(UpdateChatMessageSender)
+    case chatMessageSender(UpdateChatMessageSender)
 
     /// The message Time To Live setting for a chat was changed
-    case updateChatMessageTtl(UpdateChatMessageTtl)
+    case chatMessageTtl(UpdateChatMessageTtl)
 
     /// Notification settings for a chat were changed
-    case updateChatNotificationSettings(UpdateChatNotificationSettings)
+    case chatNotificationSettings(UpdateChatNotificationSettings)
 
     /// The chat pending join requests were changed
-    case updateChatPendingJoinRequests(UpdateChatPendingJoinRequests)
+    case chatPendingJoinRequests(UpdateChatPendingJoinRequests)
 
     /// The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user
-    case updateChatReplyMarkup(UpdateChatReplyMarkup)
+    case chatReplyMarkup(UpdateChatReplyMarkup)
 
     /// The chat theme was changed
-    case updateChatTheme(UpdateChatTheme)
+    case chatTheme(UpdateChatTheme)
 
     /// The chat unread_mention_count has changed
-    case updateChatUnreadMentionCount(UpdateChatUnreadMentionCount)
+    case chatUnreadMentionCount(UpdateChatUnreadMentionCount)
 
     /// The chat unread_reaction_count has changed
-    case updateChatUnreadReactionCount(UpdateChatUnreadReactionCount)
+    case chatUnreadReactionCount(UpdateChatUnreadReactionCount)
 
     /// A chat video chat state has changed
-    case updateChatVideoChat(UpdateChatVideoChat)
+    case chatVideoChat(UpdateChatVideoChat)
 
     /// The value of the default disable_notification parameter, used when a message is sent to the chat, was changed
-    case updateChatDefaultDisableNotification(UpdateChatDefaultDisableNotification)
+    case chatDefaultDisableNotification(UpdateChatDefaultDisableNotification)
 
     /// A chat content was allowed or restricted for saving
-    case updateChatHasProtectedContent(UpdateChatHasProtectedContent)
+    case chatHasProtectedContent(UpdateChatHasProtectedContent)
 
     /// A chat's has_scheduled_messages field has changed
-    case updateChatHasScheduledMessages(UpdateChatHasScheduledMessages)
+    case chatHasScheduledMessages(UpdateChatHasScheduledMessages)
 
     /// A chat was blocked or unblocked
-    case updateChatIsBlocked(UpdateChatIsBlocked)
+    case chatIsBlocked(UpdateChatIsBlocked)
 
     /// A chat was marked as unread or was read
-    case updateChatIsMarkedAsUnread(UpdateChatIsMarkedAsUnread)
+    case chatIsMarkedAsUnread(UpdateChatIsMarkedAsUnread)
 
     /// The list of chat filters or a chat filter has changed
-    case updateChatFilters(UpdateChatFilters)
+    case chatFilters(UpdateChatFilters)
 
     /// The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it will be sent just after the number of online users has changed
-    case updateChatOnlineMemberCount(UpdateChatOnlineMemberCount)
+    case chatOnlineMemberCount(UpdateChatOnlineMemberCount)
 
     /// Notification settings for some type of chats were updated
-    case updateScopeNotificationSettings(UpdateScopeNotificationSettings)
+    case scopeNotificationSettings(UpdateScopeNotificationSettings)
 
     /// A notification was changed
-    case updateNotification(UpdateNotification)
+    case notification(UpdateNotification)
 
     /// A list of active notifications in a notification group has changed
-    case updateNotificationGroup(UpdateNotificationGroup)
+    case notificationGroup(UpdateNotificationGroup)
 
     /// Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
-    case updateActiveNotifications(UpdateActiveNotifications)
+    case activeNotifications(UpdateActiveNotifications)
 
     /// Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
-    case updateHavePendingNotifications(UpdateHavePendingNotifications)
+    case havePendingNotifications(UpdateHavePendingNotifications)
 
     /// Some messages were deleted
-    case updateDeleteMessages(UpdateDeleteMessages)
+    case deleteMessages(UpdateDeleteMessages)
 
     /// A message sender activity in the chat has changed
-    case updateChatAction(UpdateChatAction)
+    case chatAction(UpdateChatAction)
 
     /// The user went online or offline
-    case updateUserStatus(UpdateUserStatus)
+    case userStatus(UpdateUserStatus)
 
     /// Some data of a user has changed. This update is guaranteed to come before the user identifier is returned to the application
-    case updateUser(UpdateUser)
+    case user(UpdateUser)
 
     /// Some data of a basic group has changed. This update is guaranteed to come before the basic group identifier is returned to the application
-    case updateBasicGroup(UpdateBasicGroup)
+    case basicGroup(UpdateBasicGroup)
 
     /// Some data of a supergroup or a channel has changed. This update is guaranteed to come before the supergroup identifier is returned to the application
-    case updateSupergroup(UpdateSupergroup)
+    case supergroup(UpdateSupergroup)
 
     /// Some data of a secret chat has changed. This update is guaranteed to come before the secret chat identifier is returned to the application
-    case updateSecretChat(UpdateSecretChat)
+    case secretChat(UpdateSecretChat)
 
     /// Some data in userFullInfo has been changed
-    case updateUserFullInfo(UpdateUserFullInfo)
+    case userFullInfo(UpdateUserFullInfo)
 
     /// Some data in basicGroupFullInfo has been changed
-    case updateBasicGroupFullInfo(UpdateBasicGroupFullInfo)
+    case basicGroupFullInfo(UpdateBasicGroupFullInfo)
 
     /// Some data in supergroupFullInfo has been changed
-    case updateSupergroupFullInfo(UpdateSupergroupFullInfo)
+    case supergroupFullInfo(UpdateSupergroupFullInfo)
 
     /// A service notification from the server was received. Upon receiving this the application must show a popup with the content of the notification
-    case updateServiceNotification(UpdateServiceNotification)
+    case serviceNotification(UpdateServiceNotification)
 
     /// Information about a file was updated
-    case updateFile(UpdateFile)
+    case file(UpdateFile)
 
     /// The file generation process needs to be started by the application
-    case updateFileGenerationStart(UpdateFileGenerationStart)
+    case fileGenerationStart(UpdateFileGenerationStart)
 
     /// File generation is no longer needed
-    case updateFileGenerationStop(UpdateFileGenerationStop)
+    case fileGenerationStop(UpdateFileGenerationStop)
 
     /// The state of the file download list has changed
-    case updateFileDownloads(UpdateFileDownloads)
+    case fileDownloads(UpdateFileDownloads)
 
     /// A file was added to the file download list. This update is sent only after file download list is loaded for the first time
-    case updateFileAddedToDownloads(UpdateFileAddedToDownloads)
+    case fileAddedToDownloads(UpdateFileAddedToDownloads)
 
     /// A file download was changed. This update is sent only after file download list is loaded for the first time
-    case updateFileDownload(UpdateFileDownload)
+    case fileDownload(UpdateFileDownload)
 
     /// A file was removed from the file download list. This update is sent only after file download list is loaded for the first time
-    case updateFileRemovedFromDownloads(UpdateFileRemovedFromDownloads)
+    case fileRemovedFromDownloads(UpdateFileRemovedFromDownloads)
 
     /// New call was created or information about a call was updated
-    case updateCall(UpdateCall)
+    case call(UpdateCall)
 
     /// Information about a group call was updated
-    case updateGroupCall(UpdateGroupCall)
+    case groupCall(UpdateGroupCall)
 
     /// Information about a group call participant was changed. The updates are sent only after the group call is received through getGroupCall and only if the call is joined or being joined
-    case updateGroupCallParticipant(UpdateGroupCallParticipant)
+    case groupCallParticipant(UpdateGroupCallParticipant)
 
     /// New call signaling data arrived
-    case updateNewCallSignalingData(UpdateNewCallSignalingData)
+    case newCallSignalingData(UpdateNewCallSignalingData)
 
     /// Some privacy setting rules have been changed
-    case updateUserPrivacySettingRules(UpdateUserPrivacySettingRules)
+    case userPrivacySettingRules(UpdateUserPrivacySettingRules)
 
     /// Number of unread messages in a chat list has changed. This update is sent only if the message database is used
-    case updateUnreadMessageCount(UpdateUnreadMessageCount)
+    case unreadMessageCount(UpdateUnreadMessageCount)
 
     /// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if the message database is used
-    case updateUnreadChatCount(UpdateUnreadChatCount)
+    case unreadChatCount(UpdateUnreadChatCount)
 
     /// An option changed its value
-    case updateOption(UpdateOption)
+    case option(UpdateOption)
 
     /// A sticker set has changed
-    case updateStickerSet(UpdateStickerSet)
+    case stickerSet(UpdateStickerSet)
 
     /// The list of installed sticker sets was updated
-    case updateInstalledStickerSets(UpdateInstalledStickerSets)
+    case installedStickerSets(UpdateInstalledStickerSets)
 
     /// The list of trending sticker sets was updated or some of them were viewed
-    case updateTrendingStickerSets(UpdateTrendingStickerSets)
+    case trendingStickerSets(UpdateTrendingStickerSets)
 
     /// The list of recently used stickers was updated
-    case updateRecentStickers(UpdateRecentStickers)
+    case recentStickers(UpdateRecentStickers)
 
     /// The list of favorite stickers was updated
-    case updateFavoriteStickers(UpdateFavoriteStickers)
+    case favoriteStickers(UpdateFavoriteStickers)
 
     /// The list of saved animations was updated
-    case updateSavedAnimations(UpdateSavedAnimations)
+    case savedAnimations(UpdateSavedAnimations)
 
     /// The list of saved notifications sounds was updated. This update may not be sent until information about a notification sound was requested for the first time
-    case updateSavedNotificationSounds(UpdateSavedNotificationSounds)
+    case savedNotificationSounds(UpdateSavedNotificationSounds)
 
     /// The selected background has changed
-    case updateSelectedBackground(UpdateSelectedBackground)
+    case selectedBackground(UpdateSelectedBackground)
 
     /// The list of available chat themes has changed
-    case updateChatThemes(UpdateChatThemes)
+    case chatThemes(UpdateChatThemes)
 
     /// Some language pack strings have been updated
-    case updateLanguagePackStrings(UpdateLanguagePackStrings)
+    case languagePackStrings(UpdateLanguagePackStrings)
 
     /// The connection state has changed. This update must be used only to show a human-readable description of the connection state
-    case updateConnectionState(UpdateConnectionState)
+    case connectionState(UpdateConnectionState)
 
     /// New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method must be called with the reason "Decline ToS update"
-    case updateTermsOfService(UpdateTermsOfService)
+    case termsOfService(UpdateTermsOfService)
 
     /// The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request
-    case updateUsersNearby(UpdateUsersNearby)
+    case usersNearby(UpdateUsersNearby)
 
     /// The list of bots added to attachment menu has changed
-    case updateAttachmentMenuBots(UpdateAttachmentMenuBots)
+    case attachmentMenuBots(UpdateAttachmentMenuBots)
 
     /// A message was sent by an opened Web App, so the Web App needs to be closed
-    case updateWebAppMessageSent(UpdateWebAppMessageSent)
+    case webAppMessageSent(UpdateWebAppMessageSent)
 
     /// The list of supported reactions has changed
-    case updateReactions(UpdateReactions)
+    case reactions(UpdateReactions)
 
     /// The list of supported dice emojis has changed
-    case updateDiceEmojis(UpdateDiceEmojis)
+    case diceEmojis(UpdateDiceEmojis)
 
     /// Some animated emoji message was clicked and a big animated sticker must be played if the message is visible on the screen. chatActionWatchingAnimations with the text of the message needs to be sent if the sticker is played
-    case updateAnimatedEmojiMessageClicked(UpdateAnimatedEmojiMessageClicked)
+    case animatedEmojiMessageClicked(UpdateAnimatedEmojiMessageClicked)
 
     /// The parameters of animation search through GetOption("animation_search_bot_username") bot has changed
-    case updateAnimationSearchParameters(UpdateAnimationSearchParameters)
+    case animationSearchParameters(UpdateAnimationSearchParameters)
 
     /// The list of suggested to the user actions has changed
-    case updateSuggestedActions(UpdateSuggestedActions)
+    case suggestedActions(UpdateSuggestedActions)
 
     /// A new incoming inline query; for bots only
-    case updateNewInlineQuery(UpdateNewInlineQuery)
+    case newInlineQuery(UpdateNewInlineQuery)
 
     /// The user has chosen a result of an inline query; for bots only
-    case updateNewChosenInlineResult(UpdateNewChosenInlineResult)
+    case newChosenInlineResult(UpdateNewChosenInlineResult)
 
     /// A new incoming callback query; for bots only
-    case updateNewCallbackQuery(UpdateNewCallbackQuery)
+    case newCallbackQuery(UpdateNewCallbackQuery)
 
     /// A new incoming callback query from a message sent via a bot; for bots only
-    case updateNewInlineCallbackQuery(UpdateNewInlineCallbackQuery)
+    case newInlineCallbackQuery(UpdateNewInlineCallbackQuery)
 
     /// A new incoming shipping query; for bots only. Only for invoices with flexible price
-    case updateNewShippingQuery(UpdateNewShippingQuery)
+    case newShippingQuery(UpdateNewShippingQuery)
 
     /// A new incoming pre-checkout query; for bots only. Contains full information about a checkout
-    case updateNewPreCheckoutQuery(UpdateNewPreCheckoutQuery)
+    case newPreCheckoutQuery(UpdateNewPreCheckoutQuery)
 
     /// A new incoming event; for bots only
-    case updateNewCustomEvent(UpdateNewCustomEvent)
+    case newCustomEvent(UpdateNewCustomEvent)
 
     /// A new incoming query; for bots only
-    case updateNewCustomQuery(UpdateNewCustomQuery)
+    case newCustomQuery(UpdateNewCustomQuery)
 
     /// A poll was updated; for bots only
-    case updatePoll(UpdatePoll)
+    case poll(UpdatePoll)
 
     /// A user changed the answer to a poll; for bots only
-    case updatePollAnswer(UpdatePollAnswer)
+    case pollAnswer(UpdatePollAnswer)
 
     /// User rights changed in a chat; for bots only
-    case updateChatMember(UpdateChatMember)
+    case chatMember(UpdateChatMember)
 
     /// A user sent a join request to a chat; for bots only
-    case updateNewChatJoinRequest(UpdateNewChatJoinRequest)
+    case newChatJoinRequest(UpdateNewChatJoinRequest)
 
 
     private enum Kind: String, Codable {
@@ -435,626 +435,626 @@ public enum Update: Codable, Equatable {
         switch type {
         case .updateAuthorizationState:
             let value = try UpdateAuthorizationState(from: decoder)
-            self = .updateAuthorizationState(value)
+            self = .authorizationState(value)
         case .updateNewMessage:
             let value = try UpdateNewMessage(from: decoder)
-            self = .updateNewMessage(value)
+            self = .newMessage(value)
         case .updateMessageSendAcknowledged:
             let value = try UpdateMessageSendAcknowledged(from: decoder)
-            self = .updateMessageSendAcknowledged(value)
+            self = .messageSendAcknowledged(value)
         case .updateMessageSendSucceeded:
             let value = try UpdateMessageSendSucceeded(from: decoder)
-            self = .updateMessageSendSucceeded(value)
+            self = .messageSendSucceeded(value)
         case .updateMessageSendFailed:
             let value = try UpdateMessageSendFailed(from: decoder)
-            self = .updateMessageSendFailed(value)
+            self = .messageSendFailed(value)
         case .updateMessageContent:
             let value = try UpdateMessageContent(from: decoder)
-            self = .updateMessageContent(value)
+            self = .messageContent(value)
         case .updateMessageEdited:
             let value = try UpdateMessageEdited(from: decoder)
-            self = .updateMessageEdited(value)
+            self = .messageEdited(value)
         case .updateMessageIsPinned:
             let value = try UpdateMessageIsPinned(from: decoder)
-            self = .updateMessageIsPinned(value)
+            self = .messageIsPinned(value)
         case .updateMessageInteractionInfo:
             let value = try UpdateMessageInteractionInfo(from: decoder)
-            self = .updateMessageInteractionInfo(value)
+            self = .messageInteractionInfo(value)
         case .updateMessageContentOpened:
             let value = try UpdateMessageContentOpened(from: decoder)
-            self = .updateMessageContentOpened(value)
+            self = .messageContentOpened(value)
         case .updateMessageMentionRead:
             let value = try UpdateMessageMentionRead(from: decoder)
-            self = .updateMessageMentionRead(value)
+            self = .messageMentionRead(value)
         case .updateMessageUnreadReactions:
             let value = try UpdateMessageUnreadReactions(from: decoder)
-            self = .updateMessageUnreadReactions(value)
+            self = .messageUnreadReactions(value)
         case .updateMessageLiveLocationViewed:
             let value = try UpdateMessageLiveLocationViewed(from: decoder)
-            self = .updateMessageLiveLocationViewed(value)
+            self = .messageLiveLocationViewed(value)
         case .updateNewChat:
             let value = try UpdateNewChat(from: decoder)
-            self = .updateNewChat(value)
+            self = .newChat(value)
         case .updateChatTitle:
             let value = try UpdateChatTitle(from: decoder)
-            self = .updateChatTitle(value)
+            self = .chatTitle(value)
         case .updateChatPhoto:
             let value = try UpdateChatPhoto(from: decoder)
-            self = .updateChatPhoto(value)
+            self = .chatPhoto(value)
         case .updateChatPermissions:
             let value = try UpdateChatPermissions(from: decoder)
-            self = .updateChatPermissions(value)
+            self = .chatPermissions(value)
         case .updateChatLastMessage:
             let value = try UpdateChatLastMessage(from: decoder)
-            self = .updateChatLastMessage(value)
+            self = .chatLastMessage(value)
         case .updateChatPosition:
             let value = try UpdateChatPosition(from: decoder)
-            self = .updateChatPosition(value)
+            self = .chatPosition(value)
         case .updateChatReadInbox:
             let value = try UpdateChatReadInbox(from: decoder)
-            self = .updateChatReadInbox(value)
+            self = .chatReadInbox(value)
         case .updateChatReadOutbox:
             let value = try UpdateChatReadOutbox(from: decoder)
-            self = .updateChatReadOutbox(value)
+            self = .chatReadOutbox(value)
         case .updateChatActionBar:
             let value = try UpdateChatActionBar(from: decoder)
-            self = .updateChatActionBar(value)
+            self = .chatActionBar(value)
         case .updateChatAvailableReactions:
             let value = try UpdateChatAvailableReactions(from: decoder)
-            self = .updateChatAvailableReactions(value)
+            self = .chatAvailableReactions(value)
         case .updateChatDraftMessage:
             let value = try UpdateChatDraftMessage(from: decoder)
-            self = .updateChatDraftMessage(value)
+            self = .chatDraftMessage(value)
         case .updateChatMessageSender:
             let value = try UpdateChatMessageSender(from: decoder)
-            self = .updateChatMessageSender(value)
+            self = .chatMessageSender(value)
         case .updateChatMessageTtl:
             let value = try UpdateChatMessageTtl(from: decoder)
-            self = .updateChatMessageTtl(value)
+            self = .chatMessageTtl(value)
         case .updateChatNotificationSettings:
             let value = try UpdateChatNotificationSettings(from: decoder)
-            self = .updateChatNotificationSettings(value)
+            self = .chatNotificationSettings(value)
         case .updateChatPendingJoinRequests:
             let value = try UpdateChatPendingJoinRequests(from: decoder)
-            self = .updateChatPendingJoinRequests(value)
+            self = .chatPendingJoinRequests(value)
         case .updateChatReplyMarkup:
             let value = try UpdateChatReplyMarkup(from: decoder)
-            self = .updateChatReplyMarkup(value)
+            self = .chatReplyMarkup(value)
         case .updateChatTheme:
             let value = try UpdateChatTheme(from: decoder)
-            self = .updateChatTheme(value)
+            self = .chatTheme(value)
         case .updateChatUnreadMentionCount:
             let value = try UpdateChatUnreadMentionCount(from: decoder)
-            self = .updateChatUnreadMentionCount(value)
+            self = .chatUnreadMentionCount(value)
         case .updateChatUnreadReactionCount:
             let value = try UpdateChatUnreadReactionCount(from: decoder)
-            self = .updateChatUnreadReactionCount(value)
+            self = .chatUnreadReactionCount(value)
         case .updateChatVideoChat:
             let value = try UpdateChatVideoChat(from: decoder)
-            self = .updateChatVideoChat(value)
+            self = .chatVideoChat(value)
         case .updateChatDefaultDisableNotification:
             let value = try UpdateChatDefaultDisableNotification(from: decoder)
-            self = .updateChatDefaultDisableNotification(value)
+            self = .chatDefaultDisableNotification(value)
         case .updateChatHasProtectedContent:
             let value = try UpdateChatHasProtectedContent(from: decoder)
-            self = .updateChatHasProtectedContent(value)
+            self = .chatHasProtectedContent(value)
         case .updateChatHasScheduledMessages:
             let value = try UpdateChatHasScheduledMessages(from: decoder)
-            self = .updateChatHasScheduledMessages(value)
+            self = .chatHasScheduledMessages(value)
         case .updateChatIsBlocked:
             let value = try UpdateChatIsBlocked(from: decoder)
-            self = .updateChatIsBlocked(value)
+            self = .chatIsBlocked(value)
         case .updateChatIsMarkedAsUnread:
             let value = try UpdateChatIsMarkedAsUnread(from: decoder)
-            self = .updateChatIsMarkedAsUnread(value)
+            self = .chatIsMarkedAsUnread(value)
         case .updateChatFilters:
             let value = try UpdateChatFilters(from: decoder)
-            self = .updateChatFilters(value)
+            self = .chatFilters(value)
         case .updateChatOnlineMemberCount:
             let value = try UpdateChatOnlineMemberCount(from: decoder)
-            self = .updateChatOnlineMemberCount(value)
+            self = .chatOnlineMemberCount(value)
         case .updateScopeNotificationSettings:
             let value = try UpdateScopeNotificationSettings(from: decoder)
-            self = .updateScopeNotificationSettings(value)
+            self = .scopeNotificationSettings(value)
         case .updateNotification:
             let value = try UpdateNotification(from: decoder)
-            self = .updateNotification(value)
+            self = .notification(value)
         case .updateNotificationGroup:
             let value = try UpdateNotificationGroup(from: decoder)
-            self = .updateNotificationGroup(value)
+            self = .notificationGroup(value)
         case .updateActiveNotifications:
             let value = try UpdateActiveNotifications(from: decoder)
-            self = .updateActiveNotifications(value)
+            self = .activeNotifications(value)
         case .updateHavePendingNotifications:
             let value = try UpdateHavePendingNotifications(from: decoder)
-            self = .updateHavePendingNotifications(value)
+            self = .havePendingNotifications(value)
         case .updateDeleteMessages:
             let value = try UpdateDeleteMessages(from: decoder)
-            self = .updateDeleteMessages(value)
+            self = .deleteMessages(value)
         case .updateChatAction:
             let value = try UpdateChatAction(from: decoder)
-            self = .updateChatAction(value)
+            self = .chatAction(value)
         case .updateUserStatus:
             let value = try UpdateUserStatus(from: decoder)
-            self = .updateUserStatus(value)
+            self = .userStatus(value)
         case .updateUser:
             let value = try UpdateUser(from: decoder)
-            self = .updateUser(value)
+            self = .user(value)
         case .updateBasicGroup:
             let value = try UpdateBasicGroup(from: decoder)
-            self = .updateBasicGroup(value)
+            self = .basicGroup(value)
         case .updateSupergroup:
             let value = try UpdateSupergroup(from: decoder)
-            self = .updateSupergroup(value)
+            self = .supergroup(value)
         case .updateSecretChat:
             let value = try UpdateSecretChat(from: decoder)
-            self = .updateSecretChat(value)
+            self = .secretChat(value)
         case .updateUserFullInfo:
             let value = try UpdateUserFullInfo(from: decoder)
-            self = .updateUserFullInfo(value)
+            self = .userFullInfo(value)
         case .updateBasicGroupFullInfo:
             let value = try UpdateBasicGroupFullInfo(from: decoder)
-            self = .updateBasicGroupFullInfo(value)
+            self = .basicGroupFullInfo(value)
         case .updateSupergroupFullInfo:
             let value = try UpdateSupergroupFullInfo(from: decoder)
-            self = .updateSupergroupFullInfo(value)
+            self = .supergroupFullInfo(value)
         case .updateServiceNotification:
             let value = try UpdateServiceNotification(from: decoder)
-            self = .updateServiceNotification(value)
+            self = .serviceNotification(value)
         case .updateFile:
             let value = try UpdateFile(from: decoder)
-            self = .updateFile(value)
+            self = .file(value)
         case .updateFileGenerationStart:
             let value = try UpdateFileGenerationStart(from: decoder)
-            self = .updateFileGenerationStart(value)
+            self = .fileGenerationStart(value)
         case .updateFileGenerationStop:
             let value = try UpdateFileGenerationStop(from: decoder)
-            self = .updateFileGenerationStop(value)
+            self = .fileGenerationStop(value)
         case .updateFileDownloads:
             let value = try UpdateFileDownloads(from: decoder)
-            self = .updateFileDownloads(value)
+            self = .fileDownloads(value)
         case .updateFileAddedToDownloads:
             let value = try UpdateFileAddedToDownloads(from: decoder)
-            self = .updateFileAddedToDownloads(value)
+            self = .fileAddedToDownloads(value)
         case .updateFileDownload:
             let value = try UpdateFileDownload(from: decoder)
-            self = .updateFileDownload(value)
+            self = .fileDownload(value)
         case .updateFileRemovedFromDownloads:
             let value = try UpdateFileRemovedFromDownloads(from: decoder)
-            self = .updateFileRemovedFromDownloads(value)
+            self = .fileRemovedFromDownloads(value)
         case .updateCall:
             let value = try UpdateCall(from: decoder)
-            self = .updateCall(value)
+            self = .call(value)
         case .updateGroupCall:
             let value = try UpdateGroupCall(from: decoder)
-            self = .updateGroupCall(value)
+            self = .groupCall(value)
         case .updateGroupCallParticipant:
             let value = try UpdateGroupCallParticipant(from: decoder)
-            self = .updateGroupCallParticipant(value)
+            self = .groupCallParticipant(value)
         case .updateNewCallSignalingData:
             let value = try UpdateNewCallSignalingData(from: decoder)
-            self = .updateNewCallSignalingData(value)
+            self = .newCallSignalingData(value)
         case .updateUserPrivacySettingRules:
             let value = try UpdateUserPrivacySettingRules(from: decoder)
-            self = .updateUserPrivacySettingRules(value)
+            self = .userPrivacySettingRules(value)
         case .updateUnreadMessageCount:
             let value = try UpdateUnreadMessageCount(from: decoder)
-            self = .updateUnreadMessageCount(value)
+            self = .unreadMessageCount(value)
         case .updateUnreadChatCount:
             let value = try UpdateUnreadChatCount(from: decoder)
-            self = .updateUnreadChatCount(value)
+            self = .unreadChatCount(value)
         case .updateOption:
             let value = try UpdateOption(from: decoder)
-            self = .updateOption(value)
+            self = .option(value)
         case .updateStickerSet:
             let value = try UpdateStickerSet(from: decoder)
-            self = .updateStickerSet(value)
+            self = .stickerSet(value)
         case .updateInstalledStickerSets:
             let value = try UpdateInstalledStickerSets(from: decoder)
-            self = .updateInstalledStickerSets(value)
+            self = .installedStickerSets(value)
         case .updateTrendingStickerSets:
             let value = try UpdateTrendingStickerSets(from: decoder)
-            self = .updateTrendingStickerSets(value)
+            self = .trendingStickerSets(value)
         case .updateRecentStickers:
             let value = try UpdateRecentStickers(from: decoder)
-            self = .updateRecentStickers(value)
+            self = .recentStickers(value)
         case .updateFavoriteStickers:
             let value = try UpdateFavoriteStickers(from: decoder)
-            self = .updateFavoriteStickers(value)
+            self = .favoriteStickers(value)
         case .updateSavedAnimations:
             let value = try UpdateSavedAnimations(from: decoder)
-            self = .updateSavedAnimations(value)
+            self = .savedAnimations(value)
         case .updateSavedNotificationSounds:
             let value = try UpdateSavedNotificationSounds(from: decoder)
-            self = .updateSavedNotificationSounds(value)
+            self = .savedNotificationSounds(value)
         case .updateSelectedBackground:
             let value = try UpdateSelectedBackground(from: decoder)
-            self = .updateSelectedBackground(value)
+            self = .selectedBackground(value)
         case .updateChatThemes:
             let value = try UpdateChatThemes(from: decoder)
-            self = .updateChatThemes(value)
+            self = .chatThemes(value)
         case .updateLanguagePackStrings:
             let value = try UpdateLanguagePackStrings(from: decoder)
-            self = .updateLanguagePackStrings(value)
+            self = .languagePackStrings(value)
         case .updateConnectionState:
             let value = try UpdateConnectionState(from: decoder)
-            self = .updateConnectionState(value)
+            self = .connectionState(value)
         case .updateTermsOfService:
             let value = try UpdateTermsOfService(from: decoder)
-            self = .updateTermsOfService(value)
+            self = .termsOfService(value)
         case .updateUsersNearby:
             let value = try UpdateUsersNearby(from: decoder)
-            self = .updateUsersNearby(value)
+            self = .usersNearby(value)
         case .updateAttachmentMenuBots:
             let value = try UpdateAttachmentMenuBots(from: decoder)
-            self = .updateAttachmentMenuBots(value)
+            self = .attachmentMenuBots(value)
         case .updateWebAppMessageSent:
             let value = try UpdateWebAppMessageSent(from: decoder)
-            self = .updateWebAppMessageSent(value)
+            self = .webAppMessageSent(value)
         case .updateReactions:
             let value = try UpdateReactions(from: decoder)
-            self = .updateReactions(value)
+            self = .reactions(value)
         case .updateDiceEmojis:
             let value = try UpdateDiceEmojis(from: decoder)
-            self = .updateDiceEmojis(value)
+            self = .diceEmojis(value)
         case .updateAnimatedEmojiMessageClicked:
             let value = try UpdateAnimatedEmojiMessageClicked(from: decoder)
-            self = .updateAnimatedEmojiMessageClicked(value)
+            self = .animatedEmojiMessageClicked(value)
         case .updateAnimationSearchParameters:
             let value = try UpdateAnimationSearchParameters(from: decoder)
-            self = .updateAnimationSearchParameters(value)
+            self = .animationSearchParameters(value)
         case .updateSuggestedActions:
             let value = try UpdateSuggestedActions(from: decoder)
-            self = .updateSuggestedActions(value)
+            self = .suggestedActions(value)
         case .updateNewInlineQuery:
             let value = try UpdateNewInlineQuery(from: decoder)
-            self = .updateNewInlineQuery(value)
+            self = .newInlineQuery(value)
         case .updateNewChosenInlineResult:
             let value = try UpdateNewChosenInlineResult(from: decoder)
-            self = .updateNewChosenInlineResult(value)
+            self = .newChosenInlineResult(value)
         case .updateNewCallbackQuery:
             let value = try UpdateNewCallbackQuery(from: decoder)
-            self = .updateNewCallbackQuery(value)
+            self = .newCallbackQuery(value)
         case .updateNewInlineCallbackQuery:
             let value = try UpdateNewInlineCallbackQuery(from: decoder)
-            self = .updateNewInlineCallbackQuery(value)
+            self = .newInlineCallbackQuery(value)
         case .updateNewShippingQuery:
             let value = try UpdateNewShippingQuery(from: decoder)
-            self = .updateNewShippingQuery(value)
+            self = .newShippingQuery(value)
         case .updateNewPreCheckoutQuery:
             let value = try UpdateNewPreCheckoutQuery(from: decoder)
-            self = .updateNewPreCheckoutQuery(value)
+            self = .newPreCheckoutQuery(value)
         case .updateNewCustomEvent:
             let value = try UpdateNewCustomEvent(from: decoder)
-            self = .updateNewCustomEvent(value)
+            self = .newCustomEvent(value)
         case .updateNewCustomQuery:
             let value = try UpdateNewCustomQuery(from: decoder)
-            self = .updateNewCustomQuery(value)
+            self = .newCustomQuery(value)
         case .updatePoll:
             let value = try UpdatePoll(from: decoder)
-            self = .updatePoll(value)
+            self = .poll(value)
         case .updatePollAnswer:
             let value = try UpdatePollAnswer(from: decoder)
-            self = .updatePollAnswer(value)
+            self = .pollAnswer(value)
         case .updateChatMember:
             let value = try UpdateChatMember(from: decoder)
-            self = .updateChatMember(value)
+            self = .chatMember(value)
         case .updateNewChatJoinRequest:
             let value = try UpdateNewChatJoinRequest(from: decoder)
-            self = .updateNewChatJoinRequest(value)
+            self = .newChatJoinRequest(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .updateAuthorizationState(let value):
+        case .authorizationState(let value):
             try container.encode(Kind.updateAuthorizationState, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewMessage(let value):
+        case .newMessage(let value):
             try container.encode(Kind.updateNewMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageSendAcknowledged(let value):
+        case .messageSendAcknowledged(let value):
             try container.encode(Kind.updateMessageSendAcknowledged, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageSendSucceeded(let value):
+        case .messageSendSucceeded(let value):
             try container.encode(Kind.updateMessageSendSucceeded, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageSendFailed(let value):
+        case .messageSendFailed(let value):
             try container.encode(Kind.updateMessageSendFailed, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageContent(let value):
+        case .messageContent(let value):
             try container.encode(Kind.updateMessageContent, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageEdited(let value):
+        case .messageEdited(let value):
             try container.encode(Kind.updateMessageEdited, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageIsPinned(let value):
+        case .messageIsPinned(let value):
             try container.encode(Kind.updateMessageIsPinned, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageInteractionInfo(let value):
+        case .messageInteractionInfo(let value):
             try container.encode(Kind.updateMessageInteractionInfo, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageContentOpened(let value):
+        case .messageContentOpened(let value):
             try container.encode(Kind.updateMessageContentOpened, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageMentionRead(let value):
+        case .messageMentionRead(let value):
             try container.encode(Kind.updateMessageMentionRead, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageUnreadReactions(let value):
+        case .messageUnreadReactions(let value):
             try container.encode(Kind.updateMessageUnreadReactions, forKey: .type)
             try value.encode(to: encoder)
-        case .updateMessageLiveLocationViewed(let value):
+        case .messageLiveLocationViewed(let value):
             try container.encode(Kind.updateMessageLiveLocationViewed, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewChat(let value):
+        case .newChat(let value):
             try container.encode(Kind.updateNewChat, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatTitle(let value):
+        case .chatTitle(let value):
             try container.encode(Kind.updateChatTitle, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatPhoto(let value):
+        case .chatPhoto(let value):
             try container.encode(Kind.updateChatPhoto, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatPermissions(let value):
+        case .chatPermissions(let value):
             try container.encode(Kind.updateChatPermissions, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatLastMessage(let value):
+        case .chatLastMessage(let value):
             try container.encode(Kind.updateChatLastMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatPosition(let value):
+        case .chatPosition(let value):
             try container.encode(Kind.updateChatPosition, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatReadInbox(let value):
+        case .chatReadInbox(let value):
             try container.encode(Kind.updateChatReadInbox, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatReadOutbox(let value):
+        case .chatReadOutbox(let value):
             try container.encode(Kind.updateChatReadOutbox, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatActionBar(let value):
+        case .chatActionBar(let value):
             try container.encode(Kind.updateChatActionBar, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatAvailableReactions(let value):
+        case .chatAvailableReactions(let value):
             try container.encode(Kind.updateChatAvailableReactions, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatDraftMessage(let value):
+        case .chatDraftMessage(let value):
             try container.encode(Kind.updateChatDraftMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatMessageSender(let value):
+        case .chatMessageSender(let value):
             try container.encode(Kind.updateChatMessageSender, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatMessageTtl(let value):
+        case .chatMessageTtl(let value):
             try container.encode(Kind.updateChatMessageTtl, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatNotificationSettings(let value):
+        case .chatNotificationSettings(let value):
             try container.encode(Kind.updateChatNotificationSettings, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatPendingJoinRequests(let value):
+        case .chatPendingJoinRequests(let value):
             try container.encode(Kind.updateChatPendingJoinRequests, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatReplyMarkup(let value):
+        case .chatReplyMarkup(let value):
             try container.encode(Kind.updateChatReplyMarkup, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatTheme(let value):
+        case .chatTheme(let value):
             try container.encode(Kind.updateChatTheme, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatUnreadMentionCount(let value):
+        case .chatUnreadMentionCount(let value):
             try container.encode(Kind.updateChatUnreadMentionCount, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatUnreadReactionCount(let value):
+        case .chatUnreadReactionCount(let value):
             try container.encode(Kind.updateChatUnreadReactionCount, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatVideoChat(let value):
+        case .chatVideoChat(let value):
             try container.encode(Kind.updateChatVideoChat, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatDefaultDisableNotification(let value):
+        case .chatDefaultDisableNotification(let value):
             try container.encode(Kind.updateChatDefaultDisableNotification, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatHasProtectedContent(let value):
+        case .chatHasProtectedContent(let value):
             try container.encode(Kind.updateChatHasProtectedContent, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatHasScheduledMessages(let value):
+        case .chatHasScheduledMessages(let value):
             try container.encode(Kind.updateChatHasScheduledMessages, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatIsBlocked(let value):
+        case .chatIsBlocked(let value):
             try container.encode(Kind.updateChatIsBlocked, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatIsMarkedAsUnread(let value):
+        case .chatIsMarkedAsUnread(let value):
             try container.encode(Kind.updateChatIsMarkedAsUnread, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatFilters(let value):
+        case .chatFilters(let value):
             try container.encode(Kind.updateChatFilters, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatOnlineMemberCount(let value):
+        case .chatOnlineMemberCount(let value):
             try container.encode(Kind.updateChatOnlineMemberCount, forKey: .type)
             try value.encode(to: encoder)
-        case .updateScopeNotificationSettings(let value):
+        case .scopeNotificationSettings(let value):
             try container.encode(Kind.updateScopeNotificationSettings, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNotification(let value):
+        case .notification(let value):
             try container.encode(Kind.updateNotification, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNotificationGroup(let value):
+        case .notificationGroup(let value):
             try container.encode(Kind.updateNotificationGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .updateActiveNotifications(let value):
+        case .activeNotifications(let value):
             try container.encode(Kind.updateActiveNotifications, forKey: .type)
             try value.encode(to: encoder)
-        case .updateHavePendingNotifications(let value):
+        case .havePendingNotifications(let value):
             try container.encode(Kind.updateHavePendingNotifications, forKey: .type)
             try value.encode(to: encoder)
-        case .updateDeleteMessages(let value):
+        case .deleteMessages(let value):
             try container.encode(Kind.updateDeleteMessages, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatAction(let value):
+        case .chatAction(let value):
             try container.encode(Kind.updateChatAction, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUserStatus(let value):
+        case .userStatus(let value):
             try container.encode(Kind.updateUserStatus, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUser(let value):
+        case .user(let value):
             try container.encode(Kind.updateUser, forKey: .type)
             try value.encode(to: encoder)
-        case .updateBasicGroup(let value):
+        case .basicGroup(let value):
             try container.encode(Kind.updateBasicGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSupergroup(let value):
+        case .supergroup(let value):
             try container.encode(Kind.updateSupergroup, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSecretChat(let value):
+        case .secretChat(let value):
             try container.encode(Kind.updateSecretChat, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUserFullInfo(let value):
+        case .userFullInfo(let value):
             try container.encode(Kind.updateUserFullInfo, forKey: .type)
             try value.encode(to: encoder)
-        case .updateBasicGroupFullInfo(let value):
+        case .basicGroupFullInfo(let value):
             try container.encode(Kind.updateBasicGroupFullInfo, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSupergroupFullInfo(let value):
+        case .supergroupFullInfo(let value):
             try container.encode(Kind.updateSupergroupFullInfo, forKey: .type)
             try value.encode(to: encoder)
-        case .updateServiceNotification(let value):
+        case .serviceNotification(let value):
             try container.encode(Kind.updateServiceNotification, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFile(let value):
+        case .file(let value):
             try container.encode(Kind.updateFile, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileGenerationStart(let value):
+        case .fileGenerationStart(let value):
             try container.encode(Kind.updateFileGenerationStart, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileGenerationStop(let value):
+        case .fileGenerationStop(let value):
             try container.encode(Kind.updateFileGenerationStop, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileDownloads(let value):
+        case .fileDownloads(let value):
             try container.encode(Kind.updateFileDownloads, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileAddedToDownloads(let value):
+        case .fileAddedToDownloads(let value):
             try container.encode(Kind.updateFileAddedToDownloads, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileDownload(let value):
+        case .fileDownload(let value):
             try container.encode(Kind.updateFileDownload, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFileRemovedFromDownloads(let value):
+        case .fileRemovedFromDownloads(let value):
             try container.encode(Kind.updateFileRemovedFromDownloads, forKey: .type)
             try value.encode(to: encoder)
-        case .updateCall(let value):
+        case .call(let value):
             try container.encode(Kind.updateCall, forKey: .type)
             try value.encode(to: encoder)
-        case .updateGroupCall(let value):
+        case .groupCall(let value):
             try container.encode(Kind.updateGroupCall, forKey: .type)
             try value.encode(to: encoder)
-        case .updateGroupCallParticipant(let value):
+        case .groupCallParticipant(let value):
             try container.encode(Kind.updateGroupCallParticipant, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewCallSignalingData(let value):
+        case .newCallSignalingData(let value):
             try container.encode(Kind.updateNewCallSignalingData, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUserPrivacySettingRules(let value):
+        case .userPrivacySettingRules(let value):
             try container.encode(Kind.updateUserPrivacySettingRules, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUnreadMessageCount(let value):
+        case .unreadMessageCount(let value):
             try container.encode(Kind.updateUnreadMessageCount, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUnreadChatCount(let value):
+        case .unreadChatCount(let value):
             try container.encode(Kind.updateUnreadChatCount, forKey: .type)
             try value.encode(to: encoder)
-        case .updateOption(let value):
+        case .option(let value):
             try container.encode(Kind.updateOption, forKey: .type)
             try value.encode(to: encoder)
-        case .updateStickerSet(let value):
+        case .stickerSet(let value):
             try container.encode(Kind.updateStickerSet, forKey: .type)
             try value.encode(to: encoder)
-        case .updateInstalledStickerSets(let value):
+        case .installedStickerSets(let value):
             try container.encode(Kind.updateInstalledStickerSets, forKey: .type)
             try value.encode(to: encoder)
-        case .updateTrendingStickerSets(let value):
+        case .trendingStickerSets(let value):
             try container.encode(Kind.updateTrendingStickerSets, forKey: .type)
             try value.encode(to: encoder)
-        case .updateRecentStickers(let value):
+        case .recentStickers(let value):
             try container.encode(Kind.updateRecentStickers, forKey: .type)
             try value.encode(to: encoder)
-        case .updateFavoriteStickers(let value):
+        case .favoriteStickers(let value):
             try container.encode(Kind.updateFavoriteStickers, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSavedAnimations(let value):
+        case .savedAnimations(let value):
             try container.encode(Kind.updateSavedAnimations, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSavedNotificationSounds(let value):
+        case .savedNotificationSounds(let value):
             try container.encode(Kind.updateSavedNotificationSounds, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSelectedBackground(let value):
+        case .selectedBackground(let value):
             try container.encode(Kind.updateSelectedBackground, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatThemes(let value):
+        case .chatThemes(let value):
             try container.encode(Kind.updateChatThemes, forKey: .type)
             try value.encode(to: encoder)
-        case .updateLanguagePackStrings(let value):
+        case .languagePackStrings(let value):
             try container.encode(Kind.updateLanguagePackStrings, forKey: .type)
             try value.encode(to: encoder)
-        case .updateConnectionState(let value):
+        case .connectionState(let value):
             try container.encode(Kind.updateConnectionState, forKey: .type)
             try value.encode(to: encoder)
-        case .updateTermsOfService(let value):
+        case .termsOfService(let value):
             try container.encode(Kind.updateTermsOfService, forKey: .type)
             try value.encode(to: encoder)
-        case .updateUsersNearby(let value):
+        case .usersNearby(let value):
             try container.encode(Kind.updateUsersNearby, forKey: .type)
             try value.encode(to: encoder)
-        case .updateAttachmentMenuBots(let value):
+        case .attachmentMenuBots(let value):
             try container.encode(Kind.updateAttachmentMenuBots, forKey: .type)
             try value.encode(to: encoder)
-        case .updateWebAppMessageSent(let value):
+        case .webAppMessageSent(let value):
             try container.encode(Kind.updateWebAppMessageSent, forKey: .type)
             try value.encode(to: encoder)
-        case .updateReactions(let value):
+        case .reactions(let value):
             try container.encode(Kind.updateReactions, forKey: .type)
             try value.encode(to: encoder)
-        case .updateDiceEmojis(let value):
+        case .diceEmojis(let value):
             try container.encode(Kind.updateDiceEmojis, forKey: .type)
             try value.encode(to: encoder)
-        case .updateAnimatedEmojiMessageClicked(let value):
+        case .animatedEmojiMessageClicked(let value):
             try container.encode(Kind.updateAnimatedEmojiMessageClicked, forKey: .type)
             try value.encode(to: encoder)
-        case .updateAnimationSearchParameters(let value):
+        case .animationSearchParameters(let value):
             try container.encode(Kind.updateAnimationSearchParameters, forKey: .type)
             try value.encode(to: encoder)
-        case .updateSuggestedActions(let value):
+        case .suggestedActions(let value):
             try container.encode(Kind.updateSuggestedActions, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewInlineQuery(let value):
+        case .newInlineQuery(let value):
             try container.encode(Kind.updateNewInlineQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewChosenInlineResult(let value):
+        case .newChosenInlineResult(let value):
             try container.encode(Kind.updateNewChosenInlineResult, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewCallbackQuery(let value):
+        case .newCallbackQuery(let value):
             try container.encode(Kind.updateNewCallbackQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewInlineCallbackQuery(let value):
+        case .newInlineCallbackQuery(let value):
             try container.encode(Kind.updateNewInlineCallbackQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewShippingQuery(let value):
+        case .newShippingQuery(let value):
             try container.encode(Kind.updateNewShippingQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewPreCheckoutQuery(let value):
+        case .newPreCheckoutQuery(let value):
             try container.encode(Kind.updateNewPreCheckoutQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewCustomEvent(let value):
+        case .newCustomEvent(let value):
             try container.encode(Kind.updateNewCustomEvent, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewCustomQuery(let value):
+        case .newCustomQuery(let value):
             try container.encode(Kind.updateNewCustomQuery, forKey: .type)
             try value.encode(to: encoder)
-        case .updatePoll(let value):
+        case .poll(let value):
             try container.encode(Kind.updatePoll, forKey: .type)
             try value.encode(to: encoder)
-        case .updatePollAnswer(let value):
+        case .pollAnswer(let value):
             try container.encode(Kind.updatePollAnswer, forKey: .type)
             try value.encode(to: encoder)
-        case .updateChatMember(let value):
+        case .chatMember(let value):
             try container.encode(Kind.updateChatMember, forKey: .type)
             try value.encode(to: encoder)
-        case .updateNewChatJoinRequest(let value):
+        case .newChatJoinRequest(let value):
             try container.encode(Kind.updateNewChatJoinRequest, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -1062,7 +1062,7 @@ public enum Update: Codable, Equatable {
 }
 
 /// The user authorization state has changed
-public struct UpdateAuthorizationState: Codable, Equatable {
+public struct UpdateAuthorizationState: Codable, Equatable, Hashable {
 
     /// New authorization state
     public let authorizationState: AuthorizationState
@@ -1074,7 +1074,7 @@ public struct UpdateAuthorizationState: Codable, Equatable {
 }
 
 /// A new message was received; can also be an outgoing message
-public struct UpdateNewMessage: Codable, Equatable {
+public struct UpdateNewMessage: Codable, Equatable, Hashable {
 
     /// The new message
     public let message: Message
@@ -1086,7 +1086,7 @@ public struct UpdateNewMessage: Codable, Equatable {
 }
 
 /// A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option "use_quick_ack" is set to true. This update may be sent multiple times for the same message
-public struct UpdateMessageSendAcknowledged: Codable, Equatable {
+public struct UpdateMessageSendAcknowledged: Codable, Equatable, Hashable {
 
     /// The chat identifier of the sent message
     public let chatId: Int64
@@ -1105,7 +1105,7 @@ public struct UpdateMessageSendAcknowledged: Codable, Equatable {
 }
 
 /// A message has been successfully sent
-public struct UpdateMessageSendSucceeded: Codable, Equatable {
+public struct UpdateMessageSendSucceeded: Codable, Equatable, Hashable {
 
     /// The sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change
     public let message: Message
@@ -1124,7 +1124,7 @@ public struct UpdateMessageSendSucceeded: Codable, Equatable {
 }
 
 /// A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update
-public struct UpdateMessageSendFailed: Codable, Equatable {
+public struct UpdateMessageSendFailed: Codable, Equatable, Hashable {
 
     /// An error code
     public let errorCode: Int
@@ -1153,7 +1153,7 @@ public struct UpdateMessageSendFailed: Codable, Equatable {
 }
 
 /// The message content has changed
-public struct UpdateMessageContent: Codable, Equatable {
+public struct UpdateMessageContent: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1177,7 +1177,7 @@ public struct UpdateMessageContent: Codable, Equatable {
 }
 
 /// A message was edited. Changes in the message content will come in a separate updateMessageContent
-public struct UpdateMessageEdited: Codable, Equatable {
+public struct UpdateMessageEdited: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1206,7 +1206,7 @@ public struct UpdateMessageEdited: Codable, Equatable {
 }
 
 /// The message pinned state was changed
-public struct UpdateMessageIsPinned: Codable, Equatable {
+public struct UpdateMessageIsPinned: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1230,7 +1230,7 @@ public struct UpdateMessageIsPinned: Codable, Equatable {
 }
 
 /// The information about interactions with a message has changed
-public struct UpdateMessageInteractionInfo: Codable, Equatable {
+public struct UpdateMessageInteractionInfo: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1254,7 +1254,7 @@ public struct UpdateMessageInteractionInfo: Codable, Equatable {
 }
 
 /// The message content was opened. Updates voice note messages to "listened", video note messages to "viewed" and starts the TTL timer for self-destructing messages
-public struct UpdateMessageContentOpened: Codable, Equatable {
+public struct UpdateMessageContentOpened: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1273,7 +1273,7 @@ public struct UpdateMessageContentOpened: Codable, Equatable {
 }
 
 /// A message with an unread mention was read
-public struct UpdateMessageMentionRead: Codable, Equatable {
+public struct UpdateMessageMentionRead: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1297,7 +1297,7 @@ public struct UpdateMessageMentionRead: Codable, Equatable {
 }
 
 /// The list of unread reactions added to a message was changed
-public struct UpdateMessageUnreadReactions: Codable, Equatable {
+public struct UpdateMessageUnreadReactions: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1326,7 +1326,7 @@ public struct UpdateMessageUnreadReactions: Codable, Equatable {
 }
 
 /// A message with a live location was viewed. When the update is received, the application is supposed to update the live location
-public struct UpdateMessageLiveLocationViewed: Codable, Equatable {
+public struct UpdateMessageLiveLocationViewed: Codable, Equatable, Hashable {
 
     /// Identifier of the chat with the live location message
     public let chatId: Int64
@@ -1345,7 +1345,7 @@ public struct UpdateMessageLiveLocationViewed: Codable, Equatable {
 }
 
 /// A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the application. The chat field changes will be reported through separate updates
-public struct UpdateNewChat: Codable, Equatable {
+public struct UpdateNewChat: Codable, Equatable, Hashable {
 
     /// The chat
     public let chat: Chat
@@ -1357,7 +1357,7 @@ public struct UpdateNewChat: Codable, Equatable {
 }
 
 /// The title of a chat was changed
-public struct UpdateChatTitle: Codable, Equatable {
+public struct UpdateChatTitle: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1376,7 +1376,7 @@ public struct UpdateChatTitle: Codable, Equatable {
 }
 
 /// A chat photo was changed
-public struct UpdateChatPhoto: Codable, Equatable {
+public struct UpdateChatPhoto: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1395,7 +1395,7 @@ public struct UpdateChatPhoto: Codable, Equatable {
 }
 
 /// Chat permissions was changed
-public struct UpdateChatPermissions: Codable, Equatable {
+public struct UpdateChatPermissions: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1414,7 +1414,7 @@ public struct UpdateChatPermissions: Codable, Equatable {
 }
 
 /// The last message of a chat was changed. If last_message is null, then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case
-public struct UpdateChatLastMessage: Codable, Equatable {
+public struct UpdateChatLastMessage: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1438,7 +1438,7 @@ public struct UpdateChatLastMessage: Codable, Equatable {
 }
 
 /// The position of a chat in a chat list has changed. Instead of this update updateChatLastMessage or updateChatDraftMessage might be sent
-public struct UpdateChatPosition: Codable, Equatable {
+public struct UpdateChatPosition: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1457,7 +1457,7 @@ public struct UpdateChatPosition: Codable, Equatable {
 }
 
 /// Incoming messages were read or the number of unread messages has been changed
-public struct UpdateChatReadInbox: Codable, Equatable {
+public struct UpdateChatReadInbox: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1481,7 +1481,7 @@ public struct UpdateChatReadInbox: Codable, Equatable {
 }
 
 /// Outgoing messages were read
-public struct UpdateChatReadOutbox: Codable, Equatable {
+public struct UpdateChatReadOutbox: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1500,7 +1500,7 @@ public struct UpdateChatReadOutbox: Codable, Equatable {
 }
 
 /// The chat action bar was changed
-public struct UpdateChatActionBar: Codable, Equatable {
+public struct UpdateChatActionBar: Codable, Equatable, Hashable {
 
     /// The new value of the action bar; may be null
     public let actionBar: ChatActionBar?
@@ -1519,7 +1519,7 @@ public struct UpdateChatActionBar: Codable, Equatable {
 }
 
 /// The chat available reactions were changed
-public struct UpdateChatAvailableReactions: Codable, Equatable {
+public struct UpdateChatAvailableReactions: Codable, Equatable, Hashable {
 
     /// The new list of reactions, available in the chat
     public let availableReactions: [String]
@@ -1538,7 +1538,7 @@ public struct UpdateChatAvailableReactions: Codable, Equatable {
 }
 
 /// A chat draft has changed. Be aware that the update may come in the currently opened chat but with old content of the draft. If the user has changed the content of the draft, this update mustn't be applied
-public struct UpdateChatDraftMessage: Codable, Equatable {
+public struct UpdateChatDraftMessage: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1562,7 +1562,7 @@ public struct UpdateChatDraftMessage: Codable, Equatable {
 }
 
 /// The message sender that is selected to send messages in a chat has changed
-public struct UpdateChatMessageSender: Codable, Equatable {
+public struct UpdateChatMessageSender: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1581,7 +1581,7 @@ public struct UpdateChatMessageSender: Codable, Equatable {
 }
 
 /// The message Time To Live setting for a chat was changed
-public struct UpdateChatMessageTtl: Codable, Equatable {
+public struct UpdateChatMessageTtl: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1600,7 +1600,7 @@ public struct UpdateChatMessageTtl: Codable, Equatable {
 }
 
 /// Notification settings for a chat were changed
-public struct UpdateChatNotificationSettings: Codable, Equatable {
+public struct UpdateChatNotificationSettings: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1619,7 +1619,7 @@ public struct UpdateChatNotificationSettings: Codable, Equatable {
 }
 
 /// The chat pending join requests were changed
-public struct UpdateChatPendingJoinRequests: Codable, Equatable {
+public struct UpdateChatPendingJoinRequests: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1638,7 +1638,7 @@ public struct UpdateChatPendingJoinRequests: Codable, Equatable {
 }
 
 /// The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user
-public struct UpdateChatReplyMarkup: Codable, Equatable {
+public struct UpdateChatReplyMarkup: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1657,7 +1657,7 @@ public struct UpdateChatReplyMarkup: Codable, Equatable {
 }
 
 /// The chat theme was changed
-public struct UpdateChatTheme: Codable, Equatable {
+public struct UpdateChatTheme: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1676,7 +1676,7 @@ public struct UpdateChatTheme: Codable, Equatable {
 }
 
 /// The chat unread_mention_count has changed
-public struct UpdateChatUnreadMentionCount: Codable, Equatable {
+public struct UpdateChatUnreadMentionCount: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1695,7 +1695,7 @@ public struct UpdateChatUnreadMentionCount: Codable, Equatable {
 }
 
 /// The chat unread_reaction_count has changed
-public struct UpdateChatUnreadReactionCount: Codable, Equatable {
+public struct UpdateChatUnreadReactionCount: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1714,7 +1714,7 @@ public struct UpdateChatUnreadReactionCount: Codable, Equatable {
 }
 
 /// A chat video chat state has changed
-public struct UpdateChatVideoChat: Codable, Equatable {
+public struct UpdateChatVideoChat: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1733,7 +1733,7 @@ public struct UpdateChatVideoChat: Codable, Equatable {
 }
 
 /// The value of the default disable_notification parameter, used when a message is sent to the chat, was changed
-public struct UpdateChatDefaultDisableNotification: Codable, Equatable {
+public struct UpdateChatDefaultDisableNotification: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1752,7 +1752,7 @@ public struct UpdateChatDefaultDisableNotification: Codable, Equatable {
 }
 
 /// A chat content was allowed or restricted for saving
-public struct UpdateChatHasProtectedContent: Codable, Equatable {
+public struct UpdateChatHasProtectedContent: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1771,7 +1771,7 @@ public struct UpdateChatHasProtectedContent: Codable, Equatable {
 }
 
 /// A chat's has_scheduled_messages field has changed
-public struct UpdateChatHasScheduledMessages: Codable, Equatable {
+public struct UpdateChatHasScheduledMessages: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1790,7 +1790,7 @@ public struct UpdateChatHasScheduledMessages: Codable, Equatable {
 }
 
 /// A chat was blocked or unblocked
-public struct UpdateChatIsBlocked: Codable, Equatable {
+public struct UpdateChatIsBlocked: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1809,7 +1809,7 @@ public struct UpdateChatIsBlocked: Codable, Equatable {
 }
 
 /// A chat was marked as unread or was read
-public struct UpdateChatIsMarkedAsUnread: Codable, Equatable {
+public struct UpdateChatIsMarkedAsUnread: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -1828,7 +1828,7 @@ public struct UpdateChatIsMarkedAsUnread: Codable, Equatable {
 }
 
 /// The list of chat filters or a chat filter has changed
-public struct UpdateChatFilters: Codable, Equatable {
+public struct UpdateChatFilters: Codable, Equatable, Hashable {
 
     /// The new list of chat filters
     public let chatFilters: [ChatFilterInfo]
@@ -1847,7 +1847,7 @@ public struct UpdateChatFilters: Codable, Equatable {
 }
 
 /// The number of online group members has changed. This update with non-zero number of online group members is sent only for currently opened chats. There is no guarantee that it will be sent just after the number of online users has changed
-public struct UpdateChatOnlineMemberCount: Codable, Equatable {
+public struct UpdateChatOnlineMemberCount: Codable, Equatable, Hashable {
 
     /// Identifier of the chat
     public let chatId: Int64
@@ -1866,7 +1866,7 @@ public struct UpdateChatOnlineMemberCount: Codable, Equatable {
 }
 
 /// Notification settings for some type of chats were updated
-public struct UpdateScopeNotificationSettings: Codable, Equatable {
+public struct UpdateScopeNotificationSettings: Codable, Equatable, Hashable {
 
     /// The new notification settings
     public let notificationSettings: ScopeNotificationSettings
@@ -1885,7 +1885,7 @@ public struct UpdateScopeNotificationSettings: Codable, Equatable {
 }
 
 /// A notification was changed
-public struct UpdateNotification: Codable, Equatable {
+public struct UpdateNotification: Codable, Equatable, Hashable {
 
     /// Changed notification
     public let notification: Notification
@@ -1904,7 +1904,7 @@ public struct UpdateNotification: Codable, Equatable {
 }
 
 /// A list of active notifications in a notification group has changed
-public struct UpdateNotificationGroup: Codable, Equatable {
+public struct UpdateNotificationGroup: Codable, Equatable, Hashable {
 
     /// List of added group notifications, sorted by notification ID
     public let addedNotifications: [Notification]
@@ -1953,7 +1953,7 @@ public struct UpdateNotificationGroup: Codable, Equatable {
 }
 
 /// Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update
-public struct UpdateActiveNotifications: Codable, Equatable {
+public struct UpdateActiveNotifications: Codable, Equatable, Hashable {
 
     /// Lists of active notification groups
     public let groups: [NotificationGroup]
@@ -1965,7 +1965,7 @@ public struct UpdateActiveNotifications: Codable, Equatable {
 }
 
 /// Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications
-public struct UpdateHavePendingNotifications: Codable, Equatable {
+public struct UpdateHavePendingNotifications: Codable, Equatable, Hashable {
 
     /// True, if there are some delayed notification updates, which will be sent soon
     public let haveDelayedNotifications: Bool
@@ -1984,7 +1984,7 @@ public struct UpdateHavePendingNotifications: Codable, Equatable {
 }
 
 /// Some messages were deleted
-public struct UpdateDeleteMessages: Codable, Equatable {
+public struct UpdateDeleteMessages: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -2013,7 +2013,7 @@ public struct UpdateDeleteMessages: Codable, Equatable {
 }
 
 /// A message sender activity in the chat has changed
-public struct UpdateChatAction: Codable, Equatable {
+public struct UpdateChatAction: Codable, Equatable, Hashable {
 
     /// The action
     public let action: ChatAction
@@ -2042,7 +2042,7 @@ public struct UpdateChatAction: Codable, Equatable {
 }
 
 /// The user went online or offline
-public struct UpdateUserStatus: Codable, Equatable {
+public struct UpdateUserStatus: Codable, Equatable, Hashable {
 
     /// New status of the user
     public let status: UserStatus
@@ -2061,7 +2061,7 @@ public struct UpdateUserStatus: Codable, Equatable {
 }
 
 /// Some data of a user has changed. This update is guaranteed to come before the user identifier is returned to the application
-public struct UpdateUser: Codable, Equatable {
+public struct UpdateUser: Codable, Equatable, Hashable {
 
     /// New data about the user
     public let user: User
@@ -2073,7 +2073,7 @@ public struct UpdateUser: Codable, Equatable {
 }
 
 /// Some data of a basic group has changed. This update is guaranteed to come before the basic group identifier is returned to the application
-public struct UpdateBasicGroup: Codable, Equatable {
+public struct UpdateBasicGroup: Codable, Equatable, Hashable {
 
     /// New data about the group
     public let basicGroup: BasicGroup
@@ -2085,7 +2085,7 @@ public struct UpdateBasicGroup: Codable, Equatable {
 }
 
 /// Some data of a supergroup or a channel has changed. This update is guaranteed to come before the supergroup identifier is returned to the application
-public struct UpdateSupergroup: Codable, Equatable {
+public struct UpdateSupergroup: Codable, Equatable, Hashable {
 
     /// New data about the supergroup
     public let supergroup: Supergroup
@@ -2097,7 +2097,7 @@ public struct UpdateSupergroup: Codable, Equatable {
 }
 
 /// Some data of a secret chat has changed. This update is guaranteed to come before the secret chat identifier is returned to the application
-public struct UpdateSecretChat: Codable, Equatable {
+public struct UpdateSecretChat: Codable, Equatable, Hashable {
 
     /// New data about the secret chat
     public let secretChat: SecretChat
@@ -2109,7 +2109,7 @@ public struct UpdateSecretChat: Codable, Equatable {
 }
 
 /// Some data in userFullInfo has been changed
-public struct UpdateUserFullInfo: Codable, Equatable {
+public struct UpdateUserFullInfo: Codable, Equatable, Hashable {
 
     /// New full information about the user
     public let userFullInfo: UserFullInfo
@@ -2128,7 +2128,7 @@ public struct UpdateUserFullInfo: Codable, Equatable {
 }
 
 /// Some data in basicGroupFullInfo has been changed
-public struct UpdateBasicGroupFullInfo: Codable, Equatable {
+public struct UpdateBasicGroupFullInfo: Codable, Equatable, Hashable {
 
     /// New full information about the group
     public let basicGroupFullInfo: BasicGroupFullInfo
@@ -2147,7 +2147,7 @@ public struct UpdateBasicGroupFullInfo: Codable, Equatable {
 }
 
 /// Some data in supergroupFullInfo has been changed
-public struct UpdateSupergroupFullInfo: Codable, Equatable {
+public struct UpdateSupergroupFullInfo: Codable, Equatable, Hashable {
 
     /// New full information about the supergroup
     public let supergroupFullInfo: SupergroupFullInfo
@@ -2166,7 +2166,7 @@ public struct UpdateSupergroupFullInfo: Codable, Equatable {
 }
 
 /// A service notification from the server was received. Upon receiving this the application must show a popup with the content of the notification
-public struct UpdateServiceNotification: Codable, Equatable {
+public struct UpdateServiceNotification: Codable, Equatable, Hashable {
 
     /// Notification content
     public let content: MessageContent
@@ -2185,7 +2185,7 @@ public struct UpdateServiceNotification: Codable, Equatable {
 }
 
 /// Information about a file was updated
-public struct UpdateFile: Codable, Equatable {
+public struct UpdateFile: Codable, Equatable, Hashable {
 
     /// New data about the file
     public let file: File
@@ -2197,7 +2197,7 @@ public struct UpdateFile: Codable, Equatable {
 }
 
 /// The file generation process needs to be started by the application
-public struct UpdateFileGenerationStart: Codable, Equatable {
+public struct UpdateFileGenerationStart: Codable, Equatable, Hashable {
 
     /// String specifying the conversion applied to the original file. If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which must be downloaded by the application
     public let conversion: String
@@ -2226,7 +2226,7 @@ public struct UpdateFileGenerationStart: Codable, Equatable {
 }
 
 /// File generation is no longer needed
-public struct UpdateFileGenerationStop: Codable, Equatable {
+public struct UpdateFileGenerationStop: Codable, Equatable, Hashable {
 
     /// Unique identifier for the generation process
     public let generationId: TdInt64
@@ -2238,7 +2238,7 @@ public struct UpdateFileGenerationStop: Codable, Equatable {
 }
 
 /// The state of the file download list has changed
-public struct UpdateFileDownloads: Codable, Equatable {
+public struct UpdateFileDownloads: Codable, Equatable, Hashable {
 
     /// Total downloaded size of files in the file download list, in bytes
     public let downloadedSize: Int64
@@ -2262,7 +2262,7 @@ public struct UpdateFileDownloads: Codable, Equatable {
 }
 
 /// A file was added to the file download list. This update is sent only after file download list is loaded for the first time
-public struct UpdateFileAddedToDownloads: Codable, Equatable {
+public struct UpdateFileAddedToDownloads: Codable, Equatable, Hashable {
 
     /// New number of being downloaded and recently downloaded files found
     public let counts: DownloadedFileCounts
@@ -2281,7 +2281,7 @@ public struct UpdateFileAddedToDownloads: Codable, Equatable {
 }
 
 /// A file download was changed. This update is sent only after file download list is loaded for the first time
-public struct UpdateFileDownload: Codable, Equatable {
+public struct UpdateFileDownload: Codable, Equatable, Hashable {
 
     /// Point in time (Unix timestamp) when the file downloading was completed; 0 if the file downloading isn't completed
     public let completeDate: Int
@@ -2310,7 +2310,7 @@ public struct UpdateFileDownload: Codable, Equatable {
 }
 
 /// A file was removed from the file download list. This update is sent only after file download list is loaded for the first time
-public struct UpdateFileRemovedFromDownloads: Codable, Equatable {
+public struct UpdateFileRemovedFromDownloads: Codable, Equatable, Hashable {
 
     /// New number of being downloaded and recently downloaded files found
     public let counts: DownloadedFileCounts
@@ -2329,7 +2329,7 @@ public struct UpdateFileRemovedFromDownloads: Codable, Equatable {
 }
 
 /// New call was created or information about a call was updated
-public struct UpdateCall: Codable, Equatable {
+public struct UpdateCall: Codable, Equatable, Hashable {
 
     /// New data about a call
     public let call: Call
@@ -2341,7 +2341,7 @@ public struct UpdateCall: Codable, Equatable {
 }
 
 /// Information about a group call was updated
-public struct UpdateGroupCall: Codable, Equatable {
+public struct UpdateGroupCall: Codable, Equatable, Hashable {
 
     /// New data about a group call
     public let groupCall: GroupCall
@@ -2353,7 +2353,7 @@ public struct UpdateGroupCall: Codable, Equatable {
 }
 
 /// Information about a group call participant was changed. The updates are sent only after the group call is received through getGroupCall and only if the call is joined or being joined
-public struct UpdateGroupCallParticipant: Codable, Equatable {
+public struct UpdateGroupCallParticipant: Codable, Equatable, Hashable {
 
     /// Identifier of group call
     public let groupCallId: Int
@@ -2372,7 +2372,7 @@ public struct UpdateGroupCallParticipant: Codable, Equatable {
 }
 
 /// New call signaling data arrived
-public struct UpdateNewCallSignalingData: Codable, Equatable {
+public struct UpdateNewCallSignalingData: Codable, Equatable, Hashable {
 
     /// The call identifier
     public let callId: Int
@@ -2391,7 +2391,7 @@ public struct UpdateNewCallSignalingData: Codable, Equatable {
 }
 
 /// Some privacy setting rules have been changed
-public struct UpdateUserPrivacySettingRules: Codable, Equatable {
+public struct UpdateUserPrivacySettingRules: Codable, Equatable, Hashable {
 
     /// New privacy rules
     public let rules: UserPrivacySettingRules
@@ -2410,7 +2410,7 @@ public struct UpdateUserPrivacySettingRules: Codable, Equatable {
 }
 
 /// Number of unread messages in a chat list has changed. This update is sent only if the message database is used
-public struct UpdateUnreadMessageCount: Codable, Equatable {
+public struct UpdateUnreadMessageCount: Codable, Equatable, Hashable {
 
     /// The chat list with changed number of unread messages
     public let chatList: ChatList
@@ -2434,7 +2434,7 @@ public struct UpdateUnreadMessageCount: Codable, Equatable {
 }
 
 /// Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if the message database is used
-public struct UpdateUnreadChatCount: Codable, Equatable {
+public struct UpdateUnreadChatCount: Codable, Equatable, Hashable {
 
     /// The chat list with changed number of unread messages
     public let chatList: ChatList
@@ -2473,7 +2473,7 @@ public struct UpdateUnreadChatCount: Codable, Equatable {
 }
 
 /// An option changed its value
-public struct UpdateOption: Codable, Equatable {
+public struct UpdateOption: Codable, Equatable, Hashable {
 
     /// The option name
     public let name: String
@@ -2492,7 +2492,7 @@ public struct UpdateOption: Codable, Equatable {
 }
 
 /// A sticker set has changed
-public struct UpdateStickerSet: Codable, Equatable {
+public struct UpdateStickerSet: Codable, Equatable, Hashable {
 
     /// The sticker set
     public let stickerSet: StickerSet
@@ -2504,7 +2504,7 @@ public struct UpdateStickerSet: Codable, Equatable {
 }
 
 /// The list of installed sticker sets was updated
-public struct UpdateInstalledStickerSets: Codable, Equatable {
+public struct UpdateInstalledStickerSets: Codable, Equatable, Hashable {
 
     /// True, if the list of installed mask sticker sets was updated
     public let isMasks: Bool
@@ -2523,7 +2523,7 @@ public struct UpdateInstalledStickerSets: Codable, Equatable {
 }
 
 /// The list of trending sticker sets was updated or some of them were viewed
-public struct UpdateTrendingStickerSets: Codable, Equatable {
+public struct UpdateTrendingStickerSets: Codable, Equatable, Hashable {
 
     /// The prefix of the list of trending sticker sets with the newest trending sticker sets
     public let stickerSets: TrendingStickerSets
@@ -2535,7 +2535,7 @@ public struct UpdateTrendingStickerSets: Codable, Equatable {
 }
 
 /// The list of recently used stickers was updated
-public struct UpdateRecentStickers: Codable, Equatable {
+public struct UpdateRecentStickers: Codable, Equatable, Hashable {
 
     /// True, if the list of stickers attached to photo or video files was updated, otherwise the list of sent stickers is updated
     public let isAttached: Bool
@@ -2554,7 +2554,7 @@ public struct UpdateRecentStickers: Codable, Equatable {
 }
 
 /// The list of favorite stickers was updated
-public struct UpdateFavoriteStickers: Codable, Equatable {
+public struct UpdateFavoriteStickers: Codable, Equatable, Hashable {
 
     /// The new list of file identifiers of favorite stickers
     public let stickerIds: [Int]
@@ -2566,7 +2566,7 @@ public struct UpdateFavoriteStickers: Codable, Equatable {
 }
 
 /// The list of saved animations was updated
-public struct UpdateSavedAnimations: Codable, Equatable {
+public struct UpdateSavedAnimations: Codable, Equatable, Hashable {
 
     /// The new list of file identifiers of saved animations
     public let animationIds: [Int]
@@ -2578,7 +2578,7 @@ public struct UpdateSavedAnimations: Codable, Equatable {
 }
 
 /// The list of saved notifications sounds was updated. This update may not be sent until information about a notification sound was requested for the first time
-public struct UpdateSavedNotificationSounds: Codable, Equatable {
+public struct UpdateSavedNotificationSounds: Codable, Equatable, Hashable {
 
     /// The new list of identifiers of saved notification sounds
     public let notificationSoundIds: [TdInt64]
@@ -2590,7 +2590,7 @@ public struct UpdateSavedNotificationSounds: Codable, Equatable {
 }
 
 /// The selected background has changed
-public struct UpdateSelectedBackground: Codable, Equatable {
+public struct UpdateSelectedBackground: Codable, Equatable, Hashable {
 
     /// The new selected background; may be null
     public let background: Background?
@@ -2609,7 +2609,7 @@ public struct UpdateSelectedBackground: Codable, Equatable {
 }
 
 /// The list of available chat themes has changed
-public struct UpdateChatThemes: Codable, Equatable {
+public struct UpdateChatThemes: Codable, Equatable, Hashable {
 
     /// The new list of chat themes
     public let chatThemes: [ChatTheme]
@@ -2621,7 +2621,7 @@ public struct UpdateChatThemes: Codable, Equatable {
 }
 
 /// Some language pack strings have been updated
-public struct UpdateLanguagePackStrings: Codable, Equatable {
+public struct UpdateLanguagePackStrings: Codable, Equatable, Hashable {
 
     /// Identifier of the updated language pack
     public let languagePackId: String
@@ -2645,7 +2645,7 @@ public struct UpdateLanguagePackStrings: Codable, Equatable {
 }
 
 /// The connection state has changed. This update must be used only to show a human-readable description of the connection state
-public struct UpdateConnectionState: Codable, Equatable {
+public struct UpdateConnectionState: Codable, Equatable, Hashable {
 
     /// The new connection state
     public let state: ConnectionState
@@ -2657,7 +2657,7 @@ public struct UpdateConnectionState: Codable, Equatable {
 }
 
 /// New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method must be called with the reason "Decline ToS update"
-public struct UpdateTermsOfService: Codable, Equatable {
+public struct UpdateTermsOfService: Codable, Equatable, Hashable {
 
     /// The new terms of service
     public let termsOfService: TermsOfService
@@ -2676,7 +2676,7 @@ public struct UpdateTermsOfService: Codable, Equatable {
 }
 
 /// The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request
-public struct UpdateUsersNearby: Codable, Equatable {
+public struct UpdateUsersNearby: Codable, Equatable, Hashable {
 
     /// The new list of users nearby
     public let usersNearby: [ChatNearby]
@@ -2688,7 +2688,7 @@ public struct UpdateUsersNearby: Codable, Equatable {
 }
 
 /// The list of bots added to attachment menu has changed
-public struct UpdateAttachmentMenuBots: Codable, Equatable {
+public struct UpdateAttachmentMenuBots: Codable, Equatable, Hashable {
 
     /// The new list of bots added to attachment menu. The bots must not be shown on scheduled messages screen
     public let bots: [AttachmentMenuBot]
@@ -2700,7 +2700,7 @@ public struct UpdateAttachmentMenuBots: Codable, Equatable {
 }
 
 /// A message was sent by an opened Web App, so the Web App needs to be closed
-public struct UpdateWebAppMessageSent: Codable, Equatable {
+public struct UpdateWebAppMessageSent: Codable, Equatable, Hashable {
 
     /// Identifier of Web App launch
     public let webAppLaunchId: TdInt64
@@ -2712,7 +2712,7 @@ public struct UpdateWebAppMessageSent: Codable, Equatable {
 }
 
 /// The list of supported reactions has changed
-public struct UpdateReactions: Codable, Equatable {
+public struct UpdateReactions: Codable, Equatable, Hashable {
 
     /// The new list of supported reactions
     public let reactions: [Reaction]
@@ -2724,7 +2724,7 @@ public struct UpdateReactions: Codable, Equatable {
 }
 
 /// The list of supported dice emojis has changed
-public struct UpdateDiceEmojis: Codable, Equatable {
+public struct UpdateDiceEmojis: Codable, Equatable, Hashable {
 
     /// The new list of supported dice emojis
     public let emojis: [String]
@@ -2736,7 +2736,7 @@ public struct UpdateDiceEmojis: Codable, Equatable {
 }
 
 /// Some animated emoji message was clicked and a big animated sticker must be played if the message is visible on the screen. chatActionWatchingAnimations with the text of the message needs to be sent if the sticker is played
-public struct UpdateAnimatedEmojiMessageClicked: Codable, Equatable {
+public struct UpdateAnimatedEmojiMessageClicked: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64
@@ -2760,7 +2760,7 @@ public struct UpdateAnimatedEmojiMessageClicked: Codable, Equatable {
 }
 
 /// The parameters of animation search through GetOption("animation_search_bot_username") bot has changed
-public struct UpdateAnimationSearchParameters: Codable, Equatable {
+public struct UpdateAnimationSearchParameters: Codable, Equatable, Hashable {
 
     /// The new list of emojis suggested for searching
     public let emojis: [String]
@@ -2779,7 +2779,7 @@ public struct UpdateAnimationSearchParameters: Codable, Equatable {
 }
 
 /// The list of suggested to the user actions has changed
-public struct UpdateSuggestedActions: Codable, Equatable {
+public struct UpdateSuggestedActions: Codable, Equatable, Hashable {
 
     /// Added suggested actions
     public let addedActions: [SuggestedAction]
@@ -2798,7 +2798,7 @@ public struct UpdateSuggestedActions: Codable, Equatable {
 }
 
 /// A new incoming inline query; for bots only
-public struct UpdateNewInlineQuery: Codable, Equatable {
+public struct UpdateNewInlineQuery: Codable, Equatable, Hashable {
 
     /// The type of the chat from which the query originated; may be null if unknown
     public let chatType: ChatType?
@@ -2837,7 +2837,7 @@ public struct UpdateNewInlineQuery: Codable, Equatable {
 }
 
 /// The user has chosen a result of an inline query; for bots only
-public struct UpdateNewChosenInlineResult: Codable, Equatable {
+public struct UpdateNewChosenInlineResult: Codable, Equatable, Hashable {
 
     /// Identifier of the sent inline message, if known
     public let inlineMessageId: String
@@ -2871,7 +2871,7 @@ public struct UpdateNewChosenInlineResult: Codable, Equatable {
 }
 
 /// A new incoming callback query; for bots only
-public struct UpdateNewCallbackQuery: Codable, Equatable {
+public struct UpdateNewCallbackQuery: Codable, Equatable, Hashable {
 
     /// Identifier of the chat where the query was sent
     public let chatId: Int64
@@ -2910,7 +2910,7 @@ public struct UpdateNewCallbackQuery: Codable, Equatable {
 }
 
 /// A new incoming callback query from a message sent via a bot; for bots only
-public struct UpdateNewInlineCallbackQuery: Codable, Equatable {
+public struct UpdateNewInlineCallbackQuery: Codable, Equatable, Hashable {
 
     /// An identifier uniquely corresponding to the chat a message was sent to
     public let chatInstance: TdInt64
@@ -2944,7 +2944,7 @@ public struct UpdateNewInlineCallbackQuery: Codable, Equatable {
 }
 
 /// A new incoming shipping query; for bots only. Only for invoices with flexible price
-public struct UpdateNewShippingQuery: Codable, Equatable {
+public struct UpdateNewShippingQuery: Codable, Equatable, Hashable {
 
     /// Unique query identifier
     public let id: TdInt64
@@ -2973,7 +2973,7 @@ public struct UpdateNewShippingQuery: Codable, Equatable {
 }
 
 /// A new incoming pre-checkout query; for bots only. Contains full information about a checkout
-public struct UpdateNewPreCheckoutQuery: Codable, Equatable {
+public struct UpdateNewPreCheckoutQuery: Codable, Equatable, Hashable {
 
     /// Currency for the product price
     public let currency: String
@@ -3017,7 +3017,7 @@ public struct UpdateNewPreCheckoutQuery: Codable, Equatable {
 }
 
 /// A new incoming event; for bots only
-public struct UpdateNewCustomEvent: Codable, Equatable {
+public struct UpdateNewCustomEvent: Codable, Equatable, Hashable {
 
     /// A JSON-serialized event
     public let event: String
@@ -3029,7 +3029,7 @@ public struct UpdateNewCustomEvent: Codable, Equatable {
 }
 
 /// A new incoming query; for bots only
-public struct UpdateNewCustomQuery: Codable, Equatable {
+public struct UpdateNewCustomQuery: Codable, Equatable, Hashable {
 
     /// JSON-serialized query data
     public let data: String
@@ -3053,7 +3053,7 @@ public struct UpdateNewCustomQuery: Codable, Equatable {
 }
 
 /// A poll was updated; for bots only
-public struct UpdatePoll: Codable, Equatable {
+public struct UpdatePoll: Codable, Equatable, Hashable {
 
     /// New data about the poll
     public let poll: Poll
@@ -3065,7 +3065,7 @@ public struct UpdatePoll: Codable, Equatable {
 }
 
 /// A user changed the answer to a poll; for bots only
-public struct UpdatePollAnswer: Codable, Equatable {
+public struct UpdatePollAnswer: Codable, Equatable, Hashable {
 
     /// 0-based identifiers of answer options, chosen by the user
     public let optionIds: [Int]
@@ -3089,7 +3089,7 @@ public struct UpdatePollAnswer: Codable, Equatable {
 }
 
 /// User rights changed in a chat; for bots only
-public struct UpdateChatMember: Codable, Equatable {
+public struct UpdateChatMember: Codable, Equatable, Hashable {
 
     /// Identifier of the user, changing the rights
     public let actorUserId: Int64
@@ -3128,7 +3128,7 @@ public struct UpdateChatMember: Codable, Equatable {
 }
 
 /// A user sent a join request to a chat; for bots only
-public struct UpdateNewChatJoinRequest: Codable, Equatable {
+public struct UpdateNewChatJoinRequest: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64

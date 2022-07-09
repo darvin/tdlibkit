@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Contains a list of recommended chat filters
-public struct RecommendedChatFilters: Codable, Equatable {
+public struct RecommendedChatFilters: Codable, Equatable, Hashable {
 
     /// List of recommended chat filters
     public let chatFilters: [RecommendedChatFilter]

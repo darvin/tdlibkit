@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Changes a profile photo for the current user
-public struct SetProfilePhoto: Codable, Equatable {
+public struct SetProfilePhoto: Codable, Equatable, Hashable {
 
     /// Profile photo to set
     public let photo: InputChatPhoto?

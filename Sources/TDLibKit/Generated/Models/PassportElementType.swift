@@ -11,46 +11,46 @@ import Foundation
 
 
 /// Contains the type of a Telegram Passport element
-public enum PassportElementType: Codable, Equatable {
+public enum PassportElementType: Codable, Equatable, Hashable {
 
     /// A Telegram Passport element containing the user's personal details
-    case passportElementTypePersonalDetails
+    case personalDetails
 
     /// A Telegram Passport element containing the user's passport
-    case passportElementTypePassport
+    case passport
 
     /// A Telegram Passport element containing the user's driver license
-    case passportElementTypeDriverLicense
+    case driverLicense
 
     /// A Telegram Passport element containing the user's identity card
-    case passportElementTypeIdentityCard
+    case identityCard
 
     /// A Telegram Passport element containing the user's internal passport
-    case passportElementTypeInternalPassport
+    case internalPassport
 
     /// A Telegram Passport element containing the user's address
-    case passportElementTypeAddress
+    case address
 
     /// A Telegram Passport element containing the user's utility bill
-    case passportElementTypeUtilityBill
+    case utilityBill
 
     /// A Telegram Passport element containing the user's bank statement
-    case passportElementTypeBankStatement
+    case bankStatement
 
     /// A Telegram Passport element containing the user's rental agreement
-    case passportElementTypeRentalAgreement
+    case rentalAgreement
 
     /// A Telegram Passport element containing the registration page of the user's passport
-    case passportElementTypePassportRegistration
+    case passportRegistration
 
     /// A Telegram Passport element containing the user's temporary registration
-    case passportElementTypeTemporaryRegistration
+    case temporaryRegistration
 
     /// A Telegram Passport element containing the user's phone number
-    case passportElementTypePhoneNumber
+    case phoneNumber
 
     /// A Telegram Passport element containing the user's email address
-    case passportElementTypeEmailAddress
+    case emailAddress
 
 
     private enum Kind: String, Codable {
@@ -74,62 +74,62 @@ public enum PassportElementType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .passportElementTypePersonalDetails:
-            self = .passportElementTypePersonalDetails
+            self = .personalDetails
         case .passportElementTypePassport:
-            self = .passportElementTypePassport
+            self = .passport
         case .passportElementTypeDriverLicense:
-            self = .passportElementTypeDriverLicense
+            self = .driverLicense
         case .passportElementTypeIdentityCard:
-            self = .passportElementTypeIdentityCard
+            self = .identityCard
         case .passportElementTypeInternalPassport:
-            self = .passportElementTypeInternalPassport
+            self = .internalPassport
         case .passportElementTypeAddress:
-            self = .passportElementTypeAddress
+            self = .address
         case .passportElementTypeUtilityBill:
-            self = .passportElementTypeUtilityBill
+            self = .utilityBill
         case .passportElementTypeBankStatement:
-            self = .passportElementTypeBankStatement
+            self = .bankStatement
         case .passportElementTypeRentalAgreement:
-            self = .passportElementTypeRentalAgreement
+            self = .rentalAgreement
         case .passportElementTypePassportRegistration:
-            self = .passportElementTypePassportRegistration
+            self = .passportRegistration
         case .passportElementTypeTemporaryRegistration:
-            self = .passportElementTypeTemporaryRegistration
+            self = .temporaryRegistration
         case .passportElementTypePhoneNumber:
-            self = .passportElementTypePhoneNumber
+            self = .phoneNumber
         case .passportElementTypeEmailAddress:
-            self = .passportElementTypeEmailAddress
+            self = .emailAddress
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .passportElementTypePersonalDetails:
+        case .personalDetails:
             try container.encode(Kind.passportElementTypePersonalDetails, forKey: .type)
-        case .passportElementTypePassport:
+        case .passport:
             try container.encode(Kind.passportElementTypePassport, forKey: .type)
-        case .passportElementTypeDriverLicense:
+        case .driverLicense:
             try container.encode(Kind.passportElementTypeDriverLicense, forKey: .type)
-        case .passportElementTypeIdentityCard:
+        case .identityCard:
             try container.encode(Kind.passportElementTypeIdentityCard, forKey: .type)
-        case .passportElementTypeInternalPassport:
+        case .internalPassport:
             try container.encode(Kind.passportElementTypeInternalPassport, forKey: .type)
-        case .passportElementTypeAddress:
+        case .address:
             try container.encode(Kind.passportElementTypeAddress, forKey: .type)
-        case .passportElementTypeUtilityBill:
+        case .utilityBill:
             try container.encode(Kind.passportElementTypeUtilityBill, forKey: .type)
-        case .passportElementTypeBankStatement:
+        case .bankStatement:
             try container.encode(Kind.passportElementTypeBankStatement, forKey: .type)
-        case .passportElementTypeRentalAgreement:
+        case .rentalAgreement:
             try container.encode(Kind.passportElementTypeRentalAgreement, forKey: .type)
-        case .passportElementTypePassportRegistration:
+        case .passportRegistration:
             try container.encode(Kind.passportElementTypePassportRegistration, forKey: .type)
-        case .passportElementTypeTemporaryRegistration:
+        case .temporaryRegistration:
             try container.encode(Kind.passportElementTypeTemporaryRegistration, forKey: .type)
-        case .passportElementTypePhoneNumber:
+        case .phoneNumber:
             try container.encode(Kind.passportElementTypePhoneNumber, forKey: .type)
-        case .passportElementTypeEmailAddress:
+        case .emailAddress:
             try container.encode(Kind.passportElementTypeEmailAddress, forKey: .type)
         }
     }

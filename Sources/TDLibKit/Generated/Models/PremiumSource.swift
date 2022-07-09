@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Describes a source from which the Premium features screen is opened
-public enum PremiumSource: Codable, Equatable {
+public enum PremiumSource: Codable, Equatable, Hashable {
 
     /// A limit was exceeded
-    case premiumSourceLimitExceeded(PremiumSourceLimitExceeded)
+    case limitExceeded(PremiumSourceLimitExceeded)
 
     /// A user tried to use a Premium feature
-    case premiumSourceFeature(PremiumSourceFeature)
+    case feature(PremiumSourceFeature)
 
     /// A user opened an internal link of the type internalLinkTypePremiumFeatures
-    case premiumSourceLink(PremiumSourceLink)
+    case link(PremiumSourceLink)
 
     /// A user opened the Premium features screen from settings
-    case premiumSourceSettings
+    case settings
 
 
     private enum Kind: String, Codable {
@@ -39,38 +39,38 @@ public enum PremiumSource: Codable, Equatable {
         switch type {
         case .premiumSourceLimitExceeded:
             let value = try PremiumSourceLimitExceeded(from: decoder)
-            self = .premiumSourceLimitExceeded(value)
+            self = .limitExceeded(value)
         case .premiumSourceFeature:
             let value = try PremiumSourceFeature(from: decoder)
-            self = .premiumSourceFeature(value)
+            self = .feature(value)
         case .premiumSourceLink:
             let value = try PremiumSourceLink(from: decoder)
-            self = .premiumSourceLink(value)
+            self = .link(value)
         case .premiumSourceSettings:
-            self = .premiumSourceSettings
+            self = .settings
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .premiumSourceLimitExceeded(let value):
+        case .limitExceeded(let value):
             try container.encode(Kind.premiumSourceLimitExceeded, forKey: .type)
             try value.encode(to: encoder)
-        case .premiumSourceFeature(let value):
+        case .feature(let value):
             try container.encode(Kind.premiumSourceFeature, forKey: .type)
             try value.encode(to: encoder)
-        case .premiumSourceLink(let value):
+        case .link(let value):
             try container.encode(Kind.premiumSourceLink, forKey: .type)
             try value.encode(to: encoder)
-        case .premiumSourceSettings:
+        case .settings:
             try container.encode(Kind.premiumSourceSettings, forKey: .type)
         }
     }
 }
 
 /// A limit was exceeded
-public struct PremiumSourceLimitExceeded: Codable, Equatable {
+public struct PremiumSourceLimitExceeded: Codable, Equatable, Hashable {
 
     /// Type of the exceeded limit
     public let limitType: PremiumLimitType
@@ -82,7 +82,7 @@ public struct PremiumSourceLimitExceeded: Codable, Equatable {
 }
 
 /// A user tried to use a Premium feature
-public struct PremiumSourceFeature: Codable, Equatable {
+public struct PremiumSourceFeature: Codable, Equatable, Hashable {
 
     /// The used feature
     public let feature: PremiumFeature
@@ -94,7 +94,7 @@ public struct PremiumSourceFeature: Codable, Equatable {
 }
 
 /// A user opened an internal link of the type internalLinkTypePremiumFeatures
-public struct PremiumSourceLink: Codable, Equatable {
+public struct PremiumSourceLink: Codable, Equatable, Hashable {
 
     /// The referrer from the link
     public let referrer: String

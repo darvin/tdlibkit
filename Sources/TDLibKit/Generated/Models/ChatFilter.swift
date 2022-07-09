@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Represents a filter of user chats
-public struct ChatFilter: Codable, Equatable {
+public struct ChatFilter: Codable, Equatable, Hashable {
 
     /// True, if archived chats need to be excluded
     public let excludeArchived: Bool

@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describes a reason why an external chat is shown in a chat list
-public enum ChatSource: Codable, Equatable {
+public enum ChatSource: Codable, Equatable, Hashable {
 
     /// The chat is sponsored by the user's MTProxy server
-    case chatSourceMtprotoProxy
+    case mtprotoProxy
 
     /// The chat contains a public service announcement
-    case chatSourcePublicServiceAnnouncement(ChatSourcePublicServiceAnnouncement)
+    case publicServiceAnnouncement(ChatSourcePublicServiceAnnouncement)
 
 
     private enum Kind: String, Codable {
@@ -30,19 +30,19 @@ public enum ChatSource: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .chatSourceMtprotoProxy:
-            self = .chatSourceMtprotoProxy
+            self = .mtprotoProxy
         case .chatSourcePublicServiceAnnouncement:
             let value = try ChatSourcePublicServiceAnnouncement(from: decoder)
-            self = .chatSourcePublicServiceAnnouncement(value)
+            self = .publicServiceAnnouncement(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatSourceMtprotoProxy:
+        case .mtprotoProxy:
             try container.encode(Kind.chatSourceMtprotoProxy, forKey: .type)
-        case .chatSourcePublicServiceAnnouncement(let value):
+        case .publicServiceAnnouncement(let value):
             try container.encode(Kind.chatSourcePublicServiceAnnouncement, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -50,7 +50,7 @@ public enum ChatSource: Codable, Equatable {
 }
 
 /// The chat contains a public service announcement
-public struct ChatSourcePublicServiceAnnouncement: Codable, Equatable {
+public struct ChatSourcePublicServiceAnnouncement: Codable, Equatable, Hashable {
 
     /// The text of the announcement
     public let text: String

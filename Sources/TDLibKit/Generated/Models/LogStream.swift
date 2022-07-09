@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes a stream to which TDLib internal log is written
-public enum LogStream: Codable, Equatable {
+public enum LogStream: Codable, Equatable, Hashable {
 
     /// The log is written to stderr or an OS specific log
-    case logStreamDefault
+    case `default`
 
     /// The log is written to a file
-    case logStreamFile(LogStreamFile)
+    case file(LogStreamFile)
 
     /// The log is written nowhere
-    case logStreamEmpty
+    case empty
 
 
     private enum Kind: String, Codable {
@@ -34,31 +34,31 @@ public enum LogStream: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .logStreamDefault:
-            self = .logStreamDefault
+            self = .`default`
         case .logStreamFile:
             let value = try LogStreamFile(from: decoder)
-            self = .logStreamFile(value)
+            self = .file(value)
         case .logStreamEmpty:
-            self = .logStreamEmpty
+            self = .empty
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .logStreamDefault:
+        case .`default`:
             try container.encode(Kind.logStreamDefault, forKey: .type)
-        case .logStreamFile(let value):
+        case .file(let value):
             try container.encode(Kind.logStreamFile, forKey: .type)
             try value.encode(to: encoder)
-        case .logStreamEmpty:
+        case .empty:
             try container.encode(Kind.logStreamEmpty, forKey: .type)
         }
     }
 }
 
 /// The log is written to a file
-public struct LogStreamFile: Codable, Equatable {
+public struct LogStreamFile: Codable, Equatable, Hashable {
 
     /// The maximum size of the file to where the internal TDLib log is written before the file will automatically be rotated, in bytes
     public let maxFileSize: Int64

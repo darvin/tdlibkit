@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Represents result of checking whether the current session can be used to transfer a chat ownership to another user
-public enum CanTransferOwnershipResult: Codable, Equatable {
+public enum CanTransferOwnershipResult: Codable, Equatable, Hashable {
 
     /// The session can be used
-    case canTransferOwnershipResultOk
+    case ok
 
     /// The 2-step verification needs to be enabled first
-    case canTransferOwnershipResultPasswordNeeded
+    case passwordNeeded
 
     /// The 2-step verification was enabled recently, user needs to wait
-    case canTransferOwnershipResultPasswordTooFresh(CanTransferOwnershipResultPasswordTooFresh)
+    case passwordTooFresh(CanTransferOwnershipResultPasswordTooFresh)
 
     /// The session was created recently, user needs to wait
-    case canTransferOwnershipResultSessionTooFresh(CanTransferOwnershipResultSessionTooFresh)
+    case sessionTooFresh(CanTransferOwnershipResultSessionTooFresh)
 
 
     private enum Kind: String, Codable {
@@ -38,29 +38,29 @@ public enum CanTransferOwnershipResult: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .canTransferOwnershipResultOk:
-            self = .canTransferOwnershipResultOk
+            self = .ok
         case .canTransferOwnershipResultPasswordNeeded:
-            self = .canTransferOwnershipResultPasswordNeeded
+            self = .passwordNeeded
         case .canTransferOwnershipResultPasswordTooFresh:
             let value = try CanTransferOwnershipResultPasswordTooFresh(from: decoder)
-            self = .canTransferOwnershipResultPasswordTooFresh(value)
+            self = .passwordTooFresh(value)
         case .canTransferOwnershipResultSessionTooFresh:
             let value = try CanTransferOwnershipResultSessionTooFresh(from: decoder)
-            self = .canTransferOwnershipResultSessionTooFresh(value)
+            self = .sessionTooFresh(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .canTransferOwnershipResultOk:
+        case .ok:
             try container.encode(Kind.canTransferOwnershipResultOk, forKey: .type)
-        case .canTransferOwnershipResultPasswordNeeded:
+        case .passwordNeeded:
             try container.encode(Kind.canTransferOwnershipResultPasswordNeeded, forKey: .type)
-        case .canTransferOwnershipResultPasswordTooFresh(let value):
+        case .passwordTooFresh(let value):
             try container.encode(Kind.canTransferOwnershipResultPasswordTooFresh, forKey: .type)
             try value.encode(to: encoder)
-        case .canTransferOwnershipResultSessionTooFresh(let value):
+        case .sessionTooFresh(let value):
             try container.encode(Kind.canTransferOwnershipResultSessionTooFresh, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -68,7 +68,7 @@ public enum CanTransferOwnershipResult: Codable, Equatable {
 }
 
 /// The 2-step verification was enabled recently, user needs to wait
-public struct CanTransferOwnershipResultPasswordTooFresh: Codable, Equatable {
+public struct CanTransferOwnershipResultPasswordTooFresh: Codable, Equatable, Hashable {
 
     /// Time left before the session can be used to transfer ownership of a chat, in seconds
     public let retryAfter: Int
@@ -80,7 +80,7 @@ public struct CanTransferOwnershipResultPasswordTooFresh: Codable, Equatable {
 }
 
 /// The session was created recently, user needs to wait
-public struct CanTransferOwnershipResultSessionTooFresh: Codable, Equatable {
+public struct CanTransferOwnershipResultSessionTooFresh: Codable, Equatable, Hashable {
 
     /// Time left before the session can be used to transfer ownership of a chat, in seconds
     public let retryAfter: Int

@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains animated stickers which must be used for dice animation rendering
-public enum DiceStickers: Codable, Equatable {
+public enum DiceStickers: Codable, Equatable, Hashable {
 
     /// A regular animated sticker
-    case diceStickersRegular(DiceStickersRegular)
+    case regular(DiceStickersRegular)
 
     /// Animated stickers to be combined into a slot machine
-    case diceStickersSlotMachine(DiceStickersSlotMachine)
+    case slotMachine(DiceStickersSlotMachine)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum DiceStickers: Codable, Equatable {
         switch type {
         case .diceStickersRegular:
             let value = try DiceStickersRegular(from: decoder)
-            self = .diceStickersRegular(value)
+            self = .regular(value)
         case .diceStickersSlotMachine:
             let value = try DiceStickersSlotMachine(from: decoder)
-            self = .diceStickersSlotMachine(value)
+            self = .slotMachine(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .diceStickersRegular(let value):
+        case .regular(let value):
             try container.encode(Kind.diceStickersRegular, forKey: .type)
             try value.encode(to: encoder)
-        case .diceStickersSlotMachine(let value):
+        case .slotMachine(let value):
             try container.encode(Kind.diceStickersSlotMachine, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum DiceStickers: Codable, Equatable {
 }
 
 /// A regular animated sticker
-public struct DiceStickersRegular: Codable, Equatable {
+public struct DiceStickersRegular: Codable, Equatable, Hashable {
 
     /// The animated sticker with the dice animation
     public let sticker: Sticker
@@ -64,7 +64,7 @@ public struct DiceStickersRegular: Codable, Equatable {
 }
 
 /// Animated stickers to be combined into a slot machine
-public struct DiceStickersSlotMachine: Codable, Equatable {
+public struct DiceStickersSlotMachine: Codable, Equatable, Hashable {
 
     /// The animated sticker with the slot machine background. The background animation must start playing after all reel animations finish
     public let background: Sticker

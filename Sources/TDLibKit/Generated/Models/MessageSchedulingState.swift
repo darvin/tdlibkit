@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains information about the time when a scheduled message will be sent
-public enum MessageSchedulingState: Codable, Equatable {
+public enum MessageSchedulingState: Codable, Equatable, Hashable {
 
     /// The message will be sent at the specified date
-    case messageSchedulingStateSendAtDate(MessageSchedulingStateSendAtDate)
+    case sendAtDate(MessageSchedulingStateSendAtDate)
 
     /// The message will be sent when the peer will be online. Applicable to private chats only and when the exact online status of the peer is known
-    case messageSchedulingStateSendWhenOnline
+    case sendWhenOnline
 
 
     private enum Kind: String, Codable {
@@ -31,26 +31,26 @@ public enum MessageSchedulingState: Codable, Equatable {
         switch type {
         case .messageSchedulingStateSendAtDate:
             let value = try MessageSchedulingStateSendAtDate(from: decoder)
-            self = .messageSchedulingStateSendAtDate(value)
+            self = .sendAtDate(value)
         case .messageSchedulingStateSendWhenOnline:
-            self = .messageSchedulingStateSendWhenOnline
+            self = .sendWhenOnline
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .messageSchedulingStateSendAtDate(let value):
+        case .sendAtDate(let value):
             try container.encode(Kind.messageSchedulingStateSendAtDate, forKey: .type)
             try value.encode(to: encoder)
-        case .messageSchedulingStateSendWhenOnline:
+        case .sendWhenOnline:
             try container.encode(Kind.messageSchedulingStateSendWhenOnline, forKey: .type)
         }
     }
 }
 
 /// The message will be sent at the specified date
-public struct MessageSchedulingStateSendAtDate: Codable, Equatable {
+public struct MessageSchedulingStateSendAtDate: Codable, Equatable, Hashable {
 
     /// Date the message will be sent. The date must be within 367 days in the future
     public let sendDate: Int

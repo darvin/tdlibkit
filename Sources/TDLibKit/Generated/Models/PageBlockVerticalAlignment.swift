@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes a Vertical alignment of a table cell content
-public enum PageBlockVerticalAlignment: Codable, Equatable {
+public enum PageBlockVerticalAlignment: Codable, Equatable, Hashable {
 
     /// The content must be top-aligned
-    case pageBlockVerticalAlignmentTop
+    case top
 
     /// The content must be middle-aligned
-    case pageBlockVerticalAlignmentMiddle
+    case middle
 
     /// The content must be bottom-aligned
-    case pageBlockVerticalAlignmentBottom
+    case bottom
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum PageBlockVerticalAlignment: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .pageBlockVerticalAlignmentTop:
-            self = .pageBlockVerticalAlignmentTop
+            self = .top
         case .pageBlockVerticalAlignmentMiddle:
-            self = .pageBlockVerticalAlignmentMiddle
+            self = .middle
         case .pageBlockVerticalAlignmentBottom:
-            self = .pageBlockVerticalAlignmentBottom
+            self = .bottom
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .pageBlockVerticalAlignmentTop:
+        case .top:
             try container.encode(Kind.pageBlockVerticalAlignmentTop, forKey: .type)
-        case .pageBlockVerticalAlignmentMiddle:
+        case .middle:
             try container.encode(Kind.pageBlockVerticalAlignmentMiddle, forKey: .type)
-        case .pageBlockVerticalAlignmentBottom:
+        case .bottom:
             try container.encode(Kind.pageBlockVerticalAlignmentBottom, forKey: .type)
         }
     }

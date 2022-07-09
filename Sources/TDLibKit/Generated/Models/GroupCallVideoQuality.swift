@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the quality of a group call video
-public enum GroupCallVideoQuality: Codable, Equatable {
+public enum GroupCallVideoQuality: Codable, Equatable, Hashable {
 
     /// The worst available video quality
-    case groupCallVideoQualityThumbnail
+    case thumbnail
 
     /// The medium video quality
-    case groupCallVideoQualityMedium
+    case medium
 
     /// The best available video quality
-    case groupCallVideoQualityFull
+    case full
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum GroupCallVideoQuality: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .groupCallVideoQualityThumbnail:
-            self = .groupCallVideoQualityThumbnail
+            self = .thumbnail
         case .groupCallVideoQualityMedium:
-            self = .groupCallVideoQualityMedium
+            self = .medium
         case .groupCallVideoQualityFull:
-            self = .groupCallVideoQualityFull
+            self = .full
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .groupCallVideoQualityThumbnail:
+        case .thumbnail:
             try container.encode(Kind.groupCallVideoQualityThumbnail, forKey: .type)
-        case .groupCallVideoQualityMedium:
+        case .medium:
             try container.encode(Kind.groupCallVideoQualityMedium, forKey: .type)
-        case .groupCallVideoQualityFull:
+        case .full:
             try container.encode(Kind.groupCallVideoQualityFull, forKey: .type)
         }
     }

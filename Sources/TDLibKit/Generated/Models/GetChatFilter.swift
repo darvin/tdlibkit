@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns information about a chat filter by its identifier
-public struct GetChatFilter: Codable, Equatable {
+public struct GetChatFilter: Codable, Equatable, Hashable {
 
     /// Chat filter identifier
     public let chatFilterId: Int?

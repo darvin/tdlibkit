@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Represents a payload of a callback query
-public enum CallbackQueryPayload: Codable, Equatable {
+public enum CallbackQueryPayload: Codable, Equatable, Hashable {
 
     /// The payload for a general callback button
-    case callbackQueryPayloadData(CallbackQueryPayloadData)
+    case data(CallbackQueryPayloadData)
 
     /// The payload for a callback button requiring password
-    case callbackQueryPayloadDataWithPassword(CallbackQueryPayloadDataWithPassword)
+    case dataWithPassword(CallbackQueryPayloadDataWithPassword)
 
     /// The payload for a game callback button
-    case callbackQueryPayloadGame(CallbackQueryPayloadGame)
+    case game(CallbackQueryPayloadGame)
 
 
     private enum Kind: String, Codable {
@@ -35,26 +35,26 @@ public enum CallbackQueryPayload: Codable, Equatable {
         switch type {
         case .callbackQueryPayloadData:
             let value = try CallbackQueryPayloadData(from: decoder)
-            self = .callbackQueryPayloadData(value)
+            self = .data(value)
         case .callbackQueryPayloadDataWithPassword:
             let value = try CallbackQueryPayloadDataWithPassword(from: decoder)
-            self = .callbackQueryPayloadDataWithPassword(value)
+            self = .dataWithPassword(value)
         case .callbackQueryPayloadGame:
             let value = try CallbackQueryPayloadGame(from: decoder)
-            self = .callbackQueryPayloadGame(value)
+            self = .game(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .callbackQueryPayloadData(let value):
+        case .data(let value):
             try container.encode(Kind.callbackQueryPayloadData, forKey: .type)
             try value.encode(to: encoder)
-        case .callbackQueryPayloadDataWithPassword(let value):
+        case .dataWithPassword(let value):
             try container.encode(Kind.callbackQueryPayloadDataWithPassword, forKey: .type)
             try value.encode(to: encoder)
-        case .callbackQueryPayloadGame(let value):
+        case .game(let value):
             try container.encode(Kind.callbackQueryPayloadGame, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -62,7 +62,7 @@ public enum CallbackQueryPayload: Codable, Equatable {
 }
 
 /// The payload for a general callback button
-public struct CallbackQueryPayloadData: Codable, Equatable {
+public struct CallbackQueryPayloadData: Codable, Equatable, Hashable {
 
     /// Data that was attached to the callback button
     public let data: Data
@@ -74,7 +74,7 @@ public struct CallbackQueryPayloadData: Codable, Equatable {
 }
 
 /// The payload for a callback button requiring password
-public struct CallbackQueryPayloadDataWithPassword: Codable, Equatable {
+public struct CallbackQueryPayloadDataWithPassword: Codable, Equatable, Hashable {
 
     /// Data that was attached to the callback button
     public let data: Data
@@ -93,7 +93,7 @@ public struct CallbackQueryPayloadDataWithPassword: Codable, Equatable {
 }
 
 /// The payload for a game callback button
-public struct CallbackQueryPayloadGame: Codable, Equatable {
+public struct CallbackQueryPayloadGame: Codable, Equatable, Hashable {
 
     /// A short name of the game that was attached to the callback button
     public let gameShortName: String

@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Contains a description of a custom keyboard and actions that can be done with it to quickly reply to bots
-public enum ReplyMarkup: Codable, Equatable {
+public enum ReplyMarkup: Codable, Equatable, Hashable {
 
     /// Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, UpdateChatReplyMarkup with message_id == 0 will be sent
-    case replyMarkupRemoveKeyboard(ReplyMarkupRemoveKeyboard)
+    case removeKeyboard(ReplyMarkupRemoveKeyboard)
 
     /// Instructs application to force a reply to this message
-    case replyMarkupForceReply(ReplyMarkupForceReply)
+    case forceReply(ReplyMarkupForceReply)
 
     /// Contains a custom keyboard layout to quickly reply to bots
-    case replyMarkupShowKeyboard(ReplyMarkupShowKeyboard)
+    case showKeyboard(ReplyMarkupShowKeyboard)
 
     /// Contains an inline keyboard layout
-    case replyMarkupInlineKeyboard(ReplyMarkupInlineKeyboard)
+    case inlineKeyboard(ReplyMarkupInlineKeyboard)
 
 
     private enum Kind: String, Codable {
@@ -39,32 +39,32 @@ public enum ReplyMarkup: Codable, Equatable {
         switch type {
         case .replyMarkupRemoveKeyboard:
             let value = try ReplyMarkupRemoveKeyboard(from: decoder)
-            self = .replyMarkupRemoveKeyboard(value)
+            self = .removeKeyboard(value)
         case .replyMarkupForceReply:
             let value = try ReplyMarkupForceReply(from: decoder)
-            self = .replyMarkupForceReply(value)
+            self = .forceReply(value)
         case .replyMarkupShowKeyboard:
             let value = try ReplyMarkupShowKeyboard(from: decoder)
-            self = .replyMarkupShowKeyboard(value)
+            self = .showKeyboard(value)
         case .replyMarkupInlineKeyboard:
             let value = try ReplyMarkupInlineKeyboard(from: decoder)
-            self = .replyMarkupInlineKeyboard(value)
+            self = .inlineKeyboard(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .replyMarkupRemoveKeyboard(let value):
+        case .removeKeyboard(let value):
             try container.encode(Kind.replyMarkupRemoveKeyboard, forKey: .type)
             try value.encode(to: encoder)
-        case .replyMarkupForceReply(let value):
+        case .forceReply(let value):
             try container.encode(Kind.replyMarkupForceReply, forKey: .type)
             try value.encode(to: encoder)
-        case .replyMarkupShowKeyboard(let value):
+        case .showKeyboard(let value):
             try container.encode(Kind.replyMarkupShowKeyboard, forKey: .type)
             try value.encode(to: encoder)
-        case .replyMarkupInlineKeyboard(let value):
+        case .inlineKeyboard(let value):
             try container.encode(Kind.replyMarkupInlineKeyboard, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -72,7 +72,7 @@ public enum ReplyMarkup: Codable, Equatable {
 }
 
 /// Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, UpdateChatReplyMarkup with message_id == 0 will be sent
-public struct ReplyMarkupRemoveKeyboard: Codable, Equatable {
+public struct ReplyMarkupRemoveKeyboard: Codable, Equatable, Hashable {
 
     /// True, if the keyboard is removed only for the mentioned users or the target user of a reply
     public let isPersonal: Bool
@@ -84,7 +84,7 @@ public struct ReplyMarkupRemoveKeyboard: Codable, Equatable {
 }
 
 /// Instructs application to force a reply to this message
-public struct ReplyMarkupForceReply: Codable, Equatable {
+public struct ReplyMarkupForceReply: Codable, Equatable, Hashable {
 
     /// If non-empty, the placeholder to be shown in the input field when the reply is active; 0-64 characters
     public let inputFieldPlaceholder: String
@@ -103,7 +103,7 @@ public struct ReplyMarkupForceReply: Codable, Equatable {
 }
 
 /// Contains a custom keyboard layout to quickly reply to bots
-public struct ReplyMarkupShowKeyboard: Codable, Equatable {
+public struct ReplyMarkupShowKeyboard: Codable, Equatable, Hashable {
 
     /// If non-empty, the placeholder to be shown in the input field when the keyboard is active; 0-64 characters
     public let inputFieldPlaceholder: String
@@ -137,7 +137,7 @@ public struct ReplyMarkupShowKeyboard: Codable, Equatable {
 }
 
 /// Contains an inline keyboard layout
-public struct ReplyMarkupInlineKeyboard: Codable, Equatable {
+public struct ReplyMarkupInlineKeyboard: Codable, Equatable, Hashable {
 
     /// A list of rows of inline keyboard buttons
     public let rows: [[InlineKeyboardButton]]

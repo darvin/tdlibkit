@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains information about the sender of a message
-public enum MessageSender: Codable, Equatable {
+public enum MessageSender: Codable, Equatable, Hashable {
 
     /// The message was sent by a known user
-    case messageSenderUser(MessageSenderUser)
+    case user(MessageSenderUser)
 
     /// The message was sent on behalf of a chat
-    case messageSenderChat(MessageSenderChat)
+    case chat(MessageSenderChat)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum MessageSender: Codable, Equatable {
         switch type {
         case .messageSenderUser:
             let value = try MessageSenderUser(from: decoder)
-            self = .messageSenderUser(value)
+            self = .user(value)
         case .messageSenderChat:
             let value = try MessageSenderChat(from: decoder)
-            self = .messageSenderChat(value)
+            self = .chat(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .messageSenderUser(let value):
+        case .user(let value):
             try container.encode(Kind.messageSenderUser, forKey: .type)
             try value.encode(to: encoder)
-        case .messageSenderChat(let value):
+        case .chat(let value):
             try container.encode(Kind.messageSenderChat, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum MessageSender: Codable, Equatable {
 }
 
 /// The message was sent by a known user
-public struct MessageSenderUser: Codable, Equatable {
+public struct MessageSenderUser: Codable, Equatable, Hashable {
 
     /// Identifier of the user that sent the message
     public let userId: Int64
@@ -64,7 +64,7 @@ public struct MessageSenderUser: Codable, Equatable {
 }
 
 /// The message was sent on behalf of a chat
-public struct MessageSenderChat: Codable, Equatable {
+public struct MessageSenderChat: Codable, Equatable, Hashable {
 
     /// Identifier of the chat that sent the message
     public let chatId: Int64

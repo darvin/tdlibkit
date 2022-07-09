@@ -11,28 +11,28 @@ import Foundation
 
 
 /// Represents the categories of chats for which a list of frequently used chats can be retrieved
-public enum TopChatCategory: Codable, Equatable {
+public enum TopChatCategory: Codable, Equatable, Hashable {
 
     /// A category containing frequently used private chats with non-bot users
-    case topChatCategoryUsers
+    case users
 
     /// A category containing frequently used private chats with bot users
-    case topChatCategoryBots
+    case bots
 
     /// A category containing frequently used basic groups and supergroups
-    case topChatCategoryGroups
+    case groups
 
     /// A category containing frequently used channels
-    case topChatCategoryChannels
+    case channels
 
     /// A category containing frequently used chats with inline bots sorted by their usage in inline mode
-    case topChatCategoryInlineBots
+    case inlineBots
 
     /// A category containing frequently used chats used for calls
-    case topChatCategoryCalls
+    case calls
 
     /// A category containing frequently used chats used to forward messages
-    case topChatCategoryForwardChats
+    case forwardChats
 
 
     private enum Kind: String, Codable {
@@ -50,38 +50,38 @@ public enum TopChatCategory: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .topChatCategoryUsers:
-            self = .topChatCategoryUsers
+            self = .users
         case .topChatCategoryBots:
-            self = .topChatCategoryBots
+            self = .bots
         case .topChatCategoryGroups:
-            self = .topChatCategoryGroups
+            self = .groups
         case .topChatCategoryChannels:
-            self = .topChatCategoryChannels
+            self = .channels
         case .topChatCategoryInlineBots:
-            self = .topChatCategoryInlineBots
+            self = .inlineBots
         case .topChatCategoryCalls:
-            self = .topChatCategoryCalls
+            self = .calls
         case .topChatCategoryForwardChats:
-            self = .topChatCategoryForwardChats
+            self = .forwardChats
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .topChatCategoryUsers:
+        case .users:
             try container.encode(Kind.topChatCategoryUsers, forKey: .type)
-        case .topChatCategoryBots:
+        case .bots:
             try container.encode(Kind.topChatCategoryBots, forKey: .type)
-        case .topChatCategoryGroups:
+        case .groups:
             try container.encode(Kind.topChatCategoryGroups, forKey: .type)
-        case .topChatCategoryChannels:
+        case .channels:
             try container.encode(Kind.topChatCategoryChannels, forKey: .type)
-        case .topChatCategoryInlineBots:
+        case .inlineBots:
             try container.encode(Kind.topChatCategoryInlineBots, forKey: .type)
-        case .topChatCategoryCalls:
+        case .calls:
             try container.encode(Kind.topChatCategoryCalls, forKey: .type)
-        case .topChatCategoryForwardChats:
+        case .forwardChats:
             try container.encode(Kind.topChatCategoryForwardChats, forKey: .type)
         }
     }

@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describes the type of a call server
-public enum CallServerType: Codable, Equatable {
+public enum CallServerType: Codable, Equatable, Hashable {
 
     /// A Telegram call reflector
-    case callServerTypeTelegramReflector(CallServerTypeTelegramReflector)
+    case telegramReflector(CallServerTypeTelegramReflector)
 
     /// A WebRTC server
-    case callServerTypeWebrtc(CallServerTypeWebrtc)
+    case webrtc(CallServerTypeWebrtc)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum CallServerType: Codable, Equatable {
         switch type {
         case .callServerTypeTelegramReflector:
             let value = try CallServerTypeTelegramReflector(from: decoder)
-            self = .callServerTypeTelegramReflector(value)
+            self = .telegramReflector(value)
         case .callServerTypeWebrtc:
             let value = try CallServerTypeWebrtc(from: decoder)
-            self = .callServerTypeWebrtc(value)
+            self = .webrtc(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .callServerTypeTelegramReflector(let value):
+        case .telegramReflector(let value):
             try container.encode(Kind.callServerTypeTelegramReflector, forKey: .type)
             try value.encode(to: encoder)
-        case .callServerTypeWebrtc(let value):
+        case .webrtc(let value):
             try container.encode(Kind.callServerTypeWebrtc, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum CallServerType: Codable, Equatable {
 }
 
 /// A Telegram call reflector
-public struct CallServerTypeTelegramReflector: Codable, Equatable {
+public struct CallServerTypeTelegramReflector: Codable, Equatable, Hashable {
 
     /// True, if the server uses TCP instead of UDP
     public let isTcp: Bool
@@ -71,7 +71,7 @@ public struct CallServerTypeTelegramReflector: Codable, Equatable {
 }
 
 /// A WebRTC server
-public struct CallServerTypeWebrtc: Codable, Equatable {
+public struct CallServerTypeWebrtc: Codable, Equatable, Hashable {
 
     /// Authentication password
     public let password: String

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Contains information about a notification
-public struct Notification: Codable, Equatable {
+public struct Notification: Codable, Equatable, Hashable {
 
     /// Notification date
     public let date: Int

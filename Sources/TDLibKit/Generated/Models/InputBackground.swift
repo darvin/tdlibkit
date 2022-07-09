@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains information about background to set
-public enum InputBackground: Codable, Equatable {
+public enum InputBackground: Codable, Equatable, Hashable {
 
     /// A background from a local file
-    case inputBackgroundLocal(InputBackgroundLocal)
+    case local(InputBackgroundLocal)
 
     /// A background from the server
-    case inputBackgroundRemote(InputBackgroundRemote)
+    case remote(InputBackgroundRemote)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum InputBackground: Codable, Equatable {
         switch type {
         case .inputBackgroundLocal:
             let value = try InputBackgroundLocal(from: decoder)
-            self = .inputBackgroundLocal(value)
+            self = .local(value)
         case .inputBackgroundRemote:
             let value = try InputBackgroundRemote(from: decoder)
-            self = .inputBackgroundRemote(value)
+            self = .remote(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .inputBackgroundLocal(let value):
+        case .local(let value):
             try container.encode(Kind.inputBackgroundLocal, forKey: .type)
             try value.encode(to: encoder)
-        case .inputBackgroundRemote(let value):
+        case .remote(let value):
             try container.encode(Kind.inputBackgroundRemote, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum InputBackground: Codable, Equatable {
 }
 
 /// A background from a local file
-public struct InputBackgroundLocal: Codable, Equatable {
+public struct InputBackgroundLocal: Codable, Equatable, Hashable {
 
     /// Background file to use. Only inputFileLocal and inputFileGenerated are supported. The file must be in JPEG format for wallpapers and in PNG format for patterns
     public let background: InputFile
@@ -64,7 +64,7 @@ public struct InputBackgroundLocal: Codable, Equatable {
 }
 
 /// A background from the server
-public struct InputBackgroundRemote: Codable, Equatable {
+public struct InputBackgroundRemote: Codable, Equatable, Hashable {
 
     /// The background identifier
     public let backgroundId: TdInt64

@@ -11,31 +11,31 @@ import Foundation
 
 
 /// Specifies the kind of chat members to return in getSupergroupMembers
-public enum SupergroupMembersFilter: Codable, Equatable {
+public enum SupergroupMembersFilter: Codable, Equatable, Hashable {
 
     /// Returns recently active users in reverse chronological order
-    case supergroupMembersFilterRecent
+    case recent
 
     /// Returns contacts of the user, which are members of the supergroup or channel
-    case supergroupMembersFilterContacts(SupergroupMembersFilterContacts)
+    case contacts(SupergroupMembersFilterContacts)
 
     /// Returns the owner and administrators
-    case supergroupMembersFilterAdministrators
+    case administrators
 
     /// Used to search for supergroup or channel members via a (string) query
-    case supergroupMembersFilterSearch(SupergroupMembersFilterSearch)
+    case search(SupergroupMembersFilterSearch)
 
     /// Returns restricted supergroup members; can be used only by administrators
-    case supergroupMembersFilterRestricted(SupergroupMembersFilterRestricted)
+    case restricted(SupergroupMembersFilterRestricted)
 
     /// Returns users banned from the supergroup or channel; can be used only by administrators
-    case supergroupMembersFilterBanned(SupergroupMembersFilterBanned)
+    case banned(SupergroupMembersFilterBanned)
 
     /// Returns users which can be mentioned in the supergroup
-    case supergroupMembersFilterMention(SupergroupMembersFilterMention)
+    case mention(SupergroupMembersFilterMention)
 
     /// Returns bot members of the supergroup or channel
-    case supergroupMembersFilterBots
+    case bots
 
 
     private enum Kind: String, Codable {
@@ -54,59 +54,59 @@ public enum SupergroupMembersFilter: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .supergroupMembersFilterRecent:
-            self = .supergroupMembersFilterRecent
+            self = .recent
         case .supergroupMembersFilterContacts:
             let value = try SupergroupMembersFilterContacts(from: decoder)
-            self = .supergroupMembersFilterContacts(value)
+            self = .contacts(value)
         case .supergroupMembersFilterAdministrators:
-            self = .supergroupMembersFilterAdministrators
+            self = .administrators
         case .supergroupMembersFilterSearch:
             let value = try SupergroupMembersFilterSearch(from: decoder)
-            self = .supergroupMembersFilterSearch(value)
+            self = .search(value)
         case .supergroupMembersFilterRestricted:
             let value = try SupergroupMembersFilterRestricted(from: decoder)
-            self = .supergroupMembersFilterRestricted(value)
+            self = .restricted(value)
         case .supergroupMembersFilterBanned:
             let value = try SupergroupMembersFilterBanned(from: decoder)
-            self = .supergroupMembersFilterBanned(value)
+            self = .banned(value)
         case .supergroupMembersFilterMention:
             let value = try SupergroupMembersFilterMention(from: decoder)
-            self = .supergroupMembersFilterMention(value)
+            self = .mention(value)
         case .supergroupMembersFilterBots:
-            self = .supergroupMembersFilterBots
+            self = .bots
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .supergroupMembersFilterRecent:
+        case .recent:
             try container.encode(Kind.supergroupMembersFilterRecent, forKey: .type)
-        case .supergroupMembersFilterContacts(let value):
+        case .contacts(let value):
             try container.encode(Kind.supergroupMembersFilterContacts, forKey: .type)
             try value.encode(to: encoder)
-        case .supergroupMembersFilterAdministrators:
+        case .administrators:
             try container.encode(Kind.supergroupMembersFilterAdministrators, forKey: .type)
-        case .supergroupMembersFilterSearch(let value):
+        case .search(let value):
             try container.encode(Kind.supergroupMembersFilterSearch, forKey: .type)
             try value.encode(to: encoder)
-        case .supergroupMembersFilterRestricted(let value):
+        case .restricted(let value):
             try container.encode(Kind.supergroupMembersFilterRestricted, forKey: .type)
             try value.encode(to: encoder)
-        case .supergroupMembersFilterBanned(let value):
+        case .banned(let value):
             try container.encode(Kind.supergroupMembersFilterBanned, forKey: .type)
             try value.encode(to: encoder)
-        case .supergroupMembersFilterMention(let value):
+        case .mention(let value):
             try container.encode(Kind.supergroupMembersFilterMention, forKey: .type)
             try value.encode(to: encoder)
-        case .supergroupMembersFilterBots:
+        case .bots:
             try container.encode(Kind.supergroupMembersFilterBots, forKey: .type)
         }
     }
 }
 
 /// Returns contacts of the user, which are members of the supergroup or channel
-public struct SupergroupMembersFilterContacts: Codable, Equatable {
+public struct SupergroupMembersFilterContacts: Codable, Equatable, Hashable {
 
     /// Query to search for
     public let query: String
@@ -118,7 +118,7 @@ public struct SupergroupMembersFilterContacts: Codable, Equatable {
 }
 
 /// Used to search for supergroup or channel members via a (string) query
-public struct SupergroupMembersFilterSearch: Codable, Equatable {
+public struct SupergroupMembersFilterSearch: Codable, Equatable, Hashable {
 
     /// Query to search for
     public let query: String
@@ -130,7 +130,7 @@ public struct SupergroupMembersFilterSearch: Codable, Equatable {
 }
 
 /// Returns restricted supergroup members; can be used only by administrators
-public struct SupergroupMembersFilterRestricted: Codable, Equatable {
+public struct SupergroupMembersFilterRestricted: Codable, Equatable, Hashable {
 
     /// Query to search for
     public let query: String
@@ -142,7 +142,7 @@ public struct SupergroupMembersFilterRestricted: Codable, Equatable {
 }
 
 /// Returns users banned from the supergroup or channel; can be used only by administrators
-public struct SupergroupMembersFilterBanned: Codable, Equatable {
+public struct SupergroupMembersFilterBanned: Codable, Equatable, Hashable {
 
     /// Query to search for
     public let query: String
@@ -154,7 +154,7 @@ public struct SupergroupMembersFilterBanned: Codable, Equatable {
 }
 
 /// Returns users which can be mentioned in the supergroup
-public struct SupergroupMembersFilterMention: Codable, Equatable {
+public struct SupergroupMembersFilterMention: Codable, Equatable, Hashable {
 
     /// If non-zero, the identifier of the current message thread
     public let messageThreadId: Int64

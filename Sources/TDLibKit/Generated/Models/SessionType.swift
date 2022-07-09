@@ -11,58 +11,58 @@ import Foundation
 
 
 /// Represents the type of a session
-public enum SessionType: Codable, Equatable {
+public enum SessionType: Codable, Equatable, Hashable {
 
     /// The session is running on an Android device
-    case sessionTypeAndroid
+    case android
 
     /// The session is running on a generic Apple device
-    case sessionTypeApple
+    case apple
 
     /// The session is running on the Brave browser
-    case sessionTypeBrave
+    case brave
 
     /// The session is running on the Chrome browser
-    case sessionTypeChrome
+    case chrome
 
     /// The session is running on the Edge browser
-    case sessionTypeEdge
+    case edge
 
     /// The session is running on the Firefox browser
-    case sessionTypeFirefox
+    case firefox
 
     /// The session is running on an iPad device
-    case sessionTypeIpad
+    case ipad
 
     /// The session is running on an iPhone device
-    case sessionTypeIphone
+    case iphone
 
     /// The session is running on a Linux device
-    case sessionTypeLinux
+    case linux
 
     /// The session is running on a Mac device
-    case sessionTypeMac
+    case mac
 
     /// The session is running on the Opera browser
-    case sessionTypeOpera
+    case opera
 
     /// The session is running on the Safari browser
-    case sessionTypeSafari
+    case safari
 
     /// The session is running on an Ubuntu device
-    case sessionTypeUbuntu
+    case ubuntu
 
     /// The session is running on an unknown type of device
-    case sessionTypeUnknown
+    case unknown
 
     /// The session is running on the Vivaldi browser
-    case sessionTypeVivaldi
+    case vivaldi
 
     /// The session is running on a Windows device
-    case sessionTypeWindows
+    case windows
 
     /// The session is running on an Xbox console
-    case sessionTypeXbox
+    case xbox
 
 
     private enum Kind: String, Codable {
@@ -90,78 +90,78 @@ public enum SessionType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .sessionTypeAndroid:
-            self = .sessionTypeAndroid
+            self = .android
         case .sessionTypeApple:
-            self = .sessionTypeApple
+            self = .apple
         case .sessionTypeBrave:
-            self = .sessionTypeBrave
+            self = .brave
         case .sessionTypeChrome:
-            self = .sessionTypeChrome
+            self = .chrome
         case .sessionTypeEdge:
-            self = .sessionTypeEdge
+            self = .edge
         case .sessionTypeFirefox:
-            self = .sessionTypeFirefox
+            self = .firefox
         case .sessionTypeIpad:
-            self = .sessionTypeIpad
+            self = .ipad
         case .sessionTypeIphone:
-            self = .sessionTypeIphone
+            self = .iphone
         case .sessionTypeLinux:
-            self = .sessionTypeLinux
+            self = .linux
         case .sessionTypeMac:
-            self = .sessionTypeMac
+            self = .mac
         case .sessionTypeOpera:
-            self = .sessionTypeOpera
+            self = .opera
         case .sessionTypeSafari:
-            self = .sessionTypeSafari
+            self = .safari
         case .sessionTypeUbuntu:
-            self = .sessionTypeUbuntu
+            self = .ubuntu
         case .sessionTypeUnknown:
-            self = .sessionTypeUnknown
+            self = .unknown
         case .sessionTypeVivaldi:
-            self = .sessionTypeVivaldi
+            self = .vivaldi
         case .sessionTypeWindows:
-            self = .sessionTypeWindows
+            self = .windows
         case .sessionTypeXbox:
-            self = .sessionTypeXbox
+            self = .xbox
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .sessionTypeAndroid:
+        case .android:
             try container.encode(Kind.sessionTypeAndroid, forKey: .type)
-        case .sessionTypeApple:
+        case .apple:
             try container.encode(Kind.sessionTypeApple, forKey: .type)
-        case .sessionTypeBrave:
+        case .brave:
             try container.encode(Kind.sessionTypeBrave, forKey: .type)
-        case .sessionTypeChrome:
+        case .chrome:
             try container.encode(Kind.sessionTypeChrome, forKey: .type)
-        case .sessionTypeEdge:
+        case .edge:
             try container.encode(Kind.sessionTypeEdge, forKey: .type)
-        case .sessionTypeFirefox:
+        case .firefox:
             try container.encode(Kind.sessionTypeFirefox, forKey: .type)
-        case .sessionTypeIpad:
+        case .ipad:
             try container.encode(Kind.sessionTypeIpad, forKey: .type)
-        case .sessionTypeIphone:
+        case .iphone:
             try container.encode(Kind.sessionTypeIphone, forKey: .type)
-        case .sessionTypeLinux:
+        case .linux:
             try container.encode(Kind.sessionTypeLinux, forKey: .type)
-        case .sessionTypeMac:
+        case .mac:
             try container.encode(Kind.sessionTypeMac, forKey: .type)
-        case .sessionTypeOpera:
+        case .opera:
             try container.encode(Kind.sessionTypeOpera, forKey: .type)
-        case .sessionTypeSafari:
+        case .safari:
             try container.encode(Kind.sessionTypeSafari, forKey: .type)
-        case .sessionTypeUbuntu:
+        case .ubuntu:
             try container.encode(Kind.sessionTypeUbuntu, forKey: .type)
-        case .sessionTypeUnknown:
+        case .unknown:
             try container.encode(Kind.sessionTypeUnknown, forKey: .type)
-        case .sessionTypeVivaldi:
+        case .vivaldi:
             try container.encode(Kind.sessionTypeVivaldi, forKey: .type)
-        case .sessionTypeWindows:
+        case .windows:
             try container.encode(Kind.sessionTypeWindows, forKey: .type)
-        case .sessionTypeXbox:
+        case .xbox:
             try container.encode(Kind.sessionTypeXbox, forKey: .type)
         }
     }

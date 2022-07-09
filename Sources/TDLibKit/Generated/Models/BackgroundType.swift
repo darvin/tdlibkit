@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the type of a background
-public enum BackgroundType: Codable, Equatable {
+public enum BackgroundType: Codable, Equatable, Hashable {
 
     /// A wallpaper in JPEG format
-    case backgroundTypeWallpaper(BackgroundTypeWallpaper)
+    case wallpaper(BackgroundTypeWallpaper)
 
     /// A PNG or TGV (gzipped subset of SVG with MIME type "application/x-tgwallpattern") pattern to be combined with the background fill chosen by the user
-    case backgroundTypePattern(BackgroundTypePattern)
+    case pattern(BackgroundTypePattern)
 
     /// A filled background
-    case backgroundTypeFill(BackgroundTypeFill)
+    case fill(BackgroundTypeFill)
 
 
     private enum Kind: String, Codable {
@@ -35,26 +35,26 @@ public enum BackgroundType: Codable, Equatable {
         switch type {
         case .backgroundTypeWallpaper:
             let value = try BackgroundTypeWallpaper(from: decoder)
-            self = .backgroundTypeWallpaper(value)
+            self = .wallpaper(value)
         case .backgroundTypePattern:
             let value = try BackgroundTypePattern(from: decoder)
-            self = .backgroundTypePattern(value)
+            self = .pattern(value)
         case .backgroundTypeFill:
             let value = try BackgroundTypeFill(from: decoder)
-            self = .backgroundTypeFill(value)
+            self = .fill(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .backgroundTypeWallpaper(let value):
+        case .wallpaper(let value):
             try container.encode(Kind.backgroundTypeWallpaper, forKey: .type)
             try value.encode(to: encoder)
-        case .backgroundTypePattern(let value):
+        case .pattern(let value):
             try container.encode(Kind.backgroundTypePattern, forKey: .type)
             try value.encode(to: encoder)
-        case .backgroundTypeFill(let value):
+        case .fill(let value):
             try container.encode(Kind.backgroundTypeFill, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -62,7 +62,7 @@ public enum BackgroundType: Codable, Equatable {
 }
 
 /// A wallpaper in JPEG format
-public struct BackgroundTypeWallpaper: Codable, Equatable {
+public struct BackgroundTypeWallpaper: Codable, Equatable, Hashable {
 
     /// True, if the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
     public let isBlurred: Bool
@@ -81,7 +81,7 @@ public struct BackgroundTypeWallpaper: Codable, Equatable {
 }
 
 /// A PNG or TGV (gzipped subset of SVG with MIME type "application/x-tgwallpattern") pattern to be combined with the background fill chosen by the user
-public struct BackgroundTypePattern: Codable, Equatable {
+public struct BackgroundTypePattern: Codable, Equatable, Hashable {
 
     /// Fill of the background
     public let fill: BackgroundFill
@@ -110,7 +110,7 @@ public struct BackgroundTypePattern: Codable, Equatable {
 }
 
 /// A filled background
-public struct BackgroundTypeFill: Codable, Equatable {
+public struct BackgroundTypeFill: Codable, Equatable, Hashable {
 
     /// The background fill
     public let fill: BackgroundFill

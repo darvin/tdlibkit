@@ -11,25 +11,25 @@ import Foundation
 
 
 /// Represents a JSON value
-public enum JsonValue: Codable, Equatable {
+public enum JsonValue: Codable, Equatable, Hashable {
 
     /// Represents a null JSON value
-    case jsonValueNull
+    case null
 
     /// Represents a boolean JSON value
-    case jsonValueBoolean(JsonValueBoolean)
+    case boolean(JsonValueBoolean)
 
     /// Represents a numeric JSON value
-    case jsonValueNumber(JsonValueNumber)
+    case number(JsonValueNumber)
 
     /// Represents a string JSON value
-    case jsonValueString(JsonValueString)
+    case string(JsonValueString)
 
     /// Represents a JSON array
-    case jsonValueArray(JsonValueArray)
+    case array(JsonValueArray)
 
     /// Represents a JSON object
-    case jsonValueObject(JsonValueObject)
+    case object(JsonValueObject)
 
 
     private enum Kind: String, Codable {
@@ -46,43 +46,43 @@ public enum JsonValue: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .jsonValueNull:
-            self = .jsonValueNull
+            self = .null
         case .jsonValueBoolean:
             let value = try JsonValueBoolean(from: decoder)
-            self = .jsonValueBoolean(value)
+            self = .boolean(value)
         case .jsonValueNumber:
             let value = try JsonValueNumber(from: decoder)
-            self = .jsonValueNumber(value)
+            self = .number(value)
         case .jsonValueString:
             let value = try JsonValueString(from: decoder)
-            self = .jsonValueString(value)
+            self = .string(value)
         case .jsonValueArray:
             let value = try JsonValueArray(from: decoder)
-            self = .jsonValueArray(value)
+            self = .array(value)
         case .jsonValueObject:
             let value = try JsonValueObject(from: decoder)
-            self = .jsonValueObject(value)
+            self = .object(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .jsonValueNull:
+        case .null:
             try container.encode(Kind.jsonValueNull, forKey: .type)
-        case .jsonValueBoolean(let value):
+        case .boolean(let value):
             try container.encode(Kind.jsonValueBoolean, forKey: .type)
             try value.encode(to: encoder)
-        case .jsonValueNumber(let value):
+        case .number(let value):
             try container.encode(Kind.jsonValueNumber, forKey: .type)
             try value.encode(to: encoder)
-        case .jsonValueString(let value):
+        case .string(let value):
             try container.encode(Kind.jsonValueString, forKey: .type)
             try value.encode(to: encoder)
-        case .jsonValueArray(let value):
+        case .array(let value):
             try container.encode(Kind.jsonValueArray, forKey: .type)
             try value.encode(to: encoder)
-        case .jsonValueObject(let value):
+        case .object(let value):
             try container.encode(Kind.jsonValueObject, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -90,7 +90,7 @@ public enum JsonValue: Codable, Equatable {
 }
 
 /// Represents a boolean JSON value
-public struct JsonValueBoolean: Codable, Equatable {
+public struct JsonValueBoolean: Codable, Equatable, Hashable {
 
     /// The value
     public let value: Bool
@@ -102,7 +102,7 @@ public struct JsonValueBoolean: Codable, Equatable {
 }
 
 /// Represents a numeric JSON value
-public struct JsonValueNumber: Codable, Equatable {
+public struct JsonValueNumber: Codable, Equatable, Hashable {
 
     /// The value
     public let value: Double
@@ -114,7 +114,7 @@ public struct JsonValueNumber: Codable, Equatable {
 }
 
 /// Represents a string JSON value
-public struct JsonValueString: Codable, Equatable {
+public struct JsonValueString: Codable, Equatable, Hashable {
 
     /// The value
     public let value: String
@@ -126,7 +126,7 @@ public struct JsonValueString: Codable, Equatable {
 }
 
 /// Represents a JSON array
-public struct JsonValueArray: Codable, Equatable {
+public struct JsonValueArray: Codable, Equatable, Hashable {
 
     /// The list of array elements
     public let values: [JsonValue]
@@ -138,7 +138,7 @@ public struct JsonValueArray: Codable, Equatable {
 }
 
 /// Represents a JSON object
-public struct JsonValueObject: Codable, Equatable {
+public struct JsonValueObject: Codable, Equatable, Hashable {
 
     /// The list of object members
     public let members: [JsonObjectMember]

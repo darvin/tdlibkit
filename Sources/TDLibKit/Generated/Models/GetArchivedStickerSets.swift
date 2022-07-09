@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns a list of archived sticker sets
-public struct GetArchivedStickerSets: Codable, Equatable {
+public struct GetArchivedStickerSets: Codable, Equatable, Hashable {
 
     /// Pass true to return mask stickers sets; pass false to return ordinary sticker sets
     public let isMasks: Bool?

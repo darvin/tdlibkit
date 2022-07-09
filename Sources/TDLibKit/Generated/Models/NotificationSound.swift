@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Describes a notification sound in MP3 format
-public struct NotificationSound: Codable, Equatable {
+public struct NotificationSound: Codable, Equatable, Hashable {
 
     /// Arbitrary data, defined while the sound was uploaded
     public let data: String

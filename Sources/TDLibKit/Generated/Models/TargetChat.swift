@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the target chat to be opened
-public enum TargetChat: Codable, Equatable {
+public enum TargetChat: Codable, Equatable, Hashable {
 
     /// The currently opened chat needs to be kept
-    case targetChatCurrent
+    case current
 
     /// The chat needs to be chosen by the user among chats of the specified types
-    case targetChatChosen(TargetChatChosen)
+    case chosen(TargetChatChosen)
 
     /// The chat needs to be open with the provided internal link
-    case targetChatInternalLink(TargetChatInternalLink)
+    case internalLink(TargetChatInternalLink)
 
 
     private enum Kind: String, Codable {
@@ -34,25 +34,25 @@ public enum TargetChat: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .targetChatCurrent:
-            self = .targetChatCurrent
+            self = .current
         case .targetChatChosen:
             let value = try TargetChatChosen(from: decoder)
-            self = .targetChatChosen(value)
+            self = .chosen(value)
         case .targetChatInternalLink:
             let value = try TargetChatInternalLink(from: decoder)
-            self = .targetChatInternalLink(value)
+            self = .internalLink(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .targetChatCurrent:
+        case .current:
             try container.encode(Kind.targetChatCurrent, forKey: .type)
-        case .targetChatChosen(let value):
+        case .chosen(let value):
             try container.encode(Kind.targetChatChosen, forKey: .type)
             try value.encode(to: encoder)
-        case .targetChatInternalLink(let value):
+        case .internalLink(let value):
             try container.encode(Kind.targetChatInternalLink, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -60,7 +60,7 @@ public enum TargetChat: Codable, Equatable {
 }
 
 /// The chat needs to be chosen by the user among chats of the specified types
-public struct TargetChatChosen: Codable, Equatable {
+public struct TargetChatChosen: Codable, Equatable, Hashable {
 
     /// True, if private chats with other bots are allowed
     public let allowBotChats: Bool
@@ -89,7 +89,7 @@ public struct TargetChatChosen: Codable, Equatable {
 }
 
 /// The chat needs to be open with the provided internal link
-public struct TargetChatInternalLink: Codable, Equatable {
+public struct TargetChatInternalLink: Codable, Equatable, Hashable {
 
     /// An internal link pointing to the chat
     public let link: InternalLinkType

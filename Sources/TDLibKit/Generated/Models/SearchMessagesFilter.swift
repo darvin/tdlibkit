@@ -11,58 +11,58 @@ import Foundation
 
 
 /// Represents a filter for message search results
-public enum SearchMessagesFilter: Codable, Equatable {
+public enum SearchMessagesFilter: Codable, Equatable, Hashable {
 
     /// Returns all found messages, no filter is applied
-    case searchMessagesFilterEmpty
+    case empty
 
     /// Returns only animation messages
-    case searchMessagesFilterAnimation
+    case animation
 
     /// Returns only audio messages
-    case searchMessagesFilterAudio
+    case audio
 
     /// Returns only document messages
-    case searchMessagesFilterDocument
+    case document
 
     /// Returns only photo messages
-    case searchMessagesFilterPhoto
+    case photo
 
     /// Returns only video messages
-    case searchMessagesFilterVideo
+    case video
 
     /// Returns only voice note messages
-    case searchMessagesFilterVoiceNote
+    case voiceNote
 
     /// Returns only photo and video messages
-    case searchMessagesFilterPhotoAndVideo
+    case photoAndVideo
 
     /// Returns only messages containing URLs
-    case searchMessagesFilterUrl
+    case url
 
     /// Returns only messages containing chat photos
-    case searchMessagesFilterChatPhoto
+    case chatPhoto
 
     /// Returns only video note messages
-    case searchMessagesFilterVideoNote
+    case videoNote
 
     /// Returns only voice and video note messages
-    case searchMessagesFilterVoiceAndVideoNote
+    case voiceAndVideoNote
 
     /// Returns only messages with mentions of the current user, or messages that are replies to their messages
-    case searchMessagesFilterMention
+    case mention
 
     /// Returns only messages with unread mentions of the current user, or messages that are replies to their messages. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user
-    case searchMessagesFilterUnreadMention
+    case unreadMention
 
     /// Returns only messages with unread reactions for the current user. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user
-    case searchMessagesFilterUnreadReaction
+    case unreadReaction
 
     /// Returns only failed to send messages. This filter can be used only if the message database is used
-    case searchMessagesFilterFailedToSend
+    case failedToSend
 
     /// Returns only pinned messages
-    case searchMessagesFilterPinned
+    case pinned
 
 
     private enum Kind: String, Codable {
@@ -90,78 +90,78 @@ public enum SearchMessagesFilter: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .searchMessagesFilterEmpty:
-            self = .searchMessagesFilterEmpty
+            self = .empty
         case .searchMessagesFilterAnimation:
-            self = .searchMessagesFilterAnimation
+            self = .animation
         case .searchMessagesFilterAudio:
-            self = .searchMessagesFilterAudio
+            self = .audio
         case .searchMessagesFilterDocument:
-            self = .searchMessagesFilterDocument
+            self = .document
         case .searchMessagesFilterPhoto:
-            self = .searchMessagesFilterPhoto
+            self = .photo
         case .searchMessagesFilterVideo:
-            self = .searchMessagesFilterVideo
+            self = .video
         case .searchMessagesFilterVoiceNote:
-            self = .searchMessagesFilterVoiceNote
+            self = .voiceNote
         case .searchMessagesFilterPhotoAndVideo:
-            self = .searchMessagesFilterPhotoAndVideo
+            self = .photoAndVideo
         case .searchMessagesFilterUrl:
-            self = .searchMessagesFilterUrl
+            self = .url
         case .searchMessagesFilterChatPhoto:
-            self = .searchMessagesFilterChatPhoto
+            self = .chatPhoto
         case .searchMessagesFilterVideoNote:
-            self = .searchMessagesFilterVideoNote
+            self = .videoNote
         case .searchMessagesFilterVoiceAndVideoNote:
-            self = .searchMessagesFilterVoiceAndVideoNote
+            self = .voiceAndVideoNote
         case .searchMessagesFilterMention:
-            self = .searchMessagesFilterMention
+            self = .mention
         case .searchMessagesFilterUnreadMention:
-            self = .searchMessagesFilterUnreadMention
+            self = .unreadMention
         case .searchMessagesFilterUnreadReaction:
-            self = .searchMessagesFilterUnreadReaction
+            self = .unreadReaction
         case .searchMessagesFilterFailedToSend:
-            self = .searchMessagesFilterFailedToSend
+            self = .failedToSend
         case .searchMessagesFilterPinned:
-            self = .searchMessagesFilterPinned
+            self = .pinned
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .searchMessagesFilterEmpty:
+        case .empty:
             try container.encode(Kind.searchMessagesFilterEmpty, forKey: .type)
-        case .searchMessagesFilterAnimation:
+        case .animation:
             try container.encode(Kind.searchMessagesFilterAnimation, forKey: .type)
-        case .searchMessagesFilterAudio:
+        case .audio:
             try container.encode(Kind.searchMessagesFilterAudio, forKey: .type)
-        case .searchMessagesFilterDocument:
+        case .document:
             try container.encode(Kind.searchMessagesFilterDocument, forKey: .type)
-        case .searchMessagesFilterPhoto:
+        case .photo:
             try container.encode(Kind.searchMessagesFilterPhoto, forKey: .type)
-        case .searchMessagesFilterVideo:
+        case .video:
             try container.encode(Kind.searchMessagesFilterVideo, forKey: .type)
-        case .searchMessagesFilterVoiceNote:
+        case .voiceNote:
             try container.encode(Kind.searchMessagesFilterVoiceNote, forKey: .type)
-        case .searchMessagesFilterPhotoAndVideo:
+        case .photoAndVideo:
             try container.encode(Kind.searchMessagesFilterPhotoAndVideo, forKey: .type)
-        case .searchMessagesFilterUrl:
+        case .url:
             try container.encode(Kind.searchMessagesFilterUrl, forKey: .type)
-        case .searchMessagesFilterChatPhoto:
+        case .chatPhoto:
             try container.encode(Kind.searchMessagesFilterChatPhoto, forKey: .type)
-        case .searchMessagesFilterVideoNote:
+        case .videoNote:
             try container.encode(Kind.searchMessagesFilterVideoNote, forKey: .type)
-        case .searchMessagesFilterVoiceAndVideoNote:
+        case .voiceAndVideoNote:
             try container.encode(Kind.searchMessagesFilterVoiceAndVideoNote, forKey: .type)
-        case .searchMessagesFilterMention:
+        case .mention:
             try container.encode(Kind.searchMessagesFilterMention, forKey: .type)
-        case .searchMessagesFilterUnreadMention:
+        case .unreadMention:
             try container.encode(Kind.searchMessagesFilterUnreadMention, forKey: .type)
-        case .searchMessagesFilterUnreadReaction:
+        case .unreadReaction:
             try container.encode(Kind.searchMessagesFilterUnreadReaction, forKey: .type)
-        case .searchMessagesFilterFailedToSend:
+        case .failedToSend:
             try container.encode(Kind.searchMessagesFilterFailedToSend, forKey: .type)
-        case .searchMessagesFilterPinned:
+        case .pinned:
             try container.encode(Kind.searchMessagesFilterPinned, forKey: .type)
         }
     }

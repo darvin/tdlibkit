@@ -11,37 +11,37 @@ import Foundation
 
 
 /// Describes the reason why a chat is reported
-public enum ChatReportReason: Codable, Equatable {
+public enum ChatReportReason: Codable, Equatable, Hashable {
 
     /// The chat contains spam messages
-    case chatReportReasonSpam
+    case spam
 
     /// The chat promotes violence
-    case chatReportReasonViolence
+    case violence
 
     /// The chat contains pornographic messages
-    case chatReportReasonPornography
+    case pornography
 
     /// The chat has child abuse related content
-    case chatReportReasonChildAbuse
+    case childAbuse
 
     /// The chat contains copyrighted content
-    case chatReportReasonCopyright
+    case copyright
 
     /// The location-based chat is unrelated to its stated location
-    case chatReportReasonUnrelatedLocation
+    case unrelatedLocation
 
     /// The chat represents a fake account
-    case chatReportReasonFake
+    case fake
 
     /// The chat has illegal drugs related content
-    case chatReportReasonIllegalDrugs
+    case illegalDrugs
 
     /// The chat contains messages with personal details
-    case chatReportReasonPersonalDetails
+    case personalDetails
 
     /// A custom reason provided by the user
-    case chatReportReasonCustom
+    case custom
 
 
     private enum Kind: String, Codable {
@@ -62,50 +62,50 @@ public enum ChatReportReason: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .chatReportReasonSpam:
-            self = .chatReportReasonSpam
+            self = .spam
         case .chatReportReasonViolence:
-            self = .chatReportReasonViolence
+            self = .violence
         case .chatReportReasonPornography:
-            self = .chatReportReasonPornography
+            self = .pornography
         case .chatReportReasonChildAbuse:
-            self = .chatReportReasonChildAbuse
+            self = .childAbuse
         case .chatReportReasonCopyright:
-            self = .chatReportReasonCopyright
+            self = .copyright
         case .chatReportReasonUnrelatedLocation:
-            self = .chatReportReasonUnrelatedLocation
+            self = .unrelatedLocation
         case .chatReportReasonFake:
-            self = .chatReportReasonFake
+            self = .fake
         case .chatReportReasonIllegalDrugs:
-            self = .chatReportReasonIllegalDrugs
+            self = .illegalDrugs
         case .chatReportReasonPersonalDetails:
-            self = .chatReportReasonPersonalDetails
+            self = .personalDetails
         case .chatReportReasonCustom:
-            self = .chatReportReasonCustom
+            self = .custom
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatReportReasonSpam:
+        case .spam:
             try container.encode(Kind.chatReportReasonSpam, forKey: .type)
-        case .chatReportReasonViolence:
+        case .violence:
             try container.encode(Kind.chatReportReasonViolence, forKey: .type)
-        case .chatReportReasonPornography:
+        case .pornography:
             try container.encode(Kind.chatReportReasonPornography, forKey: .type)
-        case .chatReportReasonChildAbuse:
+        case .childAbuse:
             try container.encode(Kind.chatReportReasonChildAbuse, forKey: .type)
-        case .chatReportReasonCopyright:
+        case .copyright:
             try container.encode(Kind.chatReportReasonCopyright, forKey: .type)
-        case .chatReportReasonUnrelatedLocation:
+        case .unrelatedLocation:
             try container.encode(Kind.chatReportReasonUnrelatedLocation, forKey: .type)
-        case .chatReportReasonFake:
+        case .fake:
             try container.encode(Kind.chatReportReasonFake, forKey: .type)
-        case .chatReportReasonIllegalDrugs:
+        case .illegalDrugs:
             try container.encode(Kind.chatReportReasonIllegalDrugs, forKey: .type)
-        case .chatReportReasonPersonalDetails:
+        case .personalDetails:
             try container.encode(Kind.chatReportReasonPersonalDetails, forKey: .type)
-        case .chatReportReasonCustom:
+        case .custom:
             try container.encode(Kind.chatReportReasonCustom, forKey: .type)
         }
     }

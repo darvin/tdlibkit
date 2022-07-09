@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains a detailed statistics about a chat
-public enum ChatStatistics: Codable, Equatable {
+public enum ChatStatistics: Codable, Equatable, Hashable {
 
     /// A detailed statistics about a supergroup chat
-    case chatStatisticsSupergroup(ChatStatisticsSupergroup)
+    case supergroup(ChatStatisticsSupergroup)
 
     /// A detailed statistics about a channel chat
-    case chatStatisticsChannel(ChatStatisticsChannel)
+    case channel(ChatStatisticsChannel)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum ChatStatistics: Codable, Equatable {
         switch type {
         case .chatStatisticsSupergroup:
             let value = try ChatStatisticsSupergroup(from: decoder)
-            self = .chatStatisticsSupergroup(value)
+            self = .supergroup(value)
         case .chatStatisticsChannel:
             let value = try ChatStatisticsChannel(from: decoder)
-            self = .chatStatisticsChannel(value)
+            self = .channel(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatStatisticsSupergroup(let value):
+        case .supergroup(let value):
             try container.encode(Kind.chatStatisticsSupergroup, forKey: .type)
             try value.encode(to: encoder)
-        case .chatStatisticsChannel(let value):
+        case .channel(let value):
             try container.encode(Kind.chatStatisticsChannel, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum ChatStatistics: Codable, Equatable {
 }
 
 /// A detailed statistics about a supergroup chat
-public struct ChatStatisticsSupergroup: Codable, Equatable {
+public struct ChatStatisticsSupergroup: Codable, Equatable, Hashable {
 
     /// A graph containing number of different actions in the chat
     public let actionGraph: StatisticalGraph
@@ -141,7 +141,7 @@ public struct ChatStatisticsSupergroup: Codable, Equatable {
 }
 
 /// A detailed statistics about a channel chat
-public struct ChatStatisticsChannel: Codable, Equatable {
+public struct ChatStatisticsChannel: Codable, Equatable, Hashable {
 
     /// A percentage of users with enabled notifications for the chat
     public let enabledNotificationsPercentage: Double

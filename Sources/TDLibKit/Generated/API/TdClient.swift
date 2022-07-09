@@ -3,8 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.4-906d773d
-//  https://github.com/tdlib/td/tree/906d773d
+//  Based on TDLib 1.8.4-d4890143
+//  https://github.com/tdlib/td/tree/d4890143
 //
 
 import Foundation
@@ -13,7 +13,6 @@ import Foundation
 /// Basic protocol for communicate with TdLib.
 public protocol TdClient {
     /// An AsyncStream that deliveres TDLib updates.
-    @available(macOS 10.15, iOS 9, watchOS 2, tvOS 9, *)
     var updateStream: AsyncStream<Update> { get }
 
     /// Receives incoming updates and request responses from the TDLib client
@@ -27,11 +26,11 @@ public protocol TdClient {
 
     /// Close connection with TDLib.
     func close()
+
 }
 
 
 public protocol TdQuery {
 
     func make(with extra: String?) throws -> Data
-
 }

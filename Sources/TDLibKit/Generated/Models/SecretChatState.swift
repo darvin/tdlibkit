@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the current secret chat state
-public enum SecretChatState: Codable, Equatable {
+public enum SecretChatState: Codable, Equatable, Hashable {
 
     /// The secret chat is not yet created; waiting for the other user to get online
-    case secretChatStatePending
+    case pending
 
     /// The secret chat is ready to use
-    case secretChatStateReady
+    case ready
 
     /// The secret chat is closed
-    case secretChatStateClosed
+    case closed
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum SecretChatState: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .secretChatStatePending:
-            self = .secretChatStatePending
+            self = .pending
         case .secretChatStateReady:
-            self = .secretChatStateReady
+            self = .ready
         case .secretChatStateClosed:
-            self = .secretChatStateClosed
+            self = .closed
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .secretChatStatePending:
+        case .pending:
             try container.encode(Kind.secretChatStatePending, forKey: .type)
-        case .secretChatStateReady:
+        case .ready:
             try container.encode(Kind.secretChatStateReady, forKey: .type)
-        case .secretChatStateClosed:
+        case .closed:
             try container.encode(Kind.secretChatStateClosed, forKey: .type)
         }
     }

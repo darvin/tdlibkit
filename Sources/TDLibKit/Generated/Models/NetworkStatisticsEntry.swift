@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains statistics about network usage
-public enum NetworkStatisticsEntry: Codable, Equatable {
+public enum NetworkStatisticsEntry: Codable, Equatable, Hashable {
 
     /// Contains information about the total amount of data that was used to send and receive files
-    case networkStatisticsEntryFile(NetworkStatisticsEntryFile)
+    case file(NetworkStatisticsEntryFile)
 
     /// Contains information about the total amount of data that was used for calls
-    case networkStatisticsEntryCall(NetworkStatisticsEntryCall)
+    case call(NetworkStatisticsEntryCall)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum NetworkStatisticsEntry: Codable, Equatable {
         switch type {
         case .networkStatisticsEntryFile:
             let value = try NetworkStatisticsEntryFile(from: decoder)
-            self = .networkStatisticsEntryFile(value)
+            self = .file(value)
         case .networkStatisticsEntryCall:
             let value = try NetworkStatisticsEntryCall(from: decoder)
-            self = .networkStatisticsEntryCall(value)
+            self = .call(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .networkStatisticsEntryFile(let value):
+        case .file(let value):
             try container.encode(Kind.networkStatisticsEntryFile, forKey: .type)
             try value.encode(to: encoder)
-        case .networkStatisticsEntryCall(let value):
+        case .call(let value):
             try container.encode(Kind.networkStatisticsEntryCall, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum NetworkStatisticsEntry: Codable, Equatable {
 }
 
 /// Contains information about the total amount of data that was used to send and receive files
-public struct NetworkStatisticsEntryFile: Codable, Equatable {
+public struct NetworkStatisticsEntryFile: Codable, Equatable, Hashable {
 
     /// Type of the file the data is part of; pass null if the data isn't related to files
     public let fileType: FileType
@@ -81,7 +81,7 @@ public struct NetworkStatisticsEntryFile: Codable, Equatable {
 }
 
 /// Contains information about the total amount of data that was used for calls
-public struct NetworkStatisticsEntryCall: Codable, Equatable {
+public struct NetworkStatisticsEntryCall: Codable, Equatable, Hashable {
 
     /// Total call duration, in seconds
     public let duration: Double

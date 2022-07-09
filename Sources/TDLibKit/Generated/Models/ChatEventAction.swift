@@ -11,112 +11,112 @@ import Foundation
 
 
 /// Represents a chat event
-public enum ChatEventAction: Codable, Equatable {
+public enum ChatEventAction: Codable, Equatable, Hashable {
 
     /// A message was edited
-    case chatEventMessageEdited(ChatEventMessageEdited)
+    case messageEdited(ChatEventMessageEdited)
 
     /// A message was deleted
-    case chatEventMessageDeleted(ChatEventMessageDeleted)
+    case messageDeleted(ChatEventMessageDeleted)
 
     /// A message was pinned
-    case chatEventMessagePinned(ChatEventMessagePinned)
+    case messagePinned(ChatEventMessagePinned)
 
     /// A message was unpinned
-    case chatEventMessageUnpinned(ChatEventMessageUnpinned)
+    case messageUnpinned(ChatEventMessageUnpinned)
 
     /// A poll in a message was stopped
-    case chatEventPollStopped(ChatEventPollStopped)
+    case pollStopped(ChatEventPollStopped)
 
     /// A new member joined the chat
-    case chatEventMemberJoined
+    case memberJoined
 
     /// A new member joined the chat via an invite link
-    case chatEventMemberJoinedByInviteLink(ChatEventMemberJoinedByInviteLink)
+    case memberJoinedByInviteLink(ChatEventMemberJoinedByInviteLink)
 
     /// A new member was accepted to the chat by an administrator
-    case chatEventMemberJoinedByRequest(ChatEventMemberJoinedByRequest)
+    case memberJoinedByRequest(ChatEventMemberJoinedByRequest)
 
     /// A new chat member was invited
-    case chatEventMemberInvited(ChatEventMemberInvited)
+    case memberInvited(ChatEventMemberInvited)
 
     /// A member left the chat
-    case chatEventMemberLeft
+    case memberLeft
 
     /// A chat member has gained/lost administrator status, or the list of their administrator privileges has changed
-    case chatEventMemberPromoted(ChatEventMemberPromoted)
+    case memberPromoted(ChatEventMemberPromoted)
 
     /// A chat member was restricted/unrestricted or banned/unbanned, or the list of their restrictions has changed
-    case chatEventMemberRestricted(ChatEventMemberRestricted)
+    case memberRestricted(ChatEventMemberRestricted)
 
     /// The chat available reactions were changed
-    case chatEventAvailableReactionsChanged(ChatEventAvailableReactionsChanged)
+    case availableReactionsChanged(ChatEventAvailableReactionsChanged)
 
     /// The chat description was changed
-    case chatEventDescriptionChanged(ChatEventDescriptionChanged)
+    case descriptionChanged(ChatEventDescriptionChanged)
 
     /// The linked chat of a supergroup was changed
-    case chatEventLinkedChatChanged(ChatEventLinkedChatChanged)
+    case linkedChatChanged(ChatEventLinkedChatChanged)
 
     /// The supergroup location was changed
-    case chatEventLocationChanged(ChatEventLocationChanged)
+    case locationChanged(ChatEventLocationChanged)
 
     /// The message TTL was changed
-    case chatEventMessageTtlChanged(ChatEventMessageTtlChanged)
+    case messageTtlChanged(ChatEventMessageTtlChanged)
 
     /// The chat permissions was changed
-    case chatEventPermissionsChanged(ChatEventPermissionsChanged)
+    case permissionsChanged(ChatEventPermissionsChanged)
 
     /// The chat photo was changed
-    case chatEventPhotoChanged(ChatEventPhotoChanged)
+    case photoChanged(ChatEventPhotoChanged)
 
     /// The slow_mode_delay setting of a supergroup was changed
-    case chatEventSlowModeDelayChanged(ChatEventSlowModeDelayChanged)
+    case slowModeDelayChanged(ChatEventSlowModeDelayChanged)
 
     /// The supergroup sticker set was changed
-    case chatEventStickerSetChanged(ChatEventStickerSetChanged)
+    case stickerSetChanged(ChatEventStickerSetChanged)
 
     /// The chat title was changed
-    case chatEventTitleChanged(ChatEventTitleChanged)
+    case titleChanged(ChatEventTitleChanged)
 
     /// The chat username was changed
-    case chatEventUsernameChanged(ChatEventUsernameChanged)
+    case usernameChanged(ChatEventUsernameChanged)
 
     /// The has_protected_content setting of a channel was toggled
-    case chatEventHasProtectedContentToggled(ChatEventHasProtectedContentToggled)
+    case hasProtectedContentToggled(ChatEventHasProtectedContentToggled)
 
     /// The can_invite_users permission of a supergroup chat was toggled
-    case chatEventInvitesToggled(ChatEventInvitesToggled)
+    case invitesToggled(ChatEventInvitesToggled)
 
     /// The is_all_history_available setting of a supergroup was toggled
-    case chatEventIsAllHistoryAvailableToggled(ChatEventIsAllHistoryAvailableToggled)
+    case isAllHistoryAvailableToggled(ChatEventIsAllHistoryAvailableToggled)
 
     /// The sign_messages setting of a channel was toggled
-    case chatEventSignMessagesToggled(ChatEventSignMessagesToggled)
+    case signMessagesToggled(ChatEventSignMessagesToggled)
 
     /// A chat invite link was edited
-    case chatEventInviteLinkEdited(ChatEventInviteLinkEdited)
+    case inviteLinkEdited(ChatEventInviteLinkEdited)
 
     /// A chat invite link was revoked
-    case chatEventInviteLinkRevoked(ChatEventInviteLinkRevoked)
+    case inviteLinkRevoked(ChatEventInviteLinkRevoked)
 
     /// A revoked chat invite link was deleted
-    case chatEventInviteLinkDeleted(ChatEventInviteLinkDeleted)
+    case inviteLinkDeleted(ChatEventInviteLinkDeleted)
 
     /// A video chat was created
-    case chatEventVideoChatCreated(ChatEventVideoChatCreated)
+    case videoChatCreated(ChatEventVideoChatCreated)
 
     /// A video chat was ended
-    case chatEventVideoChatEnded(ChatEventVideoChatEnded)
+    case videoChatEnded(ChatEventVideoChatEnded)
 
     /// The mute_new_participants setting of a video chat was toggled
-    case chatEventVideoChatMuteNewParticipantsToggled(ChatEventVideoChatMuteNewParticipantsToggled)
+    case videoChatMuteNewParticipantsToggled(ChatEventVideoChatMuteNewParticipantsToggled)
 
     /// A video chat participant was muted or unmuted
-    case chatEventVideoChatParticipantIsMutedToggled(ChatEventVideoChatParticipantIsMutedToggled)
+    case videoChatParticipantIsMutedToggled(ChatEventVideoChatParticipantIsMutedToggled)
 
     /// A video chat participant volume level was changed
-    case chatEventVideoChatParticipantVolumeLevelChanged(ChatEventVideoChatParticipantVolumeLevelChanged)
+    case videoChatParticipantVolumeLevelChanged(ChatEventVideoChatParticipantVolumeLevelChanged)
 
 
     private enum Kind: String, Codable {
@@ -163,214 +163,214 @@ public enum ChatEventAction: Codable, Equatable {
         switch type {
         case .chatEventMessageEdited:
             let value = try ChatEventMessageEdited(from: decoder)
-            self = .chatEventMessageEdited(value)
+            self = .messageEdited(value)
         case .chatEventMessageDeleted:
             let value = try ChatEventMessageDeleted(from: decoder)
-            self = .chatEventMessageDeleted(value)
+            self = .messageDeleted(value)
         case .chatEventMessagePinned:
             let value = try ChatEventMessagePinned(from: decoder)
-            self = .chatEventMessagePinned(value)
+            self = .messagePinned(value)
         case .chatEventMessageUnpinned:
             let value = try ChatEventMessageUnpinned(from: decoder)
-            self = .chatEventMessageUnpinned(value)
+            self = .messageUnpinned(value)
         case .chatEventPollStopped:
             let value = try ChatEventPollStopped(from: decoder)
-            self = .chatEventPollStopped(value)
+            self = .pollStopped(value)
         case .chatEventMemberJoined:
-            self = .chatEventMemberJoined
+            self = .memberJoined
         case .chatEventMemberJoinedByInviteLink:
             let value = try ChatEventMemberJoinedByInviteLink(from: decoder)
-            self = .chatEventMemberJoinedByInviteLink(value)
+            self = .memberJoinedByInviteLink(value)
         case .chatEventMemberJoinedByRequest:
             let value = try ChatEventMemberJoinedByRequest(from: decoder)
-            self = .chatEventMemberJoinedByRequest(value)
+            self = .memberJoinedByRequest(value)
         case .chatEventMemberInvited:
             let value = try ChatEventMemberInvited(from: decoder)
-            self = .chatEventMemberInvited(value)
+            self = .memberInvited(value)
         case .chatEventMemberLeft:
-            self = .chatEventMemberLeft
+            self = .memberLeft
         case .chatEventMemberPromoted:
             let value = try ChatEventMemberPromoted(from: decoder)
-            self = .chatEventMemberPromoted(value)
+            self = .memberPromoted(value)
         case .chatEventMemberRestricted:
             let value = try ChatEventMemberRestricted(from: decoder)
-            self = .chatEventMemberRestricted(value)
+            self = .memberRestricted(value)
         case .chatEventAvailableReactionsChanged:
             let value = try ChatEventAvailableReactionsChanged(from: decoder)
-            self = .chatEventAvailableReactionsChanged(value)
+            self = .availableReactionsChanged(value)
         case .chatEventDescriptionChanged:
             let value = try ChatEventDescriptionChanged(from: decoder)
-            self = .chatEventDescriptionChanged(value)
+            self = .descriptionChanged(value)
         case .chatEventLinkedChatChanged:
             let value = try ChatEventLinkedChatChanged(from: decoder)
-            self = .chatEventLinkedChatChanged(value)
+            self = .linkedChatChanged(value)
         case .chatEventLocationChanged:
             let value = try ChatEventLocationChanged(from: decoder)
-            self = .chatEventLocationChanged(value)
+            self = .locationChanged(value)
         case .chatEventMessageTtlChanged:
             let value = try ChatEventMessageTtlChanged(from: decoder)
-            self = .chatEventMessageTtlChanged(value)
+            self = .messageTtlChanged(value)
         case .chatEventPermissionsChanged:
             let value = try ChatEventPermissionsChanged(from: decoder)
-            self = .chatEventPermissionsChanged(value)
+            self = .permissionsChanged(value)
         case .chatEventPhotoChanged:
             let value = try ChatEventPhotoChanged(from: decoder)
-            self = .chatEventPhotoChanged(value)
+            self = .photoChanged(value)
         case .chatEventSlowModeDelayChanged:
             let value = try ChatEventSlowModeDelayChanged(from: decoder)
-            self = .chatEventSlowModeDelayChanged(value)
+            self = .slowModeDelayChanged(value)
         case .chatEventStickerSetChanged:
             let value = try ChatEventStickerSetChanged(from: decoder)
-            self = .chatEventStickerSetChanged(value)
+            self = .stickerSetChanged(value)
         case .chatEventTitleChanged:
             let value = try ChatEventTitleChanged(from: decoder)
-            self = .chatEventTitleChanged(value)
+            self = .titleChanged(value)
         case .chatEventUsernameChanged:
             let value = try ChatEventUsernameChanged(from: decoder)
-            self = .chatEventUsernameChanged(value)
+            self = .usernameChanged(value)
         case .chatEventHasProtectedContentToggled:
             let value = try ChatEventHasProtectedContentToggled(from: decoder)
-            self = .chatEventHasProtectedContentToggled(value)
+            self = .hasProtectedContentToggled(value)
         case .chatEventInvitesToggled:
             let value = try ChatEventInvitesToggled(from: decoder)
-            self = .chatEventInvitesToggled(value)
+            self = .invitesToggled(value)
         case .chatEventIsAllHistoryAvailableToggled:
             let value = try ChatEventIsAllHistoryAvailableToggled(from: decoder)
-            self = .chatEventIsAllHistoryAvailableToggled(value)
+            self = .isAllHistoryAvailableToggled(value)
         case .chatEventSignMessagesToggled:
             let value = try ChatEventSignMessagesToggled(from: decoder)
-            self = .chatEventSignMessagesToggled(value)
+            self = .signMessagesToggled(value)
         case .chatEventInviteLinkEdited:
             let value = try ChatEventInviteLinkEdited(from: decoder)
-            self = .chatEventInviteLinkEdited(value)
+            self = .inviteLinkEdited(value)
         case .chatEventInviteLinkRevoked:
             let value = try ChatEventInviteLinkRevoked(from: decoder)
-            self = .chatEventInviteLinkRevoked(value)
+            self = .inviteLinkRevoked(value)
         case .chatEventInviteLinkDeleted:
             let value = try ChatEventInviteLinkDeleted(from: decoder)
-            self = .chatEventInviteLinkDeleted(value)
+            self = .inviteLinkDeleted(value)
         case .chatEventVideoChatCreated:
             let value = try ChatEventVideoChatCreated(from: decoder)
-            self = .chatEventVideoChatCreated(value)
+            self = .videoChatCreated(value)
         case .chatEventVideoChatEnded:
             let value = try ChatEventVideoChatEnded(from: decoder)
-            self = .chatEventVideoChatEnded(value)
+            self = .videoChatEnded(value)
         case .chatEventVideoChatMuteNewParticipantsToggled:
             let value = try ChatEventVideoChatMuteNewParticipantsToggled(from: decoder)
-            self = .chatEventVideoChatMuteNewParticipantsToggled(value)
+            self = .videoChatMuteNewParticipantsToggled(value)
         case .chatEventVideoChatParticipantIsMutedToggled:
             let value = try ChatEventVideoChatParticipantIsMutedToggled(from: decoder)
-            self = .chatEventVideoChatParticipantIsMutedToggled(value)
+            self = .videoChatParticipantIsMutedToggled(value)
         case .chatEventVideoChatParticipantVolumeLevelChanged:
             let value = try ChatEventVideoChatParticipantVolumeLevelChanged(from: decoder)
-            self = .chatEventVideoChatParticipantVolumeLevelChanged(value)
+            self = .videoChatParticipantVolumeLevelChanged(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatEventMessageEdited(let value):
+        case .messageEdited(let value):
             try container.encode(Kind.chatEventMessageEdited, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMessageDeleted(let value):
+        case .messageDeleted(let value):
             try container.encode(Kind.chatEventMessageDeleted, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMessagePinned(let value):
+        case .messagePinned(let value):
             try container.encode(Kind.chatEventMessagePinned, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMessageUnpinned(let value):
+        case .messageUnpinned(let value):
             try container.encode(Kind.chatEventMessageUnpinned, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventPollStopped(let value):
+        case .pollStopped(let value):
             try container.encode(Kind.chatEventPollStopped, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMemberJoined:
+        case .memberJoined:
             try container.encode(Kind.chatEventMemberJoined, forKey: .type)
-        case .chatEventMemberJoinedByInviteLink(let value):
+        case .memberJoinedByInviteLink(let value):
             try container.encode(Kind.chatEventMemberJoinedByInviteLink, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMemberJoinedByRequest(let value):
+        case .memberJoinedByRequest(let value):
             try container.encode(Kind.chatEventMemberJoinedByRequest, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMemberInvited(let value):
+        case .memberInvited(let value):
             try container.encode(Kind.chatEventMemberInvited, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMemberLeft:
+        case .memberLeft:
             try container.encode(Kind.chatEventMemberLeft, forKey: .type)
-        case .chatEventMemberPromoted(let value):
+        case .memberPromoted(let value):
             try container.encode(Kind.chatEventMemberPromoted, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMemberRestricted(let value):
+        case .memberRestricted(let value):
             try container.encode(Kind.chatEventMemberRestricted, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventAvailableReactionsChanged(let value):
+        case .availableReactionsChanged(let value):
             try container.encode(Kind.chatEventAvailableReactionsChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventDescriptionChanged(let value):
+        case .descriptionChanged(let value):
             try container.encode(Kind.chatEventDescriptionChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventLinkedChatChanged(let value):
+        case .linkedChatChanged(let value):
             try container.encode(Kind.chatEventLinkedChatChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventLocationChanged(let value):
+        case .locationChanged(let value):
             try container.encode(Kind.chatEventLocationChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventMessageTtlChanged(let value):
+        case .messageTtlChanged(let value):
             try container.encode(Kind.chatEventMessageTtlChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventPermissionsChanged(let value):
+        case .permissionsChanged(let value):
             try container.encode(Kind.chatEventPermissionsChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventPhotoChanged(let value):
+        case .photoChanged(let value):
             try container.encode(Kind.chatEventPhotoChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventSlowModeDelayChanged(let value):
+        case .slowModeDelayChanged(let value):
             try container.encode(Kind.chatEventSlowModeDelayChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventStickerSetChanged(let value):
+        case .stickerSetChanged(let value):
             try container.encode(Kind.chatEventStickerSetChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventTitleChanged(let value):
+        case .titleChanged(let value):
             try container.encode(Kind.chatEventTitleChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventUsernameChanged(let value):
+        case .usernameChanged(let value):
             try container.encode(Kind.chatEventUsernameChanged, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventHasProtectedContentToggled(let value):
+        case .hasProtectedContentToggled(let value):
             try container.encode(Kind.chatEventHasProtectedContentToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventInvitesToggled(let value):
+        case .invitesToggled(let value):
             try container.encode(Kind.chatEventInvitesToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventIsAllHistoryAvailableToggled(let value):
+        case .isAllHistoryAvailableToggled(let value):
             try container.encode(Kind.chatEventIsAllHistoryAvailableToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventSignMessagesToggled(let value):
+        case .signMessagesToggled(let value):
             try container.encode(Kind.chatEventSignMessagesToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventInviteLinkEdited(let value):
+        case .inviteLinkEdited(let value):
             try container.encode(Kind.chatEventInviteLinkEdited, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventInviteLinkRevoked(let value):
+        case .inviteLinkRevoked(let value):
             try container.encode(Kind.chatEventInviteLinkRevoked, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventInviteLinkDeleted(let value):
+        case .inviteLinkDeleted(let value):
             try container.encode(Kind.chatEventInviteLinkDeleted, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventVideoChatCreated(let value):
+        case .videoChatCreated(let value):
             try container.encode(Kind.chatEventVideoChatCreated, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventVideoChatEnded(let value):
+        case .videoChatEnded(let value):
             try container.encode(Kind.chatEventVideoChatEnded, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventVideoChatMuteNewParticipantsToggled(let value):
+        case .videoChatMuteNewParticipantsToggled(let value):
             try container.encode(Kind.chatEventVideoChatMuteNewParticipantsToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventVideoChatParticipantIsMutedToggled(let value):
+        case .videoChatParticipantIsMutedToggled(let value):
             try container.encode(Kind.chatEventVideoChatParticipantIsMutedToggled, forKey: .type)
             try value.encode(to: encoder)
-        case .chatEventVideoChatParticipantVolumeLevelChanged(let value):
+        case .videoChatParticipantVolumeLevelChanged(let value):
             try container.encode(Kind.chatEventVideoChatParticipantVolumeLevelChanged, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -378,7 +378,7 @@ public enum ChatEventAction: Codable, Equatable {
 }
 
 /// A message was edited
-public struct ChatEventMessageEdited: Codable, Equatable {
+public struct ChatEventMessageEdited: Codable, Equatable, Hashable {
 
     /// The message after it was edited
     public let newMessage: Message
@@ -397,7 +397,7 @@ public struct ChatEventMessageEdited: Codable, Equatable {
 }
 
 /// A message was deleted
-public struct ChatEventMessageDeleted: Codable, Equatable {
+public struct ChatEventMessageDeleted: Codable, Equatable, Hashable {
 
     /// Deleted message
     public let message: Message
@@ -409,7 +409,7 @@ public struct ChatEventMessageDeleted: Codable, Equatable {
 }
 
 /// A message was pinned
-public struct ChatEventMessagePinned: Codable, Equatable {
+public struct ChatEventMessagePinned: Codable, Equatable, Hashable {
 
     /// Pinned message
     public let message: Message
@@ -421,7 +421,7 @@ public struct ChatEventMessagePinned: Codable, Equatable {
 }
 
 /// A message was unpinned
-public struct ChatEventMessageUnpinned: Codable, Equatable {
+public struct ChatEventMessageUnpinned: Codable, Equatable, Hashable {
 
     /// Unpinned message
     public let message: Message
@@ -433,7 +433,7 @@ public struct ChatEventMessageUnpinned: Codable, Equatable {
 }
 
 /// A poll in a message was stopped
-public struct ChatEventPollStopped: Codable, Equatable {
+public struct ChatEventPollStopped: Codable, Equatable, Hashable {
 
     /// The message with the poll
     public let message: Message
@@ -445,7 +445,7 @@ public struct ChatEventPollStopped: Codable, Equatable {
 }
 
 /// A new member joined the chat via an invite link
-public struct ChatEventMemberJoinedByInviteLink: Codable, Equatable {
+public struct ChatEventMemberJoinedByInviteLink: Codable, Equatable, Hashable {
 
     /// Invite link used to join the chat
     public let inviteLink: ChatInviteLink
@@ -457,7 +457,7 @@ public struct ChatEventMemberJoinedByInviteLink: Codable, Equatable {
 }
 
 /// A new member was accepted to the chat by an administrator
-public struct ChatEventMemberJoinedByRequest: Codable, Equatable {
+public struct ChatEventMemberJoinedByRequest: Codable, Equatable, Hashable {
 
     /// User identifier of the chat administrator, approved user join request
     public let approverUserId: Int64
@@ -476,7 +476,7 @@ public struct ChatEventMemberJoinedByRequest: Codable, Equatable {
 }
 
 /// A new chat member was invited
-public struct ChatEventMemberInvited: Codable, Equatable {
+public struct ChatEventMemberInvited: Codable, Equatable, Hashable {
 
     /// New member status
     public let status: ChatMemberStatus
@@ -495,7 +495,7 @@ public struct ChatEventMemberInvited: Codable, Equatable {
 }
 
 /// A chat member has gained/lost administrator status, or the list of their administrator privileges has changed
-public struct ChatEventMemberPromoted: Codable, Equatable {
+public struct ChatEventMemberPromoted: Codable, Equatable, Hashable {
 
     /// New status of the chat member
     public let newStatus: ChatMemberStatus
@@ -519,7 +519,7 @@ public struct ChatEventMemberPromoted: Codable, Equatable {
 }
 
 /// A chat member was restricted/unrestricted or banned/unbanned, or the list of their restrictions has changed
-public struct ChatEventMemberRestricted: Codable, Equatable {
+public struct ChatEventMemberRestricted: Codable, Equatable, Hashable {
 
     /// Affected chat member identifier
     public let memberId: MessageSender
@@ -543,7 +543,7 @@ public struct ChatEventMemberRestricted: Codable, Equatable {
 }
 
 /// The chat available reactions were changed
-public struct ChatEventAvailableReactionsChanged: Codable, Equatable {
+public struct ChatEventAvailableReactionsChanged: Codable, Equatable, Hashable {
 
     /// New chat available reactions
     public let newAvailableReactions: [String]
@@ -562,7 +562,7 @@ public struct ChatEventAvailableReactionsChanged: Codable, Equatable {
 }
 
 /// The chat description was changed
-public struct ChatEventDescriptionChanged: Codable, Equatable {
+public struct ChatEventDescriptionChanged: Codable, Equatable, Hashable {
 
     /// New chat description
     public let newDescription: String
@@ -581,7 +581,7 @@ public struct ChatEventDescriptionChanged: Codable, Equatable {
 }
 
 /// The linked chat of a supergroup was changed
-public struct ChatEventLinkedChatChanged: Codable, Equatable {
+public struct ChatEventLinkedChatChanged: Codable, Equatable, Hashable {
 
     /// New supergroup linked chat identifier
     public let newLinkedChatId: Int64
@@ -600,7 +600,7 @@ public struct ChatEventLinkedChatChanged: Codable, Equatable {
 }
 
 /// The supergroup location was changed
-public struct ChatEventLocationChanged: Codable, Equatable {
+public struct ChatEventLocationChanged: Codable, Equatable, Hashable {
 
     /// New location; may be null
     public let newLocation: ChatLocation?
@@ -619,7 +619,7 @@ public struct ChatEventLocationChanged: Codable, Equatable {
 }
 
 /// The message TTL was changed
-public struct ChatEventMessageTtlChanged: Codable, Equatable {
+public struct ChatEventMessageTtlChanged: Codable, Equatable, Hashable {
 
     /// New value of message_ttl
     public let newMessageTtl: Int
@@ -638,7 +638,7 @@ public struct ChatEventMessageTtlChanged: Codable, Equatable {
 }
 
 /// The chat permissions was changed
-public struct ChatEventPermissionsChanged: Codable, Equatable {
+public struct ChatEventPermissionsChanged: Codable, Equatable, Hashable {
 
     /// New chat permissions
     public let newPermissions: ChatPermissions
@@ -657,7 +657,7 @@ public struct ChatEventPermissionsChanged: Codable, Equatable {
 }
 
 /// The chat photo was changed
-public struct ChatEventPhotoChanged: Codable, Equatable {
+public struct ChatEventPhotoChanged: Codable, Equatable, Hashable {
 
     /// New chat photo value; may be null
     public let newPhoto: ChatPhoto?
@@ -676,7 +676,7 @@ public struct ChatEventPhotoChanged: Codable, Equatable {
 }
 
 /// The slow_mode_delay setting of a supergroup was changed
-public struct ChatEventSlowModeDelayChanged: Codable, Equatable {
+public struct ChatEventSlowModeDelayChanged: Codable, Equatable, Hashable {
 
     /// New value of slow_mode_delay, in seconds
     public let newSlowModeDelay: Int
@@ -695,7 +695,7 @@ public struct ChatEventSlowModeDelayChanged: Codable, Equatable {
 }
 
 /// The supergroup sticker set was changed
-public struct ChatEventStickerSetChanged: Codable, Equatable {
+public struct ChatEventStickerSetChanged: Codable, Equatable, Hashable {
 
     /// New identifier of the chat sticker set; 0 if none
     public let newStickerSetId: TdInt64
@@ -714,7 +714,7 @@ public struct ChatEventStickerSetChanged: Codable, Equatable {
 }
 
 /// The chat title was changed
-public struct ChatEventTitleChanged: Codable, Equatable {
+public struct ChatEventTitleChanged: Codable, Equatable, Hashable {
 
     /// New chat title
     public let newTitle: String
@@ -733,7 +733,7 @@ public struct ChatEventTitleChanged: Codable, Equatable {
 }
 
 /// The chat username was changed
-public struct ChatEventUsernameChanged: Codable, Equatable {
+public struct ChatEventUsernameChanged: Codable, Equatable, Hashable {
 
     /// New chat username
     public let newUsername: String
@@ -752,7 +752,7 @@ public struct ChatEventUsernameChanged: Codable, Equatable {
 }
 
 /// The has_protected_content setting of a channel was toggled
-public struct ChatEventHasProtectedContentToggled: Codable, Equatable {
+public struct ChatEventHasProtectedContentToggled: Codable, Equatable, Hashable {
 
     /// New value of has_protected_content
     public let hasProtectedContent: Bool
@@ -764,7 +764,7 @@ public struct ChatEventHasProtectedContentToggled: Codable, Equatable {
 }
 
 /// The can_invite_users permission of a supergroup chat was toggled
-public struct ChatEventInvitesToggled: Codable, Equatable {
+public struct ChatEventInvitesToggled: Codable, Equatable, Hashable {
 
     /// New value of can_invite_users permission
     public let canInviteUsers: Bool
@@ -776,7 +776,7 @@ public struct ChatEventInvitesToggled: Codable, Equatable {
 }
 
 /// The is_all_history_available setting of a supergroup was toggled
-public struct ChatEventIsAllHistoryAvailableToggled: Codable, Equatable {
+public struct ChatEventIsAllHistoryAvailableToggled: Codable, Equatable, Hashable {
 
     /// New value of is_all_history_available
     public let isAllHistoryAvailable: Bool
@@ -788,7 +788,7 @@ public struct ChatEventIsAllHistoryAvailableToggled: Codable, Equatable {
 }
 
 /// The sign_messages setting of a channel was toggled
-public struct ChatEventSignMessagesToggled: Codable, Equatable {
+public struct ChatEventSignMessagesToggled: Codable, Equatable, Hashable {
 
     /// New value of sign_messages
     public let signMessages: Bool
@@ -800,7 +800,7 @@ public struct ChatEventSignMessagesToggled: Codable, Equatable {
 }
 
 /// A chat invite link was edited
-public struct ChatEventInviteLinkEdited: Codable, Equatable {
+public struct ChatEventInviteLinkEdited: Codable, Equatable, Hashable {
 
     /// New information about the invite link
     public let newInviteLink: ChatInviteLink
@@ -819,7 +819,7 @@ public struct ChatEventInviteLinkEdited: Codable, Equatable {
 }
 
 /// A chat invite link was revoked
-public struct ChatEventInviteLinkRevoked: Codable, Equatable {
+public struct ChatEventInviteLinkRevoked: Codable, Equatable, Hashable {
 
     /// The invite link
     public let inviteLink: ChatInviteLink
@@ -831,7 +831,7 @@ public struct ChatEventInviteLinkRevoked: Codable, Equatable {
 }
 
 /// A revoked chat invite link was deleted
-public struct ChatEventInviteLinkDeleted: Codable, Equatable {
+public struct ChatEventInviteLinkDeleted: Codable, Equatable, Hashable {
 
     /// The invite link
     public let inviteLink: ChatInviteLink
@@ -843,7 +843,7 @@ public struct ChatEventInviteLinkDeleted: Codable, Equatable {
 }
 
 /// A video chat was created
-public struct ChatEventVideoChatCreated: Codable, Equatable {
+public struct ChatEventVideoChatCreated: Codable, Equatable, Hashable {
 
     /// Identifier of the video chat. The video chat can be received through the method getGroupCall
     public let groupCallId: Int
@@ -855,7 +855,7 @@ public struct ChatEventVideoChatCreated: Codable, Equatable {
 }
 
 /// A video chat was ended
-public struct ChatEventVideoChatEnded: Codable, Equatable {
+public struct ChatEventVideoChatEnded: Codable, Equatable, Hashable {
 
     /// Identifier of the video chat. The video chat can be received through the method getGroupCall
     public let groupCallId: Int
@@ -867,7 +867,7 @@ public struct ChatEventVideoChatEnded: Codable, Equatable {
 }
 
 /// The mute_new_participants setting of a video chat was toggled
-public struct ChatEventVideoChatMuteNewParticipantsToggled: Codable, Equatable {
+public struct ChatEventVideoChatMuteNewParticipantsToggled: Codable, Equatable, Hashable {
 
     /// New value of the mute_new_participants setting
     public let muteNewParticipants: Bool
@@ -879,7 +879,7 @@ public struct ChatEventVideoChatMuteNewParticipantsToggled: Codable, Equatable {
 }
 
 /// A video chat participant was muted or unmuted
-public struct ChatEventVideoChatParticipantIsMutedToggled: Codable, Equatable {
+public struct ChatEventVideoChatParticipantIsMutedToggled: Codable, Equatable, Hashable {
 
     /// New value of is_muted
     public let isMuted: Bool
@@ -898,7 +898,7 @@ public struct ChatEventVideoChatParticipantIsMutedToggled: Codable, Equatable {
 }
 
 /// A video chat participant volume level was changed
-public struct ChatEventVideoChatParticipantVolumeLevelChanged: Codable, Equatable {
+public struct ChatEventVideoChatParticipantVolumeLevelChanged: Codable, Equatable, Hashable {
 
     /// Identifier of the affected group call participant
     public let participantId: MessageSender

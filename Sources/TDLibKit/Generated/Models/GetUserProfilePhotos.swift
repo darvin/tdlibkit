@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns the profile photos of a user. The result of this query may be outdated: some photos might have been deleted already
-public struct GetUserProfilePhotos: Codable, Equatable {
+public struct GetUserProfilePhotos: Codable, Equatable, Hashable {
 
     /// The maximum number of photos to be returned; up to 100
     public let limit: Int?

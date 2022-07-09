@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Contains stickers which must be used for reaction animation rendering
-public struct Reaction: Codable, Equatable {
+public struct Reaction: Codable, Equatable, Hashable {
 
     /// Activate animation for the reaction
     public let activateAnimation: Sticker

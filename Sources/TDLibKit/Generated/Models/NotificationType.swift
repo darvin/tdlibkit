@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Contains detailed information about a notification
-public enum NotificationType: Codable, Equatable {
+public enum NotificationType: Codable, Equatable, Hashable {
 
     /// New message was received
-    case notificationTypeNewMessage(NotificationTypeNewMessage)
+    case newMessage(NotificationTypeNewMessage)
 
     /// New secret chat was created
-    case notificationTypeNewSecretChat
+    case newSecretChat
 
     /// New call was received
-    case notificationTypeNewCall(NotificationTypeNewCall)
+    case newCall(NotificationTypeNewCall)
 
     /// New message was received through a push notification
-    case notificationTypeNewPushMessage(NotificationTypeNewPushMessage)
+    case newPushMessage(NotificationTypeNewPushMessage)
 
 
     private enum Kind: String, Codable {
@@ -39,30 +39,30 @@ public enum NotificationType: Codable, Equatable {
         switch type {
         case .notificationTypeNewMessage:
             let value = try NotificationTypeNewMessage(from: decoder)
-            self = .notificationTypeNewMessage(value)
+            self = .newMessage(value)
         case .notificationTypeNewSecretChat:
-            self = .notificationTypeNewSecretChat
+            self = .newSecretChat
         case .notificationTypeNewCall:
             let value = try NotificationTypeNewCall(from: decoder)
-            self = .notificationTypeNewCall(value)
+            self = .newCall(value)
         case .notificationTypeNewPushMessage:
             let value = try NotificationTypeNewPushMessage(from: decoder)
-            self = .notificationTypeNewPushMessage(value)
+            self = .newPushMessage(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .notificationTypeNewMessage(let value):
+        case .newMessage(let value):
             try container.encode(Kind.notificationTypeNewMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .notificationTypeNewSecretChat:
+        case .newSecretChat:
             try container.encode(Kind.notificationTypeNewSecretChat, forKey: .type)
-        case .notificationTypeNewCall(let value):
+        case .newCall(let value):
             try container.encode(Kind.notificationTypeNewCall, forKey: .type)
             try value.encode(to: encoder)
-        case .notificationTypeNewPushMessage(let value):
+        case .newPushMessage(let value):
             try container.encode(Kind.notificationTypeNewPushMessage, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -70,7 +70,7 @@ public enum NotificationType: Codable, Equatable {
 }
 
 /// New message was received
-public struct NotificationTypeNewMessage: Codable, Equatable {
+public struct NotificationTypeNewMessage: Codable, Equatable, Hashable {
 
     /// The message
     public let message: Message
@@ -89,7 +89,7 @@ public struct NotificationTypeNewMessage: Codable, Equatable {
 }
 
 /// New call was received
-public struct NotificationTypeNewCall: Codable, Equatable {
+public struct NotificationTypeNewCall: Codable, Equatable, Hashable {
 
     /// Call identifier
     public let callId: Int
@@ -101,7 +101,7 @@ public struct NotificationTypeNewCall: Codable, Equatable {
 }
 
 /// New message was received through a push notification
-public struct NotificationTypeNewPushMessage: Codable, Equatable {
+public struct NotificationTypeNewPushMessage: Codable, Equatable, Hashable {
 
     /// Push message content
     public let content: PushMessageContent

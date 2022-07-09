@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Represents the type of a network
-public enum NetworkType: Codable, Equatable {
+public enum NetworkType: Codable, Equatable, Hashable {
 
     /// The network is not available
-    case networkTypeNone
+    case none
 
     /// A mobile network
-    case networkTypeMobile
+    case mobile
 
     /// A mobile roaming network
-    case networkTypeMobileRoaming
+    case mobileRoaming
 
     /// A Wi-Fi network
-    case networkTypeWiFi
+    case wiFi
 
     /// A different network type (e.g., Ethernet network)
-    case networkTypeOther
+    case other
 
 
     private enum Kind: String, Codable {
@@ -42,30 +42,30 @@ public enum NetworkType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .networkTypeNone:
-            self = .networkTypeNone
+            self = .none
         case .networkTypeMobile:
-            self = .networkTypeMobile
+            self = .mobile
         case .networkTypeMobileRoaming:
-            self = .networkTypeMobileRoaming
+            self = .mobileRoaming
         case .networkTypeWiFi:
-            self = .networkTypeWiFi
+            self = .wiFi
         case .networkTypeOther:
-            self = .networkTypeOther
+            self = .other
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .networkTypeNone:
+        case .none:
             try container.encode(Kind.networkTypeNone, forKey: .type)
-        case .networkTypeMobile:
+        case .mobile:
             try container.encode(Kind.networkTypeMobile, forKey: .type)
-        case .networkTypeMobileRoaming:
+        case .mobileRoaming:
             try container.encode(Kind.networkTypeMobileRoaming, forKey: .type)
-        case .networkTypeWiFi:
+        case .wiFi:
             try container.encode(Kind.networkTypeWiFi, forKey: .type)
-        case .networkTypeOther:
+        case .other:
             try container.encode(Kind.networkTypeOther, forKey: .type)
         }
     }

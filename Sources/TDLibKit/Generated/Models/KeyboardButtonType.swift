@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Describes a keyboard button type
-public enum KeyboardButtonType: Codable, Equatable {
+public enum KeyboardButtonType: Codable, Equatable, Hashable {
 
     /// A simple button, with text that must be sent when the button is pressed
-    case keyboardButtonTypeText
+    case text
 
     /// A button that sends the user's phone number when pressed; available only in private chats
-    case keyboardButtonTypeRequestPhoneNumber
+    case requestPhoneNumber
 
     /// A button that sends the user's location when pressed; available only in private chats
-    case keyboardButtonTypeRequestLocation
+    case requestLocation
 
     /// A button that allows the user to create and send a poll when pressed; available only in private chats
-    case keyboardButtonTypeRequestPoll(KeyboardButtonTypeRequestPoll)
+    case requestPoll(KeyboardButtonTypeRequestPoll)
 
     /// A button that opens a Web App by calling getWebAppUrl
-    case keyboardButtonTypeWebApp(KeyboardButtonTypeWebApp)
+    case webApp(KeyboardButtonTypeWebApp)
 
 
     private enum Kind: String, Codable {
@@ -42,33 +42,33 @@ public enum KeyboardButtonType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .keyboardButtonTypeText:
-            self = .keyboardButtonTypeText
+            self = .text
         case .keyboardButtonTypeRequestPhoneNumber:
-            self = .keyboardButtonTypeRequestPhoneNumber
+            self = .requestPhoneNumber
         case .keyboardButtonTypeRequestLocation:
-            self = .keyboardButtonTypeRequestLocation
+            self = .requestLocation
         case .keyboardButtonTypeRequestPoll:
             let value = try KeyboardButtonTypeRequestPoll(from: decoder)
-            self = .keyboardButtonTypeRequestPoll(value)
+            self = .requestPoll(value)
         case .keyboardButtonTypeWebApp:
             let value = try KeyboardButtonTypeWebApp(from: decoder)
-            self = .keyboardButtonTypeWebApp(value)
+            self = .webApp(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .keyboardButtonTypeText:
+        case .text:
             try container.encode(Kind.keyboardButtonTypeText, forKey: .type)
-        case .keyboardButtonTypeRequestPhoneNumber:
+        case .requestPhoneNumber:
             try container.encode(Kind.keyboardButtonTypeRequestPhoneNumber, forKey: .type)
-        case .keyboardButtonTypeRequestLocation:
+        case .requestLocation:
             try container.encode(Kind.keyboardButtonTypeRequestLocation, forKey: .type)
-        case .keyboardButtonTypeRequestPoll(let value):
+        case .requestPoll(let value):
             try container.encode(Kind.keyboardButtonTypeRequestPoll, forKey: .type)
             try value.encode(to: encoder)
-        case .keyboardButtonTypeWebApp(let value):
+        case .webApp(let value):
             try container.encode(Kind.keyboardButtonTypeWebApp, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -76,7 +76,7 @@ public enum KeyboardButtonType: Codable, Equatable {
 }
 
 /// A button that allows the user to create and send a poll when pressed; available only in private chats
-public struct KeyboardButtonTypeRequestPoll: Codable, Equatable {
+public struct KeyboardButtonTypeRequestPoll: Codable, Equatable, Hashable {
 
     /// If true, only polls in quiz mode must be allowed to create
     public let forceQuiz: Bool
@@ -95,7 +95,7 @@ public struct KeyboardButtonTypeRequestPoll: Codable, Equatable {
 }
 
 /// A button that opens a Web App by calling getWebAppUrl
-public struct KeyboardButtonTypeWebApp: Codable, Equatable {
+public struct KeyboardButtonTypeWebApp: Codable, Equatable, Hashable {
 
     /// An HTTP URL to pass to getWebAppUrl
     public let url: String

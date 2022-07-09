@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Represents result of checking whether a name can be used for a new sticker set
-public enum CheckStickerSetNameResult: Codable, Equatable {
+public enum CheckStickerSetNameResult: Codable, Equatable, Hashable {
 
     /// The name can be set
-    case checkStickerSetNameResultOk
+    case ok
 
     /// The name is invalid
-    case checkStickerSetNameResultNameInvalid
+    case nameInvalid
 
     /// The name is occupied
-    case checkStickerSetNameResultNameOccupied
+    case nameOccupied
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum CheckStickerSetNameResult: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .checkStickerSetNameResultOk:
-            self = .checkStickerSetNameResultOk
+            self = .ok
         case .checkStickerSetNameResultNameInvalid:
-            self = .checkStickerSetNameResultNameInvalid
+            self = .nameInvalid
         case .checkStickerSetNameResultNameOccupied:
-            self = .checkStickerSetNameResultNameOccupied
+            self = .nameOccupied
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .checkStickerSetNameResultOk:
+        case .ok:
             try container.encode(Kind.checkStickerSetNameResultOk, forKey: .type)
-        case .checkStickerSetNameResultNameInvalid:
+        case .nameInvalid:
             try container.encode(Kind.checkStickerSetNameResultNameInvalid, forKey: .type)
-        case .checkStickerSetNameResultNameOccupied:
+        case .nameOccupied:
             try container.encode(Kind.checkStickerSetNameResultNameOccupied, forKey: .type)
         }
     }

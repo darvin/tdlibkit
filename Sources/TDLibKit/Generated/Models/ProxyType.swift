@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes the type of a proxy server
-public enum ProxyType: Codable, Equatable {
+public enum ProxyType: Codable, Equatable, Hashable {
 
     /// A SOCKS5 proxy server
-    case proxyTypeSocks5(ProxyTypeSocks5)
+    case socks5(ProxyTypeSocks5)
 
     /// A HTTP transparent proxy server
-    case proxyTypeHttp(ProxyTypeHttp)
+    case http(ProxyTypeHttp)
 
     /// An MTProto proxy server
-    case proxyTypeMtproto(ProxyTypeMtproto)
+    case mtproto(ProxyTypeMtproto)
 
 
     private enum Kind: String, Codable {
@@ -35,26 +35,26 @@ public enum ProxyType: Codable, Equatable {
         switch type {
         case .proxyTypeSocks5:
             let value = try ProxyTypeSocks5(from: decoder)
-            self = .proxyTypeSocks5(value)
+            self = .socks5(value)
         case .proxyTypeHttp:
             let value = try ProxyTypeHttp(from: decoder)
-            self = .proxyTypeHttp(value)
+            self = .http(value)
         case .proxyTypeMtproto:
             let value = try ProxyTypeMtproto(from: decoder)
-            self = .proxyTypeMtproto(value)
+            self = .mtproto(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .proxyTypeSocks5(let value):
+        case .socks5(let value):
             try container.encode(Kind.proxyTypeSocks5, forKey: .type)
             try value.encode(to: encoder)
-        case .proxyTypeHttp(let value):
+        case .http(let value):
             try container.encode(Kind.proxyTypeHttp, forKey: .type)
             try value.encode(to: encoder)
-        case .proxyTypeMtproto(let value):
+        case .mtproto(let value):
             try container.encode(Kind.proxyTypeMtproto, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -62,7 +62,7 @@ public enum ProxyType: Codable, Equatable {
 }
 
 /// A SOCKS5 proxy server
-public struct ProxyTypeSocks5: Codable, Equatable {
+public struct ProxyTypeSocks5: Codable, Equatable, Hashable {
 
     /// Password for logging in; may be empty
     public let password: String
@@ -81,7 +81,7 @@ public struct ProxyTypeSocks5: Codable, Equatable {
 }
 
 /// A HTTP transparent proxy server
-public struct ProxyTypeHttp: Codable, Equatable {
+public struct ProxyTypeHttp: Codable, Equatable, Hashable {
 
     /// Pass true if the proxy supports only HTTP requests and doesn't support transparent TCP connections via HTTP CONNECT method
     public let httpOnly: Bool
@@ -105,7 +105,7 @@ public struct ProxyTypeHttp: Codable, Equatable {
 }
 
 /// An MTProto proxy server
-public struct ProxyTypeMtproto: Codable, Equatable {
+public struct ProxyTypeMtproto: Codable, Equatable, Hashable {
 
     /// The proxy's secret in hexadecimal encoding
     public let secret: String

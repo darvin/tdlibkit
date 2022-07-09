@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes a horizontal alignment of a table cell content
-public enum PageBlockHorizontalAlignment: Codable, Equatable {
+public enum PageBlockHorizontalAlignment: Codable, Equatable, Hashable {
 
     /// The content must be left-aligned
-    case pageBlockHorizontalAlignmentLeft
+    case left
 
     /// The content must be center-aligned
-    case pageBlockHorizontalAlignmentCenter
+    case center
 
     /// The content must be right-aligned
-    case pageBlockHorizontalAlignmentRight
+    case right
 
 
     private enum Kind: String, Codable {
@@ -34,22 +34,22 @@ public enum PageBlockHorizontalAlignment: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .pageBlockHorizontalAlignmentLeft:
-            self = .pageBlockHorizontalAlignmentLeft
+            self = .left
         case .pageBlockHorizontalAlignmentCenter:
-            self = .pageBlockHorizontalAlignmentCenter
+            self = .center
         case .pageBlockHorizontalAlignmentRight:
-            self = .pageBlockHorizontalAlignmentRight
+            self = .right
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .pageBlockHorizontalAlignmentLeft:
+        case .left:
             try container.encode(Kind.pageBlockHorizontalAlignmentLeft, forKey: .type)
-        case .pageBlockHorizontalAlignmentCenter:
+        case .center:
             try container.encode(Kind.pageBlockHorizontalAlignmentCenter, forKey: .type)
-        case .pageBlockHorizontalAlignmentRight:
+        case .right:
             try container.encode(Kind.pageBlockHorizontalAlignmentRight, forKey: .type)
         }
     }

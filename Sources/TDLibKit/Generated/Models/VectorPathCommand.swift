@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Represents a vector path command
-public enum VectorPathCommand: Codable, Equatable {
+public enum VectorPathCommand: Codable, Equatable, Hashable {
 
     /// A straight line to a given point
-    case vectorPathCommandLine(VectorPathCommandLine)
+    case line(VectorPathCommandLine)
 
     /// A cubic Bézier curve to a given point
-    case vectorPathCommandCubicBezierCurve(VectorPathCommandCubicBezierCurve)
+    case cubicBezierCurve(VectorPathCommandCubicBezierCurve)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum VectorPathCommand: Codable, Equatable {
         switch type {
         case .vectorPathCommandLine:
             let value = try VectorPathCommandLine(from: decoder)
-            self = .vectorPathCommandLine(value)
+            self = .line(value)
         case .vectorPathCommandCubicBezierCurve:
             let value = try VectorPathCommandCubicBezierCurve(from: decoder)
-            self = .vectorPathCommandCubicBezierCurve(value)
+            self = .cubicBezierCurve(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .vectorPathCommandLine(let value):
+        case .line(let value):
             try container.encode(Kind.vectorPathCommandLine, forKey: .type)
             try value.encode(to: encoder)
-        case .vectorPathCommandCubicBezierCurve(let value):
+        case .cubicBezierCurve(let value):
             try container.encode(Kind.vectorPathCommandCubicBezierCurve, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum VectorPathCommand: Codable, Equatable {
 }
 
 /// A straight line to a given point
-public struct VectorPathCommandLine: Codable, Equatable {
+public struct VectorPathCommandLine: Codable, Equatable, Hashable {
 
     /// The end point of the straight line
     public let endPoint: Point
@@ -64,7 +64,7 @@ public struct VectorPathCommandLine: Codable, Equatable {
 }
 
 /// A cubic Bézier curve to a given point
-public struct VectorPathCommandCubicBezierCurve: Codable, Equatable {
+public struct VectorPathCommandCubicBezierCurve: Codable, Equatable, Hashable {
 
     /// The end control point of the curve
     public let endControlPoint: Point

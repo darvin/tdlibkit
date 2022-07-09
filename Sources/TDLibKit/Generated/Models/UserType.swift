@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Represents the type of a user. The following types are possible: regular users, deleted users and bots
-public enum UserType: Codable, Equatable {
+public enum UserType: Codable, Equatable, Hashable {
 
     /// A regular user
-    case userTypeRegular
+    case regular
 
     /// A deleted user or deleted bot. No information on the user besides the user identifier is available. It is not possible to perform any active actions on this type of user
-    case userTypeDeleted
+    case deleted
 
     /// A bot (see https://core.telegram.org/bots)
-    case userTypeBot(UserTypeBot)
+    case bot(UserTypeBot)
 
     /// No information on the user besides the user identifier is available, yet this user has not been deleted. This object is extremely rare and must be handled like a deleted user. It is not possible to perform any actions on users of this type
-    case userTypeUnknown
+    case unknown
 
 
     private enum Kind: String, Codable {
@@ -38,35 +38,35 @@ public enum UserType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .userTypeRegular:
-            self = .userTypeRegular
+            self = .regular
         case .userTypeDeleted:
-            self = .userTypeDeleted
+            self = .deleted
         case .userTypeBot:
             let value = try UserTypeBot(from: decoder)
-            self = .userTypeBot(value)
+            self = .bot(value)
         case .userTypeUnknown:
-            self = .userTypeUnknown
+            self = .unknown
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .userTypeRegular:
+        case .regular:
             try container.encode(Kind.userTypeRegular, forKey: .type)
-        case .userTypeDeleted:
+        case .deleted:
             try container.encode(Kind.userTypeDeleted, forKey: .type)
-        case .userTypeBot(let value):
+        case .bot(let value):
             try container.encode(Kind.userTypeBot, forKey: .type)
             try value.encode(to: encoder)
-        case .userTypeUnknown:
+        case .unknown:
             try container.encode(Kind.userTypeUnknown, forKey: .type)
         }
     }
 }
 
 /// A bot (see https://core.telegram.org/bots)
-public struct UserTypeBot: Codable, Equatable {
+public struct UserTypeBot: Codable, Equatable, Hashable {
 
     /// True, if the bot can be added to attachment menu
     public let canBeAddedToAttachmentMenu: Bool

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Changes the message TTL in a chat. Requires can_delete_messages administrator right in basic groups, supergroups and channels Message TTL can't be changed in a chat with the current user (Saved Messages) and the chat 777000 (Telegram).
-public struct SetChatMessageTtl: Codable, Equatable {
+public struct SetChatMessageTtl: Codable, Equatable, Hashable {
 
     /// Chat identifier
     public let chatId: Int64?

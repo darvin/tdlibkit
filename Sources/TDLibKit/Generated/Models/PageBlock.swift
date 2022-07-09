@@ -11,94 +11,94 @@ import Foundation
 
 
 /// Describes a block of an instant view web page
-public indirect enum PageBlock: Codable, Equatable {
+public indirect enum PageBlock: Codable, Equatable, Hashable {
 
     /// The title of a page
-    case pageBlockTitle(PageBlockTitle)
+    case title(PageBlockTitle)
 
     /// The subtitle of a page
-    case pageBlockSubtitle(PageBlockSubtitle)
+    case subtitle(PageBlockSubtitle)
 
     /// The author and publishing date of a page
-    case pageBlockAuthorDate(PageBlockAuthorDate)
+    case authorDate(PageBlockAuthorDate)
 
     /// A header
-    case pageBlockHeader(PageBlockHeader)
+    case header(PageBlockHeader)
 
     /// A subheader
-    case pageBlockSubheader(PageBlockSubheader)
+    case subheader(PageBlockSubheader)
 
     /// A kicker
-    case pageBlockKicker(PageBlockKicker)
+    case kicker(PageBlockKicker)
 
     /// A text paragraph
-    case pageBlockParagraph(PageBlockParagraph)
+    case paragraph(PageBlockParagraph)
 
     /// A preformatted text paragraph
-    case pageBlockPreformatted(PageBlockPreformatted)
+    case preformatted(PageBlockPreformatted)
 
     /// The footer of a page
-    case pageBlockFooter(PageBlockFooter)
+    case footer(PageBlockFooter)
 
     /// An empty block separating a page
-    case pageBlockDivider
+    case divider
 
     /// An invisible anchor on a page, which can be used in a URL to open the page from the specified anchor
-    case pageBlockAnchor(PageBlockAnchor)
+    case anchor(PageBlockAnchor)
 
     /// A list of data blocks
-    case pageBlockList(PageBlockList)
+    case list(PageBlockList)
 
     /// A block quote
-    case pageBlockBlockQuote(PageBlockBlockQuote)
+    case blockQuote(PageBlockBlockQuote)
 
     /// A pull quote
-    case pageBlockPullQuote(PageBlockPullQuote)
+    case pullQuote(PageBlockPullQuote)
 
     /// An animation
-    case pageBlockAnimation(PageBlockAnimation)
+    case animation(PageBlockAnimation)
 
     /// An audio file
-    case pageBlockAudio(PageBlockAudio)
+    case audio(PageBlockAudio)
 
     /// A photo
-    case pageBlockPhoto(PageBlockPhoto)
+    case photo(PageBlockPhoto)
 
     /// A video
-    case pageBlockVideo(PageBlockVideo)
+    case video(PageBlockVideo)
 
     /// A voice note
-    case pageBlockVoiceNote(PageBlockVoiceNote)
+    case voiceNote(PageBlockVoiceNote)
 
     /// A page cover
-    case pageBlockCover(PageBlockCover)
+    case cover(PageBlockCover)
 
     /// An embedded web page
-    case pageBlockEmbedded(PageBlockEmbedded)
+    case embedded(PageBlockEmbedded)
 
     /// An embedded post
-    case pageBlockEmbeddedPost(PageBlockEmbeddedPost)
+    case embeddedPost(PageBlockEmbeddedPost)
 
     /// A collage
-    case pageBlockCollage(PageBlockCollage)
+    case collage(PageBlockCollage)
 
     /// A slideshow
-    case pageBlockSlideshow(PageBlockSlideshow)
+    case slideshow(PageBlockSlideshow)
 
     /// A link to a chat
-    case pageBlockChatLink(PageBlockChatLink)
+    case chatLink(PageBlockChatLink)
 
     /// A table
-    case pageBlockTable(PageBlockTable)
+    case table(PageBlockTable)
 
     /// A collapsible block
-    case pageBlockDetails(PageBlockDetails)
+    case details(PageBlockDetails)
 
     /// Related articles
-    case pageBlockRelatedArticles(PageBlockRelatedArticles)
+    case relatedArticles(PageBlockRelatedArticles)
 
     /// A map
-    case pageBlockMap(PageBlockMap)
+    case map(PageBlockMap)
 
 
     private enum Kind: String, Codable {
@@ -139,180 +139,180 @@ public indirect enum PageBlock: Codable, Equatable {
         switch type {
         case .pageBlockTitle:
             let value = try PageBlockTitle(from: decoder)
-            self = .pageBlockTitle(value)
+            self = .title(value)
         case .pageBlockSubtitle:
             let value = try PageBlockSubtitle(from: decoder)
-            self = .pageBlockSubtitle(value)
+            self = .subtitle(value)
         case .pageBlockAuthorDate:
             let value = try PageBlockAuthorDate(from: decoder)
-            self = .pageBlockAuthorDate(value)
+            self = .authorDate(value)
         case .pageBlockHeader:
             let value = try PageBlockHeader(from: decoder)
-            self = .pageBlockHeader(value)
+            self = .header(value)
         case .pageBlockSubheader:
             let value = try PageBlockSubheader(from: decoder)
-            self = .pageBlockSubheader(value)
+            self = .subheader(value)
         case .pageBlockKicker:
             let value = try PageBlockKicker(from: decoder)
-            self = .pageBlockKicker(value)
+            self = .kicker(value)
         case .pageBlockParagraph:
             let value = try PageBlockParagraph(from: decoder)
-            self = .pageBlockParagraph(value)
+            self = .paragraph(value)
         case .pageBlockPreformatted:
             let value = try PageBlockPreformatted(from: decoder)
-            self = .pageBlockPreformatted(value)
+            self = .preformatted(value)
         case .pageBlockFooter:
             let value = try PageBlockFooter(from: decoder)
-            self = .pageBlockFooter(value)
+            self = .footer(value)
         case .pageBlockDivider:
-            self = .pageBlockDivider
+            self = .divider
         case .pageBlockAnchor:
             let value = try PageBlockAnchor(from: decoder)
-            self = .pageBlockAnchor(value)
+            self = .anchor(value)
         case .pageBlockList:
             let value = try PageBlockList(from: decoder)
-            self = .pageBlockList(value)
+            self = .list(value)
         case .pageBlockBlockQuote:
             let value = try PageBlockBlockQuote(from: decoder)
-            self = .pageBlockBlockQuote(value)
+            self = .blockQuote(value)
         case .pageBlockPullQuote:
             let value = try PageBlockPullQuote(from: decoder)
-            self = .pageBlockPullQuote(value)
+            self = .pullQuote(value)
         case .pageBlockAnimation:
             let value = try PageBlockAnimation(from: decoder)
-            self = .pageBlockAnimation(value)
+            self = .animation(value)
         case .pageBlockAudio:
             let value = try PageBlockAudio(from: decoder)
-            self = .pageBlockAudio(value)
+            self = .audio(value)
         case .pageBlockPhoto:
             let value = try PageBlockPhoto(from: decoder)
-            self = .pageBlockPhoto(value)
+            self = .photo(value)
         case .pageBlockVideo:
             let value = try PageBlockVideo(from: decoder)
-            self = .pageBlockVideo(value)
+            self = .video(value)
         case .pageBlockVoiceNote:
             let value = try PageBlockVoiceNote(from: decoder)
-            self = .pageBlockVoiceNote(value)
+            self = .voiceNote(value)
         case .pageBlockCover:
             let value = try PageBlockCover(from: decoder)
-            self = .pageBlockCover(value)
+            self = .cover(value)
         case .pageBlockEmbedded:
             let value = try PageBlockEmbedded(from: decoder)
-            self = .pageBlockEmbedded(value)
+            self = .embedded(value)
         case .pageBlockEmbeddedPost:
             let value = try PageBlockEmbeddedPost(from: decoder)
-            self = .pageBlockEmbeddedPost(value)
+            self = .embeddedPost(value)
         case .pageBlockCollage:
             let value = try PageBlockCollage(from: decoder)
-            self = .pageBlockCollage(value)
+            self = .collage(value)
         case .pageBlockSlideshow:
             let value = try PageBlockSlideshow(from: decoder)
-            self = .pageBlockSlideshow(value)
+            self = .slideshow(value)
         case .pageBlockChatLink:
             let value = try PageBlockChatLink(from: decoder)
-            self = .pageBlockChatLink(value)
+            self = .chatLink(value)
         case .pageBlockTable:
             let value = try PageBlockTable(from: decoder)
-            self = .pageBlockTable(value)
+            self = .table(value)
         case .pageBlockDetails:
             let value = try PageBlockDetails(from: decoder)
-            self = .pageBlockDetails(value)
+            self = .details(value)
         case .pageBlockRelatedArticles:
             let value = try PageBlockRelatedArticles(from: decoder)
-            self = .pageBlockRelatedArticles(value)
+            self = .relatedArticles(value)
         case .pageBlockMap:
             let value = try PageBlockMap(from: decoder)
-            self = .pageBlockMap(value)
+            self = .map(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .pageBlockTitle(let value):
+        case .title(let value):
             try container.encode(Kind.pageBlockTitle, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockSubtitle(let value):
+        case .subtitle(let value):
             try container.encode(Kind.pageBlockSubtitle, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockAuthorDate(let value):
+        case .authorDate(let value):
             try container.encode(Kind.pageBlockAuthorDate, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockHeader(let value):
+        case .header(let value):
             try container.encode(Kind.pageBlockHeader, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockSubheader(let value):
+        case .subheader(let value):
             try container.encode(Kind.pageBlockSubheader, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockKicker(let value):
+        case .kicker(let value):
             try container.encode(Kind.pageBlockKicker, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockParagraph(let value):
+        case .paragraph(let value):
             try container.encode(Kind.pageBlockParagraph, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockPreformatted(let value):
+        case .preformatted(let value):
             try container.encode(Kind.pageBlockPreformatted, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockFooter(let value):
+        case .footer(let value):
             try container.encode(Kind.pageBlockFooter, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockDivider:
+        case .divider:
             try container.encode(Kind.pageBlockDivider, forKey: .type)
-        case .pageBlockAnchor(let value):
+        case .anchor(let value):
             try container.encode(Kind.pageBlockAnchor, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockList(let value):
+        case .list(let value):
             try container.encode(Kind.pageBlockList, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockBlockQuote(let value):
+        case .blockQuote(let value):
             try container.encode(Kind.pageBlockBlockQuote, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockPullQuote(let value):
+        case .pullQuote(let value):
             try container.encode(Kind.pageBlockPullQuote, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockAnimation(let value):
+        case .animation(let value):
             try container.encode(Kind.pageBlockAnimation, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockAudio(let value):
+        case .audio(let value):
             try container.encode(Kind.pageBlockAudio, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockPhoto(let value):
+        case .photo(let value):
             try container.encode(Kind.pageBlockPhoto, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockVideo(let value):
+        case .video(let value):
             try container.encode(Kind.pageBlockVideo, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockVoiceNote(let value):
+        case .voiceNote(let value):
             try container.encode(Kind.pageBlockVoiceNote, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockCover(let value):
+        case .cover(let value):
             try container.encode(Kind.pageBlockCover, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockEmbedded(let value):
+        case .embedded(let value):
             try container.encode(Kind.pageBlockEmbedded, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockEmbeddedPost(let value):
+        case .embeddedPost(let value):
             try container.encode(Kind.pageBlockEmbeddedPost, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockCollage(let value):
+        case .collage(let value):
             try container.encode(Kind.pageBlockCollage, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockSlideshow(let value):
+        case .slideshow(let value):
             try container.encode(Kind.pageBlockSlideshow, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockChatLink(let value):
+        case .chatLink(let value):
             try container.encode(Kind.pageBlockChatLink, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockTable(let value):
+        case .table(let value):
             try container.encode(Kind.pageBlockTable, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockDetails(let value):
+        case .details(let value):
             try container.encode(Kind.pageBlockDetails, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockRelatedArticles(let value):
+        case .relatedArticles(let value):
             try container.encode(Kind.pageBlockRelatedArticles, forKey: .type)
             try value.encode(to: encoder)
-        case .pageBlockMap(let value):
+        case .map(let value):
             try container.encode(Kind.pageBlockMap, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -320,7 +320,7 @@ public indirect enum PageBlock: Codable, Equatable {
 }
 
 /// The title of a page
-public struct PageBlockTitle: Codable, Equatable {
+public struct PageBlockTitle: Codable, Equatable, Hashable {
 
     /// Title
     public let title: RichText
@@ -332,7 +332,7 @@ public struct PageBlockTitle: Codable, Equatable {
 }
 
 /// The subtitle of a page
-public struct PageBlockSubtitle: Codable, Equatable {
+public struct PageBlockSubtitle: Codable, Equatable, Hashable {
 
     /// Subtitle
     public let subtitle: RichText
@@ -344,7 +344,7 @@ public struct PageBlockSubtitle: Codable, Equatable {
 }
 
 /// The author and publishing date of a page
-public struct PageBlockAuthorDate: Codable, Equatable {
+public struct PageBlockAuthorDate: Codable, Equatable, Hashable {
 
     /// Author
     public let author: RichText
@@ -363,7 +363,7 @@ public struct PageBlockAuthorDate: Codable, Equatable {
 }
 
 /// A header
-public struct PageBlockHeader: Codable, Equatable {
+public struct PageBlockHeader: Codable, Equatable, Hashable {
 
     /// Header
     public let header: RichText
@@ -375,7 +375,7 @@ public struct PageBlockHeader: Codable, Equatable {
 }
 
 /// A subheader
-public struct PageBlockSubheader: Codable, Equatable {
+public struct PageBlockSubheader: Codable, Equatable, Hashable {
 
     /// Subheader
     public let subheader: RichText
@@ -387,7 +387,7 @@ public struct PageBlockSubheader: Codable, Equatable {
 }
 
 /// A kicker
-public struct PageBlockKicker: Codable, Equatable {
+public struct PageBlockKicker: Codable, Equatable, Hashable {
 
     /// Kicker
     public let kicker: RichText
@@ -399,7 +399,7 @@ public struct PageBlockKicker: Codable, Equatable {
 }
 
 /// A text paragraph
-public struct PageBlockParagraph: Codable, Equatable {
+public struct PageBlockParagraph: Codable, Equatable, Hashable {
 
     /// Paragraph text
     public let text: RichText
@@ -411,7 +411,7 @@ public struct PageBlockParagraph: Codable, Equatable {
 }
 
 /// A preformatted text paragraph
-public struct PageBlockPreformatted: Codable, Equatable {
+public struct PageBlockPreformatted: Codable, Equatable, Hashable {
 
     /// Programming language for which the text needs to be formatted
     public let language: String
@@ -430,7 +430,7 @@ public struct PageBlockPreformatted: Codable, Equatable {
 }
 
 /// The footer of a page
-public struct PageBlockFooter: Codable, Equatable {
+public struct PageBlockFooter: Codable, Equatable, Hashable {
 
     /// Footer
     public let footer: RichText
@@ -442,7 +442,7 @@ public struct PageBlockFooter: Codable, Equatable {
 }
 
 /// An invisible anchor on a page, which can be used in a URL to open the page from the specified anchor
-public struct PageBlockAnchor: Codable, Equatable {
+public struct PageBlockAnchor: Codable, Equatable, Hashable {
 
     /// Name of the anchor
     public let name: String
@@ -454,7 +454,7 @@ public struct PageBlockAnchor: Codable, Equatable {
 }
 
 /// A list of data blocks
-public struct PageBlockList: Codable, Equatable {
+public struct PageBlockList: Codable, Equatable, Hashable {
 
     /// The items of the list
     public let items: [PageBlockListItem]
@@ -466,7 +466,7 @@ public struct PageBlockList: Codable, Equatable {
 }
 
 /// A block quote
-public struct PageBlockBlockQuote: Codable, Equatable {
+public struct PageBlockBlockQuote: Codable, Equatable, Hashable {
 
     /// Quote credit
     public let credit: RichText
@@ -485,7 +485,7 @@ public struct PageBlockBlockQuote: Codable, Equatable {
 }
 
 /// A pull quote
-public struct PageBlockPullQuote: Codable, Equatable {
+public struct PageBlockPullQuote: Codable, Equatable, Hashable {
 
     /// Quote credit
     public let credit: RichText
@@ -504,7 +504,7 @@ public struct PageBlockPullQuote: Codable, Equatable {
 }
 
 /// An animation
-public struct PageBlockAnimation: Codable, Equatable {
+public struct PageBlockAnimation: Codable, Equatable, Hashable {
 
     /// Animation file; may be null
     public let animation: Animation?
@@ -528,7 +528,7 @@ public struct PageBlockAnimation: Codable, Equatable {
 }
 
 /// An audio file
-public struct PageBlockAudio: Codable, Equatable {
+public struct PageBlockAudio: Codable, Equatable, Hashable {
 
     /// Audio file; may be null
     public let audio: Audio?
@@ -547,7 +547,7 @@ public struct PageBlockAudio: Codable, Equatable {
 }
 
 /// A photo
-public struct PageBlockPhoto: Codable, Equatable {
+public struct PageBlockPhoto: Codable, Equatable, Hashable {
 
     /// Photo caption
     public let caption: PageBlockCaption
@@ -571,7 +571,7 @@ public struct PageBlockPhoto: Codable, Equatable {
 }
 
 /// A video
-public struct PageBlockVideo: Codable, Equatable {
+public struct PageBlockVideo: Codable, Equatable, Hashable {
 
     /// Video caption
     public let caption: PageBlockCaption
@@ -600,7 +600,7 @@ public struct PageBlockVideo: Codable, Equatable {
 }
 
 /// A voice note
-public struct PageBlockVoiceNote: Codable, Equatable {
+public struct PageBlockVoiceNote: Codable, Equatable, Hashable {
 
     /// Voice note caption
     public let caption: PageBlockCaption
@@ -619,7 +619,7 @@ public struct PageBlockVoiceNote: Codable, Equatable {
 }
 
 /// A page cover
-public struct PageBlockCover: Codable, Equatable {
+public struct PageBlockCover: Codable, Equatable, Hashable {
 
     /// Cover
     public let cover: PageBlock
@@ -631,7 +631,7 @@ public struct PageBlockCover: Codable, Equatable {
 }
 
 /// An embedded web page
-public struct PageBlockEmbedded: Codable, Equatable {
+public struct PageBlockEmbedded: Codable, Equatable, Hashable {
 
     /// True, if scrolling needs to be allowed
     public let allowScrolling: Bool
@@ -680,7 +680,7 @@ public struct PageBlockEmbedded: Codable, Equatable {
 }
 
 /// An embedded post
-public struct PageBlockEmbeddedPost: Codable, Equatable {
+public struct PageBlockEmbeddedPost: Codable, Equatable, Hashable {
 
     /// Post author
     public let author: String
@@ -719,7 +719,7 @@ public struct PageBlockEmbeddedPost: Codable, Equatable {
 }
 
 /// A collage
-public struct PageBlockCollage: Codable, Equatable {
+public struct PageBlockCollage: Codable, Equatable, Hashable {
 
     /// Block caption
     public let caption: PageBlockCaption
@@ -738,7 +738,7 @@ public struct PageBlockCollage: Codable, Equatable {
 }
 
 /// A slideshow
-public struct PageBlockSlideshow: Codable, Equatable {
+public struct PageBlockSlideshow: Codable, Equatable, Hashable {
 
     /// Block caption
     public let caption: PageBlockCaption
@@ -757,7 +757,7 @@ public struct PageBlockSlideshow: Codable, Equatable {
 }
 
 /// A link to a chat
-public struct PageBlockChatLink: Codable, Equatable {
+public struct PageBlockChatLink: Codable, Equatable, Hashable {
 
     /// Chat photo; may be null
     public let photo: ChatPhotoInfo?
@@ -781,7 +781,7 @@ public struct PageBlockChatLink: Codable, Equatable {
 }
 
 /// A table
-public struct PageBlockTable: Codable, Equatable {
+public struct PageBlockTable: Codable, Equatable, Hashable {
 
     /// Table caption
     public let caption: RichText
@@ -810,7 +810,7 @@ public struct PageBlockTable: Codable, Equatable {
 }
 
 /// A collapsible block
-public struct PageBlockDetails: Codable, Equatable {
+public struct PageBlockDetails: Codable, Equatable, Hashable {
 
     /// Always visible heading for the block
     public let header: RichText
@@ -834,7 +834,7 @@ public struct PageBlockDetails: Codable, Equatable {
 }
 
 /// Related articles
-public struct PageBlockRelatedArticles: Codable, Equatable {
+public struct PageBlockRelatedArticles: Codable, Equatable, Hashable {
 
     /// List of related articles
     public let articles: [PageBlockRelatedArticle]
@@ -853,7 +853,7 @@ public struct PageBlockRelatedArticles: Codable, Equatable {
 }
 
 /// A map
-public struct PageBlockMap: Codable, Equatable {
+public struct PageBlockMap: Codable, Equatable, Hashable {
 
     /// Block caption
     public let caption: PageBlockCaption

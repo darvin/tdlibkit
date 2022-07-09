@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Describes the type of a URL linking to an internal Telegram entity
-public enum TMeUrlType: Codable, Equatable {
+public enum TMeUrlType: Codable, Equatable, Hashable {
 
     /// A URL linking to a user
-    case tMeUrlTypeUser(TMeUrlTypeUser)
+    case user(TMeUrlTypeUser)
 
     /// A URL linking to a public supergroup or channel
-    case tMeUrlTypeSupergroup(TMeUrlTypeSupergroup)
+    case supergroup(TMeUrlTypeSupergroup)
 
     /// A chat invite link
-    case tMeUrlTypeChatInvite(TMeUrlTypeChatInvite)
+    case chatInvite(TMeUrlTypeChatInvite)
 
     /// A URL linking to a sticker set
-    case tMeUrlTypeStickerSet(TMeUrlTypeStickerSet)
+    case stickerSet(TMeUrlTypeStickerSet)
 
 
     private enum Kind: String, Codable {
@@ -39,32 +39,32 @@ public enum TMeUrlType: Codable, Equatable {
         switch type {
         case .tMeUrlTypeUser:
             let value = try TMeUrlTypeUser(from: decoder)
-            self = .tMeUrlTypeUser(value)
+            self = .user(value)
         case .tMeUrlTypeSupergroup:
             let value = try TMeUrlTypeSupergroup(from: decoder)
-            self = .tMeUrlTypeSupergroup(value)
+            self = .supergroup(value)
         case .tMeUrlTypeChatInvite:
             let value = try TMeUrlTypeChatInvite(from: decoder)
-            self = .tMeUrlTypeChatInvite(value)
+            self = .chatInvite(value)
         case .tMeUrlTypeStickerSet:
             let value = try TMeUrlTypeStickerSet(from: decoder)
-            self = .tMeUrlTypeStickerSet(value)
+            self = .stickerSet(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .tMeUrlTypeUser(let value):
+        case .user(let value):
             try container.encode(Kind.tMeUrlTypeUser, forKey: .type)
             try value.encode(to: encoder)
-        case .tMeUrlTypeSupergroup(let value):
+        case .supergroup(let value):
             try container.encode(Kind.tMeUrlTypeSupergroup, forKey: .type)
             try value.encode(to: encoder)
-        case .tMeUrlTypeChatInvite(let value):
+        case .chatInvite(let value):
             try container.encode(Kind.tMeUrlTypeChatInvite, forKey: .type)
             try value.encode(to: encoder)
-        case .tMeUrlTypeStickerSet(let value):
+        case .stickerSet(let value):
             try container.encode(Kind.tMeUrlTypeStickerSet, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -72,7 +72,7 @@ public enum TMeUrlType: Codable, Equatable {
 }
 
 /// A URL linking to a user
-public struct TMeUrlTypeUser: Codable, Equatable {
+public struct TMeUrlTypeUser: Codable, Equatable, Hashable {
 
     /// Identifier of the user
     public let userId: Int64
@@ -84,7 +84,7 @@ public struct TMeUrlTypeUser: Codable, Equatable {
 }
 
 /// A URL linking to a public supergroup or channel
-public struct TMeUrlTypeSupergroup: Codable, Equatable {
+public struct TMeUrlTypeSupergroup: Codable, Equatable, Hashable {
 
     /// Identifier of the supergroup or channel
     public let supergroupId: Int64
@@ -96,7 +96,7 @@ public struct TMeUrlTypeSupergroup: Codable, Equatable {
 }
 
 /// A chat invite link
-public struct TMeUrlTypeChatInvite: Codable, Equatable {
+public struct TMeUrlTypeChatInvite: Codable, Equatable, Hashable {
 
     /// Information about the chat invite link
     public let info: ChatInviteLinkInfo
@@ -108,7 +108,7 @@ public struct TMeUrlTypeChatInvite: Codable, Equatable {
 }
 
 /// A URL linking to a sticker set
-public struct TMeUrlTypeStickerSet: Codable, Equatable {
+public struct TMeUrlTypeStickerSet: Codable, Equatable, Hashable {
 
     /// Identifier of the sticker set
     public let stickerSetId: TdInt64

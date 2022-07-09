@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns an HTTPS URL of a Web App to open after keyboardButtonTypeWebApp button is pressed
-public struct GetWebAppUrl: Codable, Equatable {
+public struct GetWebAppUrl: Codable, Equatable, Hashable {
 
     /// Identifier of the target bot
     public let botUserId: Int64?

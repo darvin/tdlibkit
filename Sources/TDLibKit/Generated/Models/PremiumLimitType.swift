@@ -11,37 +11,37 @@ import Foundation
 
 
 /// Describes type of a limit, increased for Premium users
-public enum PremiumLimitType: Codable, Equatable {
+public enum PremiumLimitType: Codable, Equatable, Hashable {
 
     /// The maximum number of joined supergroups and channels
-    case premiumLimitTypeSupergroupCount
+    case supergroupCount
 
     /// The maximum number of pinned chats in the main chat list
-    case premiumLimitTypePinnedChatCount
+    case pinnedChatCount
 
     /// The maximum number of created public chats
-    case premiumLimitTypeCreatedPublicChatCount
+    case createdPublicChatCount
 
     /// The maximum number of saved animations
-    case premiumLimitTypeSavedAnimationCount
+    case savedAnimationCount
 
     /// The maximum number of favorite stickers
-    case premiumLimitTypeFavoriteStickerCount
+    case favoriteStickerCount
 
     /// The maximum number of chat filters
-    case premiumLimitTypeChatFilterCount
+    case chatFilterCount
 
     /// The maximum number of pinned and always included, or always excluded chats in a chat filter
-    case premiumLimitTypeChatFilterChosenChatCount
+    case chatFilterChosenChatCount
 
     /// The maximum number of pinned chats in the archive chat list
-    case premiumLimitTypePinnedArchivedChatCount
+    case pinnedArchivedChatCount
 
     /// The maximum length of sent media caption
-    case premiumLimitTypeCaptionLength
+    case captionLength
 
     /// The maximum length of the user's bio
-    case premiumLimitTypeBioLength
+    case bioLength
 
 
     private enum Kind: String, Codable {
@@ -62,50 +62,50 @@ public enum PremiumLimitType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .premiumLimitTypeSupergroupCount:
-            self = .premiumLimitTypeSupergroupCount
+            self = .supergroupCount
         case .premiumLimitTypePinnedChatCount:
-            self = .premiumLimitTypePinnedChatCount
+            self = .pinnedChatCount
         case .premiumLimitTypeCreatedPublicChatCount:
-            self = .premiumLimitTypeCreatedPublicChatCount
+            self = .createdPublicChatCount
         case .premiumLimitTypeSavedAnimationCount:
-            self = .premiumLimitTypeSavedAnimationCount
+            self = .savedAnimationCount
         case .premiumLimitTypeFavoriteStickerCount:
-            self = .premiumLimitTypeFavoriteStickerCount
+            self = .favoriteStickerCount
         case .premiumLimitTypeChatFilterCount:
-            self = .premiumLimitTypeChatFilterCount
+            self = .chatFilterCount
         case .premiumLimitTypeChatFilterChosenChatCount:
-            self = .premiumLimitTypeChatFilterChosenChatCount
+            self = .chatFilterChosenChatCount
         case .premiumLimitTypePinnedArchivedChatCount:
-            self = .premiumLimitTypePinnedArchivedChatCount
+            self = .pinnedArchivedChatCount
         case .premiumLimitTypeCaptionLength:
-            self = .premiumLimitTypeCaptionLength
+            self = .captionLength
         case .premiumLimitTypeBioLength:
-            self = .premiumLimitTypeBioLength
+            self = .bioLength
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .premiumLimitTypeSupergroupCount:
+        case .supergroupCount:
             try container.encode(Kind.premiumLimitTypeSupergroupCount, forKey: .type)
-        case .premiumLimitTypePinnedChatCount:
+        case .pinnedChatCount:
             try container.encode(Kind.premiumLimitTypePinnedChatCount, forKey: .type)
-        case .premiumLimitTypeCreatedPublicChatCount:
+        case .createdPublicChatCount:
             try container.encode(Kind.premiumLimitTypeCreatedPublicChatCount, forKey: .type)
-        case .premiumLimitTypeSavedAnimationCount:
+        case .savedAnimationCount:
             try container.encode(Kind.premiumLimitTypeSavedAnimationCount, forKey: .type)
-        case .premiumLimitTypeFavoriteStickerCount:
+        case .favoriteStickerCount:
             try container.encode(Kind.premiumLimitTypeFavoriteStickerCount, forKey: .type)
-        case .premiumLimitTypeChatFilterCount:
+        case .chatFilterCount:
             try container.encode(Kind.premiumLimitTypeChatFilterCount, forKey: .type)
-        case .premiumLimitTypeChatFilterChosenChatCount:
+        case .chatFilterChosenChatCount:
             try container.encode(Kind.premiumLimitTypeChatFilterChosenChatCount, forKey: .type)
-        case .premiumLimitTypePinnedArchivedChatCount:
+        case .pinnedArchivedChatCount:
             try container.encode(Kind.premiumLimitTypePinnedArchivedChatCount, forKey: .type)
-        case .premiumLimitTypeCaptionLength:
+        case .captionLength:
             try container.encode(Kind.premiumLimitTypeCaptionLength, forKey: .type)
-        case .premiumLimitTypeBioLength:
+        case .bioLength:
             try container.encode(Kind.premiumLimitTypeBioLength, forKey: .type)
         }
     }

@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Describes a fill of a background
-public enum BackgroundFill: Codable, Equatable {
+public enum BackgroundFill: Codable, Equatable, Hashable {
 
     /// Describes a solid fill of a background
-    case backgroundFillSolid(BackgroundFillSolid)
+    case solid(BackgroundFillSolid)
 
     /// Describes a gradient fill of a background
-    case backgroundFillGradient(BackgroundFillGradient)
+    case gradient(BackgroundFillGradient)
 
     /// Describes a freeform gradient fill of a background
-    case backgroundFillFreeformGradient(BackgroundFillFreeformGradient)
+    case freeformGradient(BackgroundFillFreeformGradient)
 
 
     private enum Kind: String, Codable {
@@ -35,26 +35,26 @@ public enum BackgroundFill: Codable, Equatable {
         switch type {
         case .backgroundFillSolid:
             let value = try BackgroundFillSolid(from: decoder)
-            self = .backgroundFillSolid(value)
+            self = .solid(value)
         case .backgroundFillGradient:
             let value = try BackgroundFillGradient(from: decoder)
-            self = .backgroundFillGradient(value)
+            self = .gradient(value)
         case .backgroundFillFreeformGradient:
             let value = try BackgroundFillFreeformGradient(from: decoder)
-            self = .backgroundFillFreeformGradient(value)
+            self = .freeformGradient(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .backgroundFillSolid(let value):
+        case .solid(let value):
             try container.encode(Kind.backgroundFillSolid, forKey: .type)
             try value.encode(to: encoder)
-        case .backgroundFillGradient(let value):
+        case .gradient(let value):
             try container.encode(Kind.backgroundFillGradient, forKey: .type)
             try value.encode(to: encoder)
-        case .backgroundFillFreeformGradient(let value):
+        case .freeformGradient(let value):
             try container.encode(Kind.backgroundFillFreeformGradient, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -62,7 +62,7 @@ public enum BackgroundFill: Codable, Equatable {
 }
 
 /// Describes a solid fill of a background
-public struct BackgroundFillSolid: Codable, Equatable {
+public struct BackgroundFillSolid: Codable, Equatable, Hashable {
 
     /// A color of the background in the RGB24 format
     public let color: Int
@@ -74,7 +74,7 @@ public struct BackgroundFillSolid: Codable, Equatable {
 }
 
 /// Describes a gradient fill of a background
-public struct BackgroundFillGradient: Codable, Equatable {
+public struct BackgroundFillGradient: Codable, Equatable, Hashable {
 
     /// A bottom color of the background in the RGB24 format
     public let bottomColor: Int
@@ -98,7 +98,7 @@ public struct BackgroundFillGradient: Codable, Equatable {
 }
 
 /// Describes a freeform gradient fill of a background
-public struct BackgroundFillFreeformGradient: Codable, Equatable {
+public struct BackgroundFillFreeformGradient: Codable, Equatable, Hashable {
 
     /// A list of 3 or 4 colors of the freeform gradients in the RGB24 format
     public let colors: [Int]

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Represents a reaction applied to a message
-public struct AddedReaction: Codable, Equatable {
+public struct AddedReaction: Codable, Equatable, Hashable {
 
     /// Text representation of the reaction
     public let reaction: String

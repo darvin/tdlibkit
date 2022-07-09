@@ -11,40 +11,40 @@ import Foundation
 
 
 /// Represents the current authorization state of the TDLib client
-public enum AuthorizationState: Codable, Equatable {
+public enum AuthorizationState: Codable, Equatable, Hashable {
 
     /// TDLib needs TdlibParameters for initialization
-    case authorizationStateWaitTdlibParameters
+    case waitTdlibParameters
 
     /// TDLib needs an encryption key to decrypt the local database
-    case authorizationStateWaitEncryptionKey(AuthorizationStateWaitEncryptionKey)
+    case waitEncryptionKey(AuthorizationStateWaitEncryptionKey)
 
     /// TDLib needs the user's phone number to authorize. Call `setAuthenticationPhoneNumber` to provide the phone number, or use `requestQrCodeAuthentication`, or `checkAuthenticationBotToken` for other authentication options
-    case authorizationStateWaitPhoneNumber
+    case waitPhoneNumber
 
     /// TDLib needs the user's authentication code to authorize
-    case authorizationStateWaitCode(AuthorizationStateWaitCode)
+    case waitCode(AuthorizationStateWaitCode)
 
     /// The user needs to confirm authorization on another logged in device by scanning a QR code with the provided link
-    case authorizationStateWaitOtherDeviceConfirmation(AuthorizationStateWaitOtherDeviceConfirmation)
+    case waitOtherDeviceConfirmation(AuthorizationStateWaitOtherDeviceConfirmation)
 
     /// The user is unregistered and need to accept terms of service and enter their first name and last name to finish registration
-    case authorizationStateWaitRegistration(AuthorizationStateWaitRegistration)
+    case waitRegistration(AuthorizationStateWaitRegistration)
 
     /// The user has been authorized, but needs to enter a password to start using the application
-    case authorizationStateWaitPassword(AuthorizationStateWaitPassword)
+    case waitPassword(AuthorizationStateWaitPassword)
 
     /// The user has been successfully authorized. TDLib is now ready to answer queries
-    case authorizationStateReady
+    case ready
 
     /// The user is currently logging out
-    case authorizationStateLoggingOut
+    case loggingOut
 
     /// TDLib is closing, all subsequent queries will be answered with the error 500. Note that closing TDLib can take a while. All resources will be freed only after authorizationStateClosed has been received
-    case authorizationStateClosing
+    case closing
 
     /// TDLib client is in its final state. All databases are closed and all resources are released. No other updates will be received after this. All queries will be responded to with error code 500. To continue working, one must create a new instance of the TDLib client
-    case authorizationStateClosed
+    case closed
 
 
     private enum Kind: String, Codable {
@@ -66,71 +66,71 @@ public enum AuthorizationState: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .authorizationStateWaitTdlibParameters:
-            self = .authorizationStateWaitTdlibParameters
+            self = .waitTdlibParameters
         case .authorizationStateWaitEncryptionKey:
             let value = try AuthorizationStateWaitEncryptionKey(from: decoder)
-            self = .authorizationStateWaitEncryptionKey(value)
+            self = .waitEncryptionKey(value)
         case .authorizationStateWaitPhoneNumber:
-            self = .authorizationStateWaitPhoneNumber
+            self = .waitPhoneNumber
         case .authorizationStateWaitCode:
             let value = try AuthorizationStateWaitCode(from: decoder)
-            self = .authorizationStateWaitCode(value)
+            self = .waitCode(value)
         case .authorizationStateWaitOtherDeviceConfirmation:
             let value = try AuthorizationStateWaitOtherDeviceConfirmation(from: decoder)
-            self = .authorizationStateWaitOtherDeviceConfirmation(value)
+            self = .waitOtherDeviceConfirmation(value)
         case .authorizationStateWaitRegistration:
             let value = try AuthorizationStateWaitRegistration(from: decoder)
-            self = .authorizationStateWaitRegistration(value)
+            self = .waitRegistration(value)
         case .authorizationStateWaitPassword:
             let value = try AuthorizationStateWaitPassword(from: decoder)
-            self = .authorizationStateWaitPassword(value)
+            self = .waitPassword(value)
         case .authorizationStateReady:
-            self = .authorizationStateReady
+            self = .ready
         case .authorizationStateLoggingOut:
-            self = .authorizationStateLoggingOut
+            self = .loggingOut
         case .authorizationStateClosing:
-            self = .authorizationStateClosing
+            self = .closing
         case .authorizationStateClosed:
-            self = .authorizationStateClosed
+            self = .closed
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .authorizationStateWaitTdlibParameters:
+        case .waitTdlibParameters:
             try container.encode(Kind.authorizationStateWaitTdlibParameters, forKey: .type)
-        case .authorizationStateWaitEncryptionKey(let value):
+        case .waitEncryptionKey(let value):
             try container.encode(Kind.authorizationStateWaitEncryptionKey, forKey: .type)
             try value.encode(to: encoder)
-        case .authorizationStateWaitPhoneNumber:
+        case .waitPhoneNumber:
             try container.encode(Kind.authorizationStateWaitPhoneNumber, forKey: .type)
-        case .authorizationStateWaitCode(let value):
+        case .waitCode(let value):
             try container.encode(Kind.authorizationStateWaitCode, forKey: .type)
             try value.encode(to: encoder)
-        case .authorizationStateWaitOtherDeviceConfirmation(let value):
+        case .waitOtherDeviceConfirmation(let value):
             try container.encode(Kind.authorizationStateWaitOtherDeviceConfirmation, forKey: .type)
             try value.encode(to: encoder)
-        case .authorizationStateWaitRegistration(let value):
+        case .waitRegistration(let value):
             try container.encode(Kind.authorizationStateWaitRegistration, forKey: .type)
             try value.encode(to: encoder)
-        case .authorizationStateWaitPassword(let value):
+        case .waitPassword(let value):
             try container.encode(Kind.authorizationStateWaitPassword, forKey: .type)
             try value.encode(to: encoder)
-        case .authorizationStateReady:
+        case .ready:
             try container.encode(Kind.authorizationStateReady, forKey: .type)
-        case .authorizationStateLoggingOut:
+        case .loggingOut:
             try container.encode(Kind.authorizationStateLoggingOut, forKey: .type)
-        case .authorizationStateClosing:
+        case .closing:
             try container.encode(Kind.authorizationStateClosing, forKey: .type)
-        case .authorizationStateClosed:
+        case .closed:
             try container.encode(Kind.authorizationStateClosed, forKey: .type)
         }
     }
 }
 
 /// TDLib needs an encryption key to decrypt the local database
-public struct AuthorizationStateWaitEncryptionKey: Codable, Equatable {
+public struct AuthorizationStateWaitEncryptionKey: Codable, Equatable, Hashable {
 
     /// True, if the database is currently encrypted
     public let isEncrypted: Bool
@@ -142,7 +142,7 @@ public struct AuthorizationStateWaitEncryptionKey: Codable, Equatable {
 }
 
 /// TDLib needs the user's authentication code to authorize
-public struct AuthorizationStateWaitCode: Codable, Equatable {
+public struct AuthorizationStateWaitCode: Codable, Equatable, Hashable {
 
     /// Information about the authorization code that was sent
     public let codeInfo: AuthenticationCodeInfo
@@ -154,7 +154,7 @@ public struct AuthorizationStateWaitCode: Codable, Equatable {
 }
 
 /// The user needs to confirm authorization on another logged in device by scanning a QR code with the provided link
-public struct AuthorizationStateWaitOtherDeviceConfirmation: Codable, Equatable {
+public struct AuthorizationStateWaitOtherDeviceConfirmation: Codable, Equatable, Hashable {
 
     /// A tg:// URL for the QR code. The link will be updated frequently
     public let link: String
@@ -166,7 +166,7 @@ public struct AuthorizationStateWaitOtherDeviceConfirmation: Codable, Equatable 
 }
 
 /// The user is unregistered and need to accept terms of service and enter their first name and last name to finish registration
-public struct AuthorizationStateWaitRegistration: Codable, Equatable {
+public struct AuthorizationStateWaitRegistration: Codable, Equatable, Hashable {
 
     /// Telegram terms of service
     public let termsOfService: TermsOfService
@@ -178,7 +178,7 @@ public struct AuthorizationStateWaitRegistration: Codable, Equatable {
 }
 
 /// The user has been authorized, but needs to enter a password to start using the application
-public struct AuthorizationStateWaitPassword: Codable, Equatable {
+public struct AuthorizationStateWaitPassword: Codable, Equatable, Hashable {
 
     /// True, if a recovery email address has been set up
     public let hasRecoveryEmailAddress: Bool

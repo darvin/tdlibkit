@@ -11,16 +11,16 @@ import Foundation
 
 
 /// Contains information about a payment provider
-public enum PaymentProvider: Codable, Equatable {
+public enum PaymentProvider: Codable, Equatable, Hashable {
 
     /// Smart Glocal payment provider
-    case paymentProviderSmartGlocal(PaymentProviderSmartGlocal)
+    case smartGlocal(PaymentProviderSmartGlocal)
 
     /// Stripe payment provider
-    case paymentProviderStripe(PaymentProviderStripe)
+    case stripe(PaymentProviderStripe)
 
     /// Some other payment provider, for which a web payment form must be shown
-    case paymentProviderOther(PaymentProviderOther)
+    case other(PaymentProviderOther)
 
 
     private enum Kind: String, Codable {
@@ -35,26 +35,26 @@ public enum PaymentProvider: Codable, Equatable {
         switch type {
         case .paymentProviderSmartGlocal:
             let value = try PaymentProviderSmartGlocal(from: decoder)
-            self = .paymentProviderSmartGlocal(value)
+            self = .smartGlocal(value)
         case .paymentProviderStripe:
             let value = try PaymentProviderStripe(from: decoder)
-            self = .paymentProviderStripe(value)
+            self = .stripe(value)
         case .paymentProviderOther:
             let value = try PaymentProviderOther(from: decoder)
-            self = .paymentProviderOther(value)
+            self = .other(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .paymentProviderSmartGlocal(let value):
+        case .smartGlocal(let value):
             try container.encode(Kind.paymentProviderSmartGlocal, forKey: .type)
             try value.encode(to: encoder)
-        case .paymentProviderStripe(let value):
+        case .stripe(let value):
             try container.encode(Kind.paymentProviderStripe, forKey: .type)
             try value.encode(to: encoder)
-        case .paymentProviderOther(let value):
+        case .other(let value):
             try container.encode(Kind.paymentProviderOther, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -62,7 +62,7 @@ public enum PaymentProvider: Codable, Equatable {
 }
 
 /// Smart Glocal payment provider
-public struct PaymentProviderSmartGlocal: Codable, Equatable {
+public struct PaymentProviderSmartGlocal: Codable, Equatable, Hashable {
 
     /// Public payment token
     public let publicToken: String
@@ -74,7 +74,7 @@ public struct PaymentProviderSmartGlocal: Codable, Equatable {
 }
 
 /// Stripe payment provider
-public struct PaymentProviderStripe: Codable, Equatable {
+public struct PaymentProviderStripe: Codable, Equatable, Hashable {
 
     /// True, if the cardholder name must be provided
     public let needCardholderName: Bool
@@ -103,7 +103,7 @@ public struct PaymentProviderStripe: Codable, Equatable {
 }
 
 /// Some other payment provider, for which a web payment form must be shown
-public struct PaymentProviderOther: Codable, Equatable {
+public struct PaymentProviderOther: Codable, Equatable, Hashable {
 
     /// Payment form URL
     public let url: String

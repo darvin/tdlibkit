@@ -11,94 +11,94 @@ import Foundation
 
 
 /// Contains content of a push message notification
-public enum PushMessageContent: Codable, Equatable {
+public enum PushMessageContent: Codable, Equatable, Hashable {
 
     /// A general message with hidden content
-    case pushMessageContentHidden(PushMessageContentHidden)
+    case contentHidden(PushMessageContentHidden)
 
     /// An animation message (GIF-style).
-    case pushMessageContentAnimation(PushMessageContentAnimation)
+    case contentAnimation(PushMessageContentAnimation)
 
     /// An audio message
-    case pushMessageContentAudio(PushMessageContentAudio)
+    case contentAudio(PushMessageContentAudio)
 
     /// A message with a user contact
-    case pushMessageContentContact(PushMessageContentContact)
+    case contentContact(PushMessageContentContact)
 
     /// A contact has registered with Telegram
-    case pushMessageContentContactRegistered
+    case contentContactRegistered
 
     /// A document message (a general file)
-    case pushMessageContentDocument(PushMessageContentDocument)
+    case contentDocument(PushMessageContentDocument)
 
     /// A message with a game
-    case pushMessageContentGame(PushMessageContentGame)
+    case contentGame(PushMessageContentGame)
 
     /// A new high score was achieved in a game
-    case pushMessageContentGameScore(PushMessageContentGameScore)
+    case contentGameScore(PushMessageContentGameScore)
 
     /// A message with an invoice from a bot
-    case pushMessageContentInvoice(PushMessageContentInvoice)
+    case contentInvoice(PushMessageContentInvoice)
 
     /// A message with a location
-    case pushMessageContentLocation(PushMessageContentLocation)
+    case contentLocation(PushMessageContentLocation)
 
     /// A photo message
-    case pushMessageContentPhoto(PushMessageContentPhoto)
+    case contentPhoto(PushMessageContentPhoto)
 
     /// A message with a poll
-    case pushMessageContentPoll(PushMessageContentPoll)
+    case contentPoll(PushMessageContentPoll)
 
     /// A screenshot of a message in the chat has been taken
-    case pushMessageContentScreenshotTaken
+    case contentScreenshotTaken
 
     /// A message with a sticker
-    case pushMessageContentSticker(PushMessageContentSticker)
+    case contentSticker(PushMessageContentSticker)
 
     /// A text message
-    case pushMessageContentText(PushMessageContentText)
+    case contentText(PushMessageContentText)
 
     /// A video message
-    case pushMessageContentVideo(PushMessageContentVideo)
+    case contentVideo(PushMessageContentVideo)
 
     /// A video note message
-    case pushMessageContentVideoNote(PushMessageContentVideoNote)
+    case contentVideoNote(PushMessageContentVideoNote)
 
     /// A voice note message
-    case pushMessageContentVoiceNote(PushMessageContentVoiceNote)
+    case contentVoiceNote(PushMessageContentVoiceNote)
 
     /// A newly created basic group
-    case pushMessageContentBasicGroupChatCreate
+    case contentBasicGroupChatCreate
 
     /// New chat members were invited to a group
-    case pushMessageContentChatAddMembers(PushMessageContentChatAddMembers)
+    case contentChatAddMembers(PushMessageContentChatAddMembers)
 
     /// A chat photo was edited
-    case pushMessageContentChatChangePhoto
+    case contentChatChangePhoto
 
     /// A chat title was edited
-    case pushMessageContentChatChangeTitle(PushMessageContentChatChangeTitle)
+    case contentChatChangeTitle(PushMessageContentChatChangeTitle)
 
     /// A chat theme was edited
-    case pushMessageContentChatSetTheme(PushMessageContentChatSetTheme)
+    case contentChatSetTheme(PushMessageContentChatSetTheme)
 
     /// A chat member was deleted
-    case pushMessageContentChatDeleteMember(PushMessageContentChatDeleteMember)
+    case contentChatDeleteMember(PushMessageContentChatDeleteMember)
 
     /// A new member joined the chat via an invite link
-    case pushMessageContentChatJoinByLink
+    case contentChatJoinByLink
 
     /// A new member was accepted to the chat by an administrator
-    case pushMessageContentChatJoinByRequest
+    case contentChatJoinByRequest
 
     /// A new recurrent payment was made by the current user
-    case pushMessageContentRecurringPayment(PushMessageContentRecurringPayment)
+    case contentRecurringPayment(PushMessageContentRecurringPayment)
 
     /// A forwarded messages
-    case pushMessageContentMessageForwards(PushMessageContentMessageForwards)
+    case contentMessageForwards(PushMessageContentMessageForwards)
 
     /// A media album
-    case pushMessageContentMediaAlbum(PushMessageContentMediaAlbum)
+    case contentMediaAlbum(PushMessageContentMediaAlbum)
 
 
     private enum Kind: String, Codable {
@@ -139,170 +139,170 @@ public enum PushMessageContent: Codable, Equatable {
         switch type {
         case .pushMessageContentHidden:
             let value = try PushMessageContentHidden(from: decoder)
-            self = .pushMessageContentHidden(value)
+            self = .contentHidden(value)
         case .pushMessageContentAnimation:
             let value = try PushMessageContentAnimation(from: decoder)
-            self = .pushMessageContentAnimation(value)
+            self = .contentAnimation(value)
         case .pushMessageContentAudio:
             let value = try PushMessageContentAudio(from: decoder)
-            self = .pushMessageContentAudio(value)
+            self = .contentAudio(value)
         case .pushMessageContentContact:
             let value = try PushMessageContentContact(from: decoder)
-            self = .pushMessageContentContact(value)
+            self = .contentContact(value)
         case .pushMessageContentContactRegistered:
-            self = .pushMessageContentContactRegistered
+            self = .contentContactRegistered
         case .pushMessageContentDocument:
             let value = try PushMessageContentDocument(from: decoder)
-            self = .pushMessageContentDocument(value)
+            self = .contentDocument(value)
         case .pushMessageContentGame:
             let value = try PushMessageContentGame(from: decoder)
-            self = .pushMessageContentGame(value)
+            self = .contentGame(value)
         case .pushMessageContentGameScore:
             let value = try PushMessageContentGameScore(from: decoder)
-            self = .pushMessageContentGameScore(value)
+            self = .contentGameScore(value)
         case .pushMessageContentInvoice:
             let value = try PushMessageContentInvoice(from: decoder)
-            self = .pushMessageContentInvoice(value)
+            self = .contentInvoice(value)
         case .pushMessageContentLocation:
             let value = try PushMessageContentLocation(from: decoder)
-            self = .pushMessageContentLocation(value)
+            self = .contentLocation(value)
         case .pushMessageContentPhoto:
             let value = try PushMessageContentPhoto(from: decoder)
-            self = .pushMessageContentPhoto(value)
+            self = .contentPhoto(value)
         case .pushMessageContentPoll:
             let value = try PushMessageContentPoll(from: decoder)
-            self = .pushMessageContentPoll(value)
+            self = .contentPoll(value)
         case .pushMessageContentScreenshotTaken:
-            self = .pushMessageContentScreenshotTaken
+            self = .contentScreenshotTaken
         case .pushMessageContentSticker:
             let value = try PushMessageContentSticker(from: decoder)
-            self = .pushMessageContentSticker(value)
+            self = .contentSticker(value)
         case .pushMessageContentText:
             let value = try PushMessageContentText(from: decoder)
-            self = .pushMessageContentText(value)
+            self = .contentText(value)
         case .pushMessageContentVideo:
             let value = try PushMessageContentVideo(from: decoder)
-            self = .pushMessageContentVideo(value)
+            self = .contentVideo(value)
         case .pushMessageContentVideoNote:
             let value = try PushMessageContentVideoNote(from: decoder)
-            self = .pushMessageContentVideoNote(value)
+            self = .contentVideoNote(value)
         case .pushMessageContentVoiceNote:
             let value = try PushMessageContentVoiceNote(from: decoder)
-            self = .pushMessageContentVoiceNote(value)
+            self = .contentVoiceNote(value)
         case .pushMessageContentBasicGroupChatCreate:
-            self = .pushMessageContentBasicGroupChatCreate
+            self = .contentBasicGroupChatCreate
         case .pushMessageContentChatAddMembers:
             let value = try PushMessageContentChatAddMembers(from: decoder)
-            self = .pushMessageContentChatAddMembers(value)
+            self = .contentChatAddMembers(value)
         case .pushMessageContentChatChangePhoto:
-            self = .pushMessageContentChatChangePhoto
+            self = .contentChatChangePhoto
         case .pushMessageContentChatChangeTitle:
             let value = try PushMessageContentChatChangeTitle(from: decoder)
-            self = .pushMessageContentChatChangeTitle(value)
+            self = .contentChatChangeTitle(value)
         case .pushMessageContentChatSetTheme:
             let value = try PushMessageContentChatSetTheme(from: decoder)
-            self = .pushMessageContentChatSetTheme(value)
+            self = .contentChatSetTheme(value)
         case .pushMessageContentChatDeleteMember:
             let value = try PushMessageContentChatDeleteMember(from: decoder)
-            self = .pushMessageContentChatDeleteMember(value)
+            self = .contentChatDeleteMember(value)
         case .pushMessageContentChatJoinByLink:
-            self = .pushMessageContentChatJoinByLink
+            self = .contentChatJoinByLink
         case .pushMessageContentChatJoinByRequest:
-            self = .pushMessageContentChatJoinByRequest
+            self = .contentChatJoinByRequest
         case .pushMessageContentRecurringPayment:
             let value = try PushMessageContentRecurringPayment(from: decoder)
-            self = .pushMessageContentRecurringPayment(value)
+            self = .contentRecurringPayment(value)
         case .pushMessageContentMessageForwards:
             let value = try PushMessageContentMessageForwards(from: decoder)
-            self = .pushMessageContentMessageForwards(value)
+            self = .contentMessageForwards(value)
         case .pushMessageContentMediaAlbum:
             let value = try PushMessageContentMediaAlbum(from: decoder)
-            self = .pushMessageContentMediaAlbum(value)
+            self = .contentMediaAlbum(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .pushMessageContentHidden(let value):
+        case .contentHidden(let value):
             try container.encode(Kind.pushMessageContentHidden, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentAnimation(let value):
+        case .contentAnimation(let value):
             try container.encode(Kind.pushMessageContentAnimation, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentAudio(let value):
+        case .contentAudio(let value):
             try container.encode(Kind.pushMessageContentAudio, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentContact(let value):
+        case .contentContact(let value):
             try container.encode(Kind.pushMessageContentContact, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentContactRegistered:
+        case .contentContactRegistered:
             try container.encode(Kind.pushMessageContentContactRegistered, forKey: .type)
-        case .pushMessageContentDocument(let value):
+        case .contentDocument(let value):
             try container.encode(Kind.pushMessageContentDocument, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentGame(let value):
+        case .contentGame(let value):
             try container.encode(Kind.pushMessageContentGame, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentGameScore(let value):
+        case .contentGameScore(let value):
             try container.encode(Kind.pushMessageContentGameScore, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentInvoice(let value):
+        case .contentInvoice(let value):
             try container.encode(Kind.pushMessageContentInvoice, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentLocation(let value):
+        case .contentLocation(let value):
             try container.encode(Kind.pushMessageContentLocation, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentPhoto(let value):
+        case .contentPhoto(let value):
             try container.encode(Kind.pushMessageContentPhoto, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentPoll(let value):
+        case .contentPoll(let value):
             try container.encode(Kind.pushMessageContentPoll, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentScreenshotTaken:
+        case .contentScreenshotTaken:
             try container.encode(Kind.pushMessageContentScreenshotTaken, forKey: .type)
-        case .pushMessageContentSticker(let value):
+        case .contentSticker(let value):
             try container.encode(Kind.pushMessageContentSticker, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentText(let value):
+        case .contentText(let value):
             try container.encode(Kind.pushMessageContentText, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentVideo(let value):
+        case .contentVideo(let value):
             try container.encode(Kind.pushMessageContentVideo, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentVideoNote(let value):
+        case .contentVideoNote(let value):
             try container.encode(Kind.pushMessageContentVideoNote, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentVoiceNote(let value):
+        case .contentVoiceNote(let value):
             try container.encode(Kind.pushMessageContentVoiceNote, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentBasicGroupChatCreate:
+        case .contentBasicGroupChatCreate:
             try container.encode(Kind.pushMessageContentBasicGroupChatCreate, forKey: .type)
-        case .pushMessageContentChatAddMembers(let value):
+        case .contentChatAddMembers(let value):
             try container.encode(Kind.pushMessageContentChatAddMembers, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentChatChangePhoto:
+        case .contentChatChangePhoto:
             try container.encode(Kind.pushMessageContentChatChangePhoto, forKey: .type)
-        case .pushMessageContentChatChangeTitle(let value):
+        case .contentChatChangeTitle(let value):
             try container.encode(Kind.pushMessageContentChatChangeTitle, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentChatSetTheme(let value):
+        case .contentChatSetTheme(let value):
             try container.encode(Kind.pushMessageContentChatSetTheme, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentChatDeleteMember(let value):
+        case .contentChatDeleteMember(let value):
             try container.encode(Kind.pushMessageContentChatDeleteMember, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentChatJoinByLink:
+        case .contentChatJoinByLink:
             try container.encode(Kind.pushMessageContentChatJoinByLink, forKey: .type)
-        case .pushMessageContentChatJoinByRequest:
+        case .contentChatJoinByRequest:
             try container.encode(Kind.pushMessageContentChatJoinByRequest, forKey: .type)
-        case .pushMessageContentRecurringPayment(let value):
+        case .contentRecurringPayment(let value):
             try container.encode(Kind.pushMessageContentRecurringPayment, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentMessageForwards(let value):
+        case .contentMessageForwards(let value):
             try container.encode(Kind.pushMessageContentMessageForwards, forKey: .type)
             try value.encode(to: encoder)
-        case .pushMessageContentMediaAlbum(let value):
+        case .contentMediaAlbum(let value):
             try container.encode(Kind.pushMessageContentMediaAlbum, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -310,7 +310,7 @@ public enum PushMessageContent: Codable, Equatable {
 }
 
 /// A general message with hidden content
-public struct PushMessageContentHidden: Codable, Equatable {
+public struct PushMessageContentHidden: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -322,7 +322,7 @@ public struct PushMessageContentHidden: Codable, Equatable {
 }
 
 /// An animation message (GIF-style).
-public struct PushMessageContentAnimation: Codable, Equatable {
+public struct PushMessageContentAnimation: Codable, Equatable, Hashable {
 
     /// Message content; may be null
     public let animation: Animation?
@@ -346,7 +346,7 @@ public struct PushMessageContentAnimation: Codable, Equatable {
 }
 
 /// An audio message
-public struct PushMessageContentAudio: Codable, Equatable {
+public struct PushMessageContentAudio: Codable, Equatable, Hashable {
 
     /// Message content; may be null
     public let audio: Audio?
@@ -365,7 +365,7 @@ public struct PushMessageContentAudio: Codable, Equatable {
 }
 
 /// A message with a user contact
-public struct PushMessageContentContact: Codable, Equatable {
+public struct PushMessageContentContact: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -384,7 +384,7 @@ public struct PushMessageContentContact: Codable, Equatable {
 }
 
 /// A document message (a general file)
-public struct PushMessageContentDocument: Codable, Equatable {
+public struct PushMessageContentDocument: Codable, Equatable, Hashable {
 
     /// Message content; may be null
     public let document: Document?
@@ -403,7 +403,7 @@ public struct PushMessageContentDocument: Codable, Equatable {
 }
 
 /// A message with a game
-public struct PushMessageContentGame: Codable, Equatable {
+public struct PushMessageContentGame: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -422,7 +422,7 @@ public struct PushMessageContentGame: Codable, Equatable {
 }
 
 /// A new high score was achieved in a game
-public struct PushMessageContentGameScore: Codable, Equatable {
+public struct PushMessageContentGameScore: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -446,7 +446,7 @@ public struct PushMessageContentGameScore: Codable, Equatable {
 }
 
 /// A message with an invoice from a bot
-public struct PushMessageContentInvoice: Codable, Equatable {
+public struct PushMessageContentInvoice: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -465,7 +465,7 @@ public struct PushMessageContentInvoice: Codable, Equatable {
 }
 
 /// A message with a location
-public struct PushMessageContentLocation: Codable, Equatable {
+public struct PushMessageContentLocation: Codable, Equatable, Hashable {
 
     /// True, if the location is live
     public let isLive: Bool
@@ -484,7 +484,7 @@ public struct PushMessageContentLocation: Codable, Equatable {
 }
 
 /// A photo message
-public struct PushMessageContentPhoto: Codable, Equatable {
+public struct PushMessageContentPhoto: Codable, Equatable, Hashable {
 
     /// Photo caption
     public let caption: String
@@ -513,7 +513,7 @@ public struct PushMessageContentPhoto: Codable, Equatable {
 }
 
 /// A message with a poll
-public struct PushMessageContentPoll: Codable, Equatable {
+public struct PushMessageContentPoll: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -537,7 +537,7 @@ public struct PushMessageContentPoll: Codable, Equatable {
 }
 
 /// A message with a sticker
-public struct PushMessageContentSticker: Codable, Equatable {
+public struct PushMessageContentSticker: Codable, Equatable, Hashable {
 
     /// Emoji corresponding to the sticker; may be empty
     public let emoji: String
@@ -561,7 +561,7 @@ public struct PushMessageContentSticker: Codable, Equatable {
 }
 
 /// A text message
-public struct PushMessageContentText: Codable, Equatable {
+public struct PushMessageContentText: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -580,7 +580,7 @@ public struct PushMessageContentText: Codable, Equatable {
 }
 
 /// A video message
-public struct PushMessageContentVideo: Codable, Equatable {
+public struct PushMessageContentVideo: Codable, Equatable, Hashable {
 
     /// Video caption
     public let caption: String
@@ -609,7 +609,7 @@ public struct PushMessageContentVideo: Codable, Equatable {
 }
 
 /// A video note message
-public struct PushMessageContentVideoNote: Codable, Equatable {
+public struct PushMessageContentVideoNote: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -628,7 +628,7 @@ public struct PushMessageContentVideoNote: Codable, Equatable {
 }
 
 /// A voice note message
-public struct PushMessageContentVoiceNote: Codable, Equatable {
+public struct PushMessageContentVoiceNote: Codable, Equatable, Hashable {
 
     /// True, if the message is a pinned message with the specified content
     public let isPinned: Bool
@@ -647,7 +647,7 @@ public struct PushMessageContentVoiceNote: Codable, Equatable {
 }
 
 /// New chat members were invited to a group
-public struct PushMessageContentChatAddMembers: Codable, Equatable {
+public struct PushMessageContentChatAddMembers: Codable, Equatable, Hashable {
 
     /// True, if the current user was added to the group
     public let isCurrentUser: Bool
@@ -671,7 +671,7 @@ public struct PushMessageContentChatAddMembers: Codable, Equatable {
 }
 
 /// A chat title was edited
-public struct PushMessageContentChatChangeTitle: Codable, Equatable {
+public struct PushMessageContentChatChangeTitle: Codable, Equatable, Hashable {
 
     /// New chat title
     public let title: String
@@ -683,7 +683,7 @@ public struct PushMessageContentChatChangeTitle: Codable, Equatable {
 }
 
 /// A chat theme was edited
-public struct PushMessageContentChatSetTheme: Codable, Equatable {
+public struct PushMessageContentChatSetTheme: Codable, Equatable, Hashable {
 
     /// If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to the default one
     public let themeName: String
@@ -695,7 +695,7 @@ public struct PushMessageContentChatSetTheme: Codable, Equatable {
 }
 
 /// A chat member was deleted
-public struct PushMessageContentChatDeleteMember: Codable, Equatable {
+public struct PushMessageContentChatDeleteMember: Codable, Equatable, Hashable {
 
     /// True, if the current user was deleted from the group
     public let isCurrentUser: Bool
@@ -719,7 +719,7 @@ public struct PushMessageContentChatDeleteMember: Codable, Equatable {
 }
 
 /// A new recurrent payment was made by the current user
-public struct PushMessageContentRecurringPayment: Codable, Equatable {
+public struct PushMessageContentRecurringPayment: Codable, Equatable, Hashable {
 
     /// The paid amount
     public let amount: String
@@ -731,7 +731,7 @@ public struct PushMessageContentRecurringPayment: Codable, Equatable {
 }
 
 /// A forwarded messages
-public struct PushMessageContentMessageForwards: Codable, Equatable {
+public struct PushMessageContentMessageForwards: Codable, Equatable, Hashable {
 
     /// Number of forwarded messages
     public let totalCount: Int
@@ -743,7 +743,7 @@ public struct PushMessageContentMessageForwards: Codable, Equatable {
 }
 
 /// A media album
-public struct PushMessageContentMediaAlbum: Codable, Equatable {
+public struct PushMessageContentMediaAlbum: Codable, Equatable, Hashable {
 
     /// True, if the album has at least one audio file
     public let hasAudios: Bool

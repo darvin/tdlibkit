@@ -11,46 +11,46 @@ import Foundation
 
 
 /// Contains information about a Telegram Passport element
-public enum PassportElement: Codable, Equatable {
+public enum PassportElement: Codable, Equatable, Hashable {
 
     /// A Telegram Passport element containing the user's personal details
-    case passportElementPersonalDetails(PassportElementPersonalDetails)
+    case personalDetails(PassportElementPersonalDetails)
 
     /// A Telegram Passport element containing the user's passport
-    case passportElementPassport(PassportElementPassport)
+    case passport(PassportElementPassport)
 
     /// A Telegram Passport element containing the user's driver license
-    case passportElementDriverLicense(PassportElementDriverLicense)
+    case driverLicense(PassportElementDriverLicense)
 
     /// A Telegram Passport element containing the user's identity card
-    case passportElementIdentityCard(PassportElementIdentityCard)
+    case identityCard(PassportElementIdentityCard)
 
     /// A Telegram Passport element containing the user's internal passport
-    case passportElementInternalPassport(PassportElementInternalPassport)
+    case internalPassport(PassportElementInternalPassport)
 
     /// A Telegram Passport element containing the user's address
-    case passportElementAddress(PassportElementAddress)
+    case address(PassportElementAddress)
 
     /// A Telegram Passport element containing the user's utility bill
-    case passportElementUtilityBill(PassportElementUtilityBill)
+    case utilityBill(PassportElementUtilityBill)
 
     /// A Telegram Passport element containing the user's bank statement
-    case passportElementBankStatement(PassportElementBankStatement)
+    case bankStatement(PassportElementBankStatement)
 
     /// A Telegram Passport element containing the user's rental agreement
-    case passportElementRentalAgreement(PassportElementRentalAgreement)
+    case rentalAgreement(PassportElementRentalAgreement)
 
     /// A Telegram Passport element containing the user's passport registration pages
-    case passportElementPassportRegistration(PassportElementPassportRegistration)
+    case passportRegistration(PassportElementPassportRegistration)
 
     /// A Telegram Passport element containing the user's temporary registration
-    case passportElementTemporaryRegistration(PassportElementTemporaryRegistration)
+    case temporaryRegistration(PassportElementTemporaryRegistration)
 
     /// A Telegram Passport element containing the user's phone number
-    case passportElementPhoneNumber(PassportElementPhoneNumber)
+    case phoneNumber(PassportElementPhoneNumber)
 
     /// A Telegram Passport element containing the user's email address
-    case passportElementEmailAddress(PassportElementEmailAddress)
+    case emailAddress(PassportElementEmailAddress)
 
 
     private enum Kind: String, Codable {
@@ -75,86 +75,86 @@ public enum PassportElement: Codable, Equatable {
         switch type {
         case .passportElementPersonalDetails:
             let value = try PassportElementPersonalDetails(from: decoder)
-            self = .passportElementPersonalDetails(value)
+            self = .personalDetails(value)
         case .passportElementPassport:
             let value = try PassportElementPassport(from: decoder)
-            self = .passportElementPassport(value)
+            self = .passport(value)
         case .passportElementDriverLicense:
             let value = try PassportElementDriverLicense(from: decoder)
-            self = .passportElementDriverLicense(value)
+            self = .driverLicense(value)
         case .passportElementIdentityCard:
             let value = try PassportElementIdentityCard(from: decoder)
-            self = .passportElementIdentityCard(value)
+            self = .identityCard(value)
         case .passportElementInternalPassport:
             let value = try PassportElementInternalPassport(from: decoder)
-            self = .passportElementInternalPassport(value)
+            self = .internalPassport(value)
         case .passportElementAddress:
             let value = try PassportElementAddress(from: decoder)
-            self = .passportElementAddress(value)
+            self = .address(value)
         case .passportElementUtilityBill:
             let value = try PassportElementUtilityBill(from: decoder)
-            self = .passportElementUtilityBill(value)
+            self = .utilityBill(value)
         case .passportElementBankStatement:
             let value = try PassportElementBankStatement(from: decoder)
-            self = .passportElementBankStatement(value)
+            self = .bankStatement(value)
         case .passportElementRentalAgreement:
             let value = try PassportElementRentalAgreement(from: decoder)
-            self = .passportElementRentalAgreement(value)
+            self = .rentalAgreement(value)
         case .passportElementPassportRegistration:
             let value = try PassportElementPassportRegistration(from: decoder)
-            self = .passportElementPassportRegistration(value)
+            self = .passportRegistration(value)
         case .passportElementTemporaryRegistration:
             let value = try PassportElementTemporaryRegistration(from: decoder)
-            self = .passportElementTemporaryRegistration(value)
+            self = .temporaryRegistration(value)
         case .passportElementPhoneNumber:
             let value = try PassportElementPhoneNumber(from: decoder)
-            self = .passportElementPhoneNumber(value)
+            self = .phoneNumber(value)
         case .passportElementEmailAddress:
             let value = try PassportElementEmailAddress(from: decoder)
-            self = .passportElementEmailAddress(value)
+            self = .emailAddress(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .passportElementPersonalDetails(let value):
+        case .personalDetails(let value):
             try container.encode(Kind.passportElementPersonalDetails, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementPassport(let value):
+        case .passport(let value):
             try container.encode(Kind.passportElementPassport, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementDriverLicense(let value):
+        case .driverLicense(let value):
             try container.encode(Kind.passportElementDriverLicense, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementIdentityCard(let value):
+        case .identityCard(let value):
             try container.encode(Kind.passportElementIdentityCard, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementInternalPassport(let value):
+        case .internalPassport(let value):
             try container.encode(Kind.passportElementInternalPassport, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementAddress(let value):
+        case .address(let value):
             try container.encode(Kind.passportElementAddress, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementUtilityBill(let value):
+        case .utilityBill(let value):
             try container.encode(Kind.passportElementUtilityBill, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementBankStatement(let value):
+        case .bankStatement(let value):
             try container.encode(Kind.passportElementBankStatement, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementRentalAgreement(let value):
+        case .rentalAgreement(let value):
             try container.encode(Kind.passportElementRentalAgreement, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementPassportRegistration(let value):
+        case .passportRegistration(let value):
             try container.encode(Kind.passportElementPassportRegistration, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementTemporaryRegistration(let value):
+        case .temporaryRegistration(let value):
             try container.encode(Kind.passportElementTemporaryRegistration, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementPhoneNumber(let value):
+        case .phoneNumber(let value):
             try container.encode(Kind.passportElementPhoneNumber, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementEmailAddress(let value):
+        case .emailAddress(let value):
             try container.encode(Kind.passportElementEmailAddress, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -162,7 +162,7 @@ public enum PassportElement: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's personal details
-public struct PassportElementPersonalDetails: Codable, Equatable {
+public struct PassportElementPersonalDetails: Codable, Equatable, Hashable {
 
     /// Personal details of the user
     public let personalDetails: PersonalDetails
@@ -174,7 +174,7 @@ public struct PassportElementPersonalDetails: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's passport
-public struct PassportElementPassport: Codable, Equatable {
+public struct PassportElementPassport: Codable, Equatable, Hashable {
 
     /// Passport
     public let passport: IdentityDocument
@@ -186,7 +186,7 @@ public struct PassportElementPassport: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's driver license
-public struct PassportElementDriverLicense: Codable, Equatable {
+public struct PassportElementDriverLicense: Codable, Equatable, Hashable {
 
     /// Driver license
     public let driverLicense: IdentityDocument
@@ -198,7 +198,7 @@ public struct PassportElementDriverLicense: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's identity card
-public struct PassportElementIdentityCard: Codable, Equatable {
+public struct PassportElementIdentityCard: Codable, Equatable, Hashable {
 
     /// Identity card
     public let identityCard: IdentityDocument
@@ -210,7 +210,7 @@ public struct PassportElementIdentityCard: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's internal passport
-public struct PassportElementInternalPassport: Codable, Equatable {
+public struct PassportElementInternalPassport: Codable, Equatable, Hashable {
 
     /// Internal passport
     public let internalPassport: IdentityDocument
@@ -222,7 +222,7 @@ public struct PassportElementInternalPassport: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's address
-public struct PassportElementAddress: Codable, Equatable {
+public struct PassportElementAddress: Codable, Equatable, Hashable {
 
     /// Address
     public let address: Address
@@ -234,7 +234,7 @@ public struct PassportElementAddress: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's utility bill
-public struct PassportElementUtilityBill: Codable, Equatable {
+public struct PassportElementUtilityBill: Codable, Equatable, Hashable {
 
     /// Utility bill
     public let utilityBill: PersonalDocument
@@ -246,7 +246,7 @@ public struct PassportElementUtilityBill: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's bank statement
-public struct PassportElementBankStatement: Codable, Equatable {
+public struct PassportElementBankStatement: Codable, Equatable, Hashable {
 
     /// Bank statement
     public let bankStatement: PersonalDocument
@@ -258,7 +258,7 @@ public struct PassportElementBankStatement: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's rental agreement
-public struct PassportElementRentalAgreement: Codable, Equatable {
+public struct PassportElementRentalAgreement: Codable, Equatable, Hashable {
 
     /// Rental agreement
     public let rentalAgreement: PersonalDocument
@@ -270,7 +270,7 @@ public struct PassportElementRentalAgreement: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's passport registration pages
-public struct PassportElementPassportRegistration: Codable, Equatable {
+public struct PassportElementPassportRegistration: Codable, Equatable, Hashable {
 
     /// Passport registration pages
     public let passportRegistration: PersonalDocument
@@ -282,7 +282,7 @@ public struct PassportElementPassportRegistration: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's temporary registration
-public struct PassportElementTemporaryRegistration: Codable, Equatable {
+public struct PassportElementTemporaryRegistration: Codable, Equatable, Hashable {
 
     /// Temporary registration
     public let temporaryRegistration: PersonalDocument
@@ -294,7 +294,7 @@ public struct PassportElementTemporaryRegistration: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's phone number
-public struct PassportElementPhoneNumber: Codable, Equatable {
+public struct PassportElementPhoneNumber: Codable, Equatable, Hashable {
 
     /// Phone number
     public let phoneNumber: String
@@ -306,7 +306,7 @@ public struct PassportElementPhoneNumber: Codable, Equatable {
 }
 
 /// A Telegram Passport element containing the user's email address
-public struct PassportElementEmailAddress: Codable, Equatable {
+public struct PassportElementEmailAddress: Codable, Equatable, Hashable {
 
     /// Email address
     public let emailAddress: String

@@ -11,100 +11,100 @@ import Foundation
 
 
 /// Describes an internal https://t.me or tg: link, which must be processed by the application in a special way
-public indirect enum InternalLinkType: Codable, Equatable {
+public indirect enum InternalLinkType: Codable, Equatable, Hashable {
 
     /// The link is a link to the active sessions section of the application. Use getActiveSessions to handle the link
-    case internalLinkTypeActiveSessions
+    case activeSessions
 
     /// The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given target_chat to open the chat. Then call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then user needs to confirm adding the bot to attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add it. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL
-    case internalLinkTypeAttachmentMenuBot(InternalLinkTypeAttachmentMenuBot)
+    case attachmentMenuBot(InternalLinkTypeAttachmentMenuBot)
 
     /// The link contains an authentication code. Call checkAuthenticationCode with the code if the current authorization state is authorizationStateWaitCode
-    case internalLinkTypeAuthenticationCode(InternalLinkTypeAuthenticationCode)
+    case authenticationCode(InternalLinkTypeAuthenticationCode)
 
     /// The link is a link to a background. Call searchBackground with the given background name to process the link
-    case internalLinkTypeBackground(InternalLinkTypeBackground)
+    case background(InternalLinkTypeBackground)
 
     /// The link is a link to a chat with a Telegram bot. Call searchPublicChat with the given bot username, check that the user is a bot, show START button in the chat with the bot, and then call sendBotStartMessage with the given start parameter after the button is pressed
-    case internalLinkTypeBotStart(InternalLinkTypeBotStart)
+    case botStart(InternalLinkTypeBotStart)
 
     /// The link is a link to a Telegram bot, which is supposed to be added to a group chat. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to groups, ask the current user to select a basic group or a supergroup chat to add the bot to, taking into account that bots can be added to a public supergroup only by administrators of the supergroup. If administrator rights are provided by the link, call getChatMember to receive the current bot rights in the chat and if the bot already is an administrator, check that the current user can edit its administrator rights, combine received rights with the requested administrator rights, show confirmation box to the user, and call setChatMemberStatus with the chosen chat and confirmed administrator rights. Before call to setChatMemberStatus it may be required to upgrade the chosen basic group chat to a supergroup chat. Then if start_parameter isn't empty, call sendBotStartMessage with the given start parameter and the chosen chat, otherwise just send /start message with bot's username added to the chat.
-    case internalLinkTypeBotStartInGroup(InternalLinkTypeBotStartInGroup)
+    case botStartInGroup(InternalLinkTypeBotStartInGroup)
 
     /// The link is a link to a Telegram bot, which is supposed to be added to a channel chat as an administrator. Call searchPublicChat with the given bot username and check that the user is a bot, ask the current user to select a channel chat to add the bot to as an administrator. Then call getChatMember to receive the current bot rights in the chat and if the bot already is an administrator, check that the current user can edit its administrator rights and combine received rights with the requested administrator rights. Then show confirmation box to the user, and call setChatMemberStatus with the chosen chat and confirmed rights
-    case internalLinkTypeBotAddToChannel(InternalLinkTypeBotAddToChannel)
+    case botAddToChannel(InternalLinkTypeBotAddToChannel)
 
     /// The link is a link to the change phone number section of the app
-    case internalLinkTypeChangePhoneNumber
+    case changePhoneNumber
 
     /// The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link
-    case internalLinkTypeChatInvite(InternalLinkTypeChatInvite)
+    case chatInvite(InternalLinkTypeChatInvite)
 
     /// The link is a link to the filter settings section of the app
-    case internalLinkTypeFilterSettings
+    case filterSettings
 
     /// The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame
-    case internalLinkTypeGame(InternalLinkTypeGame)
+    case game(InternalLinkTypeGame)
 
     /// The link is a link to an invoice. Call getPaymentForm with the given invoice name to process the link
-    case internalLinkTypeInvoice(InternalLinkTypeInvoice)
+    case invoice(InternalLinkTypeInvoice)
 
     /// The link is a link to a language pack. Call getLanguagePackInfo with the given language pack identifier to process the link
-    case internalLinkTypeLanguagePack(InternalLinkTypeLanguagePack)
+    case languagePack(InternalLinkTypeLanguagePack)
 
     /// The link is a link to the language settings section of the app
-    case internalLinkTypeLanguageSettings
+    case languageSettings
 
     /// The link is a link to a Telegram message. Call getMessageLinkInfo with the given URL to process the link
-    case internalLinkTypeMessage(InternalLinkTypeMessage)
+    case message(InternalLinkTypeMessage)
 
     /// The link contains a message draft text. A share screen needs to be shown to the user, then the chosen chat must be opened and the text is added to the input field
-    case internalLinkTypeMessageDraft(InternalLinkTypeMessageDraft)
+    case messageDraft(InternalLinkTypeMessageDraft)
 
     /// The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the application, otherwise ignore it
-    case internalLinkTypePassportDataRequest(InternalLinkTypePassportDataRequest)
+    case passportDataRequest(InternalLinkTypePassportDataRequest)
 
     /// The link can be used to confirm ownership of a phone number to prevent account deletion. Call sendPhoneNumberConfirmationCode with the given hash and phone number to process the link
-    case internalLinkTypePhoneNumberConfirmation(InternalLinkTypePhoneNumberConfirmation)
+    case phoneNumberConfirmation(InternalLinkTypePhoneNumberConfirmation)
 
     /// The link is a link to the Premium features screen of the applcation from which the user can subscribe to Telegram Premium. Call getPremiumFeatures with the given referrer to process the link
-    case internalLinkTypePremiumFeatures(InternalLinkTypePremiumFeatures)
+    case premiumFeatures(InternalLinkTypePremiumFeatures)
 
     /// The link is a link to the privacy and security settings section of the app
-    case internalLinkTypePrivacyAndSecuritySettings
+    case privacyAndSecuritySettings
 
     /// The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy
-    case internalLinkTypeProxy(InternalLinkTypeProxy)
+    case proxy(InternalLinkTypeProxy)
 
     /// The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link
-    case internalLinkTypePublicChat(InternalLinkTypePublicChat)
+    case publicChat(InternalLinkTypePublicChat)
 
     /// The link can be used to login the current user on another device, but it must be scanned from QR-code using in-app camera. An alert similar to "This code can be used to allow someone to log in to your Telegram account. To confirm Telegram login, please go to Settings > Devices > Scan QR and scan the code" needs to be shown
-    case internalLinkTypeQrCodeAuthentication
+    case qrCodeAuthentication
 
     /// The link is a link to application settings
-    case internalLinkTypeSettings
+    case settings
 
     /// The link is a link to a sticker set. Call searchStickerSet with the given sticker set name to process the link and show the sticker set
-    case internalLinkTypeStickerSet(InternalLinkTypeStickerSet)
+    case stickerSet(InternalLinkTypeStickerSet)
 
     /// The link is a link to a theme. TDLib has no theme support yet
-    case internalLinkTypeTheme(InternalLinkTypeTheme)
+    case theme(InternalLinkTypeTheme)
 
     /// The link is a link to the theme settings section of the app
-    case internalLinkTypeThemeSettings
+    case themeSettings
 
     /// The link is an unknown tg: link. Call getDeepLinkInfo to process the link
-    case internalLinkTypeUnknownDeepLink(InternalLinkTypeUnknownDeepLink)
+    case unknownDeepLink(InternalLinkTypeUnknownDeepLink)
 
     /// The link is a link to an unsupported proxy. An alert can be shown to the user
-    case internalLinkTypeUnsupportedProxy
+    case unsupportedProxy
 
     /// The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link
-    case internalLinkTypeUserPhoneNumber(InternalLinkTypeUserPhoneNumber)
+    case userPhoneNumber(InternalLinkTypeUserPhoneNumber)
 
     /// The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGroupCall with the given invite hash to process the link
-    case internalLinkTypeVideoChat(InternalLinkTypeVideoChat)
+    case videoChat(InternalLinkTypeVideoChat)
 
 
     private enum Kind: String, Codable {
@@ -146,177 +146,177 @@ public indirect enum InternalLinkType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .internalLinkTypeActiveSessions:
-            self = .internalLinkTypeActiveSessions
+            self = .activeSessions
         case .internalLinkTypeAttachmentMenuBot:
             let value = try InternalLinkTypeAttachmentMenuBot(from: decoder)
-            self = .internalLinkTypeAttachmentMenuBot(value)
+            self = .attachmentMenuBot(value)
         case .internalLinkTypeAuthenticationCode:
             let value = try InternalLinkTypeAuthenticationCode(from: decoder)
-            self = .internalLinkTypeAuthenticationCode(value)
+            self = .authenticationCode(value)
         case .internalLinkTypeBackground:
             let value = try InternalLinkTypeBackground(from: decoder)
-            self = .internalLinkTypeBackground(value)
+            self = .background(value)
         case .internalLinkTypeBotStart:
             let value = try InternalLinkTypeBotStart(from: decoder)
-            self = .internalLinkTypeBotStart(value)
+            self = .botStart(value)
         case .internalLinkTypeBotStartInGroup:
             let value = try InternalLinkTypeBotStartInGroup(from: decoder)
-            self = .internalLinkTypeBotStartInGroup(value)
+            self = .botStartInGroup(value)
         case .internalLinkTypeBotAddToChannel:
             let value = try InternalLinkTypeBotAddToChannel(from: decoder)
-            self = .internalLinkTypeBotAddToChannel(value)
+            self = .botAddToChannel(value)
         case .internalLinkTypeChangePhoneNumber:
-            self = .internalLinkTypeChangePhoneNumber
+            self = .changePhoneNumber
         case .internalLinkTypeChatInvite:
             let value = try InternalLinkTypeChatInvite(from: decoder)
-            self = .internalLinkTypeChatInvite(value)
+            self = .chatInvite(value)
         case .internalLinkTypeFilterSettings:
-            self = .internalLinkTypeFilterSettings
+            self = .filterSettings
         case .internalLinkTypeGame:
             let value = try InternalLinkTypeGame(from: decoder)
-            self = .internalLinkTypeGame(value)
+            self = .game(value)
         case .internalLinkTypeInvoice:
             let value = try InternalLinkTypeInvoice(from: decoder)
-            self = .internalLinkTypeInvoice(value)
+            self = .invoice(value)
         case .internalLinkTypeLanguagePack:
             let value = try InternalLinkTypeLanguagePack(from: decoder)
-            self = .internalLinkTypeLanguagePack(value)
+            self = .languagePack(value)
         case .internalLinkTypeLanguageSettings:
-            self = .internalLinkTypeLanguageSettings
+            self = .languageSettings
         case .internalLinkTypeMessage:
             let value = try InternalLinkTypeMessage(from: decoder)
-            self = .internalLinkTypeMessage(value)
+            self = .message(value)
         case .internalLinkTypeMessageDraft:
             let value = try InternalLinkTypeMessageDraft(from: decoder)
-            self = .internalLinkTypeMessageDraft(value)
+            self = .messageDraft(value)
         case .internalLinkTypePassportDataRequest:
             let value = try InternalLinkTypePassportDataRequest(from: decoder)
-            self = .internalLinkTypePassportDataRequest(value)
+            self = .passportDataRequest(value)
         case .internalLinkTypePhoneNumberConfirmation:
             let value = try InternalLinkTypePhoneNumberConfirmation(from: decoder)
-            self = .internalLinkTypePhoneNumberConfirmation(value)
+            self = .phoneNumberConfirmation(value)
         case .internalLinkTypePremiumFeatures:
             let value = try InternalLinkTypePremiumFeatures(from: decoder)
-            self = .internalLinkTypePremiumFeatures(value)
+            self = .premiumFeatures(value)
         case .internalLinkTypePrivacyAndSecuritySettings:
-            self = .internalLinkTypePrivacyAndSecuritySettings
+            self = .privacyAndSecuritySettings
         case .internalLinkTypeProxy:
             let value = try InternalLinkTypeProxy(from: decoder)
-            self = .internalLinkTypeProxy(value)
+            self = .proxy(value)
         case .internalLinkTypePublicChat:
             let value = try InternalLinkTypePublicChat(from: decoder)
-            self = .internalLinkTypePublicChat(value)
+            self = .publicChat(value)
         case .internalLinkTypeQrCodeAuthentication:
-            self = .internalLinkTypeQrCodeAuthentication
+            self = .qrCodeAuthentication
         case .internalLinkTypeSettings:
-            self = .internalLinkTypeSettings
+            self = .settings
         case .internalLinkTypeStickerSet:
             let value = try InternalLinkTypeStickerSet(from: decoder)
-            self = .internalLinkTypeStickerSet(value)
+            self = .stickerSet(value)
         case .internalLinkTypeTheme:
             let value = try InternalLinkTypeTheme(from: decoder)
-            self = .internalLinkTypeTheme(value)
+            self = .theme(value)
         case .internalLinkTypeThemeSettings:
-            self = .internalLinkTypeThemeSettings
+            self = .themeSettings
         case .internalLinkTypeUnknownDeepLink:
             let value = try InternalLinkTypeUnknownDeepLink(from: decoder)
-            self = .internalLinkTypeUnknownDeepLink(value)
+            self = .unknownDeepLink(value)
         case .internalLinkTypeUnsupportedProxy:
-            self = .internalLinkTypeUnsupportedProxy
+            self = .unsupportedProxy
         case .internalLinkTypeUserPhoneNumber:
             let value = try InternalLinkTypeUserPhoneNumber(from: decoder)
-            self = .internalLinkTypeUserPhoneNumber(value)
+            self = .userPhoneNumber(value)
         case .internalLinkTypeVideoChat:
             let value = try InternalLinkTypeVideoChat(from: decoder)
-            self = .internalLinkTypeVideoChat(value)
+            self = .videoChat(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .internalLinkTypeActiveSessions:
+        case .activeSessions:
             try container.encode(Kind.internalLinkTypeActiveSessions, forKey: .type)
-        case .internalLinkTypeAttachmentMenuBot(let value):
+        case .attachmentMenuBot(let value):
             try container.encode(Kind.internalLinkTypeAttachmentMenuBot, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeAuthenticationCode(let value):
+        case .authenticationCode(let value):
             try container.encode(Kind.internalLinkTypeAuthenticationCode, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeBackground(let value):
+        case .background(let value):
             try container.encode(Kind.internalLinkTypeBackground, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeBotStart(let value):
+        case .botStart(let value):
             try container.encode(Kind.internalLinkTypeBotStart, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeBotStartInGroup(let value):
+        case .botStartInGroup(let value):
             try container.encode(Kind.internalLinkTypeBotStartInGroup, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeBotAddToChannel(let value):
+        case .botAddToChannel(let value):
             try container.encode(Kind.internalLinkTypeBotAddToChannel, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeChangePhoneNumber:
+        case .changePhoneNumber:
             try container.encode(Kind.internalLinkTypeChangePhoneNumber, forKey: .type)
-        case .internalLinkTypeChatInvite(let value):
+        case .chatInvite(let value):
             try container.encode(Kind.internalLinkTypeChatInvite, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeFilterSettings:
+        case .filterSettings:
             try container.encode(Kind.internalLinkTypeFilterSettings, forKey: .type)
-        case .internalLinkTypeGame(let value):
+        case .game(let value):
             try container.encode(Kind.internalLinkTypeGame, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeInvoice(let value):
+        case .invoice(let value):
             try container.encode(Kind.internalLinkTypeInvoice, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeLanguagePack(let value):
+        case .languagePack(let value):
             try container.encode(Kind.internalLinkTypeLanguagePack, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeLanguageSettings:
+        case .languageSettings:
             try container.encode(Kind.internalLinkTypeLanguageSettings, forKey: .type)
-        case .internalLinkTypeMessage(let value):
+        case .message(let value):
             try container.encode(Kind.internalLinkTypeMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeMessageDraft(let value):
+        case .messageDraft(let value):
             try container.encode(Kind.internalLinkTypeMessageDraft, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypePassportDataRequest(let value):
+        case .passportDataRequest(let value):
             try container.encode(Kind.internalLinkTypePassportDataRequest, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypePhoneNumberConfirmation(let value):
+        case .phoneNumberConfirmation(let value):
             try container.encode(Kind.internalLinkTypePhoneNumberConfirmation, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypePremiumFeatures(let value):
+        case .premiumFeatures(let value):
             try container.encode(Kind.internalLinkTypePremiumFeatures, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypePrivacyAndSecuritySettings:
+        case .privacyAndSecuritySettings:
             try container.encode(Kind.internalLinkTypePrivacyAndSecuritySettings, forKey: .type)
-        case .internalLinkTypeProxy(let value):
+        case .proxy(let value):
             try container.encode(Kind.internalLinkTypeProxy, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypePublicChat(let value):
+        case .publicChat(let value):
             try container.encode(Kind.internalLinkTypePublicChat, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeQrCodeAuthentication:
+        case .qrCodeAuthentication:
             try container.encode(Kind.internalLinkTypeQrCodeAuthentication, forKey: .type)
-        case .internalLinkTypeSettings:
+        case .settings:
             try container.encode(Kind.internalLinkTypeSettings, forKey: .type)
-        case .internalLinkTypeStickerSet(let value):
+        case .stickerSet(let value):
             try container.encode(Kind.internalLinkTypeStickerSet, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeTheme(let value):
+        case .theme(let value):
             try container.encode(Kind.internalLinkTypeTheme, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeThemeSettings:
+        case .themeSettings:
             try container.encode(Kind.internalLinkTypeThemeSettings, forKey: .type)
-        case .internalLinkTypeUnknownDeepLink(let value):
+        case .unknownDeepLink(let value):
             try container.encode(Kind.internalLinkTypeUnknownDeepLink, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeUnsupportedProxy:
+        case .unsupportedProxy:
             try container.encode(Kind.internalLinkTypeUnsupportedProxy, forKey: .type)
-        case .internalLinkTypeUserPhoneNumber(let value):
+        case .userPhoneNumber(let value):
             try container.encode(Kind.internalLinkTypeUserPhoneNumber, forKey: .type)
             try value.encode(to: encoder)
-        case .internalLinkTypeVideoChat(let value):
+        case .videoChat(let value):
             try container.encode(Kind.internalLinkTypeVideoChat, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -324,7 +324,7 @@ public indirect enum InternalLinkType: Codable, Equatable {
 }
 
 /// The link is a link to an attachment menu bot to be opened in the specified or a chosen chat. Process given target_chat to open the chat. Then call searchPublicChat with the given bot username, check that the user is a bot and can be added to attachment menu. Then use getAttachmentMenuBot to receive information about the bot. If the bot isn't added to attachment menu, then user needs to confirm adding the bot to attachment menu. If user confirms adding, then use toggleBotIsAddedToAttachmentMenu to add it. If the attachment menu bot can't be used in the opened chat, show an error to the user. If the bot is added to attachment menu and can be used in the chat, then use openWebApp with the given URL
-public struct InternalLinkTypeAttachmentMenuBot: Codable, Equatable {
+public struct InternalLinkTypeAttachmentMenuBot: Codable, Equatable, Hashable {
 
     /// Username of the bot
     public let botUsername: String
@@ -348,7 +348,7 @@ public struct InternalLinkTypeAttachmentMenuBot: Codable, Equatable {
 }
 
 /// The link contains an authentication code. Call checkAuthenticationCode with the code if the current authorization state is authorizationStateWaitCode
-public struct InternalLinkTypeAuthenticationCode: Codable, Equatable {
+public struct InternalLinkTypeAuthenticationCode: Codable, Equatable, Hashable {
 
     /// The authentication code
     public let code: String
@@ -360,7 +360,7 @@ public struct InternalLinkTypeAuthenticationCode: Codable, Equatable {
 }
 
 /// The link is a link to a background. Call searchBackground with the given background name to process the link
-public struct InternalLinkTypeBackground: Codable, Equatable {
+public struct InternalLinkTypeBackground: Codable, Equatable, Hashable {
 
     /// Name of the background
     public let backgroundName: String
@@ -372,7 +372,7 @@ public struct InternalLinkTypeBackground: Codable, Equatable {
 }
 
 /// The link is a link to a chat with a Telegram bot. Call searchPublicChat with the given bot username, check that the user is a bot, show START button in the chat with the bot, and then call sendBotStartMessage with the given start parameter after the button is pressed
-public struct InternalLinkTypeBotStart: Codable, Equatable {
+public struct InternalLinkTypeBotStart: Codable, Equatable, Hashable {
 
     /// True, if sendBotStartMessage must be called automatically without showing the START button
     public let autostart: Bool
@@ -396,7 +396,7 @@ public struct InternalLinkTypeBotStart: Codable, Equatable {
 }
 
 /// The link is a link to a Telegram bot, which is supposed to be added to a group chat. Call searchPublicChat with the given bot username, check that the user is a bot and can be added to groups, ask the current user to select a basic group or a supergroup chat to add the bot to, taking into account that bots can be added to a public supergroup only by administrators of the supergroup. If administrator rights are provided by the link, call getChatMember to receive the current bot rights in the chat and if the bot already is an administrator, check that the current user can edit its administrator rights, combine received rights with the requested administrator rights, show confirmation box to the user, and call setChatMemberStatus with the chosen chat and confirmed administrator rights. Before call to setChatMemberStatus it may be required to upgrade the chosen basic group chat to a supergroup chat. Then if start_parameter isn't empty, call sendBotStartMessage with the given start parameter and the chosen chat, otherwise just send /start message with bot's username added to the chat.
-public struct InternalLinkTypeBotStartInGroup: Codable, Equatable {
+public struct InternalLinkTypeBotStartInGroup: Codable, Equatable, Hashable {
 
     /// Expected administrator rights for the bot; may be null
     public let administratorRights: ChatAdministratorRights?
@@ -420,7 +420,7 @@ public struct InternalLinkTypeBotStartInGroup: Codable, Equatable {
 }
 
 /// The link is a link to a Telegram bot, which is supposed to be added to a channel chat as an administrator. Call searchPublicChat with the given bot username and check that the user is a bot, ask the current user to select a channel chat to add the bot to as an administrator. Then call getChatMember to receive the current bot rights in the chat and if the bot already is an administrator, check that the current user can edit its administrator rights and combine received rights with the requested administrator rights. Then show confirmation box to the user, and call setChatMemberStatus with the chosen chat and confirmed rights
-public struct InternalLinkTypeBotAddToChannel: Codable, Equatable {
+public struct InternalLinkTypeBotAddToChannel: Codable, Equatable, Hashable {
 
     /// Expected administrator rights for the bot
     public let administratorRights: ChatAdministratorRights
@@ -439,7 +439,7 @@ public struct InternalLinkTypeBotAddToChannel: Codable, Equatable {
 }
 
 /// The link is a chat invite link. Call checkChatInviteLink with the given invite link to process the link
-public struct InternalLinkTypeChatInvite: Codable, Equatable {
+public struct InternalLinkTypeChatInvite: Codable, Equatable, Hashable {
 
     /// Internal representation of the invite link
     public let inviteLink: String
@@ -451,7 +451,7 @@ public struct InternalLinkTypeChatInvite: Codable, Equatable {
 }
 
 /// The link is a link to a game. Call searchPublicChat with the given bot username, check that the user is a bot, ask the current user to select a chat to send the game, and then call sendMessage with inputMessageGame
-public struct InternalLinkTypeGame: Codable, Equatable {
+public struct InternalLinkTypeGame: Codable, Equatable, Hashable {
 
     /// Username of the bot that owns the game
     public let botUsername: String
@@ -470,7 +470,7 @@ public struct InternalLinkTypeGame: Codable, Equatable {
 }
 
 /// The link is a link to an invoice. Call getPaymentForm with the given invoice name to process the link
-public struct InternalLinkTypeInvoice: Codable, Equatable {
+public struct InternalLinkTypeInvoice: Codable, Equatable, Hashable {
 
     /// Name of the invoice
     public let invoiceName: String
@@ -482,7 +482,7 @@ public struct InternalLinkTypeInvoice: Codable, Equatable {
 }
 
 /// The link is a link to a language pack. Call getLanguagePackInfo with the given language pack identifier to process the link
-public struct InternalLinkTypeLanguagePack: Codable, Equatable {
+public struct InternalLinkTypeLanguagePack: Codable, Equatable, Hashable {
 
     /// Language pack identifier
     public let languagePackId: String
@@ -494,7 +494,7 @@ public struct InternalLinkTypeLanguagePack: Codable, Equatable {
 }
 
 /// The link is a link to a Telegram message. Call getMessageLinkInfo with the given URL to process the link
-public struct InternalLinkTypeMessage: Codable, Equatable {
+public struct InternalLinkTypeMessage: Codable, Equatable, Hashable {
 
     /// URL to be passed to getMessageLinkInfo
     public let url: String
@@ -506,7 +506,7 @@ public struct InternalLinkTypeMessage: Codable, Equatable {
 }
 
 /// The link contains a message draft text. A share screen needs to be shown to the user, then the chosen chat must be opened and the text is added to the input field
-public struct InternalLinkTypeMessageDraft: Codable, Equatable {
+public struct InternalLinkTypeMessageDraft: Codable, Equatable, Hashable {
 
     /// True, if the first line of the text contains a link. If true, the input field needs to be focused and the text after the link must be selected
     public let containsLink: Bool
@@ -525,7 +525,7 @@ public struct InternalLinkTypeMessageDraft: Codable, Equatable {
 }
 
 /// The link contains a request of Telegram passport data. Call getPassportAuthorizationForm with the given parameters to process the link if the link was received from outside of the application, otherwise ignore it
-public struct InternalLinkTypePassportDataRequest: Codable, Equatable {
+public struct InternalLinkTypePassportDataRequest: Codable, Equatable, Hashable {
 
     /// User identifier of the service's bot
     public let botUserId: Int64
@@ -559,7 +559,7 @@ public struct InternalLinkTypePassportDataRequest: Codable, Equatable {
 }
 
 /// The link can be used to confirm ownership of a phone number to prevent account deletion. Call sendPhoneNumberConfirmationCode with the given hash and phone number to process the link
-public struct InternalLinkTypePhoneNumberConfirmation: Codable, Equatable {
+public struct InternalLinkTypePhoneNumberConfirmation: Codable, Equatable, Hashable {
 
     /// Hash value from the link
     public let hash: String
@@ -578,7 +578,7 @@ public struct InternalLinkTypePhoneNumberConfirmation: Codable, Equatable {
 }
 
 /// The link is a link to the Premium features screen of the applcation from which the user can subscribe to Telegram Premium. Call getPremiumFeatures with the given referrer to process the link
-public struct InternalLinkTypePremiumFeatures: Codable, Equatable {
+public struct InternalLinkTypePremiumFeatures: Codable, Equatable, Hashable {
 
     /// Referrer specified in the link
     public let referrer: String
@@ -590,7 +590,7 @@ public struct InternalLinkTypePremiumFeatures: Codable, Equatable {
 }
 
 /// The link is a link to a proxy. Call addProxy with the given parameters to process the link and add the proxy
-public struct InternalLinkTypeProxy: Codable, Equatable {
+public struct InternalLinkTypeProxy: Codable, Equatable, Hashable {
 
     /// Proxy server port
     public let port: Int
@@ -614,7 +614,7 @@ public struct InternalLinkTypeProxy: Codable, Equatable {
 }
 
 /// The link is a link to a chat by its username. Call searchPublicChat with the given chat username to process the link
-public struct InternalLinkTypePublicChat: Codable, Equatable {
+public struct InternalLinkTypePublicChat: Codable, Equatable, Hashable {
 
     /// Username of the chat
     public let chatUsername: String
@@ -626,7 +626,7 @@ public struct InternalLinkTypePublicChat: Codable, Equatable {
 }
 
 /// The link is a link to a sticker set. Call searchStickerSet with the given sticker set name to process the link and show the sticker set
-public struct InternalLinkTypeStickerSet: Codable, Equatable {
+public struct InternalLinkTypeStickerSet: Codable, Equatable, Hashable {
 
     /// Name of the sticker set
     public let stickerSetName: String
@@ -638,7 +638,7 @@ public struct InternalLinkTypeStickerSet: Codable, Equatable {
 }
 
 /// The link is a link to a theme. TDLib has no theme support yet
-public struct InternalLinkTypeTheme: Codable, Equatable {
+public struct InternalLinkTypeTheme: Codable, Equatable, Hashable {
 
     /// Name of the theme
     public let themeName: String
@@ -650,7 +650,7 @@ public struct InternalLinkTypeTheme: Codable, Equatable {
 }
 
 /// The link is an unknown tg: link. Call getDeepLinkInfo to process the link
-public struct InternalLinkTypeUnknownDeepLink: Codable, Equatable {
+public struct InternalLinkTypeUnknownDeepLink: Codable, Equatable, Hashable {
 
     /// Link to be passed to getDeepLinkInfo
     public let link: String
@@ -662,7 +662,7 @@ public struct InternalLinkTypeUnknownDeepLink: Codable, Equatable {
 }
 
 /// The link is a link to a user by its phone number. Call searchUserByPhoneNumber with the given phone number to process the link
-public struct InternalLinkTypeUserPhoneNumber: Codable, Equatable {
+public struct InternalLinkTypeUserPhoneNumber: Codable, Equatable, Hashable {
 
     /// Phone number of the user
     public let phoneNumber: String
@@ -674,7 +674,7 @@ public struct InternalLinkTypeUserPhoneNumber: Codable, Equatable {
 }
 
 /// The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGroupCall with the given invite hash to process the link
-public struct InternalLinkTypeVideoChat: Codable, Equatable {
+public struct InternalLinkTypeVideoChat: Codable, Equatable, Hashable {
 
     /// Username of the chat with the video chat
     public let chatUsername: String

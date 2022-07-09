@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Contains information about an inline button of type inlineKeyboardButtonTypeLoginUrl
-public enum LoginUrlInfo: Codable, Equatable {
+public enum LoginUrlInfo: Codable, Equatable, Hashable {
 
     /// An HTTP url needs to be open
-    case loginUrlInfoOpen(LoginUrlInfoOpen)
+    case open(LoginUrlInfoOpen)
 
     /// An authorization confirmation dialog needs to be shown to the user
-    case loginUrlInfoRequestConfirmation(LoginUrlInfoRequestConfirmation)
+    case requestConfirmation(LoginUrlInfoRequestConfirmation)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum LoginUrlInfo: Codable, Equatable {
         switch type {
         case .loginUrlInfoOpen:
             let value = try LoginUrlInfoOpen(from: decoder)
-            self = .loginUrlInfoOpen(value)
+            self = .open(value)
         case .loginUrlInfoRequestConfirmation:
             let value = try LoginUrlInfoRequestConfirmation(from: decoder)
-            self = .loginUrlInfoRequestConfirmation(value)
+            self = .requestConfirmation(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .loginUrlInfoOpen(let value):
+        case .open(let value):
             try container.encode(Kind.loginUrlInfoOpen, forKey: .type)
             try value.encode(to: encoder)
-        case .loginUrlInfoRequestConfirmation(let value):
+        case .requestConfirmation(let value):
             try container.encode(Kind.loginUrlInfoRequestConfirmation, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum LoginUrlInfo: Codable, Equatable {
 }
 
 /// An HTTP url needs to be open
-public struct LoginUrlInfoOpen: Codable, Equatable {
+public struct LoginUrlInfoOpen: Codable, Equatable, Hashable {
 
     /// True, if there is no need to show an ordinary open URL confirm
     public let skipConfirm: Bool
@@ -71,7 +71,7 @@ public struct LoginUrlInfoOpen: Codable, Equatable {
 }
 
 /// An authorization confirmation dialog needs to be shown to the user
-public struct LoginUrlInfoRequestConfirmation: Codable, Equatable {
+public struct LoginUrlInfoRequestConfirmation: Codable, Equatable, Hashable {
 
     /// User identifier of a bot linked with the website
     public let botUserId: Int64

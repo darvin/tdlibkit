@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Uploads a file with a sticker; returns the uploaded file
-public struct UploadStickerFile: Codable, Equatable {
+public struct UploadStickerFile: Codable, Equatable, Hashable {
 
     /// Sticker file to upload
     public let sticker: InputSticker?

@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Describes the current state of the connection to Telegram servers
-public enum ConnectionState: Codable, Equatable {
+public enum ConnectionState: Codable, Equatable, Hashable {
 
     /// Currently waiting for the network to become available. Use setNetworkType to change the available network type
-    case connectionStateWaitingForNetwork
+    case waitingForNetwork
 
     /// Currently establishing a connection with a proxy server
-    case connectionStateConnectingToProxy
+    case connectingToProxy
 
     /// Currently establishing a connection to the Telegram servers
-    case connectionStateConnecting
+    case connecting
 
     /// Downloading data received while the application was offline
-    case connectionStateUpdating
+    case updating
 
     /// There is a working connection to the Telegram servers
-    case connectionStateReady
+    case ready
 
 
     private enum Kind: String, Codable {
@@ -42,30 +42,30 @@ public enum ConnectionState: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .connectionStateWaitingForNetwork:
-            self = .connectionStateWaitingForNetwork
+            self = .waitingForNetwork
         case .connectionStateConnectingToProxy:
-            self = .connectionStateConnectingToProxy
+            self = .connectingToProxy
         case .connectionStateConnecting:
-            self = .connectionStateConnecting
+            self = .connecting
         case .connectionStateUpdating:
-            self = .connectionStateUpdating
+            self = .updating
         case .connectionStateReady:
-            self = .connectionStateReady
+            self = .ready
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .connectionStateWaitingForNetwork:
+        case .waitingForNetwork:
             try container.encode(Kind.connectionStateWaitingForNetwork, forKey: .type)
-        case .connectionStateConnectingToProxy:
+        case .connectingToProxy:
             try container.encode(Kind.connectionStateConnectingToProxy, forKey: .type)
-        case .connectionStateConnecting:
+        case .connecting:
             try container.encode(Kind.connectionStateConnecting, forKey: .type)
-        case .connectionStateUpdating:
+        case .updating:
             try container.encode(Kind.connectionStateUpdating, forKey: .type)
-        case .connectionStateReady:
+        case .ready:
             try container.encode(Kind.connectionStateReady, forKey: .type)
         }
     }

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Changes the order of chat filters
-public struct ReorderChatFilters: Codable, Equatable {
+public struct ReorderChatFilters: Codable, Equatable, Hashable {
 
     /// Identifiers of chat filters in the new correct order
     public let chatFilterIds: [Int]?

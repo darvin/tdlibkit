@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Changes chosen reaction for a message
-public struct SetMessageReaction: Codable, Equatable {
+public struct SetMessageReaction: Codable, Equatable, Hashable {
 
     /// Identifier of the chat to which the message belongs
     public let chatId: Int64?

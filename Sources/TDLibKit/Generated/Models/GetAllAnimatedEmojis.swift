@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Returns all emojis, which has a corresponding animated emoji
-public struct GetAllAnimatedEmojis: Codable, Equatable {
+public struct GetAllAnimatedEmojis: Codable, Equatable, Hashable {
 
 
     public init() {}

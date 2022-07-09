@@ -11,31 +11,31 @@ import Foundation
 
 
 /// Describes available user privacy settings
-public enum UserPrivacySetting: Codable, Equatable {
+public enum UserPrivacySetting: Codable, Equatable, Hashable {
 
     /// A privacy setting for managing whether the user's online status is visible
-    case userPrivacySettingShowStatus
+    case showStatus
 
     /// A privacy setting for managing whether the user's profile photo is visible
-    case userPrivacySettingShowProfilePhoto
+    case showProfilePhoto
 
     /// A privacy setting for managing whether a link to the user's account is included in forwarded messages
-    case userPrivacySettingShowLinkInForwardedMessages
+    case showLinkInForwardedMessages
 
     /// A privacy setting for managing whether the user's phone number is visible
-    case userPrivacySettingShowPhoneNumber
+    case showPhoneNumber
 
     /// A privacy setting for managing whether the user can be invited to chats
-    case userPrivacySettingAllowChatInvites
+    case allowChatInvites
 
     /// A privacy setting for managing whether the user can be called
-    case userPrivacySettingAllowCalls
+    case allowCalls
 
     /// A privacy setting for managing whether peer-to-peer connections can be used for calls
-    case userPrivacySettingAllowPeerToPeerCalls
+    case allowPeerToPeerCalls
 
     /// A privacy setting for managing whether the user can be found by their phone number. Checked only if the phone number is not known to the other user. Can be set only to "Allow contacts" or "Allow all"
-    case userPrivacySettingAllowFindingByPhoneNumber
+    case allowFindingByPhoneNumber
 
 
     private enum Kind: String, Codable {
@@ -54,42 +54,42 @@ public enum UserPrivacySetting: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .userPrivacySettingShowStatus:
-            self = .userPrivacySettingShowStatus
+            self = .showStatus
         case .userPrivacySettingShowProfilePhoto:
-            self = .userPrivacySettingShowProfilePhoto
+            self = .showProfilePhoto
         case .userPrivacySettingShowLinkInForwardedMessages:
-            self = .userPrivacySettingShowLinkInForwardedMessages
+            self = .showLinkInForwardedMessages
         case .userPrivacySettingShowPhoneNumber:
-            self = .userPrivacySettingShowPhoneNumber
+            self = .showPhoneNumber
         case .userPrivacySettingAllowChatInvites:
-            self = .userPrivacySettingAllowChatInvites
+            self = .allowChatInvites
         case .userPrivacySettingAllowCalls:
-            self = .userPrivacySettingAllowCalls
+            self = .allowCalls
         case .userPrivacySettingAllowPeerToPeerCalls:
-            self = .userPrivacySettingAllowPeerToPeerCalls
+            self = .allowPeerToPeerCalls
         case .userPrivacySettingAllowFindingByPhoneNumber:
-            self = .userPrivacySettingAllowFindingByPhoneNumber
+            self = .allowFindingByPhoneNumber
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .userPrivacySettingShowStatus:
+        case .showStatus:
             try container.encode(Kind.userPrivacySettingShowStatus, forKey: .type)
-        case .userPrivacySettingShowProfilePhoto:
+        case .showProfilePhoto:
             try container.encode(Kind.userPrivacySettingShowProfilePhoto, forKey: .type)
-        case .userPrivacySettingShowLinkInForwardedMessages:
+        case .showLinkInForwardedMessages:
             try container.encode(Kind.userPrivacySettingShowLinkInForwardedMessages, forKey: .type)
-        case .userPrivacySettingShowPhoneNumber:
+        case .showPhoneNumber:
             try container.encode(Kind.userPrivacySettingShowPhoneNumber, forKey: .type)
-        case .userPrivacySettingAllowChatInvites:
+        case .allowChatInvites:
             try container.encode(Kind.userPrivacySettingAllowChatInvites, forKey: .type)
-        case .userPrivacySettingAllowCalls:
+        case .allowCalls:
             try container.encode(Kind.userPrivacySettingAllowCalls, forKey: .type)
-        case .userPrivacySettingAllowPeerToPeerCalls:
+        case .allowPeerToPeerCalls:
             try container.encode(Kind.userPrivacySettingAllowPeerToPeerCalls, forKey: .type)
-        case .userPrivacySettingAllowFindingByPhoneNumber:
+        case .allowFindingByPhoneNumber:
             try container.encode(Kind.userPrivacySettingAllowFindingByPhoneNumber, forKey: .type)
         }
     }

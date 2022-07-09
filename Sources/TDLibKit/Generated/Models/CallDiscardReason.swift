@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Describes the reason why a call was discarded
-public enum CallDiscardReason: Codable, Equatable {
+public enum CallDiscardReason: Codable, Equatable, Hashable {
 
     /// The call wasn't discarded, or the reason is unknown
-    case callDiscardReasonEmpty
+    case empty
 
     /// The call was ended before the conversation started. It was canceled by the caller or missed by the other party
-    case callDiscardReasonMissed
+    case missed
 
     /// The call was ended before the conversation started. It was declined by the other party
-    case callDiscardReasonDeclined
+    case declined
 
     /// The call was ended during the conversation because the users were disconnected
-    case callDiscardReasonDisconnected
+    case disconnected
 
     /// The call was ended because one of the parties hung up
-    case callDiscardReasonHungUp
+    case hungUp
 
 
     private enum Kind: String, Codable {
@@ -42,30 +42,30 @@ public enum CallDiscardReason: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .callDiscardReasonEmpty:
-            self = .callDiscardReasonEmpty
+            self = .empty
         case .callDiscardReasonMissed:
-            self = .callDiscardReasonMissed
+            self = .missed
         case .callDiscardReasonDeclined:
-            self = .callDiscardReasonDeclined
+            self = .declined
         case .callDiscardReasonDisconnected:
-            self = .callDiscardReasonDisconnected
+            self = .disconnected
         case .callDiscardReasonHungUp:
-            self = .callDiscardReasonHungUp
+            self = .hungUp
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .callDiscardReasonEmpty:
+        case .empty:
             try container.encode(Kind.callDiscardReasonEmpty, forKey: .type)
-        case .callDiscardReasonMissed:
+        case .missed:
             try container.encode(Kind.callDiscardReasonMissed, forKey: .type)
-        case .callDiscardReasonDeclined:
+        case .declined:
             try container.encode(Kind.callDiscardReasonDeclined, forKey: .type)
-        case .callDiscardReasonDisconnected:
+        case .disconnected:
             try container.encode(Kind.callDiscardReasonDisconnected, forKey: .type)
-        case .callDiscardReasonHungUp:
+        case .hungUp:
             try container.encode(Kind.callDiscardReasonHungUp, forKey: .type)
         }
     }

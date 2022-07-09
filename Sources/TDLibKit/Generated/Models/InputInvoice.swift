@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describe an invoice to process
-public enum InputInvoice: Codable, Equatable {
+public enum InputInvoice: Codable, Equatable, Hashable {
 
     /// An invoice from a message of the type messageInvoice
-    case inputInvoiceMessage(InputInvoiceMessage)
+    case message(InputInvoiceMessage)
 
     /// An invoice from a link of the type internalLinkTypeInvoice
-    case inputInvoiceName(InputInvoiceName)
+    case name(InputInvoiceName)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum InputInvoice: Codable, Equatable {
         switch type {
         case .inputInvoiceMessage:
             let value = try InputInvoiceMessage(from: decoder)
-            self = .inputInvoiceMessage(value)
+            self = .message(value)
         case .inputInvoiceName:
             let value = try InputInvoiceName(from: decoder)
-            self = .inputInvoiceName(value)
+            self = .name(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .inputInvoiceMessage(let value):
+        case .message(let value):
             try container.encode(Kind.inputInvoiceMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .inputInvoiceName(let value):
+        case .name(let value):
             try container.encode(Kind.inputInvoiceName, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum InputInvoice: Codable, Equatable {
 }
 
 /// An invoice from a message of the type messageInvoice
-public struct InputInvoiceMessage: Codable, Equatable {
+public struct InputInvoiceMessage: Codable, Equatable, Hashable {
 
     /// Chat identifier of the message
     public let chatId: Int64
@@ -71,7 +71,7 @@ public struct InputInvoiceMessage: Codable, Equatable {
 }
 
 /// An invoice from a link of the type internalLinkTypeInvoice
-public struct InputInvoiceName: Codable, Equatable {
+public struct InputInvoiceName: Codable, Equatable, Hashable {
 
     /// Name of the invoice
     public let name: String

@@ -11,25 +11,25 @@ import Foundation
 
 
 /// Describes the last time the user was online
-public enum UserStatus: Codable, Equatable {
+public enum UserStatus: Codable, Equatable, Hashable {
 
     /// The user status was never changed
-    case userStatusEmpty
+    case empty
 
     /// The user is online
-    case userStatusOnline(UserStatusOnline)
+    case online(UserStatusOnline)
 
     /// The user is offline
-    case userStatusOffline(UserStatusOffline)
+    case offline(UserStatusOffline)
 
     /// The user was online recently
-    case userStatusRecently
+    case recently
 
     /// The user is offline, but was online last week
-    case userStatusLastWeek
+    case lastWeek
 
     /// The user is offline, but was online last month
-    case userStatusLastMonth
+    case lastMonth
 
 
     private enum Kind: String, Codable {
@@ -46,45 +46,45 @@ public enum UserStatus: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .userStatusEmpty:
-            self = .userStatusEmpty
+            self = .empty
         case .userStatusOnline:
             let value = try UserStatusOnline(from: decoder)
-            self = .userStatusOnline(value)
+            self = .online(value)
         case .userStatusOffline:
             let value = try UserStatusOffline(from: decoder)
-            self = .userStatusOffline(value)
+            self = .offline(value)
         case .userStatusRecently:
-            self = .userStatusRecently
+            self = .recently
         case .userStatusLastWeek:
-            self = .userStatusLastWeek
+            self = .lastWeek
         case .userStatusLastMonth:
-            self = .userStatusLastMonth
+            self = .lastMonth
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .userStatusEmpty:
+        case .empty:
             try container.encode(Kind.userStatusEmpty, forKey: .type)
-        case .userStatusOnline(let value):
+        case .online(let value):
             try container.encode(Kind.userStatusOnline, forKey: .type)
             try value.encode(to: encoder)
-        case .userStatusOffline(let value):
+        case .offline(let value):
             try container.encode(Kind.userStatusOffline, forKey: .type)
             try value.encode(to: encoder)
-        case .userStatusRecently:
+        case .recently:
             try container.encode(Kind.userStatusRecently, forKey: .type)
-        case .userStatusLastWeek:
+        case .lastWeek:
             try container.encode(Kind.userStatusLastWeek, forKey: .type)
-        case .userStatusLastMonth:
+        case .lastMonth:
             try container.encode(Kind.userStatusLastMonth, forKey: .type)
         }
     }
 }
 
 /// The user is online
-public struct UserStatusOnline: Codable, Equatable {
+public struct UserStatusOnline: Codable, Equatable, Hashable {
 
     /// Point in time (Unix timestamp) when the user's online status will expire
     public let expires: Int
@@ -96,7 +96,7 @@ public struct UserStatusOnline: Codable, Equatable {
 }
 
 /// The user is offline
-public struct UserStatusOffline: Codable, Equatable {
+public struct UserStatusOffline: Codable, Equatable, Hashable {
 
     /// Point in time (Unix timestamp) when the user was last online
     public let wasOnline: Int

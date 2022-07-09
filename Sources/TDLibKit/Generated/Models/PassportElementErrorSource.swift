@@ -11,34 +11,34 @@ import Foundation
 
 
 /// Contains the description of an error in a Telegram Passport element
-public enum PassportElementErrorSource: Codable, Equatable {
+public enum PassportElementErrorSource: Codable, Equatable, Hashable {
 
     /// The element contains an error in an unspecified place. The error will be considered resolved when new data is added
-    case passportElementErrorSourceUnspecified
+    case unspecified
 
     /// One of the data fields contains an error. The error will be considered resolved when the value of the field changes
-    case passportElementErrorSourceDataField(PassportElementErrorSourceDataField)
+    case dataField(PassportElementErrorSourceDataField)
 
     /// The front side of the document contains an error. The error will be considered resolved when the file with the front side changes
-    case passportElementErrorSourceFrontSide
+    case frontSide
 
     /// The reverse side of the document contains an error. The error will be considered resolved when the file with the reverse side changes
-    case passportElementErrorSourceReverseSide
+    case reverseSide
 
     /// The selfie with the document contains an error. The error will be considered resolved when the file with the selfie changes
-    case passportElementErrorSourceSelfie
+    case selfie
 
     /// One of files with the translation of the document contains an error. The error will be considered resolved when the file changes
-    case passportElementErrorSourceTranslationFile(PassportElementErrorSourceTranslationFile)
+    case translationFile(PassportElementErrorSourceTranslationFile)
 
     /// The translation of the document contains an error. The error will be considered resolved when the list of translation files changes
-    case passportElementErrorSourceTranslationFiles
+    case translationFiles
 
     /// The file contains an error. The error will be considered resolved when the file changes
-    case passportElementErrorSourceFile(PassportElementErrorSourceFile)
+    case file(PassportElementErrorSourceFile)
 
     /// The list of attached files contains an error. The error will be considered resolved when the list of files changes
-    case passportElementErrorSourceFiles
+    case files
 
 
     private enum Kind: String, Codable {
@@ -58,59 +58,59 @@ public enum PassportElementErrorSource: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .passportElementErrorSourceUnspecified:
-            self = .passportElementErrorSourceUnspecified
+            self = .unspecified
         case .passportElementErrorSourceDataField:
             let value = try PassportElementErrorSourceDataField(from: decoder)
-            self = .passportElementErrorSourceDataField(value)
+            self = .dataField(value)
         case .passportElementErrorSourceFrontSide:
-            self = .passportElementErrorSourceFrontSide
+            self = .frontSide
         case .passportElementErrorSourceReverseSide:
-            self = .passportElementErrorSourceReverseSide
+            self = .reverseSide
         case .passportElementErrorSourceSelfie:
-            self = .passportElementErrorSourceSelfie
+            self = .selfie
         case .passportElementErrorSourceTranslationFile:
             let value = try PassportElementErrorSourceTranslationFile(from: decoder)
-            self = .passportElementErrorSourceTranslationFile(value)
+            self = .translationFile(value)
         case .passportElementErrorSourceTranslationFiles:
-            self = .passportElementErrorSourceTranslationFiles
+            self = .translationFiles
         case .passportElementErrorSourceFile:
             let value = try PassportElementErrorSourceFile(from: decoder)
-            self = .passportElementErrorSourceFile(value)
+            self = .file(value)
         case .passportElementErrorSourceFiles:
-            self = .passportElementErrorSourceFiles
+            self = .files
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .passportElementErrorSourceUnspecified:
+        case .unspecified:
             try container.encode(Kind.passportElementErrorSourceUnspecified, forKey: .type)
-        case .passportElementErrorSourceDataField(let value):
+        case .dataField(let value):
             try container.encode(Kind.passportElementErrorSourceDataField, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementErrorSourceFrontSide:
+        case .frontSide:
             try container.encode(Kind.passportElementErrorSourceFrontSide, forKey: .type)
-        case .passportElementErrorSourceReverseSide:
+        case .reverseSide:
             try container.encode(Kind.passportElementErrorSourceReverseSide, forKey: .type)
-        case .passportElementErrorSourceSelfie:
+        case .selfie:
             try container.encode(Kind.passportElementErrorSourceSelfie, forKey: .type)
-        case .passportElementErrorSourceTranslationFile(let value):
+        case .translationFile(let value):
             try container.encode(Kind.passportElementErrorSourceTranslationFile, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementErrorSourceTranslationFiles:
+        case .translationFiles:
             try container.encode(Kind.passportElementErrorSourceTranslationFiles, forKey: .type)
-        case .passportElementErrorSourceFile(let value):
+        case .file(let value):
             try container.encode(Kind.passportElementErrorSourceFile, forKey: .type)
             try value.encode(to: encoder)
-        case .passportElementErrorSourceFiles:
+        case .files:
             try container.encode(Kind.passportElementErrorSourceFiles, forKey: .type)
         }
     }
 }
 
 /// One of the data fields contains an error. The error will be considered resolved when the value of the field changes
-public struct PassportElementErrorSourceDataField: Codable, Equatable {
+public struct PassportElementErrorSourceDataField: Codable, Equatable, Hashable {
 
     /// Field name
     public let fieldName: String
@@ -122,7 +122,7 @@ public struct PassportElementErrorSourceDataField: Codable, Equatable {
 }
 
 /// One of files with the translation of the document contains an error. The error will be considered resolved when the file changes
-public struct PassportElementErrorSourceTranslationFile: Codable, Equatable {
+public struct PassportElementErrorSourceTranslationFile: Codable, Equatable, Hashable {
 
     /// Index of a file with the error
     public let fileIndex: Int
@@ -134,7 +134,7 @@ public struct PassportElementErrorSourceTranslationFile: Codable, Equatable {
 }
 
 /// The file contains an error. The error will be considered resolved when the file changes
-public struct PassportElementErrorSourceFile: Codable, Equatable {
+public struct PassportElementErrorSourceFile: Codable, Equatable, Hashable {
 
     /// Index of a file with the error
     public let fileIndex: Int

@@ -11,22 +11,22 @@ import Foundation
 
 
 /// Provides information about the method by which an authentication code is delivered to the user
-public enum AuthenticationCodeType: Codable, Equatable {
+public enum AuthenticationCodeType: Codable, Equatable, Hashable {
 
     /// An authentication code is delivered via a private Telegram message, which can be viewed from another active session
-    case authenticationCodeTypeTelegramMessage(AuthenticationCodeTypeTelegramMessage)
+    case telegramMessage(AuthenticationCodeTypeTelegramMessage)
 
     /// An authentication code is delivered via an SMS message to the specified phone number
-    case authenticationCodeTypeSms(AuthenticationCodeTypeSms)
+    case sms(AuthenticationCodeTypeSms)
 
     /// An authentication code is delivered via a phone call to the specified phone number
-    case authenticationCodeTypeCall(AuthenticationCodeTypeCall)
+    case call(AuthenticationCodeTypeCall)
 
     /// An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number that calls is the code that must be entered automatically
-    case authenticationCodeTypeFlashCall(AuthenticationCodeTypeFlashCall)
+    case flashCall(AuthenticationCodeTypeFlashCall)
 
     /// An authentication code is delivered by an immediately canceled call to the specified phone number. The last digits of the phone number that calls are the code that must be entered manually by the user
-    case authenticationCodeTypeMissedCall(AuthenticationCodeTypeMissedCall)
+    case missedCall(AuthenticationCodeTypeMissedCall)
 
 
     private enum Kind: String, Codable {
@@ -43,38 +43,38 @@ public enum AuthenticationCodeType: Codable, Equatable {
         switch type {
         case .authenticationCodeTypeTelegramMessage:
             let value = try AuthenticationCodeTypeTelegramMessage(from: decoder)
-            self = .authenticationCodeTypeTelegramMessage(value)
+            self = .telegramMessage(value)
         case .authenticationCodeTypeSms:
             let value = try AuthenticationCodeTypeSms(from: decoder)
-            self = .authenticationCodeTypeSms(value)
+            self = .sms(value)
         case .authenticationCodeTypeCall:
             let value = try AuthenticationCodeTypeCall(from: decoder)
-            self = .authenticationCodeTypeCall(value)
+            self = .call(value)
         case .authenticationCodeTypeFlashCall:
             let value = try AuthenticationCodeTypeFlashCall(from: decoder)
-            self = .authenticationCodeTypeFlashCall(value)
+            self = .flashCall(value)
         case .authenticationCodeTypeMissedCall:
             let value = try AuthenticationCodeTypeMissedCall(from: decoder)
-            self = .authenticationCodeTypeMissedCall(value)
+            self = .missedCall(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .authenticationCodeTypeTelegramMessage(let value):
+        case .telegramMessage(let value):
             try container.encode(Kind.authenticationCodeTypeTelegramMessage, forKey: .type)
             try value.encode(to: encoder)
-        case .authenticationCodeTypeSms(let value):
+        case .sms(let value):
             try container.encode(Kind.authenticationCodeTypeSms, forKey: .type)
             try value.encode(to: encoder)
-        case .authenticationCodeTypeCall(let value):
+        case .call(let value):
             try container.encode(Kind.authenticationCodeTypeCall, forKey: .type)
             try value.encode(to: encoder)
-        case .authenticationCodeTypeFlashCall(let value):
+        case .flashCall(let value):
             try container.encode(Kind.authenticationCodeTypeFlashCall, forKey: .type)
             try value.encode(to: encoder)
-        case .authenticationCodeTypeMissedCall(let value):
+        case .missedCall(let value):
             try container.encode(Kind.authenticationCodeTypeMissedCall, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -82,7 +82,7 @@ public enum AuthenticationCodeType: Codable, Equatable {
 }
 
 /// An authentication code is delivered via a private Telegram message, which can be viewed from another active session
-public struct AuthenticationCodeTypeTelegramMessage: Codable, Equatable {
+public struct AuthenticationCodeTypeTelegramMessage: Codable, Equatable, Hashable {
 
     /// Length of the code
     public let length: Int
@@ -94,7 +94,7 @@ public struct AuthenticationCodeTypeTelegramMessage: Codable, Equatable {
 }
 
 /// An authentication code is delivered via an SMS message to the specified phone number
-public struct AuthenticationCodeTypeSms: Codable, Equatable {
+public struct AuthenticationCodeTypeSms: Codable, Equatable, Hashable {
 
     /// Length of the code
     public let length: Int
@@ -106,7 +106,7 @@ public struct AuthenticationCodeTypeSms: Codable, Equatable {
 }
 
 /// An authentication code is delivered via a phone call to the specified phone number
-public struct AuthenticationCodeTypeCall: Codable, Equatable {
+public struct AuthenticationCodeTypeCall: Codable, Equatable, Hashable {
 
     /// Length of the code
     public let length: Int
@@ -118,7 +118,7 @@ public struct AuthenticationCodeTypeCall: Codable, Equatable {
 }
 
 /// An authentication code is delivered by an immediately canceled call to the specified phone number. The phone number that calls is the code that must be entered automatically
-public struct AuthenticationCodeTypeFlashCall: Codable, Equatable {
+public struct AuthenticationCodeTypeFlashCall: Codable, Equatable, Hashable {
 
     /// Pattern of the phone number from which the call will be made
     public let pattern: String
@@ -130,7 +130,7 @@ public struct AuthenticationCodeTypeFlashCall: Codable, Equatable {
 }
 
 /// An authentication code is delivered by an immediately canceled call to the specified phone number. The last digits of the phone number that calls are the code that must be entered manually by the user
-public struct AuthenticationCodeTypeMissedCall: Codable, Equatable {
+public struct AuthenticationCodeTypeMissedCall: Codable, Equatable, Hashable {
 
     /// Number of digits in the code, excluding the prefix
     public let length: Int

@@ -11,58 +11,58 @@ import Foundation
 
 
 /// Describes a text object inside an instant-view web page
-public indirect enum RichText: Codable, Equatable {
+public indirect enum RichText: Codable, Equatable, Hashable {
 
     /// A plain text
-    case richTextPlain(RichTextPlain)
+    case plain(RichTextPlain)
 
     /// A bold rich text
-    case richTextBold(RichTextBold)
+    case bold(RichTextBold)
 
     /// An italicized rich text
-    case richTextItalic(RichTextItalic)
+    case italic(RichTextItalic)
 
     /// An underlined rich text
-    case richTextUnderline(RichTextUnderline)
+    case underline(RichTextUnderline)
 
     /// A strikethrough rich text
-    case richTextStrikethrough(RichTextStrikethrough)
+    case strikethrough(RichTextStrikethrough)
 
     /// A fixed-width rich text
-    case richTextFixed(RichTextFixed)
+    case fixed(RichTextFixed)
 
     /// A rich text URL link
-    case richTextUrl(RichTextUrl)
+    case url(RichTextUrl)
 
     /// A rich text email link
-    case richTextEmailAddress(RichTextEmailAddress)
+    case emailAddress(RichTextEmailAddress)
 
     /// A subscript rich text
-    case richTextSubscript(RichTextSubscript)
+    case `subscript`(RichTextSubscript)
 
     /// A superscript rich text
-    case richTextSuperscript(RichTextSuperscript)
+    case superscript(RichTextSuperscript)
 
     /// A marked rich text
-    case richTextMarked(RichTextMarked)
+    case marked(RichTextMarked)
 
     /// A rich text phone number
-    case richTextPhoneNumber(RichTextPhoneNumber)
+    case phoneNumber(RichTextPhoneNumber)
 
     /// A small image inside the text
-    case richTextIcon(RichTextIcon)
+    case icon(RichTextIcon)
 
     /// A reference to a richTexts object on the same web page
-    case richTextReference(RichTextReference)
+    case reference(RichTextReference)
 
     /// An anchor
-    case richTextAnchor(RichTextAnchor)
+    case anchor(RichTextAnchor)
 
     /// A link to an anchor on the same web page
-    case richTextAnchorLink(RichTextAnchorLink)
+    case anchorLink(RichTextAnchorLink)
 
     /// A concatenation of rich texts
-    case richTexts(RichTexts)
+    case s(RichTexts)
 
 
     private enum Kind: String, Codable {
@@ -91,110 +91,110 @@ public indirect enum RichText: Codable, Equatable {
         switch type {
         case .richTextPlain:
             let value = try RichTextPlain(from: decoder)
-            self = .richTextPlain(value)
+            self = .plain(value)
         case .richTextBold:
             let value = try RichTextBold(from: decoder)
-            self = .richTextBold(value)
+            self = .bold(value)
         case .richTextItalic:
             let value = try RichTextItalic(from: decoder)
-            self = .richTextItalic(value)
+            self = .italic(value)
         case .richTextUnderline:
             let value = try RichTextUnderline(from: decoder)
-            self = .richTextUnderline(value)
+            self = .underline(value)
         case .richTextStrikethrough:
             let value = try RichTextStrikethrough(from: decoder)
-            self = .richTextStrikethrough(value)
+            self = .strikethrough(value)
         case .richTextFixed:
             let value = try RichTextFixed(from: decoder)
-            self = .richTextFixed(value)
+            self = .fixed(value)
         case .richTextUrl:
             let value = try RichTextUrl(from: decoder)
-            self = .richTextUrl(value)
+            self = .url(value)
         case .richTextEmailAddress:
             let value = try RichTextEmailAddress(from: decoder)
-            self = .richTextEmailAddress(value)
+            self = .emailAddress(value)
         case .richTextSubscript:
             let value = try RichTextSubscript(from: decoder)
-            self = .richTextSubscript(value)
+            self = .`subscript`(value)
         case .richTextSuperscript:
             let value = try RichTextSuperscript(from: decoder)
-            self = .richTextSuperscript(value)
+            self = .superscript(value)
         case .richTextMarked:
             let value = try RichTextMarked(from: decoder)
-            self = .richTextMarked(value)
+            self = .marked(value)
         case .richTextPhoneNumber:
             let value = try RichTextPhoneNumber(from: decoder)
-            self = .richTextPhoneNumber(value)
+            self = .phoneNumber(value)
         case .richTextIcon:
             let value = try RichTextIcon(from: decoder)
-            self = .richTextIcon(value)
+            self = .icon(value)
         case .richTextReference:
             let value = try RichTextReference(from: decoder)
-            self = .richTextReference(value)
+            self = .reference(value)
         case .richTextAnchor:
             let value = try RichTextAnchor(from: decoder)
-            self = .richTextAnchor(value)
+            self = .anchor(value)
         case .richTextAnchorLink:
             let value = try RichTextAnchorLink(from: decoder)
-            self = .richTextAnchorLink(value)
+            self = .anchorLink(value)
         case .richTexts:
             let value = try RichTexts(from: decoder)
-            self = .richTexts(value)
+            self = .s(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .richTextPlain(let value):
+        case .plain(let value):
             try container.encode(Kind.richTextPlain, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextBold(let value):
+        case .bold(let value):
             try container.encode(Kind.richTextBold, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextItalic(let value):
+        case .italic(let value):
             try container.encode(Kind.richTextItalic, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextUnderline(let value):
+        case .underline(let value):
             try container.encode(Kind.richTextUnderline, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextStrikethrough(let value):
+        case .strikethrough(let value):
             try container.encode(Kind.richTextStrikethrough, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextFixed(let value):
+        case .fixed(let value):
             try container.encode(Kind.richTextFixed, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextUrl(let value):
+        case .url(let value):
             try container.encode(Kind.richTextUrl, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextEmailAddress(let value):
+        case .emailAddress(let value):
             try container.encode(Kind.richTextEmailAddress, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextSubscript(let value):
+        case .`subscript`(let value):
             try container.encode(Kind.richTextSubscript, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextSuperscript(let value):
+        case .superscript(let value):
             try container.encode(Kind.richTextSuperscript, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextMarked(let value):
+        case .marked(let value):
             try container.encode(Kind.richTextMarked, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextPhoneNumber(let value):
+        case .phoneNumber(let value):
             try container.encode(Kind.richTextPhoneNumber, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextIcon(let value):
+        case .icon(let value):
             try container.encode(Kind.richTextIcon, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextReference(let value):
+        case .reference(let value):
             try container.encode(Kind.richTextReference, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextAnchor(let value):
+        case .anchor(let value):
             try container.encode(Kind.richTextAnchor, forKey: .type)
             try value.encode(to: encoder)
-        case .richTextAnchorLink(let value):
+        case .anchorLink(let value):
             try container.encode(Kind.richTextAnchorLink, forKey: .type)
             try value.encode(to: encoder)
-        case .richTexts(let value):
+        case .s(let value):
             try container.encode(Kind.richTexts, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -202,7 +202,7 @@ public indirect enum RichText: Codable, Equatable {
 }
 
 /// A plain text
-public struct RichTextPlain: Codable, Equatable {
+public struct RichTextPlain: Codable, Equatable, Hashable {
 
     /// Text
     public let text: String
@@ -214,7 +214,7 @@ public struct RichTextPlain: Codable, Equatable {
 }
 
 /// A bold rich text
-public struct RichTextBold: Codable, Equatable {
+public struct RichTextBold: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -226,7 +226,7 @@ public struct RichTextBold: Codable, Equatable {
 }
 
 /// An italicized rich text
-public struct RichTextItalic: Codable, Equatable {
+public struct RichTextItalic: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -238,7 +238,7 @@ public struct RichTextItalic: Codable, Equatable {
 }
 
 /// An underlined rich text
-public struct RichTextUnderline: Codable, Equatable {
+public struct RichTextUnderline: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -250,7 +250,7 @@ public struct RichTextUnderline: Codable, Equatable {
 }
 
 /// A strikethrough rich text
-public struct RichTextStrikethrough: Codable, Equatable {
+public struct RichTextStrikethrough: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -262,7 +262,7 @@ public struct RichTextStrikethrough: Codable, Equatable {
 }
 
 /// A fixed-width rich text
-public struct RichTextFixed: Codable, Equatable {
+public struct RichTextFixed: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -274,7 +274,7 @@ public struct RichTextFixed: Codable, Equatable {
 }
 
 /// A rich text URL link
-public struct RichTextUrl: Codable, Equatable {
+public struct RichTextUrl: Codable, Equatable, Hashable {
 
     /// True, if the URL has cached instant view server-side
     public let isCached: Bool
@@ -298,7 +298,7 @@ public struct RichTextUrl: Codable, Equatable {
 }
 
 /// A rich text email link
-public struct RichTextEmailAddress: Codable, Equatable {
+public struct RichTextEmailAddress: Codable, Equatable, Hashable {
 
     /// Email address
     public let emailAddress: String
@@ -317,7 +317,7 @@ public struct RichTextEmailAddress: Codable, Equatable {
 }
 
 /// A subscript rich text
-public struct RichTextSubscript: Codable, Equatable {
+public struct RichTextSubscript: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -329,7 +329,7 @@ public struct RichTextSubscript: Codable, Equatable {
 }
 
 /// A superscript rich text
-public struct RichTextSuperscript: Codable, Equatable {
+public struct RichTextSuperscript: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -341,7 +341,7 @@ public struct RichTextSuperscript: Codable, Equatable {
 }
 
 /// A marked rich text
-public struct RichTextMarked: Codable, Equatable {
+public struct RichTextMarked: Codable, Equatable, Hashable {
 
     /// Text
     public let text: RichText
@@ -353,7 +353,7 @@ public struct RichTextMarked: Codable, Equatable {
 }
 
 /// A rich text phone number
-public struct RichTextPhoneNumber: Codable, Equatable {
+public struct RichTextPhoneNumber: Codable, Equatable, Hashable {
 
     /// Phone number
     public let phoneNumber: String
@@ -372,7 +372,7 @@ public struct RichTextPhoneNumber: Codable, Equatable {
 }
 
 /// A small image inside the text
-public struct RichTextIcon: Codable, Equatable {
+public struct RichTextIcon: Codable, Equatable, Hashable {
 
     /// The image represented as a document. The image can be in GIF, JPEG or PNG format
     public let document: Document
@@ -396,7 +396,7 @@ public struct RichTextIcon: Codable, Equatable {
 }
 
 /// A reference to a richTexts object on the same web page
-public struct RichTextReference: Codable, Equatable {
+public struct RichTextReference: Codable, Equatable, Hashable {
 
     /// The name of a richTextAnchor object, which is the first element of the target richTexts object
     public let anchorName: String
@@ -420,7 +420,7 @@ public struct RichTextReference: Codable, Equatable {
 }
 
 /// An anchor
-public struct RichTextAnchor: Codable, Equatable {
+public struct RichTextAnchor: Codable, Equatable, Hashable {
 
     /// Anchor name
     public let name: String
@@ -432,7 +432,7 @@ public struct RichTextAnchor: Codable, Equatable {
 }
 
 /// A link to an anchor on the same web page
-public struct RichTextAnchorLink: Codable, Equatable {
+public struct RichTextAnchorLink: Codable, Equatable, Hashable {
 
     /// The anchor name. If the name is empty, the link must bring back to top
     public let anchorName: String
@@ -456,7 +456,7 @@ public struct RichTextAnchorLink: Codable, Equatable {
 }
 
 /// A concatenation of rich texts
-public struct RichTexts: Codable, Equatable {
+public struct RichTexts: Codable, Equatable, Hashable {
 
     /// Texts
     public let texts: [RichText]

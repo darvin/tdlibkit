@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describes a type of public chats
-public enum PublicChatType: Codable, Equatable {
+public enum PublicChatType: Codable, Equatable, Hashable {
 
     /// The chat is public, because it has username
-    case publicChatTypeHasUsername
+    case hasUsername
 
     /// The chat is public, because it is a location-based supergroup
-    case publicChatTypeIsLocationBased
+    case isLocationBased
 
 
     private enum Kind: String, Codable {
@@ -30,18 +30,18 @@ public enum PublicChatType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .publicChatTypeHasUsername:
-            self = .publicChatTypeHasUsername
+            self = .hasUsername
         case .publicChatTypeIsLocationBased:
-            self = .publicChatTypeIsLocationBased
+            self = .isLocationBased
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .publicChatTypeHasUsername:
+        case .hasUsername:
             try container.encode(Kind.publicChatTypeHasUsername, forKey: .type)
-        case .publicChatTypeIsLocationBased:
+        case .isLocationBased:
             try container.encode(Kind.publicChatTypeIsLocationBased, forKey: .type)
         }
     }

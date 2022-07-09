@@ -11,58 +11,58 @@ import Foundation
 
 
 /// Represents the type of a file
-public enum FileType: Codable, Equatable {
+public enum FileType: Codable, Equatable, Hashable {
 
     /// The data is not a file
-    case fileTypeNone
+    case none
 
     /// The file is an animation
-    case fileTypeAnimation
+    case animation
 
     /// The file is an audio file
-    case fileTypeAudio
+    case audio
 
     /// The file is a document
-    case fileTypeDocument
+    case document
 
     /// The file is a notification sound
-    case fileTypeNotificationSound
+    case notificationSound
 
     /// The file is a photo
-    case fileTypePhoto
+    case photo
 
     /// The file is a profile photo
-    case fileTypeProfilePhoto
+    case profilePhoto
 
     /// The file was sent to a secret chat (the file type is not known to the server)
-    case fileTypeSecret
+    case secret
 
     /// The file is a thumbnail of a file from a secret chat
-    case fileTypeSecretThumbnail
+    case secretThumbnail
 
     /// The file is a file from Secure storage used for storing Telegram Passport files
-    case fileTypeSecure
+    case secure
 
     /// The file is a sticker
-    case fileTypeSticker
+    case sticker
 
     /// The file is a thumbnail of another file
-    case fileTypeThumbnail
+    case thumbnail
 
     /// The file type is not yet known
-    case fileTypeUnknown
+    case unknown
 
     /// The file is a video
-    case fileTypeVideo
+    case video
 
     /// The file is a video note
-    case fileTypeVideoNote
+    case videoNote
 
     /// The file is a voice note
-    case fileTypeVoiceNote
+    case voiceNote
 
     /// The file is a wallpaper or a background pattern
-    case fileTypeWallpaper
+    case wallpaper
 
 
     private enum Kind: String, Codable {
@@ -90,78 +90,78 @@ public enum FileType: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .fileTypeNone:
-            self = .fileTypeNone
+            self = .none
         case .fileTypeAnimation:
-            self = .fileTypeAnimation
+            self = .animation
         case .fileTypeAudio:
-            self = .fileTypeAudio
+            self = .audio
         case .fileTypeDocument:
-            self = .fileTypeDocument
+            self = .document
         case .fileTypeNotificationSound:
-            self = .fileTypeNotificationSound
+            self = .notificationSound
         case .fileTypePhoto:
-            self = .fileTypePhoto
+            self = .photo
         case .fileTypeProfilePhoto:
-            self = .fileTypeProfilePhoto
+            self = .profilePhoto
         case .fileTypeSecret:
-            self = .fileTypeSecret
+            self = .secret
         case .fileTypeSecretThumbnail:
-            self = .fileTypeSecretThumbnail
+            self = .secretThumbnail
         case .fileTypeSecure:
-            self = .fileTypeSecure
+            self = .secure
         case .fileTypeSticker:
-            self = .fileTypeSticker
+            self = .sticker
         case .fileTypeThumbnail:
-            self = .fileTypeThumbnail
+            self = .thumbnail
         case .fileTypeUnknown:
-            self = .fileTypeUnknown
+            self = .unknown
         case .fileTypeVideo:
-            self = .fileTypeVideo
+            self = .video
         case .fileTypeVideoNote:
-            self = .fileTypeVideoNote
+            self = .videoNote
         case .fileTypeVoiceNote:
-            self = .fileTypeVoiceNote
+            self = .voiceNote
         case .fileTypeWallpaper:
-            self = .fileTypeWallpaper
+            self = .wallpaper
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .fileTypeNone:
+        case .none:
             try container.encode(Kind.fileTypeNone, forKey: .type)
-        case .fileTypeAnimation:
+        case .animation:
             try container.encode(Kind.fileTypeAnimation, forKey: .type)
-        case .fileTypeAudio:
+        case .audio:
             try container.encode(Kind.fileTypeAudio, forKey: .type)
-        case .fileTypeDocument:
+        case .document:
             try container.encode(Kind.fileTypeDocument, forKey: .type)
-        case .fileTypeNotificationSound:
+        case .notificationSound:
             try container.encode(Kind.fileTypeNotificationSound, forKey: .type)
-        case .fileTypePhoto:
+        case .photo:
             try container.encode(Kind.fileTypePhoto, forKey: .type)
-        case .fileTypeProfilePhoto:
+        case .profilePhoto:
             try container.encode(Kind.fileTypeProfilePhoto, forKey: .type)
-        case .fileTypeSecret:
+        case .secret:
             try container.encode(Kind.fileTypeSecret, forKey: .type)
-        case .fileTypeSecretThumbnail:
+        case .secretThumbnail:
             try container.encode(Kind.fileTypeSecretThumbnail, forKey: .type)
-        case .fileTypeSecure:
+        case .secure:
             try container.encode(Kind.fileTypeSecure, forKey: .type)
-        case .fileTypeSticker:
+        case .sticker:
             try container.encode(Kind.fileTypeSticker, forKey: .type)
-        case .fileTypeThumbnail:
+        case .thumbnail:
             try container.encode(Kind.fileTypeThumbnail, forKey: .type)
-        case .fileTypeUnknown:
+        case .unknown:
             try container.encode(Kind.fileTypeUnknown, forKey: .type)
-        case .fileTypeVideo:
+        case .video:
             try container.encode(Kind.fileTypeVideo, forKey: .type)
-        case .fileTypeVideoNote:
+        case .videoNote:
             try container.encode(Kind.fileTypeVideoNote, forKey: .type)
-        case .fileTypeVoiceNote:
+        case .voiceNote:
             try container.encode(Kind.fileTypeVoiceNote, forKey: .type)
-        case .fileTypeWallpaper:
+        case .wallpaper:
             try container.encode(Kind.fileTypeWallpaper, forKey: .type)
         }
     }

@@ -11,34 +11,34 @@ import Foundation
 
 
 /// Describes the exact type of a problem with a call
-public enum CallProblem: Codable, Equatable {
+public enum CallProblem: Codable, Equatable, Hashable {
 
     /// The user heard their own voice
-    case callProblemEcho
+    case echo
 
     /// The user heard background noise
-    case callProblemNoise
+    case noise
 
     /// The other side kept disappearing
-    case callProblemInterruptions
+    case interruptions
 
     /// The speech was distorted
-    case callProblemDistortedSpeech
+    case distortedSpeech
 
     /// The user couldn't hear the other side
-    case callProblemSilentLocal
+    case silentLocal
 
     /// The other side couldn't hear the user
-    case callProblemSilentRemote
+    case silentRemote
 
     /// The call ended unexpectedly
-    case callProblemDropped
+    case dropped
 
     /// The video was distorted
-    case callProblemDistortedVideo
+    case distortedVideo
 
     /// The video was pixelated
-    case callProblemPixelatedVideo
+    case pixelatedVideo
 
 
     private enum Kind: String, Codable {
@@ -58,46 +58,46 @@ public enum CallProblem: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .callProblemEcho:
-            self = .callProblemEcho
+            self = .echo
         case .callProblemNoise:
-            self = .callProblemNoise
+            self = .noise
         case .callProblemInterruptions:
-            self = .callProblemInterruptions
+            self = .interruptions
         case .callProblemDistortedSpeech:
-            self = .callProblemDistortedSpeech
+            self = .distortedSpeech
         case .callProblemSilentLocal:
-            self = .callProblemSilentLocal
+            self = .silentLocal
         case .callProblemSilentRemote:
-            self = .callProblemSilentRemote
+            self = .silentRemote
         case .callProblemDropped:
-            self = .callProblemDropped
+            self = .dropped
         case .callProblemDistortedVideo:
-            self = .callProblemDistortedVideo
+            self = .distortedVideo
         case .callProblemPixelatedVideo:
-            self = .callProblemPixelatedVideo
+            self = .pixelatedVideo
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .callProblemEcho:
+        case .echo:
             try container.encode(Kind.callProblemEcho, forKey: .type)
-        case .callProblemNoise:
+        case .noise:
             try container.encode(Kind.callProblemNoise, forKey: .type)
-        case .callProblemInterruptions:
+        case .interruptions:
             try container.encode(Kind.callProblemInterruptions, forKey: .type)
-        case .callProblemDistortedSpeech:
+        case .distortedSpeech:
             try container.encode(Kind.callProblemDistortedSpeech, forKey: .type)
-        case .callProblemSilentLocal:
+        case .silentLocal:
             try container.encode(Kind.callProblemSilentLocal, forKey: .type)
-        case .callProblemSilentRemote:
+        case .silentRemote:
             try container.encode(Kind.callProblemSilentRemote, forKey: .type)
-        case .callProblemDropped:
+        case .dropped:
             try container.encode(Kind.callProblemDropped, forKey: .type)
-        case .callProblemDistortedVideo:
+        case .distortedVideo:
             try container.encode(Kind.callProblemDistortedVideo, forKey: .type)
-        case .callProblemPixelatedVideo:
+        case .pixelatedVideo:
             try container.encode(Kind.callProblemPixelatedVideo, forKey: .type)
         }
     }

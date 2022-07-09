@@ -11,28 +11,28 @@ import Foundation
 
 
 /// Describes actions which must be possible to do through a chat action bar
-public enum ChatActionBar: Codable, Equatable {
+public enum ChatActionBar: Codable, Equatable, Hashable {
 
     /// The chat can be reported as spam using the method reportChat with the reason chatReportReasonSpam
-    case chatActionBarReportSpam(ChatActionBarReportSpam)
+    case ionBarReportSpam(ChatActionBarReportSpam)
 
     /// The chat is a location-based supergroup, which can be reported as having unrelated location using the method reportChat with the reason chatReportReasonUnrelatedLocation
-    case chatActionBarReportUnrelatedLocation
+    case ionBarReportUnrelatedLocation
 
     /// The chat is a recently created group chat to which new members can be invited
-    case chatActionBarInviteMembers
+    case ionBarInviteMembers
 
     /// The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method toggleMessageSenderIsBlocked, or the other user can be added to the contact list using the method addContact
-    case chatActionBarReportAddBlock(ChatActionBarReportAddBlock)
+    case ionBarReportAddBlock(ChatActionBarReportAddBlock)
 
     /// The chat is a private or secret chat and the other user can be added to the contact list using the method addContact
-    case chatActionBarAddContact
+    case ionBarAddContact
 
     /// The chat is a private or secret chat with a mutual contact and the user's phone number can be shared with the other user using the method sharePhoneNumber
-    case chatActionBarSharePhoneNumber
+    case ionBarSharePhoneNumber
 
     /// The chat is a private chat with an administrator of a chat to which the user sent join request
-    case chatActionBarJoinRequest(ChatActionBarJoinRequest)
+    case ionBarJoinRequest(ChatActionBarJoinRequest)
 
 
     private enum Kind: String, Codable {
@@ -51,42 +51,42 @@ public enum ChatActionBar: Codable, Equatable {
         switch type {
         case .chatActionBarReportSpam:
             let value = try ChatActionBarReportSpam(from: decoder)
-            self = .chatActionBarReportSpam(value)
+            self = .ionBarReportSpam(value)
         case .chatActionBarReportUnrelatedLocation:
-            self = .chatActionBarReportUnrelatedLocation
+            self = .ionBarReportUnrelatedLocation
         case .chatActionBarInviteMembers:
-            self = .chatActionBarInviteMembers
+            self = .ionBarInviteMembers
         case .chatActionBarReportAddBlock:
             let value = try ChatActionBarReportAddBlock(from: decoder)
-            self = .chatActionBarReportAddBlock(value)
+            self = .ionBarReportAddBlock(value)
         case .chatActionBarAddContact:
-            self = .chatActionBarAddContact
+            self = .ionBarAddContact
         case .chatActionBarSharePhoneNumber:
-            self = .chatActionBarSharePhoneNumber
+            self = .ionBarSharePhoneNumber
         case .chatActionBarJoinRequest:
             let value = try ChatActionBarJoinRequest(from: decoder)
-            self = .chatActionBarJoinRequest(value)
+            self = .ionBarJoinRequest(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .chatActionBarReportSpam(let value):
+        case .ionBarReportSpam(let value):
             try container.encode(Kind.chatActionBarReportSpam, forKey: .type)
             try value.encode(to: encoder)
-        case .chatActionBarReportUnrelatedLocation:
+        case .ionBarReportUnrelatedLocation:
             try container.encode(Kind.chatActionBarReportUnrelatedLocation, forKey: .type)
-        case .chatActionBarInviteMembers:
+        case .ionBarInviteMembers:
             try container.encode(Kind.chatActionBarInviteMembers, forKey: .type)
-        case .chatActionBarReportAddBlock(let value):
+        case .ionBarReportAddBlock(let value):
             try container.encode(Kind.chatActionBarReportAddBlock, forKey: .type)
             try value.encode(to: encoder)
-        case .chatActionBarAddContact:
+        case .ionBarAddContact:
             try container.encode(Kind.chatActionBarAddContact, forKey: .type)
-        case .chatActionBarSharePhoneNumber:
+        case .ionBarSharePhoneNumber:
             try container.encode(Kind.chatActionBarSharePhoneNumber, forKey: .type)
-        case .chatActionBarJoinRequest(let value):
+        case .ionBarJoinRequest(let value):
             try container.encode(Kind.chatActionBarJoinRequest, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -94,7 +94,7 @@ public enum ChatActionBar: Codable, Equatable {
 }
 
 /// The chat can be reported as spam using the method reportChat with the reason chatReportReasonSpam
-public struct ChatActionBarReportSpam: Codable, Equatable {
+public struct ChatActionBarReportSpam: Codable, Equatable, Hashable {
 
     /// If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings
     public let canUnarchive: Bool
@@ -106,7 +106,7 @@ public struct ChatActionBarReportSpam: Codable, Equatable {
 }
 
 /// The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method toggleMessageSenderIsBlocked, or the other user can be added to the contact list using the method addContact
-public struct ChatActionBarReportAddBlock: Codable, Equatable {
+public struct ChatActionBarReportAddBlock: Codable, Equatable, Hashable {
 
     /// If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings
     public let canUnarchive: Bool
@@ -125,7 +125,7 @@ public struct ChatActionBarReportAddBlock: Codable, Equatable {
 }
 
 /// The chat is a private chat with an administrator of a chat to which the user sent join request
-public struct ChatActionBarJoinRequest: Codable, Equatable {
+public struct ChatActionBarJoinRequest: Codable, Equatable, Hashable {
 
     /// True, if the join request was sent to a channel chat
     public let isChannel: Bool

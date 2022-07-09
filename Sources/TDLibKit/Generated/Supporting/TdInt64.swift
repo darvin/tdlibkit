@@ -10,20 +10,15 @@
 import Foundation
 
 
-public struct TdInt64: RawRepresentable, ExpressibleByIntegerLiteral {
+public struct TdInt64: RawRepresentable, ExpressibleByIntegerLiteral, Hashable {
 
     public typealias RawValue = Int64
-
-    // MARK: - Properties
 
     public var rawValue: Int64
 
     public static var max: TdInt64 { return TdInt64(Int64.max) }
-
     public static var min: TdInt64 { return TdInt64(Int64.min) }
 
-
-    // MARK: - Init
 
     public init(_ int64: Int64) {
         self.rawValue = int64

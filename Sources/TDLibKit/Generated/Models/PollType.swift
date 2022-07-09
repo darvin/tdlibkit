@@ -11,13 +11,13 @@ import Foundation
 
 
 /// Describes the type of a poll
-public enum PollType: Codable, Equatable {
+public enum PollType: Codable, Equatable, Hashable {
 
     /// A regular poll
-    case pollTypeRegular(PollTypeRegular)
+    case regular(PollTypeRegular)
 
     /// A poll in quiz mode, which has exactly one correct answer option and can be answered only once
-    case pollTypeQuiz(PollTypeQuiz)
+    case quiz(PollTypeQuiz)
 
 
     private enum Kind: String, Codable {
@@ -31,20 +31,20 @@ public enum PollType: Codable, Equatable {
         switch type {
         case .pollTypeRegular:
             let value = try PollTypeRegular(from: decoder)
-            self = .pollTypeRegular(value)
+            self = .regular(value)
         case .pollTypeQuiz:
             let value = try PollTypeQuiz(from: decoder)
-            self = .pollTypeQuiz(value)
+            self = .quiz(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .pollTypeRegular(let value):
+        case .regular(let value):
             try container.encode(Kind.pollTypeRegular, forKey: .type)
             try value.encode(to: encoder)
-        case .pollTypeQuiz(let value):
+        case .quiz(let value):
             try container.encode(Kind.pollTypeQuiz, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -52,7 +52,7 @@ public enum PollType: Codable, Equatable {
 }
 
 /// A regular poll
-public struct PollTypeRegular: Codable, Equatable {
+public struct PollTypeRegular: Codable, Equatable, Hashable {
 
     /// True, if multiple answer options can be chosen simultaneously
     public let allowMultipleAnswers: Bool
@@ -64,7 +64,7 @@ public struct PollTypeRegular: Codable, Equatable {
 }
 
 /// A poll in quiz mode, which has exactly one correct answer option and can be answered only once
-public struct PollTypeQuiz: Codable, Equatable {
+public struct PollTypeQuiz: Codable, Equatable, Hashable {
 
     /// 0-based identifier of the correct answer option; -1 for a yet unanswered poll
     public let correctOptionId: Int

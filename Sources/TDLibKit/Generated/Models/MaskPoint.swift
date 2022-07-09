@@ -11,19 +11,19 @@ import Foundation
 
 
 /// Part of the face, relative to which a mask is placed
-public enum MaskPoint: Codable, Equatable {
+public enum MaskPoint: Codable, Equatable, Hashable {
 
     /// The mask is placed relatively to the forehead
-    case maskPointForehead
+    case forehead
 
     /// The mask is placed relatively to the eyes
-    case maskPointEyes
+    case eyes
 
     /// The mask is placed relatively to the mouth
-    case maskPointMouth
+    case mouth
 
     /// The mask is placed relatively to the chin
-    case maskPointChin
+    case chin
 
 
     private enum Kind: String, Codable {
@@ -38,26 +38,26 @@ public enum MaskPoint: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .maskPointForehead:
-            self = .maskPointForehead
+            self = .forehead
         case .maskPointEyes:
-            self = .maskPointEyes
+            self = .eyes
         case .maskPointMouth:
-            self = .maskPointMouth
+            self = .mouth
         case .maskPointChin:
-            self = .maskPointChin
+            self = .chin
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .maskPointForehead:
+        case .forehead:
             try container.encode(Kind.maskPointForehead, forKey: .type)
-        case .maskPointEyes:
+        case .eyes:
             try container.encode(Kind.maskPointEyes, forKey: .type)
-        case .maskPointMouth:
+        case .mouth:
             try container.encode(Kind.maskPointMouth, forKey: .type)
-        case .maskPointChin:
+        case .chin:
             try container.encode(Kind.maskPointChin, forKey: .type)
         }
     }

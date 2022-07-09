@@ -11,40 +11,40 @@ import Foundation
 
 
 /// Describes a feature available to Premium users
-public enum PremiumFeature: Codable, Equatable {
+public enum PremiumFeature: Codable, Equatable, Hashable {
 
     /// Increased limits
-    case premiumFeatureIncreasedLimits
+    case increasedLimits
 
     /// Increased maximum upload file size
-    case premiumFeatureIncreasedUploadFileSize
+    case increasedUploadFileSize
 
     /// Improved download speed
-    case premiumFeatureImprovedDownloadSpeed
+    case improvedDownloadSpeed
 
     /// The ability to convert voice notes to text
-    case premiumFeatureVoiceRecognition
+    case voiceRecognition
 
     /// Disabled ads
-    case premiumFeatureDisabledAds
+    case disabledAds
 
     /// Allowed to use more reactions
-    case premiumFeatureUniqueReactions
+    case uniqueReactions
 
     /// Allowed to use premium stickers with unique effects
-    case premiumFeatureUniqueStickers
+    case uniqueStickers
 
     /// Ability to change position of the main chat list, archive and mute all new chats from non-contacts, and completely disable notifications about the user's contacts joined Telegram
-    case premiumFeatureAdvancedChatManagement
+    case advancedChatManagement
 
     /// A badge in the user's profile
-    case premiumFeatureProfileBadge
+    case profileBadge
 
     /// Profile photo animation on message and chat screens
-    case premiumFeatureAnimatedProfilePhoto
+    case animatedProfilePhoto
 
     /// Allowed to set a premium appllication icons
-    case premiumFeatureAppIcons
+    case appIcons
 
 
     private enum Kind: String, Codable {
@@ -66,54 +66,54 @@ public enum PremiumFeature: Codable, Equatable {
         let type = try container.decode(Kind.self, forKey: .type)
         switch type {
         case .premiumFeatureIncreasedLimits:
-            self = .premiumFeatureIncreasedLimits
+            self = .increasedLimits
         case .premiumFeatureIncreasedUploadFileSize:
-            self = .premiumFeatureIncreasedUploadFileSize
+            self = .increasedUploadFileSize
         case .premiumFeatureImprovedDownloadSpeed:
-            self = .premiumFeatureImprovedDownloadSpeed
+            self = .improvedDownloadSpeed
         case .premiumFeatureVoiceRecognition:
-            self = .premiumFeatureVoiceRecognition
+            self = .voiceRecognition
         case .premiumFeatureDisabledAds:
-            self = .premiumFeatureDisabledAds
+            self = .disabledAds
         case .premiumFeatureUniqueReactions:
-            self = .premiumFeatureUniqueReactions
+            self = .uniqueReactions
         case .premiumFeatureUniqueStickers:
-            self = .premiumFeatureUniqueStickers
+            self = .uniqueStickers
         case .premiumFeatureAdvancedChatManagement:
-            self = .premiumFeatureAdvancedChatManagement
+            self = .advancedChatManagement
         case .premiumFeatureProfileBadge:
-            self = .premiumFeatureProfileBadge
+            self = .profileBadge
         case .premiumFeatureAnimatedProfilePhoto:
-            self = .premiumFeatureAnimatedProfilePhoto
+            self = .animatedProfilePhoto
         case .premiumFeatureAppIcons:
-            self = .premiumFeatureAppIcons
+            self = .appIcons
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .premiumFeatureIncreasedLimits:
+        case .increasedLimits:
             try container.encode(Kind.premiumFeatureIncreasedLimits, forKey: .type)
-        case .premiumFeatureIncreasedUploadFileSize:
+        case .increasedUploadFileSize:
             try container.encode(Kind.premiumFeatureIncreasedUploadFileSize, forKey: .type)
-        case .premiumFeatureImprovedDownloadSpeed:
+        case .improvedDownloadSpeed:
             try container.encode(Kind.premiumFeatureImprovedDownloadSpeed, forKey: .type)
-        case .premiumFeatureVoiceRecognition:
+        case .voiceRecognition:
             try container.encode(Kind.premiumFeatureVoiceRecognition, forKey: .type)
-        case .premiumFeatureDisabledAds:
+        case .disabledAds:
             try container.encode(Kind.premiumFeatureDisabledAds, forKey: .type)
-        case .premiumFeatureUniqueReactions:
+        case .uniqueReactions:
             try container.encode(Kind.premiumFeatureUniqueReactions, forKey: .type)
-        case .premiumFeatureUniqueStickers:
+        case .uniqueStickers:
             try container.encode(Kind.premiumFeatureUniqueStickers, forKey: .type)
-        case .premiumFeatureAdvancedChatManagement:
+        case .advancedChatManagement:
             try container.encode(Kind.premiumFeatureAdvancedChatManagement, forKey: .type)
-        case .premiumFeatureProfileBadge:
+        case .profileBadge:
             try container.encode(Kind.premiumFeatureProfileBadge, forKey: .type)
-        case .premiumFeatureAnimatedProfilePhoto:
+        case .animatedProfilePhoto:
             try container.encode(Kind.premiumFeatureAnimatedProfilePhoto, forKey: .type)
-        case .premiumFeatureAppIcons:
+        case .appIcons:
             try container.encode(Kind.premiumFeatureAppIcons, forKey: .type)
         }
     }

@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Sets the result of an inline query; for bots only
-public struct AnswerInlineQuery: Codable, Equatable {
+public struct AnswerInlineQuery: Codable, Equatable, Hashable {
 
     /// Allowed time to cache the results of the query, in seconds
     public let cacheTime: Int?

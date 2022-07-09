@@ -11,43 +11,43 @@ import Foundation
 
 
 /// Represents a single result of an inline query
-public enum InlineQueryResult: Codable, Equatable {
+public enum InlineQueryResult: Codable, Equatable, Hashable {
 
     /// Represents a link to an article or web page
-    case inlineQueryResultArticle(InlineQueryResultArticle)
+    case article(InlineQueryResultArticle)
 
     /// Represents a user contact
-    case inlineQueryResultContact(InlineQueryResultContact)
+    case contact(InlineQueryResultContact)
 
     /// Represents a point on the map
-    case inlineQueryResultLocation(InlineQueryResultLocation)
+    case location(InlineQueryResultLocation)
 
     /// Represents information about a venue
-    case inlineQueryResultVenue(InlineQueryResultVenue)
+    case venue(InlineQueryResultVenue)
 
     /// Represents information about a game
-    case inlineQueryResultGame(InlineQueryResultGame)
+    case game(InlineQueryResultGame)
 
     /// Represents an animation file
-    case inlineQueryResultAnimation(InlineQueryResultAnimation)
+    case animation(InlineQueryResultAnimation)
 
     /// Represents an audio file
-    case inlineQueryResultAudio(InlineQueryResultAudio)
+    case audio(InlineQueryResultAudio)
 
     /// Represents a document
-    case inlineQueryResultDocument(InlineQueryResultDocument)
+    case document(InlineQueryResultDocument)
 
     /// Represents a photo
-    case inlineQueryResultPhoto(InlineQueryResultPhoto)
+    case photo(InlineQueryResultPhoto)
 
     /// Represents a sticker
-    case inlineQueryResultSticker(InlineQueryResultSticker)
+    case sticker(InlineQueryResultSticker)
 
     /// Represents a video
-    case inlineQueryResultVideo(InlineQueryResultVideo)
+    case video(InlineQueryResultVideo)
 
     /// Represents a voice note
-    case inlineQueryResultVoiceNote(InlineQueryResultVoiceNote)
+    case voiceNote(InlineQueryResultVoiceNote)
 
 
     private enum Kind: String, Codable {
@@ -71,80 +71,80 @@ public enum InlineQueryResult: Codable, Equatable {
         switch type {
         case .inlineQueryResultArticle:
             let value = try InlineQueryResultArticle(from: decoder)
-            self = .inlineQueryResultArticle(value)
+            self = .article(value)
         case .inlineQueryResultContact:
             let value = try InlineQueryResultContact(from: decoder)
-            self = .inlineQueryResultContact(value)
+            self = .contact(value)
         case .inlineQueryResultLocation:
             let value = try InlineQueryResultLocation(from: decoder)
-            self = .inlineQueryResultLocation(value)
+            self = .location(value)
         case .inlineQueryResultVenue:
             let value = try InlineQueryResultVenue(from: decoder)
-            self = .inlineQueryResultVenue(value)
+            self = .venue(value)
         case .inlineQueryResultGame:
             let value = try InlineQueryResultGame(from: decoder)
-            self = .inlineQueryResultGame(value)
+            self = .game(value)
         case .inlineQueryResultAnimation:
             let value = try InlineQueryResultAnimation(from: decoder)
-            self = .inlineQueryResultAnimation(value)
+            self = .animation(value)
         case .inlineQueryResultAudio:
             let value = try InlineQueryResultAudio(from: decoder)
-            self = .inlineQueryResultAudio(value)
+            self = .audio(value)
         case .inlineQueryResultDocument:
             let value = try InlineQueryResultDocument(from: decoder)
-            self = .inlineQueryResultDocument(value)
+            self = .document(value)
         case .inlineQueryResultPhoto:
             let value = try InlineQueryResultPhoto(from: decoder)
-            self = .inlineQueryResultPhoto(value)
+            self = .photo(value)
         case .inlineQueryResultSticker:
             let value = try InlineQueryResultSticker(from: decoder)
-            self = .inlineQueryResultSticker(value)
+            self = .sticker(value)
         case .inlineQueryResultVideo:
             let value = try InlineQueryResultVideo(from: decoder)
-            self = .inlineQueryResultVideo(value)
+            self = .video(value)
         case .inlineQueryResultVoiceNote:
             let value = try InlineQueryResultVoiceNote(from: decoder)
-            self = .inlineQueryResultVoiceNote(value)
+            self = .voiceNote(value)
         }
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: DtoCodingKeys.self)
         switch self {
-        case .inlineQueryResultArticle(let value):
+        case .article(let value):
             try container.encode(Kind.inlineQueryResultArticle, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultContact(let value):
+        case .contact(let value):
             try container.encode(Kind.inlineQueryResultContact, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultLocation(let value):
+        case .location(let value):
             try container.encode(Kind.inlineQueryResultLocation, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultVenue(let value):
+        case .venue(let value):
             try container.encode(Kind.inlineQueryResultVenue, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultGame(let value):
+        case .game(let value):
             try container.encode(Kind.inlineQueryResultGame, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultAnimation(let value):
+        case .animation(let value):
             try container.encode(Kind.inlineQueryResultAnimation, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultAudio(let value):
+        case .audio(let value):
             try container.encode(Kind.inlineQueryResultAudio, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultDocument(let value):
+        case .document(let value):
             try container.encode(Kind.inlineQueryResultDocument, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultPhoto(let value):
+        case .photo(let value):
             try container.encode(Kind.inlineQueryResultPhoto, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultSticker(let value):
+        case .sticker(let value):
             try container.encode(Kind.inlineQueryResultSticker, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultVideo(let value):
+        case .video(let value):
             try container.encode(Kind.inlineQueryResultVideo, forKey: .type)
             try value.encode(to: encoder)
-        case .inlineQueryResultVoiceNote(let value):
+        case .voiceNote(let value):
             try container.encode(Kind.inlineQueryResultVoiceNote, forKey: .type)
             try value.encode(to: encoder)
         }
@@ -152,7 +152,7 @@ public enum InlineQueryResult: Codable, Equatable {
 }
 
 /// Represents a link to an article or web page
-public struct InlineQueryResultArticle: Codable, Equatable {
+public struct InlineQueryResultArticle: Codable, Equatable, Hashable {
 
     public let description: String
 
@@ -190,7 +190,7 @@ public struct InlineQueryResultArticle: Codable, Equatable {
 }
 
 /// Represents a user contact
-public struct InlineQueryResultContact: Codable, Equatable {
+public struct InlineQueryResultContact: Codable, Equatable, Hashable {
 
     /// A user contact
     public let contact: Contact
@@ -214,7 +214,7 @@ public struct InlineQueryResultContact: Codable, Equatable {
 }
 
 /// Represents a point on the map
-public struct InlineQueryResultLocation: Codable, Equatable {
+public struct InlineQueryResultLocation: Codable, Equatable, Hashable {
 
     /// Unique identifier of the query result
     public let id: String
@@ -243,7 +243,7 @@ public struct InlineQueryResultLocation: Codable, Equatable {
 }
 
 /// Represents information about a venue
-public struct InlineQueryResultVenue: Codable, Equatable {
+public struct InlineQueryResultVenue: Codable, Equatable, Hashable {
 
     /// Unique identifier of the query result
     public let id: String
@@ -267,7 +267,7 @@ public struct InlineQueryResultVenue: Codable, Equatable {
 }
 
 /// Represents information about a game
-public struct InlineQueryResultGame: Codable, Equatable {
+public struct InlineQueryResultGame: Codable, Equatable, Hashable {
 
     /// Game result
     public let game: Game
@@ -286,7 +286,7 @@ public struct InlineQueryResultGame: Codable, Equatable {
 }
 
 /// Represents an animation file
-public struct InlineQueryResultAnimation: Codable, Equatable {
+public struct InlineQueryResultAnimation: Codable, Equatable, Hashable {
 
     /// Animation file
     public let animation: Animation
@@ -310,7 +310,7 @@ public struct InlineQueryResultAnimation: Codable, Equatable {
 }
 
 /// Represents an audio file
-public struct InlineQueryResultAudio: Codable, Equatable {
+public struct InlineQueryResultAudio: Codable, Equatable, Hashable {
 
     /// Audio file
     public let audio: Audio
@@ -329,7 +329,7 @@ public struct InlineQueryResultAudio: Codable, Equatable {
 }
 
 /// Represents a document
-public struct InlineQueryResultDocument: Codable, Equatable {
+public struct InlineQueryResultDocument: Codable, Equatable, Hashable {
 
     public let description: String
 
@@ -357,7 +357,7 @@ public struct InlineQueryResultDocument: Codable, Equatable {
 }
 
 /// Represents a photo
-public struct InlineQueryResultPhoto: Codable, Equatable {
+public struct InlineQueryResultPhoto: Codable, Equatable, Hashable {
 
     public let description: String
 
@@ -385,7 +385,7 @@ public struct InlineQueryResultPhoto: Codable, Equatable {
 }
 
 /// Represents a sticker
-public struct InlineQueryResultSticker: Codable, Equatable {
+public struct InlineQueryResultSticker: Codable, Equatable, Hashable {
 
     /// Unique identifier of the query result
     public let id: String
@@ -404,7 +404,7 @@ public struct InlineQueryResultSticker: Codable, Equatable {
 }
 
 /// Represents a video
-public struct InlineQueryResultVideo: Codable, Equatable {
+public struct InlineQueryResultVideo: Codable, Equatable, Hashable {
 
     public let description: String
 
@@ -432,7 +432,7 @@ public struct InlineQueryResultVideo: Codable, Equatable {
 }
 
 /// Represents a voice note
-public struct InlineQueryResultVoiceNote: Codable, Equatable {
+public struct InlineQueryResultVoiceNote: Codable, Equatable, Hashable {
 
     /// Unique identifier of the query result
     public let id: String
