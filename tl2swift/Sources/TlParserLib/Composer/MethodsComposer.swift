@@ -26,11 +26,9 @@ final class MethodsComposer: Composer {
     override func composeUtilitySourceCode() throws -> String {
         let methods = composeMethods(classInfoes: classInfoes)
         let executeFunc = composeExecuteFunc()
-        let asyncExecuteFunc = composeExecuteFunc()
         
         return ""
             .addLine("public final class TdApi {")
-            .addBlankLine()
             .addLine("public let client: TdClient".indent())
             .addBlankLine()
             .addLine("public static var encoder: JSONEncoder {".indent())
@@ -53,9 +51,6 @@ final class MethodsComposer: Composer {
             .append(methods.indent())
             .addBlankLine()
             .append(executeFunc.indent())
-            .addBlankLine()
-            .addBlankLine()
-            .append(asyncExecuteFunc.indent())
             .addLine("}")
     }
     
