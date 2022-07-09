@@ -84,7 +84,11 @@ final class MethodsComposer: Composer {
                 .append(params)
             result = result.addLine(") async throws -> \(info.rootName) {")
         } else {
-            result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws -> \(info.rootName) {")
+            if info.rootName == "Ok" {
+                result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws {")
+            } else {
+                result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws -> \(info.rootName) {")
+            }
         }
         
         let impl = composeMethodImpl(info)
@@ -142,8 +146,12 @@ final class MethodsComposer: Composer {
             result = String(result.dropLast().dropLast())
             result = result.addBlankLine().addLine(")")
         }
-
-        return result.addLine("return try await execute(query: query)")
+        
+        if info.rootName == "Ok" {
+            return result.addLine("try await execute(query: query)")
+        } else {
+            return result.addLine("return try await execute(query: query)")
+        }
     }
     
     private func composeExecuteFunc() -> String {
