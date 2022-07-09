@@ -17,7 +17,6 @@ on:
   workflow_dispatch:
 
 env:
-  TL_PARSER_REPO: https://github.com/Swiftgram/tl2swift
   TDLIB_REPO: https://github.com/tdlib/td
   DEVELOPER_DIR: /Applications/Xcode_13.4.1.app/Contents/Developer
 
@@ -77,9 +76,8 @@ jobs:
 #      - name: Tests (tvOS) # Dirty hack to retry step. tvOS sim can stuck for some reason
 #        run: ./scripts/test.sh tvOS-simulator || ./scripts/test.sh tvOS-simulator
       
-      # # Requires MacOS 12 
-      # - name: Tests (macOS)
-      #   run: ./scripts/test.sh macOS
+       - name: Tests (macOS)
+         run: ./scripts/test.sh macOS
       
       # - name: Tests (watchOS)
       #   run: ./scripts/test.sh watchOS-simulator

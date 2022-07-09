@@ -52,15 +52,27 @@ final class EnumComposer: Composer {
     // MARK: - Private methods
     
     private func makeCase(for item: EnumItem, typeName: String) -> String {
-        let index = item.name.index(
-            item.name.startIndex,
-            offsetBy: typeName
-                .replacingOccurrences(of: "Content", with: "")
-                .replacingOccurrences(of: "Action", with: "")
-                .count)
-        var caseName = item.name.suffix(from: index)
+        print(typeName)
+        let index: String.Index?
+        if typeName == "ChatEventAction" {
+            index = item.name.index(
+                item.name.startIndex,
+                offsetBy: typeName
+                    .replacingOccurrences(of: "Content", with: "")
+                    .replacingOccurrences(of: "Action", with: "")
+                    .count)
+        } else {
+            index = item.name.index(
+                item.name.startIndex,
+                offsetBy: typeName
+                    .replacingOccurrences(of: "Content", with: "")
+                    .count)
+        }
+        var caseName = item.name.suffix(from: index!)
         // Make the string camelCase again
         caseName = caseName.prefix(1).lowercased() + caseName.dropFirst()
+        
+        print(TypesHelper.maskSwiftKeyword(String(caseName)))
         
         return TypesHelper.maskSwiftKeyword(String(caseName))
     }
