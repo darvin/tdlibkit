@@ -18,12 +18,15 @@ let package = Package(
             targets: ["TDLibKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Swiftgram/TDLibFramework", exact: "{tdlibframework_version}"),
+        .package(url: "https://github.com/mock-foundation/tdlibframework", 
+exact: "{tdlibframework_version}"),
     ],
     targets: [
         .target(
             name: "TDLibKit",
-            dependencies: ["TDLibFramework"]),
+            dependencies: [
+                .product(name: "TDLibFramework", package: "tdlibframework")
+            ]),
     ]
 )
 
@@ -31,7 +34,8 @@ let package = Package(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("tdlibframework_version", help="Swiftgram/TDLibFramework version")
+    parser.add_argument("tdlibframework_version", help="mock-foundation/tdlibframework 
+version")
     
     args = parser.parse_args()
     with open('Package.swift', 'w') as f:
