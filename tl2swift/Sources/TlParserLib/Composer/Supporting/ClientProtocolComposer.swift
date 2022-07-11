@@ -12,10 +12,11 @@ final class ClientProtocolComposer: Composer {
     
     override func composeUtilitySourceCode() throws -> String {
         return ""
+            .addLine("import Combine")
             .addLine("/// Basic protocol for communicate with TdLib.")
             .addLine("public protocol TdClient {")
             .addLine("    /// An AsyncStream that deliveres TDLib updates.")
-            .addLine("    var updateStream: AsyncStream<Update> { get }")
+            .addLine("    var updateSubject: PassthroughSubject<Update, Never> { get }")
             .addBlankLine()
             .addLine("    /// Receives incoming updates and request responses from the TDLib client")
             .addLine("    func run(updateHandler: @escaping (Data) -> Void)")

@@ -1,16 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "TDLibFramework",
-        "repositoryURL": "https://github.com/Swiftgram/TDLibFramework",
-        "state": {
-          "branch": null,
-          "revision": "0c3d653e0bf5901e9df9b65141fbe266e55a4343",
-          "version": "1.8.4-d4890143"
-        }
+  "pins" : [
+    {
+      "identity" : "asynchrone",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/reddavis/Asynchrone.git",
+      "state" : {
+        "revision" : "657bfed52f2cad2e4697f1e3548796f563b20308",
+        "version" : "0.20.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "tdlibframework",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Swiftgram/TDLibFramework",
+      "state" : {
+        "revision" : "0c3d653e0bf5901e9df9b65141fbe266e55a4343",
+        "version" : "1.8.4-d4890143"
+      }
+    }
+  ],
+  "version" : 2
 }

@@ -10,10 +10,11 @@
 import Foundation
 
 
+import Combine
 /// Basic protocol for communicate with TdLib.
 public protocol TdClient {
     /// An AsyncStream that deliveres TDLib updates.
-    var updateStream: AsyncStream<Update> { get }
+    var updateSubject: PassthroughSubject<Update, Never> { get }
 
     /// Receives incoming updates and request responses from the TDLib client
     func run(updateHandler: @escaping (Data) -> Void)

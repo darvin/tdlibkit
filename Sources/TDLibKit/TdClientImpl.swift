@@ -2,11 +2,12 @@
 //  TdClientImpl.swift
 //
 //  Created by Anton Glezman on 17/09/2019.
-//  Copyright © 2019 Anton Glezman . All rights reserved.
+//  Copyright © 2019 Anton Glezman. All rights reserved.
 //
 
 import Foundation
 import TDLibFramework
+import Combine
 
 open class TdClientImpl: TdClient {
     
@@ -18,22 +19,11 @@ open class TdClientImpl: TdClient {
     private var completionQueue: DispatchQueue = .main
     private var awaitingCompletions = [String: CompletionHandler]()
     private var updateHandler: ((Data) -> Void)?
-    private var updateStreamHandler: ((Update) -> Void)?
     private let logger: Logger?
     private var isClientDestroyed = true
     private var stopFlag = false
-    
-    public var updateStream: AsyncStream<Update> {
-        AsyncStream { continuation in
-            run(updateHandler: {
-                let update = try! TdApi.decoder.decode(Update.self, from: $0)
-                continuation.yield(update)
-            })
-            continuation.onTermination = { @Sendable _ in
-                self.updateStreamHandler = nil
-            }
-        }
-    }
+            
+    public var updateSubject = PassthroughSubject<Update, Never>()
     
     /// Instantiate a TDLib Client
     /// - Parameter completionQueue: The serial operation queue used to dispatch all completion handlers. `.main` by default.
@@ -158,6 +148,8 @@ open class TdClientImpl: TdClient {
                 }
                 self.completionQueue.async {
                     self.updateHandler?(result)
+                    let decodedResult = try! TdApi.decoder.decode(Update.self, from: result)
+                    self.updateSubject.send(decodedResult)
                 }
             }
         }
