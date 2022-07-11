@@ -21,7 +21,7 @@ def parse_tdlib(mode: str) -> str:
                 elif mode == 'full':
                     return lib['state']['version']
     else:
-        raise ValueError(f"Unsupported .resolved version ${deps['version']}")
+        raise ValueError(f"Unsupported .resolved version {deps['version']}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
