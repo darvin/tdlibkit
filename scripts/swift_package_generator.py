@@ -34,8 +34,7 @@ exact: "{tdlibframework_version}"),
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("tdlibframework_version", help="mock-foundation/tdlibframework 
-version")
+    parser.add_argument("tdlibframework_version", help="mock-foundation/tdlibframework version")
     
     args = parser.parse_args()
     with open('Package.swift', 'w') as f:
