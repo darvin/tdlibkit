@@ -20,6 +20,17 @@ def parse_tdlib(mode: str) -> str:
                     return commit
                 elif mode == 'full':
                     return lib['state']['version']
+    elif deps['version'] == 2:
+        libs = deps['object']['pins']
+        for lib in libs:
+            if lib['identity'] == 'tdlibframework':
+                version, commit = lib['state']['version'].split('-')
+                if mode == 'version':
+                    return version
+                elif mode == 'commit':
+                    return commit
+                elif mode == 'full':
+                    return lib['state']['version']
     else:
         raise ValueError(f"Unsupported .resolved version {deps['version']}")
 
