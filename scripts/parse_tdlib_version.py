@@ -21,7 +21,7 @@ def parse_tdlib(mode: str) -> str:
                 elif mode == 'full':
                     return lib['state']['version']
     elif deps['version'] == 2:
-        libs = deps['object']['pins']
+        libs = deps['pins']
         for lib in libs:
             if lib['identity'] == 'tdlibframework':
                 version, commit = lib['state']['version'].split('-')
