@@ -103,19 +103,43 @@ final class MethodsComposer: Composer {
     private func composeComment(_ info: ClassInfo) -> String {
         var result = ""
         var returns: String? = nil
+        var amountToStrip = 0
+        var suffixLength = 0
         
-        let splitStrings = info.description.split(separator: ".")
-        for string in splitStrings {
+        var splitStrings = info.description.split(separator: ".")
+        for (index, string) in splitStrings.enumerated() {
             if string.hasPrefix(" Returns ") { // Spaces are needed
-                var temp = string.suffix(string.count - 9)
-                temp = temp.prefix(1).uppercased() + temp.dropFirst()
-                returns = String(temp)
+                suffixLength = 9
+            } else if string.hasPrefix("Returns ") {
+                suffixLength = 8
+            } else {
+                continue
+            }
+            
+            var temp = string.suffix(string.count - suffixLength)
+            temp = temp.prefix(1).uppercased() + temp.dropFirst()
+            returns = String(temp)
+            amountToStrip = temp.count
+            
+            if splitStrings.count - 1 > index {
+                splitStrings.removeFirst(index + 1)
+                for string in splitStrings {
+                    returns = (returns ?? "") + "." + string
+                    amountToStrip += string.count
+                }
+                break
             }
         }
         
-        if let returns = returns {
+        if returns != nil {
             // The prefix is to remove the return info from the description
-            result = "/// \(info.description.prefix(info.description.count - (returns.count + 9)))\n"
+            let prefixAmount = info.description.count - (amountToStrip + suffixLength)
+            print(prefixAmount, info.description.count, amountToStrip, suffixLength, info.name)
+            if prefixAmount <= 0 {
+                result = "/// No description.\n"
+            } else {
+                result = "/// \(info.description.prefix(prefixAmount))\n"
+            }
         } else {
             result = "/// \(info.description)\n"
         }
