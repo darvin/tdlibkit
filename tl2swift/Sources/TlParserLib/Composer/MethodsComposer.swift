@@ -125,7 +125,7 @@ final class MethodsComposer: Composer {
                 splitStrings.removeFirst(index + 1)
                 for string in splitStrings {
                     returns = (returns ?? "") + "." + string
-                    amountToStrip += string.count
+                    amountToStrip += string.count + 1
                 }
                 break
             }
@@ -134,7 +134,6 @@ final class MethodsComposer: Composer {
         if returns != nil {
             // The prefix is to remove the return info from the description
             let prefixAmount = info.description.count - (amountToStrip + suffixLength)
-            print(prefixAmount, info.description.count, amountToStrip, suffixLength, info.name)
             if prefixAmount <= 0 {
                 result = "/// No description.\n"
             } else {
