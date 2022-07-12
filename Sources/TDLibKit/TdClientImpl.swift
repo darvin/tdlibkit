@@ -149,7 +149,9 @@ open class TdClientImpl: TdClient {
                 self.completionQueue.async {
                     self.updateHandler?(result)
                     let decodedResult = try! TdApi.decoder.decode(Update.self, from: result)
-                    self.updateSubject.send(decodedResult)
+                    DispatchQueue.main.async {
+                        self.updateSubject.send(decodedResult)
+                    }
                 }
             }
         }
