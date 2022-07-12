@@ -69,11 +69,11 @@ jobs:
         run: wget https://raw.githubusercontent.com/tdlib/td/$TDLIB_COMMIT/td/generate/scheme/td_api.tl
 
       - name: Run Generator
-        working-directory: scripts/tl2swift
-        run: swift run tl2swift ../../td_api.tl ../../Sources/TDLibKit/Generated $TDLIB_VERSION $TDLIB_COMMIT
+        working-directory: tl2swift
+        run: swift run tl2swift ../td_api.tl ../Sources/TDLibKit/Generated $TDLIB_VERSION $TDLIB_COMMIT
 
       - name: Commit Files
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         run: |
           git add . || true
           git commit -m "[no ci] Version ${{ env.RELEASE_TAG }}" || true
@@ -88,7 +88,7 @@ jobs:
         run: git push origin master || true
 
       - name: Clean local files
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         run: |
           git clean -nfdx
           git clean -fdx
@@ -97,14 +97,14 @@ jobs:
           rm -rf .build
 
       - name: Upload artifact
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         uses: actions/upload-artifact@v2
         with:
           name: TDLibKit-${{ github.sha }}
           path: .
 
       - name: Remove previous release
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: dev-drprasad/delete-tag-and-release@85fa8bcea0379a6ada9bbfdcb0a9d24d58e1a0d7
         with:
           delete_release: true
@@ -113,7 +113,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: softprops/action-gh-release@9729932bfb75c05ad1f6e3a729294e05abaa7001
         with:
           target_commitish: master
