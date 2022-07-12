@@ -30,7 +30,8 @@ public final class TdApi {
     }
 
 
-    /// Returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization
+    /// No description.
+    /// - Returns: The current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization
     public func getAuthorizationState() async throws -> AuthorizationState {
         let query = GetAuthorizationState()
         return try await execute(query: query)
@@ -199,7 +200,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all updates needed to restore current TDLib state, i.e. all actual UpdateAuthorizationState/UpdateUser/UpdateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization
+    /// No description.
+    /// - Returns: All updates needed to restore current TDLib state, i.e. all actual UpdateAuthorizationState/UpdateUser/UpdateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization
     public func getCurrentState() async throws -> Updates {
         let query = GetCurrentState()
         return try await execute(query: query)
@@ -215,7 +217,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the current state of 2-step verification
+    /// No description.
+    /// - Returns: The current state of 2-step verification
     public func getPasswordState() async throws -> PasswordState {
         let query = GetPasswordState()
         return try await execute(query: query)
@@ -244,8 +247,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a 2-step verification recovery email address that was previously set up. This method can be used to verify a password provided by the user
+    /// No description.
     /// - Parameter password: The password for the current user
+    /// - Returns: A 2-step verification recovery email address that was previously set up. This method can be used to verify a password provided by the user
     public func getRecoveryEmailAddress(password: String?) async throws -> RecoveryEmailAddress {
         let query = GetRecoveryEmailAddress(
             password: password
@@ -342,20 +346,23 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about the current temporary password
+    /// No description.
+    /// - Returns: Information about the current temporary password
     public func getTemporaryPasswordState() async throws -> TemporaryPasswordState {
         let query = GetTemporaryPasswordState()
         return try await execute(query: query)
     }
 
-    /// Returns the current user
+    /// No description.
+    /// - Returns: The current user
     public func getMe() async throws -> User {
         let query = GetMe()
         return try await execute(query: query)
     }
 
-    /// Returns information about a user by their identifier. This is an offline request if the current user is not a bot
+    /// No description.
     /// - Parameter userId: User identifier
+    /// - Returns: Information about a user by their identifier. This is an offline request if the current user is not a bot
     public func getUser(userId: Int64?) async throws -> User {
         let query = GetUser(
             userId: userId
@@ -363,8 +370,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns full information about a user by their identifier
+    /// No description.
     /// - Parameter userId: User identifier
+    /// - Returns: Full information about a user by their identifier
     public func getUserFullInfo(userId: Int64?) async throws -> UserFullInfo {
         let query = GetUserFullInfo(
             userId: userId
@@ -372,8 +380,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a basic group by its identifier. This is an offline request if the current user is not a bot
+    /// No description.
     /// - Parameter basicGroupId: Basic group identifier
+    /// - Returns: Information about a basic group by its identifier. This is an offline request if the current user is not a bot
     public func getBasicGroup(basicGroupId: Int64?) async throws -> BasicGroup {
         let query = GetBasicGroup(
             basicGroupId: basicGroupId
@@ -381,8 +390,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns full information about a basic group by its identifier
+    /// No description.
     /// - Parameter basicGroupId: Basic group identifier
+    /// - Returns: Full information about a basic group by its identifier
     public func getBasicGroupFullInfo(basicGroupId: Int64?) async throws -> BasicGroupFullInfo {
         let query = GetBasicGroupFullInfo(
             basicGroupId: basicGroupId
@@ -390,8 +400,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot
+    /// No description.
     /// - Parameter supergroupId: Supergroup or channel identifier
+    /// - Returns: Information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot
     public func getSupergroup(supergroupId: Int64?) async throws -> Supergroup {
         let query = GetSupergroup(
             supergroupId: supergroupId
@@ -399,8 +410,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns full information about a supergroup or a channel by its identifier, cached for up to 1 minute
+    /// No description.
     /// - Parameter supergroupId: Supergroup or channel identifier
+    /// - Returns: Full information about a supergroup or a channel by its identifier, cached for up to 1 minute
     public func getSupergroupFullInfo(supergroupId: Int64?) async throws -> SupergroupFullInfo {
         let query = GetSupergroupFullInfo(
             supergroupId: supergroupId
@@ -408,8 +420,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a secret chat by its identifier. This is an offline request
+    /// No description.
     /// - Parameter secretChatId: Secret chat identifier
+    /// - Returns: Information about a secret chat by its identifier. This is an offline request
     public func getSecretChat(secretChatId: Int?) async throws -> SecretChat {
         let query = GetSecretChat(
             secretChatId: secretChatId
@@ -417,8 +430,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a chat by its identifier, this is an offline request if the current user is not a bot
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: Information about a chat by its identifier, this is an offline request if the current user is not a bot
     public func getChat(chatId: Int64?) async throws -> Chat {
         let query = GetChat(
             chatId: chatId
@@ -426,9 +440,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a message
+    /// No description.
     /// - Parameter chatId: Identifier of the chat the message belongs to
     /// - Parameter messageId: Identifier of the message to get
+    /// - Returns: Information about a message
     public func getMessage(
         chatId: Int64?,
         messageId: Int64?
@@ -440,9 +455,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a message, if it is available without sending network request. This is an offline request
+    /// No description.
     /// - Parameter chatId: Identifier of the chat the message belongs to
     /// - Parameter messageId: Identifier of the message to get
+    /// - Returns: Information about a message, if it is available without sending network request. This is an offline request
     public func getMessageLocally(
         chatId: Int64?,
         messageId: Int64?
@@ -454,9 +470,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a message that is replied by a given message. Also returns the pinned message, the game message, and the invoice message for messages of the types messagePinMessage, messageGameScore, and messagePaymentSuccessful respectively
+    /// No description.
     /// - Parameter chatId: Identifier of the chat the message belongs to
     /// - Parameter messageId: Identifier of the reply message
+    /// - Returns: Information about a message that is replied by a given message. Also returns the pinned message, the game message, and the invoice message for messages of the types messagePinMessage, messageGameScore, and messagePaymentSuccessful respectively
     public func getRepliedMessage(
         chatId: Int64?,
         messageId: Int64?
@@ -468,8 +485,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a newest pinned message in the chat
+    /// No description.
     /// - Parameter chatId: Identifier of the chat the message belongs to
+    /// - Returns: Information about a newest pinned message in the chat
     public func getChatPinnedMessage(chatId: Int64?) async throws -> Message {
         let query = GetChatPinnedMessage(
             chatId: chatId
@@ -477,10 +495,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a message with the callback button that originated a callback query; for bots only
+    /// No description.
     /// - Parameter callbackQueryId: Identifier of the callback query
     /// - Parameter chatId: Identifier of the chat the message belongs to
     /// - Parameter messageId: Message identifier
+    /// - Returns: Information about a message with the callback button that originated a callback query; for bots only
     public func getCallbackQueryMessage(
         callbackQueryId: TdInt64?,
         chatId: Int64?,
@@ -494,9 +513,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about messages. If a message is not found, returns null on the corresponding position of the result
+    /// No description.
     /// - Parameter chatId: Identifier of the chat the messages belong to
     /// - Parameter messageIds: Identifiers of the messages to get
+    /// - Returns: Information about messages. If a message is not found, returns null on the corresponding position of the result
     public func getMessages(
         chatId: Int64?,
         messageIds: [Int64]?
@@ -508,9 +528,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a message thread. Can be used only if message.can_get_message_thread == true
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter messageId: Identifier of the message
+    /// - Returns: Information about a message thread. Can be used only if message.can_get_message_thread == true
     public func getMessageThread(
         chatId: Int64?,
         messageId: Int64?
@@ -522,9 +543,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns viewers of a recent outgoing message in a basic group or a supergroup chat. For video notes and voice notes only users, opened content of the message, are returned. The method can be called if message.can_get_viewers == true
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter messageId: Identifier of the message
+    /// - Returns: Viewers of a recent outgoing message in a basic group or a supergroup chat. For video notes and voice notes only users, opened content of the message, are returned. The method can be called if message.can_get_viewers == true
     public func getMessageViewers(
         chatId: Int64?,
         messageId: Int64?
@@ -536,8 +558,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a file; this is an offline request
+    /// No description.
     /// - Parameter fileId: Identifier of the file to get
+    /// - Returns: Information about a file; this is an offline request
     public func getFile(fileId: Int?) async throws -> File {
         let query = GetFile(
             fileId: fileId
@@ -545,9 +568,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a file by its remote ID; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application
+    /// No description.
     /// - Parameter fileType: File type; pass null if unknown
     /// - Parameter remoteFileId: Remote identifier of the file to get
+    /// - Returns: Information about a file by its remote ID; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application
     public func getRemoteFile(
         fileType: FileType?,
         remoteFileId: String?
@@ -575,9 +599,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats and updates processing instead to maintain chat lists in a consistent state
+    /// No description.
     /// - Parameter chatList: The chat list in which to return chats; pass null to get chats from the main chat list
     /// - Parameter limit: The maximum number of chats to be returned
+    /// - Returns: An ordered list of chats from the beginning of a chat list. For informational purposes only. Use loadChats and updates processing instead to maintain chat lists in a consistent state
     public func getChats(
         chatList: ChatList?,
         limit: Int?
@@ -599,9 +624,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Searches public chats by looking for specified query in their username and title. Currently, only private chats, supergroups and channels can be public. Returns a meaningful number of results. Excludes private chats with contacts and ch
+    /// Searches public chats by looking for specified query in their username and title. Currently, only private chats, supergroups and channels can be public.
     /// - Parameter query: Query to search for
-    /// - Returns: A meaningful number of results
+    /// - Returns: A meaningful number of results. Excludes private chats with contacts and chats from the chat list from the results
     public func searchPublicChats(query: String?) async throws -> Chats {
         let query = SearchPublicChats(
             query: query
@@ -639,8 +664,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of users and location-based supergroups nearby. The list of users nearby will be updated for 60 seconds after the request by the updates updateUsersNearby. The request must be sent again every 25 seconds with adjusted location to not miss new chats
+    /// No description.
     /// - Parameter location: Current user location
+    /// - Returns: A list of users and location-based supergroups nearby. The list of users nearby will be updated for 60 seconds after the request by the updates updateUsersNearby. The request must be sent again every 25 seconds with adjusted location to not miss new chats
     public func searchChatsNearby(location: Location?) async throws -> ChatsNearby {
         let query = SearchChatsNearby(
             location: location
@@ -648,9 +674,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of frequently used chats. Supported only if the chat info database is enabled
+    /// No description.
     /// - Parameter category: Category of chats to be returned
     /// - Parameter limit: The maximum number of chats to be returned; up to 30
+    /// - Returns: A list of frequently used chats. Supported only if the chat info database is enabled
     public func getTopChats(
         category: TopChatCategory?,
         limit: Int?
@@ -704,9 +731,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns recently opened chats, this is an offline request.
+    /// No description.
     /// - Parameter limit: The maximum number of chats to be returned
-    /// - Returns: Chats in the order of last opening
+    /// - Returns: Recently opened chats, this is an offline request. Returns chats in the order of last opening
     public func getRecentlyOpenedChats(limit: Int?) async throws -> Chats {
         let query = GetRecentlyOpenedChats(
             limit: limit
@@ -728,8 +755,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of public chats of the specified type, owned by the user
+    /// No description.
     /// - Parameter type: Type of the public chats to return
+    /// - Returns: A list of public chats of the specified type, owned by the user
     public func getCreatedPublicChats(type: PublicChatType?) async throws -> Chats {
         let query = GetCreatedPublicChats(
             type: type
@@ -737,9 +765,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Checks whether the maximum number of owned public chats has been reached. Returns corresponding error if the limit was reac
+    /// Checks whether the maximum number of owned public chats has been reached.
     /// - Parameter type: Type of the public chats, for which to check the limit
-    /// - Returns: Corresponding error if the limit was reached
+    /// - Returns: Corresponding error if the limit was reached. The limit can be increased with Telegram Premium
     @discardableResult
     public func checkCreatedPublicChatsLimit(type: PublicChatType?) async throws -> Ok {
         let query = CheckCreatedPublicChatsLimit(
@@ -748,22 +776,25 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first
+    /// No description.
+    /// - Returns: A list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first
     public func getSuitableDiscussionChats() async throws -> Chats {
         let query = GetSuitableDiscussionChats()
         return try await execute(query: query)
     }
 
-    /// Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error. Also, the limit can be increased with Telegram Premium
+    /// No description.
+    /// - Returns: A list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error. Also, the limit can be increased with Telegram Premium
     public func getInactiveSupergroupChats() async throws -> Chats {
         let query = GetInactiveSupergroupChats()
         return try await execute(query: query)
     }
 
-    /// Returns a list of common group chats with a given user. Chats are sorted by their type and creation date
+    /// No description.
     /// - Parameter limit: The maximum number of chats to be returned; up to 100
     /// - Parameter offsetChatId: Chat identifier starting from which to return chats; use 0 for the first request
     /// - Parameter userId: User identifier
+    /// - Returns: A list of common group chats with a given user. Chats are sorted by their type and creation date
     public func getGroupsInCommon(
         limit: Int?,
         offsetChatId: Int64?,
@@ -777,12 +808,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if only_local is true
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter fromMessageId: Identifier of the message starting from which history must be fetched; use 0 to get results from the last message
     /// - Parameter limit: The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     /// - Parameter offset: Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
     /// - Parameter onlyLocal: Pass true to get only messages that are available without sending network requests
+    /// - Returns: Messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib. This is an offline request if only_local is true
     public func getChatHistory(
         chatId: Int64?,
         fromMessageId: Int64?,
@@ -800,12 +832,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns messages in a message thread of a message. Can be used only if message.can_get_message_thread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter fromMessageId: Identifier of the message starting from which history must be fetched; use 0 to get results from the last message
     /// - Parameter limit: The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     /// - Parameter messageId: Message identifier, which thread history needs to be returned
     /// - Parameter offset: Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
+    /// - Returns: Messages in a message thread of a message. Can be used only if message.can_get_message_thread == true. Message thread of a channel message is in the channel's linked supergroup. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib
     public func getMessageThreadHistory(
         chatId: Int64?,
         fromMessageId: Int64?,
@@ -851,7 +884,7 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chose
+    /// Searches for messages with given words in the chat.
     /// - Parameter chatId: Identifier of the chat in which to search messages
     /// - Parameter filter: Additional filter for messages to search; pass null to search for all messages
     /// - Parameter fromMessageId: Identifier of the message starting from which history must be fetched; use 0 to get results from the last message
@@ -860,7 +893,7 @@ public final class TdApi {
     /// - Parameter offset: Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages
     /// - Parameter query: Query to search for
     /// - Parameter senderId: Identifier of the sender of messages to search for; pass null to search for messages from any sender. Not supported in secret chats
-    /// - Returns: The results in reverse chronological order, i
+    /// - Returns: The results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query (searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     public func searchChatMessages(
         chatId: Int64?,
         filter: SearchMessagesFilter?,
@@ -884,7 +917,7 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). For optimal performance, the number of returned messages is chose
+    /// Searches for messages in all chats except secret chats.
     /// - Parameter chatList: Chat list in which to search messages; pass null to search in all chats regardless of their chat list. Only Main and Archive chat lists are supported
     /// - Parameter filter: Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterUnreadReaction, searchMessagesFilterFailedToSend, and searchMessagesFilterPinned are unsupported in this function
     /// - Parameter limit: The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
@@ -894,7 +927,7 @@ public final class TdApi {
     /// - Parameter offsetDate: The date of the message starting from which the results need to be fetched. Use 0 or any date in the future to get results from the last message
     /// - Parameter offsetMessageId: The message identifier of the last found message, or 0 for the first request
     /// - Parameter query: Query to search for
-    /// - Returns: The results in reverse chronological order (i
+    /// - Returns: The results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     public func searchMessages(
         chatList: ChatList?,
         filter: SearchMessagesFilter?,
@@ -920,13 +953,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance,
+    /// Searches for messages in secret chats.
     /// - Parameter chatId: Identifier of the chat in which to search. Specify 0 to search in all secret chats
     /// - Parameter filter: Additional filter for messages to search; pass null to search for all messages
     /// - Parameter limit: The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     /// - Parameter offset: Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
     /// - Parameter query: Query to search for. If empty, searchChatMessages must be used instead
-    /// - Returns: The results in reverse chronological order
+    /// - Returns: The results in reverse chronological order. For optimal performance, the number of returned messages is chosen by TDLib
     public func searchSecretMessages(
         chatId: Int64?,
         filter: SearchMessagesFilter?,
@@ -944,11 +977,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing message_id). For optimal performan
+    /// Searches for call messages.
     /// - Parameter fromMessageId: Identifier of the message from which to search; use 0 to get results from the last message
     /// - Parameter limit: The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     /// - Parameter onlyMissed: Pass true to search only for messages with missed/declined calls
-    /// - Returns: The results in reverse chronological order (i
+    /// - Returns: The results in reverse chronological order (i. e., in order of decreasing message_id). For optimal performance, the number of returned messages is chosen by TDLib
     public func searchCallMessages(
         fromMessageId: Int64?,
         limit: Int?,
@@ -987,10 +1020,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about the recent locations of chat members that were sent to the chat.
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter limit: The maximum number of messages to be returned
-    /// - Returns: Up to 1 location message per user
+    /// - Returns: Information about the recent locations of chat members that were sent to the chat. Returns up to 1 location message per user
     public func searchChatRecentLocationMessages(
         chatId: Int64?,
         limit: Int?
@@ -1002,15 +1035,17 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all active live locations that need to be updated by the application. The list is persistent across application restarts only if the message database is used
+    /// No description.
+    /// - Returns: All active live locations that need to be updated by the application. The list is persistent across application restarts only if the message database is used
     public func getActiveLiveLocationMessages() async throws -> Messages {
         let query = GetActiveLiveLocationMessages()
         return try await execute(query: query)
     }
 
-    /// Returns the last message sent in a chat no later than the specified date
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter date: Point in time (Unix timestamp) relative to which to search for messages
+    /// - Returns: The last message sent in a chat no later than the specified date
     public func getChatMessageByDate(
         chatId: Int64?,
         date: Int?
@@ -1022,12 +1057,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns sparse positions of messages of the specified type in the chat to be used for shared media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id). Cannot be used in secret chats or with searchMessagesFilterF
+    /// No description.
     /// - Parameter chatId: Identifier of the chat in which to return information about message positions
     /// - Parameter filter: Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function
     /// - Parameter fromMessageId: The message identifier from which to return information about message positions
     /// - Parameter limit: The expected number of message positions to be returned; 50-2000. A smaller number of positions can be returned, if there are not enough appropriate messages
-    /// - Returns: The results in reverse chronological order (i
+    /// - Returns: Sparse positions of messages of the specified type in the chat to be used for shared media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id). Cannot be used in secret chats or with searchMessagesFilterFailedToSend filter without an enabled message database
     public func getChatSparseMessagePositions(
         chatId: Int64?,
         filter: SearchMessagesFilter?,
@@ -1043,11 +1078,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method d
+    /// No description.
     /// - Parameter chatId: Identifier of the chat in which to return information about messages
     /// - Parameter filter: Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterMention, searchMessagesFilterUnreadMention, and searchMessagesFilterUnreadReaction are unsupported in this function
     /// - Parameter fromMessageId: The message identifier from which to return information about messages; use 0 to get results from the last message
-    /// - Returns: The results in reverse chronological order
+    /// - Returns: Information about the next messages of the specified type in the chat split by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option "utc_time_offset"
     public func getChatMessageCalendar(
         chatId: Int64?,
         filter: SearchMessagesFilter?,
@@ -1061,10 +1096,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns approximate number of messages of the specified type in the chat
+    /// No description.
     /// - Parameter chatId: Identifier of the chat in which to count messages
     /// - Parameter filter: Filter for message content; searchMessagesFilterEmpty is unsupported in this function
     /// - Parameter returnLocal: Pass true to get the number of messages without sending network requests, or -1 if the number of messages is unknown locally
+    /// - Returns: Approximate number of messages of the specified type in the chat
     public func getChatMessageCount(
         chatId: Int64?,
         filter: SearchMessagesFilter?,
@@ -1078,8 +1114,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all scheduled messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: All scheduled messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
     public func getChatScheduledMessages(chatId: Int64?) async throws -> Messages {
         let query = GetChatScheduledMessages(
             chatId: chatId
@@ -1087,11 +1124,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib
+    /// No description.
     /// - Parameter chatId: Chat identifier of the message
     /// - Parameter limit: The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit
     /// - Parameter messageId: Message identifier
     /// - Parameter offset: Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+    /// - Returns: Forwarded copies of a channel message to different public channels. For optimal performance, the number of returned messages is chosen by TDLib
     public func getMessagePublicForwards(
         chatId: Int64?,
         limit: Int?,
@@ -1107,9 +1145,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns sponsored message to be shown in a chat; for channel chats only.
+    /// No description.
     /// - Parameter chatId: Identifier of the chat
-    /// - Returns: A 404 error if there is no sponsored message in the chat
+    /// - Returns: Sponsored message to be shown in a chat; for channel chats only. Returns a 404 error if there is no sponsored message in the chat
     public func getChatSponsoredMessage(chatId: Int64?) async throws -> SponsoredMessage {
         let query = GetChatSponsoredMessage(
             chatId: chatId
@@ -1147,12 +1185,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels, or if message.can_get_media_timestamp_links and a media timestamp link is generated. This is an offline request
+    /// No description.
     /// - Parameter chatId: Identifier of the chat to which the message belongs
     /// - Parameter forAlbum: Pass true to create a link for the whole media album
     /// - Parameter forComment: Pass true to create a link to the message as a channel post comment, or from a message thread
     /// - Parameter mediaTimestamp: If not 0, timestamp from which the video/audio/video note/voice note playing must start, in seconds. The media can be in the message content or in its web page preview
     /// - Parameter messageId: Identifier of the message
+    /// - Returns: An HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels, or if message.can_get_media_timestamp_links and a media timestamp link is generated. This is an offline request
     public func getMessageLink(
         chatId: Int64?,
         forAlbum: Bool?,
@@ -1170,10 +1209,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an HTML code for embedding the message. Available only for messages in supergroups and channels with a username
+    /// No description.
     /// - Parameter chatId: Identifier of the chat to which the message belongs
     /// - Parameter forAlbum: Pass true to return an HTML code for embedding of the whole media album
     /// - Parameter messageId: Identifier of the message
+    /// - Returns: An HTML code for embedding the message. Available only for messages in supergroups and channels with a username
     public func getMessageEmbeddingCode(
         chatId: Int64?,
         forAlbum: Bool?,
@@ -1187,8 +1227,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage
+    /// No description.
     /// - Parameter url: The message link
+    /// - Returns: Information about a public or private message link. Can be called for any internal link of the type internalLinkTypeMessage
     public func getMessageLinkInfo(url: String?) async throws -> MessageLinkInfo {
         let query = GetMessageLinkInfo(
             url: url
@@ -1247,8 +1288,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of message sender identifiers, which can be used to send messages in a chat
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: List of message sender identifiers, which can be used to send messages in a chat
     public func getChatAvailableMessageSenders(chatId: Int64?) async throws -> MessageSenders {
         let query = GetChatAvailableMessageSenders(
             chatId: chatId
@@ -1343,7 +1385,7 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Sends the result of an inline query as a message. Returns the sent message. Always cl
+    /// Sends the result of an inline query as a message.
     /// - Parameter chatId: Target chat
     /// - Parameter hideViaBot: Pass true to hide the bot, via which the message is sent. Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username"), and GetOption("venue_search_bot_username")
     /// - Parameter messageThreadId: If not 0, a message thread identifier in which the message will be sent
@@ -1351,7 +1393,7 @@ public final class TdApi {
     /// - Parameter queryId: Identifier of the inline query
     /// - Parameter replyToMessageId: Identifier of a replied message; 0 if none
     /// - Parameter resultId: Identifier of the inline result
-    /// - Returns: The sent message
+    /// - Returns: The sent message. Always clears a chat draft message
     public func sendInlineQueryResultMessage(
         chatId: Int64?,
         hideViaBot: Bool?,
@@ -1373,7 +1415,7 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers pa
+    /// Forwards previously sent messages.
     /// - Parameter chatId: Identifier of the chat to which to forward messages
     /// - Parameter fromChatId: Identifier of the chat from which to forward messages
     /// - Parameter messageIds: Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously
@@ -1381,7 +1423,7 @@ public final class TdApi {
     /// - Parameter options: Options to be used to send the messages; pass null to use default options
     /// - Parameter removeCaption: Pass true to remove media captions of message copies. Ignored if send_copy is false
     /// - Parameter sendCopy: Pass true to copy content of the messages without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local
-    /// - Returns: The forwarded messages in the same order as the message identifiers passed in message_ids
+    /// - Returns: The forwarded messages in the same order as the message identifiers passed in message_ids. If a message can't be forwarded, null will be returned instead of the message
     public func forwardMessages(
         chatId: Int64?,
         fromChatId: Int64?,
@@ -1403,10 +1445,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Resends messages which failed to send. Can be called only for messages for which messageSendingStateFailed.can_retry is true and after specified in messageSendingStateFailed.retry_after time passed. If a message is re-sent, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passe
+    /// Resends messages which failed to send. Can be called only for messages for which messageSendingStateFailed.can_retry is true and after specified in messageSendingStateFailed.retry_after time passed. If a message is re-sent, the corresponding failed to send message is deleted.
     /// - Parameter chatId: Identifier of the chat to send messages
     /// - Parameter messageIds: Identifiers of the messages to resend. Message identifiers must be in a strictly increasing order
-    /// - Returns: The sent messages in the same order as the message identifiers passed in message_ids
+    /// - Returns: The sent messages in the same order as the message identifiers passed in message_ids. If a message can't be re-sent, null will be returned instead of the message
     public func resendMessages(
         chatId: Int64?,
         messageIds: [Int64]?
@@ -1725,9 +1767,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message. The method will return Premium reactions, even the current user has no Premium subscription
+    /// No description.
     /// - Parameter chatId: Identifier of the chat to which the message belongs
     /// - Parameter messageId: Identifier of the message
+    /// - Returns: Reactions, which can be added to a message. The list can change after updateReactions, updateChatAvailableReactions for the chat, or updateMessageInteractionInfo for the message. The method will return Premium reactions, even the current user has no Premium subscription
     public func getMessageAvailableReactions(
         chatId: Int64?,
         messageId: Int64?
@@ -1760,12 +1803,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns reactions added for a message, along with their sender
+    /// No description.
     /// - Parameter chatId: Identifier of the chat to which the message belongs
     /// - Parameter limit: The maximum number of reactions to be returned; must be positive and can't be greater than 100
     /// - Parameter messageId: Identifier of the message
     /// - Parameter offset: Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
     /// - Parameter reaction: If non-empty, only added reactions with the specified text representation will be returned
+    /// - Returns: Reactions added for a message, along with their sender
     public func getMessageAddedReactions(
         chatId: Int64?,
         limit: Int?,
@@ -1783,8 +1827,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously
+    /// No description.
     /// - Parameter text: The text in which to look for entites
+    /// - Returns: All entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously
     public func getTextEntities(text: String?) async throws -> TextEntities {
         let query = GetTextEntities(
             text: text
@@ -1824,9 +1869,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the MIME type of a file, guessed by its extension. Returns an empty string on f
+    /// No description.
     /// - Parameter fileName: The name of the file or path to the file
-    /// - Returns: An empty string on failure
+    /// - Returns: The MIME type of a file, guessed by its extension. Returns an empty string on failure. Can be called synchronously
     public func getFileMimeType(fileName: String?) async throws -> Text {
         let query = GetFileMimeType(
             fileName: fileName
@@ -1834,9 +1879,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the extension of a file, guessed by its MIME type. Returns an empty string on f
+    /// No description.
     /// - Parameter mimeType: The MIME type of the file
-    /// - Returns: An empty string on failure
+    /// - Returns: The extension of a file, guessed by its MIME type. Returns an empty string on failure. Can be called synchronously
     public func getFileExtension(mimeType: String?) async throws -> Text {
         let query = GetFileExtension(
             mimeType: mimeType
@@ -1844,9 +1889,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Removes potentially dangerous characters from the name of a file. The encoding of the file name is supposed to be UTF-8. Returns an empty string on f
+    /// Removes potentially dangerous characters from the name of a file. The encoding of the file name is supposed to be UTF-8.
     /// - Parameter fileName: File name or path to the file
-    /// - Returns: An empty string on failure
+    /// - Returns: An empty string on failure. Can be called synchronously
     public func cleanFileName(fileName: String?) async throws -> Text {
         let query = CleanFileName(
             fileName: fileName
@@ -1854,12 +1899,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the s
+    /// No description.
     /// - Parameter key: Language pack key of the string to be returned
     /// - Parameter languagePackDatabasePath: Path to the language pack database in which strings are stored
     /// - Parameter languagePackId: Language pack identifier
     /// - Parameter localizationTarget: Localization target to which the language pack belongs
-    /// - Returns: A 404 error if the string is not found
+    /// - Returns: A string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the string is not found. Can be called synchronously
     public func getLanguagePackString(
         key: String?,
         languagePackDatabasePath: String?,
@@ -1920,12 +1965,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns users voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib
+    /// No description.
     /// - Parameter chatId: Identifier of the chat to which the poll belongs
     /// - Parameter limit: The maximum number of users to be returned; must be positive and can't be greater than 50. For optimal performance, the number of returned users is chosen by TDLib and can be smaller than the specified limit, even if the end of the voter list has not been reached
     /// - Parameter messageId: Identifier of the message containing the poll
     /// - Parameter offset: Number of users to skip in the result; must be non-negative
     /// - Parameter optionId: 0-based identifier of the answer option
+    /// - Returns: Users voted for the specified option in a non-anonymous polls. For optimal performance, the number of returned users is chosen by TDLib
     public func getPollVoters(
         chatId: Int64?,
         limit: Int?,
@@ -1971,10 +2017,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a button of type inlineKeyboardButtonTypeLoginUrl. The method needs to be called when the user presses the button
+    /// No description.
     /// - Parameter buttonId: Button identifier
     /// - Parameter chatId: Chat identifier of the message with the button
     /// - Parameter messageId: Message identifier of the message with the button
+    /// - Returns: Information about a button of type inlineKeyboardButtonTypeLoginUrl. The method needs to be called when the user presses the button
     public func getLoginUrlInfo(
         buttonId: Int64?,
         chatId: Int64?,
@@ -1988,11 +2035,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an HTTP URL which can be used to automatically authorize the user on a website after clicking an inline button of type inlineKeyboardButtonTypeLoginUrl. Use the method getLoginUrlInfo to find whether a prior user confirmation is needed. If an error is returned, then the button must be handled as an ordinary URL button
+    /// No description.
     /// - Parameter allowWriteAccess: Pass true to allow the bot to send messages to the current user
     /// - Parameter buttonId: Button identifier
     /// - Parameter chatId: Chat identifier of the message with the button
     /// - Parameter messageId: Message identifier of the message with the button
+    /// - Returns: An HTTP URL which can be used to automatically authorize the user on a website after clicking an inline button of type inlineKeyboardButtonTypeLoginUrl. Use the method getLoginUrlInfo to find whether a prior user confirmation is needed. If an error is returned, then the button must be handled as an ordinary URL button
     public func getLoginUrl(
         allowWriteAccess: Bool?,
         buttonId: Int64?,
@@ -2062,10 +2110,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an HTTPS URL of a Web App to open after keyboardButtonTypeWebApp button is pressed
+    /// No description.
     /// - Parameter botUserId: Identifier of the target bot
     /// - Parameter theme: Preferred Web App theme; pass null to use the default theme
     /// - Parameter url: The URL from the keyboardButtonTypeWebApp button
+    /// - Returns: An HTTPS URL of a Web App to open after keyboardButtonTypeWebApp button is pressed
     public func getWebAppUrl(
         botUserId: Int64?,
         theme: ThemeParameters?,
@@ -2269,10 +2318,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the high scores for a game and some part of the high score table in the range of the specified user; for bots only
+    /// No description.
     /// - Parameter chatId: The chat that contains the message with the game
     /// - Parameter messageId: Identifier of the message
     /// - Parameter userId: User identifier
+    /// - Returns: The high scores for a game and some part of the high score table in the range of the specified user; for bots only
     public func getGameHighScores(
         chatId: Int64?,
         messageId: Int64?,
@@ -2286,9 +2336,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns game high scores and some part of the high score table in the range of the specified user; for bots only
+    /// No description.
     /// - Parameter inlineMessageId: Inline message identifier
     /// - Parameter userId: User identifier
+    /// - Returns: Game high scores and some part of the high score table in the range of the specified user; for bots only
     public func getInlineGameHighScores(
         inlineMessageId: String?,
         userId: Int64?
@@ -2404,9 +2455,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about the type of an internal link. Returns a 404 error if the link is 
+    /// No description.
     /// - Parameter link: The link
-    /// - Returns: A 404 error if the link is not internal
+    /// - Returns: Information about the type of an internal link. Returns a 404 error if the link is not internal. Can be called before authorization
     public func getInternalLinkType(link: String?) async throws -> InternalLinkType {
         let query = GetInternalLinkType(
             link: link
@@ -2414,8 +2465,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats
+    /// No description.
     /// - Parameter link: The link
+    /// - Returns: Information about an action to be done when the current user clicks an external link. Don't use this method for links from secret chats if web page preview is disabled in secret chats
     public func getExternalLinkInfo(link: String?) async throws -> LoginUrlInfo {
         let query = GetExternalLinkInfo(
             link: link
@@ -2423,9 +2475,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link. Use the method getExternalLinkInfo to find whether a prior user confirmation is needed
+    /// No description.
     /// - Parameter allowWriteAccess: Pass true if the current user allowed the bot, returned in getExternalLinkInfo, to send them messages
     /// - Parameter link: The HTTP link
+    /// - Returns: An HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link. Use the method getExternalLinkInfo to find whether a prior user confirmation is needed
     public func getExternalLink(
         allowWriteAccess: Bool?,
         link: String?
@@ -2457,9 +2510,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an existing chat corresponding to a given user
+    /// No description.
     /// - Parameter force: Pass true to create the chat without a network request. In this case all information about the chat except its type, title and photo can be incorrect
     /// - Parameter userId: User identifier
+    /// - Returns: An existing chat corresponding to a given user
     public func createPrivateChat(
         force: Bool?,
         userId: Int64?
@@ -2471,9 +2525,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an existing chat corresponding to a known basic group
+    /// No description.
     /// - Parameter basicGroupId: Basic group identifier
     /// - Parameter force: Pass true to create the chat without a network request. In this case all information about the chat except its type, title and photo can be incorrect
+    /// - Returns: An existing chat corresponding to a known basic group
     public func createBasicGroupChat(
         basicGroupId: Int64?,
         force: Bool?
@@ -2485,9 +2540,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an existing chat corresponding to a known supergroup or channel
+    /// No description.
     /// - Parameter force: Pass true to create the chat without a network request. In this case all information about the chat except its type, title and photo can be incorrect
     /// - Parameter supergroupId: Supergroup or channel identifier
+    /// - Returns: An existing chat corresponding to a known supergroup or channel
     public func createSupergroupChat(
         force: Bool?,
         supergroupId: Int64?
@@ -2499,8 +2555,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an existing chat corresponding to a known secret chat
+    /// No description.
     /// - Parameter secretChatId: Secret chat identifier
+    /// - Returns: An existing chat corresponding to a known secret chat
     public func createSecretChat(secretChatId: Int?) async throws -> Chat {
         let query = CreateSecretChat(
             secretChatId: secretChatId
@@ -2566,8 +2623,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns chat lists to which the chat can be added. This is an offline request
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: Chat lists to which the chat can be added. This is an offline request
     public func getChatListsToAddChat(chatId: Int64?) async throws -> ChatLists {
         let query = GetChatListsToAddChat(
             chatId: chatId
@@ -2590,8 +2648,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a chat filter by its identifier
+    /// No description.
     /// - Parameter chatFilterId: Chat filter identifier
+    /// - Returns: Information about a chat filter by its identifier
     public func getChatFilter(chatFilterId: Int?) async throws -> ChatFilter {
         let query = GetChatFilter(
             chatFilterId: chatFilterId
@@ -2599,9 +2658,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Creates new chat filter. Returns information about the created chat filter. There can be up to GetOption("chat_filter_count_max") chat filters, bu
+    /// Creates new chat filter.
     /// - Parameter filter: Chat filter
-    /// - Returns: Information about the created chat filter
+    /// - Returns: Information about the created chat filter. There can be up to GetOption("chat_filter_count_max") chat filters, but the limit can be increased with Telegram Premium
     public func createChatFilter(filter: ChatFilter?) async throws -> ChatFilterInfo {
         let query = CreateChatFilter(
             filter: filter
@@ -2649,14 +2708,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns recommended chat filters for the current user
+    /// No description.
+    /// - Returns: Recommended chat filters for the current user
     public func getRecommendedChatFilters() async throws -> RecommendedChatFilters {
         let query = GetRecommendedChatFilters()
         return try await execute(query: query)
     }
 
-    /// Returns default icon name for a filter. Can be called synchronously
+    /// No description.
     /// - Parameter filter: Chat filter
+    /// - Returns: Default icon name for a filter. Can be called synchronously
     public func getChatFilterDefaultIconName(filter: ChatFilter?) async throws -> Text {
         let query = GetChatFilterDefaultIconName(
             filter: filter
@@ -3069,9 +3130,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a single member of a chat
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter memberId: Member identifier
+    /// - Returns: Information about a single member of a chat
     public func getChatMember(
         chatId: Int64?,
         memberId: MessageSender?
@@ -3103,8 +3165,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of administrators of the chat with their custom titles
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: A list of administrators of the chat with their custom titles
     public func getChatAdministrators(chatId: Int64?) async throws -> ChatAdministrators {
         let query = GetChatAdministrators(
             chatId: chatId
@@ -3122,9 +3185,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns saved notification sound by its identifier.
+    /// No description.
     /// - Parameter notificationSoundId: Identifier of the notification sound
-    /// - Returns: A 404 error if there is no saved notification sound with the specified identifier
+    /// - Returns: Saved notification sound by its identifier. Returns a 404 error if there is no saved notification sound with the specified identifier
     public func getSavedNotificationSound(notificationSoundId: TdInt64?) async throws -> NotificationSounds {
         let query = GetSavedNotificationSound(
             notificationSoundId: notificationSoundId
@@ -3132,7 +3195,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of saved notification sounds. If a sound isn't in the list, then default sound needs to be used
+    /// No description.
+    /// - Returns: List of saved notification sounds. If a sound isn't in the list, then default sound needs to be used
     public func getSavedNotificationSounds() async throws -> NotificationSounds {
         let query = GetSavedNotificationSounds()
         return try await execute(query: query)
@@ -3157,9 +3221,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of chats with non-default notification settings
+    /// No description.
     /// - Parameter compareSound: Pass true to include in the response chats with only non-default sound
     /// - Parameter scope: If specified, only chats from the scope will be returned; pass null to return chats from all scopes
+    /// - Returns: List of chats with non-default notification settings
     public func getChatNotificationSettingsExceptions(
         compareSound: Bool?,
         scope: NotificationSettingsScope?
@@ -3171,8 +3236,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the notification settings for chats of a given type
+    /// No description.
     /// - Parameter scope: Types of chats for which to return the notification settings information
+    /// - Returns: The notification settings for chats of a given type
     public func getScopeNotificationSettings(scope: NotificationSettingsScope?) async throws -> ScopeNotificationSettings {
         let query = GetScopeNotificationSettings(
             scope: scope
@@ -3235,8 +3301,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a bot that can be added to attachment menu
+    /// No description.
     /// - Parameter botUserId: Bot's user identifier
+    /// - Returns: Information about a bot that can be added to attachment menu
     public func getAttachmentMenuBot(botUserId: Int64?) async throws -> AttachmentMenuBot {
         let query = GetAttachmentMenuBot(
             botUserId: botUserId
@@ -3282,9 +3349,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns file downloaded prefix size from a given offset, in bytes
+    /// No description.
     /// - Parameter fileId: Identifier of the file
     /// - Parameter offset: Offset from which downloaded prefix size needs to be calculated
+    /// - Returns: File downloaded prefix size from a given offset, in bytes
     public func getFileDownloadedPrefixSize(
         fileId: Int?,
         offset: Int64?
@@ -3311,9 +3379,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns suggested name for saving a file in a given directory
+    /// No description.
     /// - Parameter directory: Directory in which the file is supposed to be saved
     /// - Parameter fileId: Identifier of the file
+    /// - Returns: Suggested name for saving a file in a given directory
     public func getSuggestedFileName(
         directory: String?,
         fileId: Int?
@@ -3531,8 +3600,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a file with messages exported from another application
+    /// No description.
     /// - Parameter messageFileHead: Beginning of the message file; up to 100 first lines
+    /// - Returns: Information about a file with messages exported from another application
     public func getMessageFileType(messageFileHead: String?) async throws -> MessageFileType {
         let query = GetMessageFileType(
             messageFileHead: messageFileHead
@@ -3540,8 +3610,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a confirmation text to be shown to the user before starting message import
+    /// No description.
     /// - Parameter chatId: Identifier of a chat to which the messages will be imported. It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right
+    /// - Returns: A confirmation text to be shown to the user before starting message import
     public func getMessageImportConfirmationText(chatId: Int64?) async throws -> Text {
         let query = GetMessageImportConfirmationText(
             chatId: chatId
@@ -3625,9 +3696,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about an invite link. Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter inviteLink: Invite link to get
+    /// - Returns: Information about an invite link. Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
     public func getChatInviteLink(
         chatId: Int64?,
         inviteLink: String?
@@ -3639,8 +3711,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of chat administrators with number of their invite links. Requires owner privileges in the chat
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: List of chat administrators with number of their invite links. Requires owner privileges in the chat
     public func getChatInviteLinkCounts(chatId: Int64?) async throws -> ChatInviteLinkCounts {
         let query = GetChatInviteLinkCounts(
             chatId: chatId
@@ -3648,13 +3721,14 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns invite links for a chat created by specified administrator. Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter creatorUserId: User identifier of a chat administrator. Must be an identifier of the current user for non-owner
     /// - Parameter isRevoked: Pass true if revoked links needs to be returned instead of active or expired
     /// - Parameter limit: The maximum number of invite links to return; up to 100
     /// - Parameter offsetDate: Creation date of an invite link starting after which to return invite links; use 0 to get results from the beginning
     /// - Parameter offsetInviteLink: Invite link starting after which to return invite links; use empty string to get results from the beginning
+    /// - Returns: Invite links for a chat created by specified administrator. Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
     public func getChatInviteLinks(
         chatId: Int64?,
         creatorUserId: Int64?,
@@ -3674,11 +3748,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns chat members joined a chat via an invite link. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter inviteLink: Invite link for which to return chat members
     /// - Parameter limit: The maximum number of chat members to return; up to 100
     /// - Parameter offsetMember: A chat member from which to return next chat members; pass null to get results from the beginning
+    /// - Returns: Chat members joined a chat via an invite link. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
     public func getChatInviteLinkMembers(
         chatId: Int64?,
         inviteLink: String?,
@@ -3756,12 +3831,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns pending join requests in a chat
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter inviteLink: Invite link for which to return join requests. If empty, all join requests will be returned. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
     /// - Parameter limit: The maximum number of requests to join the chat to return
     /// - Parameter offsetRequest: A chat join request from which to return next requests; pass null to get results from the beginning
     /// - Parameter query: A query to search for in the first names, last names and usernames of the users to return
+    /// - Returns: Pending join requests in a chat
     public func getChatJoinRequests(
         chatId: Int64?,
         inviteLink: String?,
@@ -3937,8 +4013,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of participant identifiers, on whose behalf a video chat in the chat can be joined
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: List of participant identifiers, on whose behalf a video chat in the chat can be joined
     public func getVideoChatAvailableParticipants(chatId: Int64?) async throws -> MessageSenders {
         let query = GetVideoChatAvailableParticipants(
             chatId: chatId
@@ -3981,8 +4058,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns RTMP URL for streaming to the chat; requires creator privileges
+    /// No description.
     /// - Parameter chatId: Chat identifier
+    /// - Returns: RTMP URL for streaming to the chat; requires creator privileges
     public func getVideoChatRtmpUrl(chatId: Int64?) async throws -> RtmpUrl {
         let query = GetVideoChatRtmpUrl(
             chatId: chatId
@@ -3999,8 +4077,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a group call
+    /// No description.
     /// - Parameter groupCallId: Group call identifier
+    /// - Returns: Information about a group call
     public func getGroupCall(groupCallId: Int?) async throws -> GroupCall {
         let query = GetGroupCall(
             groupCallId: groupCallId
@@ -4151,9 +4230,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns invite link to a video chat in a public chat
+    /// No description.
     /// - Parameter canSelfUnmute: Pass true if the invite link needs to contain an invite hash, passing which to joinGroupCall would allow the invited user to unmute themselves. Requires groupCall.can_be_managed group call flag
     /// - Parameter groupCallId: Group call identifier
+    /// - Returns: Invite link to a video chat in a public chat
     public func getGroupCallInviteLink(
         canSelfUnmute: Bool?,
         groupCallId: Int?
@@ -4343,8 +4423,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about available group call streams
+    /// No description.
     /// - Parameter groupCallId: Group call identifier
+    /// - Returns: Information about available group call streams
     public func getGroupCallStreams(groupCallId: Int?) async throws -> GroupCallStreams {
         let query = GetGroupCallStreams(
             groupCallId: groupCallId
@@ -4352,12 +4433,13 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a file with a segment of a group call stream in a modified OGG format for audio or MPEG-4 format for video
+    /// No description.
     /// - Parameter channelId: Identifier of an audio/video channel to get as received from tgcalls
     /// - Parameter groupCallId: Group call identifier
     /// - Parameter scale: Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds
     /// - Parameter timeOffset: Point in time when the stream segment begins; Unix timestamp in milliseconds
     /// - Parameter videoQuality: Video quality as received from tgcalls; pass null to get the worst available quality
+    /// - Returns: A file with a segment of a group call stream in a modified OGG format for audio or MPEG-4 format for video
     public func getGroupCallStreamSegment(
         channelId: Int?,
         groupCallId: Int?,
@@ -4411,9 +4493,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns users and chats that were blocked by the current user
+    /// No description.
     /// - Parameter limit: The maximum number of users and chats to return; up to 100
     /// - Parameter offset: Number of users and chats to skip in the result; must be non-negative
+    /// - Returns: Users and chats that were blocked by the current user
     public func getBlockedMessageSenders(
         limit: Int?,
         offset: Int?
@@ -4449,7 +4532,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all user contacts
+    /// No description.
+    /// - Returns: All user contacts
     public func getContacts() async throws -> Users {
         let query = GetContacts()
         return try await execute(query: query)
@@ -4479,7 +4563,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the total number of imported contacts
+    /// No description.
+    /// - Returns: The total number of imported contacts
     public func getImportedContactCount() async throws -> Count {
         let query = GetImportedContactCount()
         return try await execute(query: query)
@@ -4521,10 +4606,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the profile photos of a user. The result of this query may be outdated: some photos might have been deleted already
+    /// No description.
     /// - Parameter limit: The maximum number of photos to be returned; up to 100
     /// - Parameter offset: The number of photos to skip; must be non-negative
     /// - Parameter userId: User identifier
+    /// - Returns: The profile photos of a user. The result of this query may be outdated: some photos might have been deleted already
     public func getUserProfilePhotos(
         limit: Int?,
         offset: Int?,
@@ -4538,9 +4624,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, favorite and recently used stickers may also be returned
+    /// No description.
     /// - Parameter emoji: String representation of emoji. If empty, returns all known installed stickers
     /// - Parameter limit: The maximum number of stickers to be returned
+    /// - Returns: Stickers from the installed sticker sets that correspond to a given emoji. If the emoji is non-empty, favorite and recently used stickers may also be returned
     public func getStickers(
         emoji: String?,
         limit: Int?
@@ -4566,8 +4653,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of installed sticker sets
+    /// No description.
     /// - Parameter isMasks: Pass true to return mask sticker sets; pass false to return ordinary sticker sets
+    /// - Returns: A list of installed sticker sets
     public func getInstalledStickerSets(isMasks: Bool?) async throws -> StickerSets {
         let query = GetInstalledStickerSets(
             isMasks: isMasks
@@ -4575,10 +4663,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of archived sticker sets
+    /// No description.
     /// - Parameter isMasks: Pass true to return mask stickers sets; pass false to return ordinary sticker sets
     /// - Parameter limit: The maximum number of sticker sets to return; up to 100
     /// - Parameter offsetStickerSetId: Identifier of the sticker set from which to return the result
+    /// - Returns: A list of archived sticker sets
     public func getArchivedStickerSets(
         isMasks: Bool?,
         limit: Int?,
@@ -4592,9 +4681,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib
+    /// No description.
     /// - Parameter limit: The maximum number of sticker sets to be returned; up to 100. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached
     /// - Parameter offset: The offset from which to return the sticker sets; must be non-negative
+    /// - Returns: A list of trending sticker sets. For optimal performance, the number of returned sticker sets is chosen by TDLib
     public func getTrendingStickerSets(
         limit: Int?,
         offset: Int?
@@ -4606,8 +4696,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of sticker sets attached to a file. Currently, only photos and videos can have attached sticker sets
+    /// No description.
     /// - Parameter fileId: File identifier
+    /// - Returns: A list of sticker sets attached to a file. Currently, only photos and videos can have attached sticker sets
     public func getAttachedStickerSets(fileId: Int?) async throws -> StickerSets {
         let query = GetAttachedStickerSets(
             fileId: fileId
@@ -4615,8 +4706,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a sticker set by its identifier
+    /// No description.
     /// - Parameter setId: Identifier of the sticker set
+    /// - Returns: Information about a sticker set by its identifier
     public func getStickerSet(setId: TdInt64?) async throws -> StickerSet {
         let query = GetStickerSet(
             setId: setId
@@ -4702,8 +4794,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of recently used stickers
+    /// No description.
     /// - Parameter isAttached: Pass true to return stickers and masks that were recently attached to photos or video files; pass false to return recently sent stickers
+    /// - Returns: A list of recently used stickers
     public func getRecentStickers(isAttached: Bool?) async throws -> Stickers {
         let query = GetRecentStickers(
             isAttached: isAttached
@@ -4750,7 +4843,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns favorite stickers
+    /// No description.
+    /// - Returns: Favorite stickers
     public func getFavoriteStickers() async throws -> Stickers {
         let query = GetFavoriteStickers()
         return try await execute(query: query)
@@ -4776,8 +4870,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns emoji corresponding to a sticker. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object
+    /// No description.
     /// - Parameter sticker: Sticker file identifier
+    /// - Returns: Emoji corresponding to a sticker. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object
     public func getStickerEmojis(sticker: InputFile?) async throws -> Emojis {
         let query = GetStickerEmojis(
             sticker: sticker
@@ -4802,9 +4897,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an animated emoji corresponding to a given emoji.
+    /// No description.
     /// - Parameter emoji: The emoji
-    /// - Returns: A 404 error if the emoji has no animated emoji
+    /// - Returns: An animated emoji corresponding to a given emoji. Returns a 404 error if the emoji has no animated emoji
     public func getAnimatedEmoji(emoji: String?) async throws -> AnimatedEmoji {
         let query = GetAnimatedEmoji(
             emoji: emoji
@@ -4812,14 +4907,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all emojis, which has a corresponding animated emoji
+    /// No description.
+    /// - Returns: All emojis, which has a corresponding animated emoji
     public func getAllAnimatedEmojis() async throws -> Emojis {
         let query = GetAllAnimatedEmojis()
         return try await execute(query: query)
     }
 
-    /// Returns an HTTP URL which can be used to automatically log in to the translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
+    /// No description.
     /// - Parameter languageCode: Language code for which the emoji replacements will be suggested
+    /// - Returns: An HTTP URL which can be used to automatically log in to the translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
     public func getEmojiSuggestionsUrl(languageCode: String?) async throws -> HttpUrl {
         let query = GetEmojiSuggestionsUrl(
             languageCode: languageCode
@@ -4827,7 +4924,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns saved animations
+    /// No description.
+    /// - Returns: Saved animations
     public func getSavedAnimations() async throws -> Animations {
         let query = GetSavedAnimations()
         return try await execute(query: query)
@@ -4853,7 +4951,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns up to 20 recently used inline bots in the order of their last usage
+    /// No description.
+    /// - Returns: Up to 20 recently used inline bots in the order of their last usage
     public func getRecentInlineBots() async throws -> Users {
         let query = GetRecentInlineBots()
         return try await execute(query: query)
@@ -4883,9 +4982,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a web page preview by the text of the message. Do not call this function too often.
+    /// No description.
     /// - Parameter text: Message text with formatting
-    /// - Returns: A 404 error if the web page has no preview
+    /// - Returns: A web page preview by the text of the message. Do not call this function too often. Returns a 404 error if the web page has no preview
     public func getWebPagePreview(text: FormattedText?) async throws -> WebPage {
         let query = GetWebPagePreview(
             text: text
@@ -4893,10 +4992,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an instant view version of a web page if available.
+    /// No description.
     /// - Parameter forceFull: Pass true to get full instant view for the web page
     /// - Parameter url: The web page URL
-    /// - Returns: A 404 error if the web page has no instant view page
+    /// - Returns: An instant view version of a web page if available. Returns a 404 error if the web page has no instant view page
     public func getWebPageInstantView(
         forceFull: Bool?,
         url: String?
@@ -5036,9 +5135,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the list of commands supported by the bot for the given user scope and language; for bots only
+    /// No description.
     /// - Parameter languageCode: A two-letter ISO 639-1 language code or an empty string
     /// - Parameter scope: The scope to which the commands are relevant; pass null to get commands in the default bot command scope
+    /// - Returns: The list of commands supported by the bot for the given user scope and language; for bots only
     public func getCommands(
         languageCode: String?,
         scope: BotCommandScope?
@@ -5065,8 +5165,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns menu button set by the bot for the given user; for bots only
+    /// No description.
     /// - Parameter userId: Identifier of the user or 0 to get the default menu button
+    /// - Returns: Menu button set by the bot for the given user; for bots only
     public func getMenuButton(userId: Int64?) async throws -> BotMenuButton {
         let query = GetMenuButton(
             userId: userId
@@ -5094,7 +5195,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all active sessions of the current user
+    /// No description.
+    /// - Returns: All active sessions of the current user
     public func getActiveSessions() async throws -> Sessions {
         let query = GetActiveSessions()
         return try await execute(query: query)
@@ -5157,7 +5259,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all website where the current user used Telegram to log in
+    /// No description.
+    /// - Returns: All website where the current user used Telegram to log in
     public func getConnectedWebsites() async throws -> ConnectedWebsites {
         let query = GetConnectedWebsites()
         return try await execute(query: query)
@@ -5295,11 +5398,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about members or banned users in a supergroup or channel. Can be used only if supergroupFullInfo.can_get_members == true; additionally, administrator privileges may be required for some filters
+    /// No description.
     /// - Parameter filter: The type of users to return; pass null to use supergroupMembersFilterRecent
     /// - Parameter limit: The maximum number of users be returned; up to 200
     /// - Parameter offset: Number of users to skip
     /// - Parameter supergroupId: Identifier of the supergroup or channel
+    /// - Returns: Information about members or banned users in a supergroup or channel. Can be used only if supergroupFullInfo.can_get_members == true; additionally, administrator privileges may be required for some filters
     public func getSupergroupMembers(
         filter: SupergroupMembersFilter?,
         limit: Int?,
@@ -5325,14 +5429,14 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronologi
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter filters: The types of events to return; pass null to get chat events of all types
     /// - Parameter fromEventId: Identifier of an event from which to return results. Use 0 to get results from the latest events
     /// - Parameter limit: The maximum number of events to return; up to 100
     /// - Parameter query: Search query by which to filter events
     /// - Parameter userIds: User identifiers by which to filter events. By default, events relating to all users will be returned
-    /// - Returns: Results in reverse chronological order (i
+    /// - Returns: A list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i. e., in order of decreasing event_id)
     public func getChatEventLog(
         chatId: Int64?,
         filters: ChatEventLogFilters?,
@@ -5352,9 +5456,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an invoice payment form. This method must be called when the user presses inlineKeyboardButtonBuy
+    /// No description.
     /// - Parameter inputInvoice: The invoice
     /// - Parameter theme: Preferred payment form theme; pass null to use the default theme
+    /// - Returns: An invoice payment form. This method must be called when the user presses inlineKeyboardButtonBuy
     public func getPaymentForm(
         inputInvoice: InputInvoice?,
         theme: ThemeParameters?
@@ -5409,9 +5514,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a successful payment
+    /// No description.
     /// - Parameter chatId: Chat identifier of the PaymentSuccessful message
     /// - Parameter messageId: Message identifier
+    /// - Returns: Information about a successful payment
     public func getPaymentReceipt(
         chatId: Int64?,
         messageId: Int64?
@@ -5423,8 +5529,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns saved order information.
-    /// - Returns: A 404 error if there is no saved order information
+    /// No description.
+    /// - Returns: Saved order information. Returns a 404 error if there is no saved order information
     public func getSavedOrderInfo() async throws -> OrderInfo {
         let query = GetSavedOrderInfo()
         return try await execute(query: query)
@@ -5453,14 +5559,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a user that can be contacted to get support
+    /// No description.
+    /// - Returns: A user that can be contacted to get support
     public func getSupportUser() async throws -> User {
         let query = GetSupportUser()
         return try await execute(query: query)
     }
 
-    /// Returns backgrounds installed by the user
+    /// No description.
     /// - Parameter forDarkTheme: Pass true to order returned backgrounds for a dark theme
+    /// - Returns: Backgrounds installed by the user
     public func getBackgrounds(forDarkTheme: Bool?) async throws -> Backgrounds {
         let query = GetBackgrounds(
             forDarkTheme: forDarkTheme
@@ -5525,8 +5633,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about the current localization target. This is an offline request if only_local is true. Can be called before authorization
+    /// No description.
     /// - Parameter onlyLocal: Pass true to get only locally available information without sending network requests
+    /// - Returns: Information about the current localization target. This is an offline request if only_local is true. Can be called before authorization
     public func getLocalizationTargetInfo(onlyLocal: Bool?) async throws -> LocalizationTargetInfo {
         let query = GetLocalizationTargetInfo(
             onlyLocal: onlyLocal
@@ -5534,8 +5643,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a language pack. Returned language pack identifier may be different from a provided one. Can be called before authorization
+    /// No description.
     /// - Parameter languagePackId: Language pack identifier
+    /// - Returns: Information about a language pack. Returned language pack identifier may be different from a provided one. Can be called before authorization
     public func getLanguagePackInfo(languagePackId: String?) async throws -> LanguagePackInfo {
         let query = GetLanguagePackInfo(
             languagePackId: languagePackId
@@ -5543,9 +5653,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns strings from a language pack in the current localization target by their keys. Can be called before authorization
+    /// No description.
     /// - Parameter keys: Language pack keys of the strings to be returned; leave empty to request all available strings
     /// - Parameter languagePackId: Language pack identifier of the strings to be returned
+    /// - Returns: Strings from a language pack in the current localization target by their keys. Can be called before authorization
     public func getLanguagePackStrings(
         keys: [String]?,
         languagePackId: String?
@@ -5642,9 +5753,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Handles a push notification. Returns error with code 406 if the 
+    /// Handles a push notification.
     /// - Parameter payload: JSON-encoded push notification payload with all fields sent by the server, and "google.sent_time" and "google.notification.sound" fields added
-    /// - Returns: Error with code 406 if the push notification is not supported and connection to the server is required to fetch new data
+    /// - Returns: Error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization
     @discardableResult
     public func processPushNotification(payload: String?) async throws -> Ok {
         let query = ProcessPushNotification(
@@ -5653,8 +5764,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously
+    /// No description.
     /// - Parameter payload: JSON-encoded push notification payload
+    /// - Returns: A globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously
     public func getPushReceiverId(payload: String?) async throws -> PushReceiverId {
         let query = GetPushReceiverId(
             payload: payload
@@ -5662,8 +5774,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns t.me URLs recently visited by a newly registered user
+    /// No description.
     /// - Parameter referrer: Google Play referrer to identify the user
+    /// - Returns: T.me URLs recently visited by a newly registered user
     public func getRecentlyVisitedTMeUrls(referrer: String?) async throws -> TMeUrls {
         let query = GetRecentlyVisitedTMeUrls(
             referrer: referrer
@@ -5686,8 +5799,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the current privacy settings
+    /// No description.
     /// - Parameter setting: The privacy setting
+    /// - Returns: The current privacy settings
     public func getUserPrivacySettingRules(setting: UserPrivacySetting?) async throws -> UserPrivacySettingRules {
         let query = GetUserPrivacySettingRules(
             setting: setting
@@ -5695,8 +5809,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization
+    /// No description.
     /// - Parameter name: The name of the option
+    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization
     public func getOption(name: String?) async throws -> OptionValue {
         let query = GetOption(
             name: name
@@ -5729,7 +5844,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the period of inactivity after which the account of the current user will automatically be deleted
+    /// No description.
+    /// - Returns: The period of inactivity after which the account of the current user will automatically be deleted
     public func getAccountTtl() async throws -> AccountTtl {
         let query = GetAccountTtl()
         return try await execute(query: query)
@@ -5797,9 +5913,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.can_get_statistics == true
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter isDark: Pass true if a dark theme is used by the application
+    /// - Returns: Detailed statistics about a chat. Currently, this method can be used only for supergroups and channels. Can be used only if supergroupFullInfo.can_get_statistics == true
     public func getChatStatistics(
         chatId: Int64?,
         isDark: Bool?
@@ -5811,10 +5928,11 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns detailed statistics about a message. Can be used only if message.can_get_statistics == true
+    /// No description.
     /// - Parameter chatId: Chat identifier
     /// - Parameter isDark: Pass true if a dark theme is used by the application
     /// - Parameter messageId: Message identifier
+    /// - Returns: Detailed statistics about a message. Can be used only if message.can_get_statistics == true
     public func getMessageStatistics(
         chatId: Int64?,
         isDark: Bool?,
@@ -5845,8 +5963,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns storage usage statistics. Can be called before authorization
+    /// No description.
     /// - Parameter chatLimit: The maximum number of chats with the largest storage usage for which separate statistics need to be returned. All other chats will be grouped in entries with chat_id == 0. If the chat info database is not used, the chat_limit is ignored and is always set to 0
+    /// - Returns: Storage usage statistics. Can be called before authorization
     public func getStorageStatistics(chatLimit: Int?) async throws -> StorageStatistics {
         let query = GetStorageStatistics(
             chatLimit: chatLimit
@@ -5860,7 +5979,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns database statistics
+    /// No description.
+    /// - Returns: Database statistics
     public func getDatabaseStatistics() async throws -> DatabaseStatistics {
         let query = GetDatabaseStatistics()
         return try await execute(query: query)
@@ -5911,8 +6031,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns network data usage statistics. Can be called before authorization
+    /// No description.
     /// - Parameter onlyCurrent: Pass true to get statistics only for the current library launch
+    /// - Returns: Network data usage statistics. Can be called before authorization
     public func getNetworkStatistics(onlyCurrent: Bool?) async throws -> NetworkStatistics {
         let query = GetNetworkStatistics(
             onlyCurrent: onlyCurrent
@@ -5937,7 +6058,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns auto-download settings presets for the current user
+    /// No description.
+    /// - Returns: Auto-download settings presets for the current user
     public func getAutoDownloadSettingsPresets() async throws -> AutoDownloadSettingsPresets {
         let query = GetAutoDownloadSettingsPresets()
         return try await execute(query: query)
@@ -5958,8 +6080,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a bank card
+    /// No description.
     /// - Parameter bankCardNumber: The bank card number
+    /// - Returns: Information about a bank card
     public func getBankCardInfo(bankCardNumber: String?) async throws -> BankCardInfo {
         let query = GetBankCardInfo(
             bankCardNumber: bankCardNumber
@@ -5967,9 +6090,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns one of the available Telegram Passport elements
+    /// No description.
     /// - Parameter password: Password of the current user
     /// - Parameter type: Telegram Passport element type
+    /// - Returns: One of the available Telegram Passport elements
     public func getPassportElement(
         password: String?,
         type: PassportElementType?
@@ -5981,8 +6105,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns all available Telegram Passport elements
+    /// No description.
     /// - Parameter password: Password of the current user
+    /// - Returns: All available Telegram Passport elements
     public func getAllPassportElements(password: String?) async throws -> PassportElements {
         let query = GetAllPassportElements(
             password: password
@@ -6029,9 +6154,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns an IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details.
+    /// No description.
     /// - Parameter countryCode: A two-letter ISO 3166-1 alpha-2 country code
-    /// - Returns: A 404 error if unknown
+    /// - Returns: An IETF language tag of the language preferred in the country, which must be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown
     public func getPreferredCountryLanguage(countryCode: String?) async throws -> Text {
         let query = GetPreferredCountryLanguage(
             countryCode: countryCode
@@ -6094,11 +6219,12 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a Telegram Passport authorization form for sharing data with a service
+    /// No description.
     /// - Parameter botUserId: User identifier of the service's bot
     /// - Parameter nonce: Unique request identifier provided by the service
     /// - Parameter publicKey: Service's public key
     /// - Parameter scope: Telegram Passport element types requested by the service
+    /// - Returns: A Telegram Passport authorization form for sharing data with a service
     public func getPassportAuthorizationForm(
         botUserId: Int64?,
         nonce: String?,
@@ -6114,9 +6240,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns already available Telegram Passport elements suitable for completing a Telegram Passport authorization form. Result can be received only once for each authorization form
+    /// No description.
     /// - Parameter autorizationFormId: Authorization form identifier
     /// - Parameter password: Password of the current user
+    /// - Returns: Already available Telegram Passport elements suitable for completing a Telegram Passport authorization form. Result can be received only once for each authorization form
     public func getPassportAuthorizationFormAvailableElements(
         autorizationFormId: Int?,
         password: String?
@@ -6205,8 +6332,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns a suggested name for a new sticker set with a given title
+    /// No description.
     /// - Parameter title: Sticker set title; 1-64 characters
+    /// - Returns: A suggested name for a new sticker set with a given title
     public func getSuggestedStickerSetName(title: String?) async throws -> Text {
         let query = GetSuggestedStickerSetName(
             title: title
@@ -6308,13 +6436,14 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a file with a map thumbnail in PNG format. Only map thumbnail files with size less than 1MB can be downloaded
+    /// No description.
     /// - Parameter chatId: Identifier of a chat in which the thumbnail will be shown. Use 0 if unknown
     /// - Parameter height: Map height in pixels before applying scale; 16-1024
     /// - Parameter location: Location of the map center
     /// - Parameter scale: Map scale; 1-3
     /// - Parameter width: Map width in pixels before applying scale; 16-1024
     /// - Parameter zoom: Map zoom level; 13-20
+    /// - Returns: Information about a file with a map thumbnail in PNG format. Only map thumbnail files with size less than 1MB can be downloaded
     public func getMapThumbnailFile(
         chatId: Int64?,
         height: Int?,
@@ -6334,9 +6463,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a limit, increased for Premium users.
+    /// No description.
     /// - Parameter limitType: Type of the limit
-    /// - Returns: A 404 error if the limit is unknown
+    /// - Returns: Information about a limit, increased for Premium users. Returns a 404 error if the limit is unknown
     public func getPremiumLimit(limitType: PremiumLimitType?) async throws -> PremiumLimit {
         let query = GetPremiumLimit(
             limitType: limitType
@@ -6344,8 +6473,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about features, available to Premium users
+    /// No description.
     /// - Parameter source: Source of the request; pass null if the method is called from some non-standard source
+    /// - Returns: Information about features, available to Premium users
     public func getPremiumFeatures(source: PremiumSource?) async throws -> PremiumFeatures {
         let query = GetPremiumFeatures(
             source: source
@@ -6353,7 +6483,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns examples of premium stickers for demonstration purposes
+    /// No description.
+    /// - Returns: Examples of premium stickers for demonstration purposes
     public func getPremiumStickers() async throws -> Stickers {
         let query = GetPremiumStickers()
         return try await execute(query: query)
@@ -6376,7 +6507,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns state of Telegram Premium subscription and promotion videos for Premium features
+    /// No description.
+    /// - Returns: State of Telegram Premium subscription and promotion videos for Premium features
     public func getPremiumState() async throws -> PremiumState {
         let query = GetPremiumState()
         return try await execute(query: query)
@@ -6463,21 +6595,23 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about existing countries. Can be called before authorization
+    /// No description.
+    /// - Returns: Information about existing countries. Can be called before authorization
     public func getCountries() async throws -> Countries {
         let query = GetCountries()
         return try await execute(query: query)
     }
 
-    /// Uses the current IP address to find the current country. Returns two-letter ISO 3166-1 alpha
-    /// - Returns: Two-letter ISO 3166-1 alpha-2 country code
+    /// Uses the current IP address to find the current country.
+    /// - Returns: Two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization
     public func getCountryCode() async throws -> Text {
         let query = GetCountryCode()
         return try await execute(query: query)
     }
 
-    /// Returns information about a phone number by its prefix. Can be called before authorization
+    /// No description.
     /// - Parameter phoneNumberPrefix: The phone number prefix
+    /// - Returns: Information about a phone number by its prefix. Can be called before authorization
     public func getPhoneNumberInfo(phoneNumberPrefix: String?) async throws -> PhoneNumberInfo {
         let query = GetPhoneNumberInfo(
             phoneNumberPrefix: phoneNumberPrefix
@@ -6485,9 +6619,10 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously
+    /// No description.
     /// - Parameter languageCode: A two-letter ISO 639-1 language code for country information localization
     /// - Parameter phoneNumberPrefix: The phone number prefix
+    /// - Returns: Information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously
     public func getPhoneNumberInfoSync(
         languageCode: String?,
         phoneNumberPrefix: String?
@@ -6499,15 +6634,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the link for downloading official Telegram application to be used when the current user invites friends to Telegram
+    /// No description.
+    /// - Returns: The link for downloading official Telegram application to be used when the current user invites friends to Telegram
     public func getApplicationDownloadLink() async throws -> HttpUrl {
         let query = GetApplicationDownloadLink()
         return try await execute(query: query)
     }
 
-    /// Returns information about a tg:// deep link. Use "tg://need_update_for_some_feature" or "tg:some_unsupported_feature" for testing. Returns a 404 error for unknown lin
+    /// No description.
     /// - Parameter link: The link
-    /// - Returns: A 404 error for unknown links
+    /// - Returns: Information about a tg:// deep link. Use "tg://need_update_for_some_feature" or "tg:some_unsupported_feature" for testing. Returns a 404 error for unknown links. Can be called before authorization
     public func getDeepLinkInfo(link: String?) async throws -> DeepLinkInfo {
         let query = GetDeepLinkInfo(
             link: link
@@ -6515,7 +6651,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns application config, provided by the server. Can be called before authorization
+    /// No description.
+    /// - Returns: Application config, provided by the server. Can be called before authorization
     public func getApplicationConfig() async throws -> JsonValue {
         let query = GetApplicationConfig()
         return try await execute(query: query)
@@ -6609,14 +6746,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns list of proxies that are currently set up. Can be called before authorization
+    /// No description.
+    /// - Returns: List of proxies that are currently set up. Can be called before authorization
     public func getProxies() async throws -> Proxies {
         let query = GetProxies()
         return try await execute(query: query)
     }
 
-    /// Returns an HTTPS link, which can be used to add a proxy. Available only for SOCKS5 and MTProto proxies. Can be called before authorization
+    /// No description.
     /// - Parameter proxyId: Proxy identifier
+    /// - Returns: An HTTPS link, which can be used to add a proxy. Available only for SOCKS5 and MTProto proxies. Can be called before authorization
     public func getProxyLink(proxyId: Int?) async throws -> HttpUrl {
         let query = GetProxyLink(
             proxyId: proxyId
@@ -6643,7 +6782,8 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns information about currently used log stream for internal logging of TDLib. Can be called synchronously
+    /// No description.
+    /// - Returns: Information about currently used log stream for internal logging of TDLib. Can be called synchronously
     public func getLogStream() async throws -> LogStream {
         let query = GetLogStream()
         return try await execute(query: query)
@@ -6659,13 +6799,15 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns current verbosity level of the internal logging of TDLib. Can be called synchronously
+    /// No description.
+    /// - Returns: Current verbosity level of the internal logging of TDLib. Can be called synchronously
     public func getLogVerbosityLevel() async throws -> LogVerbosityLevel {
         let query = GetLogVerbosityLevel()
         return try await execute(query: query)
     }
 
-    /// Returns list of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously
+    /// No description.
+    /// - Returns: List of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously
     public func getLogTags() async throws -> LogTags {
         let query = GetLogTags()
         return try await execute(query: query)
@@ -6686,8 +6828,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns current verbosity level for a specified TDLib internal log tag. Can be called synchronously
+    /// No description.
     /// - Parameter tag: Logging tag to change verbosity level
+    /// - Returns: Current verbosity level for a specified TDLib internal log tag. Can be called synchronously
     public func getLogTagVerbosityLevel(tag: String?) async throws -> LogVerbosityLevel {
         let query = GetLogTagVerbosityLevel(
             tag: tag
@@ -6717,8 +6860,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received string; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: String to return
+    /// - Returns: The received string; for testing only. This is an offline method. Can be called before authorization
     public func testCallString(x: String?) async throws -> TestString {
         let query = TestCallString(
             x: x
@@ -6726,8 +6870,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received bytes; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Bytes to return
+    /// - Returns: The received bytes; for testing only. This is an offline method. Can be called before authorization
     public func testCallBytes(x: Data?) async throws -> TestBytes {
         let query = TestCallBytes(
             x: x
@@ -6735,8 +6880,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received vector of numbers; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Vector of numbers to return
+    /// - Returns: The received vector of numbers; for testing only. This is an offline method. Can be called before authorization
     public func testCallVectorInt(x: [Int]?) async throws -> TestVectorInt {
         let query = TestCallVectorInt(
             x: x
@@ -6744,8 +6890,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received vector of objects containing a number; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Vector of objects to return
+    /// - Returns: The received vector of objects containing a number; for testing only. This is an offline method. Can be called before authorization
     public func testCallVectorIntObject(x: [TestInt]?) async throws -> TestVectorIntObject {
         let query = TestCallVectorIntObject(
             x: x
@@ -6753,8 +6900,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received vector of strings; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Vector of strings to return
+    /// - Returns: The received vector of strings; for testing only. This is an offline method. Can be called before authorization
     public func testCallVectorString(x: [String]?) async throws -> TestVectorString {
         let query = TestCallVectorString(
             x: x
@@ -6762,8 +6910,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the received vector of objects containing a string; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Vector of objects to return
+    /// - Returns: The received vector of objects containing a string; for testing only. This is an offline method. Can be called before authorization
     public func testCallVectorStringObject(x: [TestString]?) async throws -> TestVectorStringObject {
         let query = TestCallVectorStringObject(
             x: x
@@ -6771,8 +6920,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the squared received number; for testing only. This is an offline method. Can be called before authorization
+    /// No description.
     /// - Parameter x: Number to square
+    /// - Returns: The squared received number; for testing only. This is an offline method. Can be called before authorization
     public func testSquareInt(x: Int?) async throws -> TestInt {
         let query = TestSquareInt(
             x: x
@@ -6824,8 +6974,9 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
-    /// Returns the specified error and ensures that the Error object is used; for testing only. Can be called synchronously
+    /// No description.
     /// - Parameter error: The error to be returned
+    /// - Returns: The specified error and ensures that the Error object is used; for testing only. Can be called synchronously
     public func testReturnError(error: Error?) async throws -> Error {
         let query = TestReturnError(
             error: error
