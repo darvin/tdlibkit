@@ -3,6 +3,8 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
+//  Based on TDLib 1.8.4-b8bd39dc
+//  https://github.com/tdlib/td/tree/b8bd39dc
 //
 
 import Foundation
@@ -5809,7 +5811,7 @@ public final class TdApi {
 
     /// No description.
     /// - Parameter name: The name of the option
-    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization
+    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options "version" and "commit_hash"
     public func getOption(name: String?) async throws -> OptionValue {
         let query = GetOption(
             name: name
