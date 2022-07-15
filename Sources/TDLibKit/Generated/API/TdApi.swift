@@ -3,8 +3,6 @@
 //  tl2swift
 //
 //  Generated automatically. Any changes will be lost!
-//  Based on TDLib 1.8.4-b8bd39dc
-//  https://github.com/tdlib/td/tree/b8bd39dc
 //
 
 import Foundation
@@ -5811,7 +5809,7 @@ public final class TdApi {
 
     /// No description.
     /// - Parameter name: The name of the option
-    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options "version" and "commit_hash"
+    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization
     public func getOption(name: String?) async throws -> OptionValue {
         let query = GetOption(
             name: name
@@ -6988,13 +6986,17 @@ public final class TdApi {
     private func execute<Query: Codable, Return: Codable>(query: Query) async throws -> Return {
         let dto = DTO(query, encoder: TdApi.encoder)
         return try await withCheckedThrowingContinuation { continuation in
-            try! client.send(query: dto) { result in
-                if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {
-                    continuation.resume(with: .failure(error.payload))
-                } else {
-                    let response = TdApi.decoder.tryDecode(DTO<Return>.self, from: result)
-                    continuation.resume(with: response.map { $0.payload })
+            do {
+                try client.send(query: dto) { result in
+                    if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {
+                        continuation.resume(with: .failure(error.payload))
+                    } else {
+                        let response = TdApi.decoder.tryDecode(DTO<Return>.self, from: result)
+                        continuation.resume(with: response.map { $0.payload })
+                    }
                 }
+            } catch {
+                continuation.resume(with: .failure(error))
             }
         }
     }
