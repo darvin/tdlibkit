@@ -187,7 +187,7 @@ final class MethodsComposer: Composer {
             .addLine("                }")
             .addLine("            }")
             .addLine("        } catch {")
-            .addLine("            let tdError = error as? TDLibKit.Error")
+            .addLine("            let tdError = error as! TDLibKit.Error")
             .addLine("            continuation.resume(with: .failure(tdError.payload))")
             .addLine("        }")
             .addLine("    }")
