@@ -177,7 +177,7 @@ final class MethodsComposer: Composer {
             .addLine("private func execute<Query: Codable, Return: Codable>(query: Query) async throws -> Return {")
             .addLine("    let dto = DTO(query, encoder: TdApi.encoder)")
             .addLine("    return try await withCheckedThrowingContinuation { continuation in")
-            .addLine("        try! client.send(query: dto) { result in")
+            .addLine("        try client.send(query: dto) { result in")
             .addLine("            if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {")
             .addLine("                continuation.resume(with: .failure(error.payload))")
             .addLine("            } else {")
