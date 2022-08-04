@@ -12,15 +12,21 @@ let package = Package(
     products: [
         .library(
             name: "TDLibKit",
+            type: .dynamic,
             targets: ["TDLibKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/Swiftgram/TDLibFramework", exact: "1.8.4-0bdd15fe"),
+        .package(url: "https://github.com/Swiftgram/TDLibFramework", exact: "1.8.4-07b7faf6"),
     ],
     targets: [
         .target(
             name: "TDLibKit",
-            dependencies: ["TDLibFramework"]),
+            dependencies: ["TDLibFramework"],
+            linkerSettings: [
+                .linkedLibrary("c++"),
+                .linkedLibrary("z"),
+                .linkedLibrary("c++abi", .when(platforms: [.iOS])),
+                .linkedLibrary("System", .when(platforms: [.iOS]))
+            ]),
     ]
 )
-

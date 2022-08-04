@@ -23,7 +23,13 @@ let package = Package(
     targets: [
         .target(
             name: "TDLibKit",
-            dependencies: ["TDLibFramework"]),
+            dependencies: ["TDLibFramework"],
+            linkerSettings: [
+                .linkedLibrary("c++"),
+                .linkedLibrary("z"),
+                .linkedLibrary("c++abi", .when(platforms: [.iOS])),
+                .linkedLibrary("System", .when(platforms: [.iOS]))
+            ]),
     ]
 )
 
