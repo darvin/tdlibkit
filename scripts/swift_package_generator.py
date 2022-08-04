@@ -15,6 +15,7 @@ let package = Package(
     products: [
         .library(
             name: "TDLibKit",
+            type: .dynamic,
             targets: ["TDLibKit"]),
     ],
     dependencies: [
