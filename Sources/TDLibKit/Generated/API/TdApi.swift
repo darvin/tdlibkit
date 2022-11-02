@@ -1837,6 +1837,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// No description.
+    /// - Parameter text: The text in which to look for entites
+    /// - Returns: All entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously
+    public func getTextEntities(text: String?) throws -> TextEntities {
+        let query = GetTextEntities(
+            text: text
+        )
+        return try execute(query: query)
+    }
+
     /// Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously
     /// - Parameter parseMode: Text parse mode
     /// - Parameter text: The text to parse
@@ -1851,6 +1861,20 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Parses Bold, Italic, Underline, Strikethrough, Spoiler, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously
+    /// - Parameter parseMode: Text parse mode
+    /// - Parameter text: The text to parse
+    public func parseTextEntities(
+        parseMode: TextParseMode?,
+        text: String?
+    ) throws -> FormattedText {
+        let query = ParseTextEntities(
+            parseMode: parseMode,
+            text: text
+        )
+        return try execute(query: query)
+    }
+
     /// Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously
     /// - Parameter text: The text to parse. For example, "__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
     public func parseMarkdown(text: FormattedText?) async throws -> FormattedText {
@@ -1860,6 +1884,15 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously
+    /// - Parameter text: The text to parse. For example, "__italic__ ~~strikethrough~~ ||spoiler|| **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
+    public func parseMarkdown(text: FormattedText?) throws -> FormattedText {
+        let query = ParseMarkdown(
+            text: text
+        )
+        return try execute(query: query)
+    }
+
     /// Replaces text entities with Markdown formatting in a human-friendly format. Entities that can't be represented in Markdown unambiguously are kept as is. Can be called synchronously
     /// - Parameter text: The text
     public func getMarkdownText(text: FormattedText?) async throws -> FormattedText {
@@ -1867,6 +1900,15 @@ public final class TdApi {
             text: text
         )
         return try await execute(query: query)
+    }
+
+    /// Replaces text entities with Markdown formatting in a human-friendly format. Entities that can't be represented in Markdown unambiguously are kept as is. Can be called synchronously
+    /// - Parameter text: The text
+    public func getMarkdownText(text: FormattedText?) throws -> FormattedText {
+        let query = GetMarkdownText(
+            text: text
+        )
+        return try execute(query: query)
     }
 
     /// No description.
@@ -1880,6 +1922,16 @@ public final class TdApi {
     }
 
     /// No description.
+    /// - Parameter fileName: The name of the file or path to the file
+    /// - Returns: The MIME type of a file, guessed by its extension. Returns an empty string on failure. Can be called synchronously
+    public func getFileMimeType(fileName: String?) throws -> Text {
+        let query = GetFileMimeType(
+            fileName: fileName
+        )
+        return try execute(query: query)
+    }
+
+    /// No description.
     /// - Parameter mimeType: The MIME type of the file
     /// - Returns: The extension of a file, guessed by its MIME type. Returns an empty string on failure. Can be called synchronously
     public func getFileExtension(mimeType: String?) async throws -> Text {
@@ -1887,6 +1939,16 @@ public final class TdApi {
             mimeType: mimeType
         )
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Parameter mimeType: The MIME type of the file
+    /// - Returns: The extension of a file, guessed by its MIME type. Returns an empty string on failure. Can be called synchronously
+    public func getFileExtension(mimeType: String?) throws -> Text {
+        let query = GetFileExtension(
+            mimeType: mimeType
+        )
+        return try execute(query: query)
     }
 
     /// Removes potentially dangerous characters from the name of a file. The encoding of the file name is supposed to be UTF-8.
@@ -1897,6 +1959,16 @@ public final class TdApi {
             fileName: fileName
         )
         return try await execute(query: query)
+    }
+
+    /// Removes potentially dangerous characters from the name of a file. The encoding of the file name is supposed to be UTF-8.
+    /// - Parameter fileName: File name or path to the file
+    /// - Returns: An empty string on failure. Can be called synchronously
+    public func cleanFileName(fileName: String?) throws -> Text {
+        let query = CleanFileName(
+            fileName: fileName
+        )
+        return try execute(query: query)
     }
 
     /// No description.
@@ -1920,6 +1992,27 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// No description.
+    /// - Parameter key: Language pack key of the string to be returned
+    /// - Parameter languagePackDatabasePath: Path to the language pack database in which strings are stored
+    /// - Parameter languagePackId: Language pack identifier
+    /// - Parameter localizationTarget: Localization target to which the language pack belongs
+    /// - Returns: A string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the string is not found. Can be called synchronously
+    public func getLanguagePackString(
+        key: String?,
+        languagePackDatabasePath: String?,
+        languagePackId: String?,
+        localizationTarget: String?
+    ) throws -> LanguagePackStringValue {
+        let query = GetLanguagePackString(
+            key: key,
+            languagePackDatabasePath: languagePackDatabasePath,
+            languagePackId: languagePackId,
+            localizationTarget: localizationTarget
+        )
+        return try execute(query: query)
+    }
+
     /// Converts a JSON-serialized string to corresponding JsonValue object. Can be called synchronously
     /// - Parameter json: The JSON-serialized string
     public func getJsonValue(json: String?) async throws -> JsonValue {
@@ -1927,6 +2020,15 @@ public final class TdApi {
             json: json
         )
         return try await execute(query: query)
+    }
+
+    /// Converts a JSON-serialized string to corresponding JsonValue object. Can be called synchronously
+    /// - Parameter json: The JSON-serialized string
+    public func getJsonValue(json: String?) throws -> JsonValue {
+        let query = GetJsonValue(
+            json: json
+        )
+        return try execute(query: query)
     }
 
     /// Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously
@@ -1938,6 +2040,15 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously
+    /// - Parameter jsonValue: The JsonValue object
+    public func getJsonString(jsonValue: JsonValue?) throws -> Text {
+        let query = GetJsonString(
+            jsonValue: jsonValue
+        )
+        return try execute(query: query)
+    }
+
     /// Converts a themeParameters object to corresponding JSON-serialized string. Can be called synchronously
     /// - Parameter theme: Theme parameters to convert to JSON
     public func getThemeParametersJsonString(theme: ThemeParameters?) async throws -> Text {
@@ -1945,6 +2056,15 @@ public final class TdApi {
             theme: theme
         )
         return try await execute(query: query)
+    }
+
+    /// Converts a themeParameters object to corresponding JSON-serialized string. Can be called synchronously
+    /// - Parameter theme: Theme parameters to convert to JSON
+    public func getThemeParametersJsonString(theme: ThemeParameters?) throws -> Text {
+        let query = GetThemeParametersJsonString(
+            theme: theme
+        )
+        return try execute(query: query)
     }
 
     /// Changes the user answer to a poll. A poll in quiz mode can be answered only once
@@ -2723,6 +2843,16 @@ public final class TdApi {
             filter: filter
         )
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Parameter filter: Chat filter
+    /// - Returns: Default icon name for a filter. Can be called synchronously
+    public func getChatFilterDefaultIconName(filter: ChatFilter?) throws -> Text {
+        let query = GetChatFilterDefaultIconName(
+            filter: filter
+        )
+        return try execute(query: query)
     }
 
     /// Changes the chat title. Supported only for basic groups, supergroups and channels. Requires can_change_info administrator right
@@ -5775,6 +5905,16 @@ public final class TdApi {
     }
 
     /// No description.
+    /// - Parameter payload: JSON-encoded push notification payload
+    /// - Returns: A globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously
+    public func getPushReceiverId(payload: String?) throws -> PushReceiverId {
+        let query = GetPushReceiverId(
+            payload: payload
+        )
+        return try execute(query: query)
+    }
+
+    /// No description.
     /// - Parameter referrer: Google Play referrer to identify the user
     /// - Returns: T.me URLs recently visited by a newly registered user
     public func getRecentlyVisitedTMeUrls(referrer: String?) async throws -> TMeUrls {
@@ -5817,6 +5957,16 @@ public final class TdApi {
             name: name
         )
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Parameter name: The name of the option
+    /// - Returns: The value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization. Can be called synchronously for options "version" and "commit_hash"
+    public func getOption(name: String?) throws -> OptionValue {
+        let query = GetOption(
+            name: name
+        )
+        return try execute(query: query)
     }
 
     /// Sets the value of an option. (Check the list of available options on https://core.telegram.org/tdlib/options.) Only writable options can be set. Can be called before authorization
@@ -6635,6 +6785,21 @@ public final class TdApi {
     }
 
     /// No description.
+    /// - Parameter languageCode: A two-letter ISO 639-1 language code for country information localization
+    /// - Parameter phoneNumberPrefix: The phone number prefix
+    /// - Returns: Information about a phone number by its prefix synchronously. getCountries must be called at least once after changing localization to the specified language if properly localized country information is expected. Can be called synchronously
+    public func getPhoneNumberInfoSync(
+        languageCode: String?,
+        phoneNumberPrefix: String?
+    ) throws -> PhoneNumberInfo {
+        let query = GetPhoneNumberInfoSync(
+            languageCode: languageCode,
+            phoneNumberPrefix: phoneNumberPrefix
+        )
+        return try execute(query: query)
+    }
+
+    /// No description.
     /// - Returns: The link for downloading official Telegram application to be used when the current user invites friends to Telegram
     public func getApplicationDownloadLink() async throws -> HttpUrl {
         let query = GetApplicationDownloadLink()
@@ -6782,11 +6947,28 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Sets new log stream for internal logging of TDLib. Can be called synchronously
+    /// - Parameter logStream: New log stream
+    @discardableResult
+    public func setLogStream(logStream: LogStream?) throws -> Ok {
+        let query = SetLogStream(
+            logStream: logStream
+        )
+        return try execute(query: query)
+    }
+
     /// No description.
     /// - Returns: Information about currently used log stream for internal logging of TDLib. Can be called synchronously
     public func getLogStream() async throws -> LogStream {
         let query = GetLogStream()
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Returns: Information about currently used log stream for internal logging of TDLib. Can be called synchronously
+    public func getLogStream() throws -> LogStream {
+        let query = GetLogStream()
+        return try execute(query: query)
     }
 
     /// Sets the verbosity level of the internal logging of TDLib. Can be called synchronously
@@ -6799,6 +6981,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Sets the verbosity level of the internal logging of TDLib. Can be called synchronously
+    /// - Parameter newVerbosityLevel: New value of the verbosity level for logging. Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging
+    @discardableResult
+    public func setLogVerbosityLevel(newVerbosityLevel: Int?) throws -> Ok {
+        let query = SetLogVerbosityLevel(
+            newVerbosityLevel: newVerbosityLevel
+        )
+        return try execute(query: query)
+    }
+
     /// No description.
     /// - Returns: Current verbosity level of the internal logging of TDLib. Can be called synchronously
     public func getLogVerbosityLevel() async throws -> LogVerbosityLevel {
@@ -6807,10 +6999,24 @@ public final class TdApi {
     }
 
     /// No description.
+    /// - Returns: Current verbosity level of the internal logging of TDLib. Can be called synchronously
+    public func getLogVerbosityLevel() throws -> LogVerbosityLevel {
+        let query = GetLogVerbosityLevel()
+        return try execute(query: query)
+    }
+
+    /// No description.
     /// - Returns: List of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously
     public func getLogTags() async throws -> LogTags {
         let query = GetLogTags()
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Returns: List of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously
+    public func getLogTags() throws -> LogTags {
+        let query = GetLogTags()
+        return try execute(query: query)
     }
 
     /// Sets the verbosity level for a specified TDLib internal log tag. Can be called synchronously
@@ -6828,6 +7034,21 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// Sets the verbosity level for a specified TDLib internal log tag. Can be called synchronously
+    /// - Parameter newVerbosityLevel: New verbosity level; 1-1024
+    /// - Parameter tag: Logging tag to change verbosity level
+    @discardableResult
+    public func setLogTagVerbosityLevel(
+        newVerbosityLevel: Int?,
+        tag: String?
+    ) throws -> Ok {
+        let query = SetLogTagVerbosityLevel(
+            newVerbosityLevel: newVerbosityLevel,
+            tag: tag
+        )
+        return try execute(query: query)
+    }
+
     /// No description.
     /// - Parameter tag: Logging tag to change verbosity level
     /// - Returns: Current verbosity level for a specified TDLib internal log tag. Can be called synchronously
@@ -6836,6 +7057,16 @@ public final class TdApi {
             tag: tag
         )
         return try await execute(query: query)
+    }
+
+    /// No description.
+    /// - Parameter tag: Logging tag to change verbosity level
+    /// - Returns: Current verbosity level for a specified TDLib internal log tag. Can be called synchronously
+    public func getLogTagVerbosityLevel(tag: String?) throws -> LogVerbosityLevel {
+        let query = GetLogTagVerbosityLevel(
+            tag: tag
+        )
+        return try execute(query: query)
     }
 
     /// Adds a message to TDLib internal log. Can be called synchronously
@@ -6851,6 +7082,21 @@ public final class TdApi {
             verbosityLevel: verbosityLevel
         )
         return try await execute(query: query)
+    }
+
+    /// Adds a message to TDLib internal log. Can be called synchronously
+    /// - Parameter text: Text of a message to log
+    /// - Parameter verbosityLevel: The minimum verbosity level needed for the message to be logged; 0-1023
+    @discardableResult
+    public func addLogMessage(
+        text: String?,
+        verbosityLevel: Int?
+    ) throws -> Ok {
+        let query = AddLogMessage(
+            text: text,
+            verbosityLevel: verbosityLevel
+        )
+        return try execute(query: query)
     }
 
     /// Does nothing; for testing only. This is an offline method. Can be called before authorization
@@ -6984,6 +7230,16 @@ public final class TdApi {
         return try await execute(query: query)
     }
 
+    /// No description.
+    /// - Parameter error: The error to be returned
+    /// - Returns: The specified error and ensures that the Error object is used; for testing only. Can be called synchronously
+    public func testReturnError(error: Error?) throws -> Error {
+        let query = TestReturnError(
+            error: error
+        )
+        return try execute(query: query)
+    }
+
 
     private func execute<Query: Codable, Return: Codable>(query: Query) async throws -> Return {
         let dto = DTO(query, encoder: TdApi.encoder)
@@ -7000,6 +7256,17 @@ public final class TdApi {
             } catch {
                 continuation.resume(with: .failure(error))
             }
+        }
+    }
+
+    private func execute<Query: Codable, Return: Codable>(query: Query) throws -> Return {
+        let dto = DTO(query, encoder: TdApi.encoder)
+        let result = try JSONSerialization.data(withJSONObject: try self.client.execute(query: dto), options: .prettyPrinted)
+        if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {
+            throw error.payload
+        } else {
+            let response = try TdApi.decoder.decode(DTO<Return>.self, from: result)
+            return response.payload
         }
     }
 }
