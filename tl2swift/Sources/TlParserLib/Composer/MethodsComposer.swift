@@ -61,11 +61,14 @@ final class MethodsComposer: Composer {
         var result = ""
         for info in classInfoes where info.isFunction {
             result = result.append(composeMethod(info))
+            if info.description.contains("Can be called synchronously") {
+                result = result.append(composeMethod(info, async: false))
+            }
         }
         return result
     }
     
-    private func composeMethod(_ info: ClassInfo) -> String {
+    private func composeMethod(_ info: ClassInfo, async: Bool = true) -> String {
         var paramsList = [String]()
         for param in info.properties {
             let type = TypesHelper.getType(param.type, optional: param.optional)
@@ -86,12 +89,12 @@ final class MethodsComposer: Composer {
             result = result
                 .addLine("public func \(info.name)(")
                 .append(params)
-            result = result.addLine(") async throws -> \(info.rootName) {")
+            result = result.addLine(")\(async ? " async" : "") throws -> \(info.rootName) {")
         } else {
-            result = result.addLine("public func \(info.name)(\(paramsList.first ?? "")) async throws -> \(info.rootName) {")
+            result = result.addLine("public func \(info.name)(\(paramsList.first ?? ""))\(async ? " async" : "") throws -> \(info.rootName) {")
         }
         
-        let impl = composeMethodImpl(info)
+        let impl = composeMethodImpl(info) // N
         result = result
             .append(impl.indent())
             .addLine("}")
@@ -154,7 +157,7 @@ final class MethodsComposer: Composer {
         return result
     }
     
-    private func composeMethodImpl(_ info: ClassInfo) -> String  {
+    private func composeMethodImpl(_ info: ClassInfo, async: Bool = true) -> String  {
         let structName = info.name.capitalizedFirstLetter
         var result = ""
         if info.properties.isEmpty {
@@ -169,7 +172,7 @@ final class MethodsComposer: Composer {
             result = String(result.dropLast().dropLast())
             result = result.addBlankLine().addLine(")")
         }
-        return result.addLine("return try await execute(query: query)")
+        return result.addLine("return try\(async ? " await" : "") execute(query: query)")
     }
     
     private func composeExecuteFunc() -> String {
@@ -189,6 +192,17 @@ final class MethodsComposer: Composer {
             .addLine("        } catch {")
             .addLine("            continuation.resume(with: .failure(error))")
             .addLine("        }")
+            .addLine("    }")
+            .addLine("}")
+            .addBlankLine()
+            .addLine("private func execute<Query: Codable, Return: Codable>(query: Query) throws -> Return {")
+            .addLine("    let dto = DTO(query, encoder: TdApi.encoder)")
+            .addLine("    let result = try api.client.execute(query: dto)")
+            .addLine("    if let error = try? TdApi.decoder.decode(DTO<Error>.self, from: result) {")
+            .addLine("        throw error")
+            .addLine("    } else {")
+            .addLine("        let response = try TdApi.decoder.decode(DTO<Return>.self, from: result)")
+            .addLine("        return response.map { $0.payload }")
             .addLine("    }")
             .addLine("}")
     }
