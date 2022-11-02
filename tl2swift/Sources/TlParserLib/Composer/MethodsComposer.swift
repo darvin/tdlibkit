@@ -94,7 +94,7 @@ final class MethodsComposer: Composer {
             result = result.addLine("public func \(info.name)(\(paramsList.first ?? ""))\(async ? " async" : "") throws -> \(info.rootName) {")
         }
         
-        let impl = composeMethodImpl(info) // N
+        let impl = composeMethodImpl(info, async: async)
         result = result
             .append(impl.indent())
             .addLine("}")
