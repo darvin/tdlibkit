@@ -7,7 +7,8 @@ let package = Package(
     name: "TDLibKit",
     platforms: [
         .iOS(.v15),
-        .macOS(.v12)
+        .macOS(.v12),
+        .macCatalyst(.v13)
     ],
     products: [
         .library(
