@@ -3,10 +3,10 @@
     {
       "identity" : "tdlibframework",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Swiftgram/TDLibFramework",
+      "location" : "https://github.com/darvin/TDLibFramework",
       "state" : {
-        "revision" : "4f6750cd10919d181f7f57628f710b855c73b4d5",
-        "version" : "1.8.4-07b7faf6"
+        "revision" : "12c6a3082ef1a876f892afd91cbc2a9b7ad2e6c3",
+        "version" : "1.8.4-07b7faf6-catalyst"
       }
     }
   ],
